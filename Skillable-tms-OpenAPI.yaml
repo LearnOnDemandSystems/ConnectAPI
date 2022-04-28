@@ -12,9 +12,6 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 2.0.0
-  x-logo:
-    url: https://skillable.com/wp-content/uploads/2021/09/Skillable-Logo-color.svg
-    altText: Skillable logo
 externalDocs:
   description: Find out how to create Github repo for your OpenAPI spec.
   url: https://github.com/Rebilly/generator-openapi-repo

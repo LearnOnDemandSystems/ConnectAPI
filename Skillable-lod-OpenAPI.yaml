@@ -1,33 +1,39 @@
 openapi: 3.0.3
 info:
   title: LOD API
-  description: |
+  description: |+
     Documentation on how and when to use the OneLearn LOD API at 
     [https://docs.skillable.com](https://docs.skillable.com/lod/lod-api/lod-api-main.md).
 
-    # Introduction
+    # LOD API - Introduction
     This API is documented in **OpenAPI format** and is based on
     [OneLearn LOD](https://docs.skillable.com/lod/lod-api/lod-api-main.md) provided by [Skillable.com](http://skillable.com) team.
-    It was **extended** to illustrate features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)
-    tool and [ReDoc](https://github.com/Redocly/redoc) documentation. In addition to standard
-    OpenAPI syntax we use a few [vendor extensions](https://github.com/Redocly/redoc/blob/master/docs/redoc-vendor-extensions.md).
 
-    # OpenAPI Specification
+    ## OpenAPI Specification
     This API is documented in **OpenAPI format** and is based on
     [OneLearn LOD](https://lms.learnondemand.net/apidocumentation) provided by [Skillable.com](http://skillable.com) team.
-    It was **extended** to illustrate features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)
-    tool and [ReDoc](https://github.com/Redocly/redoc) documentation. In addition to standard
-    OpenAPI syntax we use a few [vendor extensions](https://github.com/Redocly/redoc/blob/master/docs/redoc-vendor-extensions.md).
 
-    # Cross-Origin Resource Sharing
-    This API features Cross-Origin Resource Sharing (CORS) implemented in compliance with  [W3C spec](https://www.w3.org/TR/cors/).
-    And that allows cross-domain communication from the browser.
-    All responses have a wildcard same-origin which makes them completely public and accessible to everyone, including any code on any site.
+    ## Production API and Integration Testing
+    Only lab profiles with a development status of **Complete** are consumable via API.
 
-    # Authentication
+    Development/Integration Testing API available with all the same API calls your production API can make, but has the following settings:
 
-    OneLearn LOD offers one form of authentication:
-      - API Key
+    - Max Active Lab Instances: 5
+    - Max Saved Labs per User: 1
+    - Max Active Lab Instances per user: 5
+    - Max lab duration: 30 minutes
+    - Allows launching of lab profiles with any Development Status
+      - i.e. is not restricted to a Complete development status
+    - Has a dedicated API key
+    - Does not generate billable events
+
+    ## Authentication
+        
+    Lab on Demand offers one form of authentication:
+    - API Key
+
+    <SecurityDefinitions />
+
   termsOfService: 'https://skillable.com/terms-and-conditions/'
   contact:
     name: Skillable Support
@@ -39,35 +45,209 @@ info:
 servers:
   - url: 'https://labondemand.com/api/v3'
     description: OneLearn LOD API
-    variables: {}
 security:
   - api_key: []
 tags:
   - name: Lab Instance Management
-    description: ''
+  - name: Lab Profile Management
   - name: Class Management
-    description: ''
-  - name: Instruction Management
-    description: ''
-  - name: Placeholder 1
-    description: ''
-  - name: Placeholder 2
-    description: ''
-  - name: Placeholder 3
-    description: ''
-  - name: LOD-API
-    description: ''
+  - name: User Management
+  - name: Event Management
+  - name: Organization
 paths:
-  /cancel:
+  /launch:
     get:
       tags:
-        - LOD-API
+        - Lab Instance Management
+      summary: Launch
+      description: The **Launch** command will launch a specified lab for a specified user.
+      operationId: Launch
+      parameters:
+        - name: labid
+          in: query
+          description: The ID of the lab profile.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 100
+        - name: userid
+          in: query
+          description: The ID you use to identify the user in your external system.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: '555'
+        - name: firstname
+          in: query
+          description: The user’s first name.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Joe
+        - name: lastname
+          in: query
+          description: The user’s last name.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Smith
+        - name: email
+          in: query
+          description: The user’s email address.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: joe.smith@email.com
+        - name: classId
+          in: query
+          description: 'An optional parameter used to associate the lab with a class (see **GetOrCreateClass**). This is the unique identifier of the class as it is represented in your organization.   '
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: '1223334444'
+        - name: canBeMarkedComplete
+          in: query
+          description: 'An optional parameter used to specify if the lab can be marked as complete by the student. 1 = true, 2 = false. If not specified, defaults to 1 (true).'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            enum:
+              - 1
+              - 2
+            default: 1
+            example: 1
+        - name: tag
+          in: query
+          description: An optional parameter that can be used for tagging the lab instance with your own custom data.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: testlaunch
+        - name: ipAddress
+          in: query
+          description: 'When specified, Lab on Demand will attempt to launch the lab in  the closest available delivery region. You should provide the  IP address of the user that is taking the lab, not the IP address  of your system. IPv4 and IPv6 address are supported.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 1.1.1.1
+        - name: regionId
+          in: query
+          description: 'When specified, Lab on Demand will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 1
+        - name: roleId
+          in: query
+          description: Allows you specify the role(s) to assign to the user. You may pass  multiple instances of this parameter to specify multiple roles.  Roles are used for specialized integration purposes and are not  needed in typical integration scenarios. Role IDs will be  provided by Skillable when appropriate.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 1
+        - name: variable-name
+          in: query
+          description: Allows you to set the values of named variables used within the lab instance.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Chad
+        - name: maxSavedLabs
+          in: query
+          description: The max number of labs an individual user may save is capped by the number configured on your API consumer.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 2
+        - name: maxActiveLabs
+          in: query
+          description: The max number of concurrent lab instances is capped by the number configured on your API consumer.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 1
+        - name: lang
+          in: query
+          description: |-
+            Allows you to override the lab client UI language. Please note this only affects the lab client UI elements such as menus, tabs, and dialogs. The lab instructions and content are not affected.  
+              
+              en = English  
+              es = Spanish  
+              fr = French  
+              pt = Portuguese  
+              ja = Japanese  
+              zh = Chinese  
+              ka = Korean  
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - en
+              - es
+              - fr
+              - pt
+              - ja
+              - zh
+              - ka
+            example: en
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LaunchResponse'
+              examples:
+                Example of a successful lab instance launch:
+                  value:
+                    Result: 1
+                    Url: 'https://labondemand.com/console/setup/1b4909d6-0dbe-43db-9ab9-74ee4f913c4e'
+                    LabInstanceId: 3896477
+                    Expires: 1337977153
+                    Status: 1
+                    Error: null
+      deprecated: false
+  /cancel:
+    get:
       summary: Cancel
       description: The **Cancel** command allows you to cancel a specified lab instance.
       operationId: Cancel
-      servers:
-      - url: https://lms.learnondemand.net/api/2.0
-        description: Override base path for all operations with the /files path
       parameters:
         - name: labinstanceid
           in: query
@@ -100,317 +280,12 @@ paths:
                     Error: Invalid integration key
                     Status: 1
       deprecated: false
-  /catalog:
-    get:
       tags:
-        - LOD-API
-      summary: Catalog
-      description: 'The **Catalog** command will return all lab series, lab profiles, and delivery regions available to your organization. Lab profiles are generally grouped into series. Depending on your organization, you may have multiple physical delivery regions available to you.'
-      operationId: Catalog
-      parameters:
-        - name: includeAll
-          in: query
-          description: 'This parameter can usually be ignored. When not included (or passed as any value except 1), labs that are not currently available for launch will not be included in catalog results. If you want to include all lab profiles, regardless of whether they are enabled or are developmentally complete, you can pass includeAll=1.'
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 1
-        - name: LabSeriesID
-          in: query
-          description: 'By providing a LabSeriesID, the response will be filtered so that only lab profiles within the specified lab series will be returned.'
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 123456
-        - name: OrganizationID
-          in: query
-          description: 'By providing an OrganizationID, the response will be filtered so that only lab profiles belonging to the specified organization will be returned. Typically omitted.'
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 3
-      responses:
-        '200':
-          description: OK Response
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CatalogResponse'
-              examples:
-                Example of successfully retrieving a catalog:
-                  value:
-                    LabSeries:
-                      - Id: 1
-                        Name: Demo Series 1
-                        Description: A demo lab series.
-                        NumTrainingDays: 5
-                        EnableScheduledArchive: true
-                        ScheduledArchiveDateTime: '2022-03-07T08:00:00'
-                      - Id: 2
-                        Name: Demo Series 2
-                        Description: Another demo lab series.
-                        NumTrainingDays: 5
-                        EnableScheduledArchive: false
-                        ScheduledArchiveDateTime: null
-                    LabProfiles:
-                      - Id: 1
-                        Name: Demo Lab 1
-                        Number: ' Module 1'
-                        PlatformId: 2
-                        CloudPlatform: null
-                        SeriesId: 1
-                        Enabled: true
-                        ReasonDisabled: null
-                        DevelopmentStatusId: 10
-                        Description: A demo lab.
-                        Objective: This is the HTML-formatted objective of the lab
-                        Scenario: ' This is the HTML-formatted scenario of the lab'
-                        DurationMinutes: 360
-                        ExpectedDurationMinutes: 60
-                        Ram: 8192
-                        HasIntegratedContent: true
-                        ContentVersion: 2
-                        IsExam: false
-                        PremiumPrice: 10
-                        BasicPrice: 8
-                        SharedClassEnvironmentRoleId: 0
-                        Tags:
-                          - Tag1
-                          - Tag2
-                      - Id: 2
-                        Name: Demo Lab 2
-                        Number: ' Module 2'
-                        PlatformId: 2
-                        CloudPlatform: 10
-                        SeriesId: 1
-                        Enabled: true
-                        ReasonDisabled: null
-                        DevelopmentStatusId: 10
-                        Description: Another demo lab.
-                        Objective: This is the HTML-formatted objective of the lab
-                        Scenario: This is the HTML-formatted scenario of the lab
-                        DurationMinutes: 360
-                        ExpectedDurationMinutes: 60
-                        Ram: 4096
-                        HasIntegratedContent: true
-                        ContentVersion: 2
-                        IsExam: false
-                        PremiumPrice: 4
-                        BasicPrice: 4
-                        SharedClassEnvironmentRoleId: 0
-                        Tags:
-                          - Tag1
-                          - Tag2
-                    DeliveryRegions:
-                      - Id: 1
-                        Name: North America
-                        Description: North American datacenters.
-                      - Id: 2
-                        Name: Australia
-                        Description: null
-                    Status: 1
-                    Error: null
-      deprecated: false
-  /class:
-    get:
-      tags:
-        - LOD-API
-      summary: Class
-      description: The **Class** command returns information about a class.
-      operationId: Class
-      parameters:
-        - name: id
-          in: query
-          description: 'The unique identifier of the class, as represented in your organization.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            format: int32
-            example: '1223334444'
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ClassResponse'
-              examples:
-                Example of getting information about a specific class:
-                  value:
-                    Id: '4449999'
-                    Name: Sample Class
-                    Start: 1333267200
-                    StartTime: /Date(1333267200000)/
-                    End: 1333299600
-                    EndTime: /Date(1333299600000)/
-                    Expires: 1335978000
-                    ExpiresTime: /Date(1335978000000)/
-                    Instructor:
-                      Id: '65214'
-                      FirstName: Demo
-                      LastName: Instructor
-                    Url: null
-                    MaxActiveLabInstances: 20
-                    AvailableLabs:
-                      - 17390
-                      - 17432
-                    Error: null
-                    Status: 1
-      deprecated: false
-  /ClassAccessUrl:
-    get:
-      tags:
-        - LOD-API
-      summary: ClassAccessUrl
-      description: The **ClassAccessUrl** command returns a single use URL to access the  class management page.
-      operationId: ClassAccessUrl
-      parameters:
-        - name: id
-          in: query
-          description: 'The unique identifier of the class, as represented in your organization.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '4449999'
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ClassAccessUrlResponse'
-              examples:
-                Example of a successful response with a valid class:
-                  value:
-                    Url: 'https://labondemand.com/class/access/ab1c2345-6d7b-890e-f1gh-234ij5kl6m7n'
-                    Error: null
-                    Status: 1
-                Example of an error response when class is not found:
-                  value:
-                    Error: Class not found
-                    Status: 0
-      deprecated: false
-  /CloseUserAccount:
-    get:
-      tags:
-        - LOD-API
-      summary: CloseUserAccount
-      description: The **CloseUserAccount** command closes a user account and removes all  user information using an ID. This is usually a unique identifier used  by the calling system.
-      operationId: CloseUserAccount
-      parameters:
-        - name: userId
-          in: query
-          description: The ID of the user to retrieve. This is usually a unique identifier used by the calling system.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '555'
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CloseUserAccountResponse'
-              examples:
-                Example of successfully closing out a user account:
-                  value:
-                    Status: 1
-                    Error: null
-                    RowsAffected: 25
-                Example response when the user does not exist and no rows are affected:
-                  value:
-                    RowsAffected: 0
-                    Error: null
-                    Status: 1
-      deprecated: false
-  /deleteclass:
-    get:
-      tags:
-        - LOD-API
-      summary: DeleteClass
-      description: The **DeleteClass** command deletes a specified class.
-      operationId: DeleteClass
-      parameters:
-        - name: id
-          in: query
-          description: 'The unique identifier of the class, as represented in your organization.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '4449999'
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteClassResponse'
-              examples:
-                Example of successfully deleting an existing class:
-                  value:
-                    Success: true
-                    Error: null
-                    Status: 1
-                Example of trying to delete a class that does not exist:
-                  value:
-                    Error: Class not found
-                    Status: 0
-      deprecated: false
-  /deliveryregions:
-    get:
-      tags:
-        - LOD-API
-      summary: DeliveryRegions
-      description: |-
-        The **DeliveryRegions** command will return all delivery regions available to your organization.   
-         **NOTE**: there are no query parameters for this command.
-      operationId: DeliveryRegions
-      parameters: []
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeliveryRegionsResponse'
-              examples:
-                Example of a successful response listing all delivery regions available to your organization:
-                  value:
-                    DeliveryRegions:
-                      - Id: 1
-                        Name: North America
-                        Description: North American datacenters.
-                      - Id: 2
-                        Name: Australia
-                        Description: null
-                    Status: 1
-                    Error: null
-      deprecated: false
+        - Lab Instance Management
   /details:
     get:
       tags:
-        - LOD-API
+        - Lab Instance Management
       summary: Details
       description: The **Details** command retrieves detailed information about a specified lab instance.
       operationId: Details
@@ -516,7 +391,7 @@ paths:
                     PublicIpAddresses: []
                     CloudCredentials:
                       - PropertiesJson: '{  "Username": "Username2",  "Password": "Password2"}'
-                        Expires: /Date(1645557720000)/
+                        Expires: 1645557720000
                         DisplayName: Demo Demo Demo Demo Demo
                         Message: null
                     CloudPortalCredentials:
@@ -617,10 +492,588 @@ paths:
                     Error: null
                     Status: 1
       deprecated: false
+  /Result:
+    get:
+      tags:
+        - Lab Instance Management
+      summary: Result
+      description: The **Result** command returns information about a particular lab instance result.
+      operationId: Result
+      parameters:
+        - name: labinstanceId
+          in: query
+          description: The ID of the lab instance.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 2393049
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultResponse'
+              examples:
+                Example of successfully returning information about a particular lab instance result:
+                  value:
+                    LabProfileId: 1
+                    Start: 1338224609
+                    End: 1338224624
+                    LastActivity: 1338224624
+                    UserId: '555'
+                    ClassId: null
+                    CompletionStatus: 4
+                    TotalRunTimeSeconds: 4168
+                    TaskCompletePercent: 100
+                    IsExam: false
+                    ExamPassed: null
+                    ExamScore: null
+                    ExamMaxPossibleScore: null
+                    ExamPassingScore: null
+                    IpAddress: null
+                    Country: null
+                    Region: null
+                    City: null
+                    Latitude: null
+                    Longitude: null
+                    LabHostId: 49
+                    DatacenterId: 3
+                    DeliveryRegionId: 2
+                    Status: 1
+                    Error: null
+      deprecated: false
+  /Results:
+    get:
+      tags:
+        - Lab Instance Management
+      summary: Results
+      description: The **Results** command returns information about all lab instance results that started or ended within a specified time range. The time range cannot exceed 7 days.
+      operationId: Results
+      parameters:
+        - name: start
+          in: query
+          description: The start of the timeframe to check against (in Unix epoch time).
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1325376000
+        - name: end
+          in: query
+          description: The end of the timeframe to check against (in Unix epoch time).
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1357002000
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultsResponse'
+              examples:
+                Example of returning information about all lab instance results that started or ended within a specified time range:
+                  value:
+                    Results:
+                      - LabInstanceId: 349744
+                        LabProfileId: 5522
+                        Start: 1325376800
+                        End: 1325376900
+                        LastActivity: 1325376900
+                        UserId: '555'
+                        ClassId: null
+                        CompletionStatus: 1
+                        TotalRunTimeSeconds: 2548
+                        TaskCompletePercent: 33
+                        IsExam: false
+                        ExamPassed: null
+                        ExamScore: null
+                        ExamMaxPossibleScore: null
+                        ExamPassingScore: null
+                        IpAddress: null
+                        Country: null
+                        Region: null
+                        City: null
+                        Latitude: null
+                        Longitude: null
+                        LabHostId: 49
+                        DatacenterId: 3
+                        DeliveryRegionId: 2
+                      - LabInstanceId: 349745
+                        LabProfileId: 5523
+                        Start: 1325377000
+                        End: 1325377100
+                        LastActivity: 1325377100
+                        UserId: '555'
+                        ClassId: null
+                        CompletionStatus: 1
+                        TotalRunTimeSeconds: 4168
+                        TaskCompletePercent: 44
+                        IsExam: false
+                        ExamPassed: null
+                        ExamScore: null
+                        ExamMaxPossibleScore: null
+                        ExamPassingScore: null
+                        IpAddress: null
+                        Country: null
+                        Region: null
+                        City: null
+                        Latitude: null
+                        Longitude: null
+                        LabHostId: 125
+                        DatacenterId: 4
+                        DeliveryRegionId: 3
+                    Status: 1
+                    Error: null
+                Example when specifying a date range greater than 7 days:
+                  value:
+                    Error: Timeframe cannot exceed 7 days
+                    Status: 0
+      deprecated: false
+  /save:
+    get:
+      tags:
+        - Lab Instance Management
+      summary: Save
+      description: The **Save** command allows you to save a specified lab instance.
+      operationId: Save
+      parameters:
+        - name: labinstanceid
+          in: query
+          description: The ID of the lab instance to save.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 2393049
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveResponse'
+              examples:
+                Example of successfully saving a specified lab instance:
+                  value:
+                    Result: 1
+                    Expires: 1337977153
+                    Status: 1
+                    Error: null
+      deprecated: false
+  /resume:
+    get:
+      tags:
+        - Lab Instance Management
+      summary: Resume
+      description: The **Resume** command allows you to resume a specified lab instance.
+      operationId: Resume
+      parameters:
+        - name: labinstanceid
+          in: query
+          description: The ID of the lab instance to resume.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 2393049
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResumeResponse'
+              examples:
+                Example of resuming a lab with a specific lab instance:
+                  value:
+                    Result: 1
+                    Url: 'https://labondemand.com/console/setup/1b4909d6-0dbe-43db-9ab9-74ee4f913c4e'
+                    Expires: 1337977153
+                    LabProfileId: 18100
+                    Status: 1
+                    Error: null
+      deprecated: false
+  /scoreactivities:
+    get:
+      tags:
+        - Lab Instance Management
+      summary: ScoreActivities
+      description: |-
+        The **ScoreActivities** command causes all scored activities in a particular lab instance to undergo scoring. Please note that this is API command is only necessary in specialized situations. In most cases, scoring is triggered by the student in the lab client and this command is not needed. However, if your students do not use our lab client, ScoreActivities provides a mechanism to trigger scoring.
+
+        This command does not return scoring results. To obtain scoring  results, use the **Details** command.
+      operationId: ScoreActivities
+      parameters:
+        - name: labinstanceid
+          in: query
+          description: The ID of the lab instance.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 12186142
+        - name: rescoreAll
+          in: query
+          description: The ID of the lab instance.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 12186142
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoreActivitiesResponse'
+              examples:
+                Example successful response:
+                  value:
+                    Status: 1
+                    Error: null
+      deprecated: false
+  /sendnotification:
+    post:
+      tags:
+        - Lab Instance Management
+      summary: sendnotification
+      description: 'The **SendNotification** command allows you to send a notification to a specified lab instance for the user to see.  For notifications sent using the POST HTTP verb, the notification text is limited to 4000 characters.'
+      operationId: SendNotification-post
+      parameters:
+        - name: labinstanceid
+          in: query
+          description: The ID of the lab instance to send the notification to.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 2393048
+        - name: notification
+          in: query
+          description: 'The text of the notification to send. Please ensure the message is properly encoded. Line breaks can be included using \n. For notifications sent using the POST HTTP verb, the notification text is limited to 4000 characters.'
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: I'd+like+to+let+you+know
+        - name: name
+          in: query
+          description: 'An optional name for the notification. If you name the notification, subsequent SendNotification commands using the same labInstanceId and name will cause the existing notification to be updated. It is also possible to delete a named notification by sending the name along with no notification value.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Hello
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendNotificationResponse'
+              examples:
+                Example of successfully sending a notification:
+                  value:
+                    Id: 28297
+                    Result: 1
+                    Status: 1
+                    Error: null
+      deprecated: false
+    get:
+      tags:
+        - Lab Instance Management
+      summary: SendNotification
+      description: 'The **SendNotification** command allows you to send a notification to a specified lab instance for the user to see.  For notifications sent using the GET HTTP verb, the notification text is limited to 800 characters. '
+      operationId: SendNotification-get
+      parameters:
+        - name: labinstanceid
+          in: query
+          description: The ID of the lab instance to send the notification to.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 2393048
+        - name: notification
+          in: query
+          description: 'The text of the notification to send. Please ensure the message is properly encoded. Line breaks can be included using \n. For notifications sent using the GET HTTP verb, the notification text is limited to 800 characters.'
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: I'd+like+to+let+you+know
+        - name: name
+          in: query
+          description: 'An optional name for the notification. If you name the notification, subsequent SendNotification commands using the same labInstanceId and name will cause the existing notification to be updated. It is also possible to delete a named notification by sending the name along with no notification value.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Hello
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendNotificationResponse'
+              examples:
+                Example of successfully sending a notification:
+                  value:
+                    Id: 28297
+                    Result: 1
+                    Status: 1
+                    Error: null
+      deprecated: false
+  /replacementtokens:
+    get:
+      tags:
+        - Lab Instance Management
+      summary: ReplacementTokens
+      description: The **ReplacementTokens** command retrieves all @lab replacement tokens available for a particular lab instance.
+      operationId: ReplacementTokens
+      parameters:
+        - name: labInstanceId
+          in: query
+          description: The ID of the lab instance.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1286841
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReplacementTokensResponse'
+              examples:
+                Example of retrieving all @lab replacement tokens available for a particular lab instance:
+                  value:
+                    ReplacementTokens:
+                      - Token: '@lab.VirtualMachine(machine1).Username'
+                        Replacement: user1
+                      - Token: '@lab.VirtualMachine(machine1).Password'
+                        Replacement: h&4Fa?)C3/eQ;)?E
+                      - Token: '@lab.VirtualMachine(machine2).Username'
+                        Replacement: user1
+                      - Token: '@lab.VirtualMachine(machine2).Password'
+                        Replacement: LXM(#(Z^Hw4Upp>f
+                      - Token: '@lab.LabInstance.Id'
+                        Replacement: '15167595'
+                      - Token: '@lab.LabInstance.GlobalId'
+                        Replacement: lod15167595
+                      - Token: '@lab.LabInstance.StartDate'
+                        Replacement: '20190809'
+                      - Token: '@lab.LabProfile.Id'
+                        Replacement: '1581178'
+                      - Token: '@lab.User.Id'
+                        Replacement: '11832814'
+                      - Token: '@lab.User.FirstName'
+                        Replacement: 'John '
+                      - Token: '@lab.User.LastName'
+                        Replacement: Doe
+                      - Token: '@lab.User.Email'
+                        Replacement: john.doe@sample.net
+                    Error: null
+                    Status: 1
+      deprecated: false
+  /LatestResults:
+    get:
+      tags:
+        - Lab Instance Management
+      summary: LatestResults
+      description: The **LatestResults** command returns information about all lab instance results that have recently changed state.
+      operationId: LatestResults
+      parameters:
+        - name: minutes
+          in: query
+          description: 'Lab instances that have changed state within this many minutes of the current time will be included. This value cannot exceed 10,080 (7 days)'
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 60
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LatestResultsResponse'
+              examples:
+                Example response returning information about all lab instance results that have recently changed state:
+                  value:
+                    Results:
+                      - LabInstanceId: 349744
+                        LabProfileId: 5522
+                        Start: 1325376800
+                        End: 1325376900
+                        LastActivity: 1325376899
+                        UserId: '555'
+                        ClassId: null
+                        CompletionStatus: 1
+                        TotalRunTimeSeconds: 2548
+                        TaskCompletePercent: 33
+                        IsExam: false
+                        ExamPassed: null
+                        ExamScore: null
+                        ExamMaxPossibleScore: null
+                        ExamPassingScore: null
+                        IpAddress: null
+                        Country: null
+                        Region: null
+                        City: null
+                        Latitude: null
+                        Longitude: null
+                        LabHostId: 49
+                        DatacenterId: 3
+                        DeliveryRegionId: 2
+                      - LabInstanceId: 349745
+                        LabProfileId: 5523
+                        Start: 1325377000
+                        End: 1325377100
+                        LastActivity: 1325377099
+                        UserId: '555'
+                        ClassId: null
+                        CompletionStatus: 1
+                        TotalRunTimeSeconds: 4168
+                        TaskCompletePercent: 44
+                        IsExam: false
+                        ExamPassed: null
+                        ExamScore: null
+                        ExamMaxPossibleScore: null
+                        ExamPassingScore: null
+                        IpAddress: null
+                        Country: null
+                        Region: null
+                        City: null
+                        Latitude: null
+                        Longitude: null
+                        LabHostId: 125
+                        DatacenterId: 4
+                        DeliveryRegionId: 3
+                    Status: 1
+                    Error: null
+      deprecated: false
+  /runningandsavedlabs:
+    get:
+      tags:
+        - Lab Instance Management
+      summary: RunningAndSavedLabs
+      description: |-
+        The **RunningAndSavedLabs** command retrieves all lab instances launched by this API Consumer that are currently running or saved.  
+         **NOTE**: there are no query parameters for this command.
+      operationId: RunningAndSavedLabs
+      parameters: []
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunningAndSavedLabsResponse'
+              examples:
+                Example of retrieving all lab instances launched by this API Consumer that are currently running or saved:
+                  value:
+                    RunningLabs:
+                      - Id: 3497
+                        UserId: '5843'
+                        UserFirstName: John
+                        UserLastName: Doe
+                        LabProfileId: 5
+                        LabProfileName: Demo Lab 1
+                        LabProfileNumber: LAB001
+                        Start: 1338223121
+                        Expires: 1338244721
+                        IsExam: false
+                    SavedLabs:
+                      - Id: 3493
+                        UserId: '5158'
+                        UserFirstName: Sally
+                        UserLastName: Smith
+                        LabProfileId: 1
+                        LabProfileName: Demo Lab 2
+                        LabProfileNumber: LAB002
+                        Start: 1337987655
+                        Expires: 1338592455
+                        IsExam: false
+                    Status: 1
+                    Error: null
+      deprecated: false
+  /stats:
+    get:
+      tags:
+        - Lab Instance Management
+      summary: Stats
+      description: |-
+        The **Stats** command returns statistics about how many labs are currently active and saved.  
+         **NOTE**: there are no query parameters for this command.
+      operationId: Stats
+      parameters: []
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatsResponse'
+              examples:
+                Example of returning statistics about how many labs are currently active and saved:
+                  value:
+                    NumActive: 571
+                    NumSaved: 451
+                    Status: 1
+                    Error: null
+      deprecated: false
   /GetEvaluationResponses:
     get:
       tags:
-        - LOD-API
+        - Lab Instance Management
       summary: GetEvaluationResponses
       description: The **GetEvaluationResponses** command returns evaluation responses.
       operationId: GetEvaluationResponses
@@ -858,10 +1311,1034 @@ paths:
                     Error: null
                     Status: 1
       deprecated: false
+  /labprofile:
+    get:
+      summary: LabProfile
+      description: The **LabProfile** command will return information about a specific lab profile.
+      operationId: LabProfile
+      parameters:
+        - name: id
+          in: query
+          description: The unique identifier of the lab profile.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 77457
+      responses:
+        '200':
+          description: OK Response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabProfileResponse'
+              examples:
+                Example of returning information a specific lab profile:
+                  value:
+                    Id: 1
+                    Name: Demo Lab 1
+                    Number: ' Module 1'
+                    PlatformId: 2
+                    CloudPlatformId: null
+                    SeriesId: 1
+                    Enabled: true
+                    ReasonDisabled: null
+                    DevelopmentStatusId: 10
+                    Description: A demo lab.
+                    Objective: This is the HTML-formatted objective of the lab
+                    Scenario: ' This is the HTML-formatted scenario of the lab'
+                    DurationMinutes: 360
+                    ExpectedDurationMinutes: 60
+                    Ram: 512
+                    HasIntegratedContent: true
+                    ContentVersion: 2
+                    IsExam: false
+                    PremiumPrice: 10
+                    BasicPrice: 8
+                    SharedClassEnvironmentRoleId: 0
+                    Status: 1
+                    Error: null
+                    Tags:
+                      - Tag1
+                      - Tag2
+      deprecated: false
+      tags:
+        - Lab Profile Management
+  /GetLabInstructions:
+    get:
+      summary: GetLabInstructions
+      description: The **GetLabInstructions** command allows you to download the IDLx instructions of a lab as a string.
+      operationId: GetLabInstructions
+      parameters:
+        - name: id
+          in: query
+          description: The ID of the lab profile that will be the source of the instructions. The profile must be owned by the organization on the API consumer.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 2393048
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLabInstructionsResponse'
+              examples:
+                Example of retrieving the instructions from a lab:
+                  value:
+                    Instructions: '##Welcome to the world of tomorrow!'
+                    Error: null
+                    Status: 1
+                Example when trying to retrieve instructions for a nonexistent lab profile:
+                  value:
+                    Error: Lab profile not found
+                    Status: 0
+      deprecated: false
+      tags:
+        - Lab Profile Management
+  /GetLabInstructionsPackage:
+    get:
+      summary: GetLabInstructionsPackage
+      description: |-
+        The **GetLabInstructionsPackage** command allows you to download the IDLx instructions of a lab as an archived file.  
+
+        The results are returned as a compressed format that can be exported as a .zip file when using Postman.  There is an additional Header parameter Content-Disposition that is returned which contains the name of the lab.
+      operationId: GetLabInstructionsPackage
+      parameters:
+        - name: id
+          in: query
+          description: The ID of the lab profile that will be the source of the instructions. The profile must be owned by the organization on the API consumer.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 2393048
+      responses:
+        '200':
+          description: OK Response.
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+              description: |-
+                attachment; filename="DemoLab.zip"  
+
+                **Note:** The filename will contain the name of the Lab Profile.
+          content:
+            application/zip:
+              schema:
+                type: object
+                properties:
+                  '':
+                    type: string
+                    description: The raw binary compressed package.
+                    format: binary
+              examples:
+                example-1:
+                  value:
+                    '': string
+      deprecated: false
+      tags:
+        - Lab Profile Management
+  /updatelabinstructions:
+    post:
+      summary: UpdateLabInstructions
+      description: 'The **UpdateLabInstructions** command allows you to update the IDLx instructions of a lab. In order to support longer instructions lengths,  this method requires an HTTP POST. The Content-Type of your post should  be set to application/x-www-form-urlencoded.'
+      operationId: UpdateLabInstructions
+      parameters:
+        - name: id
+          in: query
+          description: The ID of the lab profile to update.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 2393048
+        - name: instructions
+          in: query
+          description: The IDLx instructions. This should included in the body of the post.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Updated from the API
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateLabInstructionsResponse'
+              examples:
+                Example of successfully updating the lab instructions:
+                  value:
+                    Result: 1
+                    Status: 1
+                    Error: null
+      deprecated: false
+      tags:
+        - Lab Profile Management
+  /updatelabinstructionspackage:
+    post:
+      summary: UpdateLabInstructionsPackage
+      description: |-
+        The **UpdateLabInstructionsPackage** command allows you to update the  IDLx instructions of a lab by uploading a ZIP archive containing the instructions and any referenced files, such as images and videos.  
+
+        **This method requires an HTTP POST**. The Content-Type of your post should be set to multipart/form-data. This is the same behavior that a browser uses to upload a file to a server. In .NET environments, the System.Net.WebClient class provides an UploadFile method that can be used. Set your content by using the body tab in postman.
+      operationId: UpdateLabInstructionsPackage
+      parameters:
+        - name: Id
+          in: query
+          description: The ID of the lab profile to update.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 2393048
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                instructionsZip:
+                  type: string
+                  format: binary
+            examples:
+              example-1:
+                value:
+                  instructionsZip: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      tags:
+        - Lab Profile Management
+  /class:
+    get:
+      summary: Class
+      description: The **Class** command returns information about a class.
+      operationId: Class
+      parameters:
+        - name: id
+          in: query
+          description: 'The unique identifier of the class, as represented in your organization.'
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            format: int32
+            example: '1223334444'
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassResponse'
+              examples:
+                Example of getting information about a specific class:
+                  value:
+                    Id: '4449999'
+                    Name: Sample Class
+                    Start: 1333267200
+                    StartTime: /Date(1333267200000)/
+                    End: 1333299600
+                    EndTime: /Date(1333299600000)/
+                    Expires: 1335978000
+                    ExpiresTime: /Date(1335978000000)/
+                    Instructor:
+                      Id: '65214'
+                      FirstName: Demo
+                      LastName: Instructor
+                    Url: null
+                    MaxActiveLabInstances: 20
+                    AvailableLabs:
+                      - 17390
+                      - 17432
+                    Error: null
+                    Status: 1
+      deprecated: false
+      tags:
+        - Class Management
+  /GetOrCreateClass:
+    get:
+      summary: GetOrCreateClass
+      description: 'The **GetOrCreateClass** command returns information about a class. If the class doesn’t exist, it is created.'
+      operationId: GetOrCreateClass
+      parameters:
+        - name: id
+          in: query
+          description: 'The unique identifier of the class, as represented in your organization.'
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: '1223334444'
+        - name: name
+          in: query
+          description: The name of the class.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Sample+Class
+        - name: start
+          in: query
+          description: When the class starts (in Unix epoch time).
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1333267200
+        - name: end
+          in: query
+          description: When the class ends (in Unix epoch time).
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1333299600
+        - name: expires
+          in: query
+          description: When labs can no longer be associated with the class (in Unix epoch time).
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1335978000
+        - name: instructorId
+          in: query
+          description: The ID you use to identify the class instructor in your external system.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: '65214'
+        - name: instructorFirstName
+          in: query
+          description: The first name of the class instructor.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Demo
+        - name: instructorLastName
+          in: query
+          description: The last name of the class instructor.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Instructor
+        - name: maxActiveLabInstances
+          in: query
+          description: 'The maximum number of active lab instances than can exist concurrently within this class context. This is optional in most situations. However, it is required for classes that host shared environments. If a shared lab is launched against a class that doesn''t have this value set, the launch will fail.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 20
+        - name: AvailableLabs
+          in: query
+          description: 'An optional array of lab profile IDs. When provided, Lab on Demand will know that these labs are available within the class. You do not need to set this value in order to launch labs against the class. This is useful when using Lab on Demand to display a class attendance page, or when consuming shared class environments and you want the shared environment launch link to appear on the class monitor page.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: integer
+            uniqueItems: true
+          example:
+            - 17390
+            - 17432
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrCreateClassResponse'
+              examples:
+                Example of creating a class:
+                  value:
+                    Id: '4449999'
+                    Name: Sample Class
+                    Start: 1333267200
+                    StartTime: /Date(1333267200000)/
+                    End: 1333299600
+                    EndTime: /Date(1333299600000)/
+                    Expires: 1335978000
+                    ExpiresTime: /Date(1335978000000)/
+                    Instructor: null
+                    Url: null
+                    MaxActiveLabInstances: null
+                    AvailableLabs:
+                      - 17390
+                      - 17432
+                    Status: 1
+                    Error: null
+                Example of retrieving information on an existing class:
+                  value:
+                    Id: '4449999'
+                    Name: Sample Class
+                    Start: 1333267200
+                    StartTime: /Date(1333267200000)/
+                    End: 1333299600
+                    EndTime: /Date(1333299600000)/
+                    Expires: 1335978000
+                    ExpiresTime: /Date(1335978000000)/
+                    Instructor:
+                      Id: '65214'
+                      FirstName: Demo
+                      LastName: Instructor
+                    Url: null
+                    MaxActiveLabInstances: null
+                    AvailableLabs:
+                      - 17390
+                      - 17432
+                    Status: 1
+                    Error: null
+      deprecated: false
+      tags:
+        - Class Management
+  /ClassAccessUrl:
+    get:
+      summary: ClassAccessUrl
+      description: The **ClassAccessUrl** command returns a single use URL to access the  class management page.
+      operationId: ClassAccessUrl
+      parameters:
+        - name: id
+          in: query
+          description: 'The unique identifier of the class, as represented in your organization.'
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: '4449999'
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassAccessUrlResponse'
+              examples:
+                Example of a successful response with a valid class:
+                  value:
+                    Url: 'https://labondemand.com/class/access/ab1c2345-6d7b-890e-f1gh-234ij5kl6m7n'
+                    Error: null
+                    Status: 1
+                Example of an error response when class is not found:
+                  value:
+                    Error: Class not found
+                    Status: 0
+      deprecated: false
+      tags:
+        - Class Management
+  /LabMonitorUrl:
+    get:
+      summary: LabMonitorUrl
+      responses:
+        '200':
+          description: OK Response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabMonitorUrlResponse'
+              examples:
+                Example of successfully retrieving the URL to monitor a lab instance:
+                  value:
+                    Url: 'https://labondemand.com/access/ab1c2345-6d7b-890e-f1gh-234ij5kl6m7n?monitor=1'
+                    Error: null
+                    Status: 1
+      operationId: LabMonitorUrl
+      parameters:
+        - schema:
+            type: integer
+            format: int64
+          in: query
+          name: labInstanceId
+          description: The unique identifier of the lab instance.
+          required: true
+          style: form
+      description: The **LabMonitorUrl** command returns a single use URL to monitor a lab instance.
+      tags:
+        - Class Management
+  /LabAccessUrl:
+    get:
+      summary: LabAccessUrl
+      responses:
+        '200':
+          description: OK Response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabAccessUrlResponse'
+              examples:
+                Example of successfully retrieving the URL for an active Lab instance.:
+                  value:
+                    Url: 'https://labondemand.com/access/ab1c2345-6d7b-890e-f1gh-234ij5kl6m7n'
+                    Error: null
+                    Status: 1
+      operationId: LabAccessUrl
+      description: The **LabAccessUrl** command returns a single use URL to access a lab instance.
+      parameters:
+        - schema:
+            type: integer
+            format: int64
+          in: query
+          name: labInstanceId
+          style: form
+          description: The unique identifier of the lab instance.
+          required: true
+        - schema:
+            type: integer
+            format: int32
+          in: query
+          name: roleId
+          description: Allows you to specify the role(s) to assign to the user. You may pass multiple instances of this parameter to specify multiple roles. Roles are used for specialized integration purposes and are not needed in typical integration scenarios. Role IDs will be provided by Skillable when appropriate.
+          style: form
+      tags:
+        - Class Management
+  /updateclass:
+    get:
+      summary: UpdateClass
+      description: The **UpdateClass** command updates a specified class.
+      operationId: UpdateClass
+      parameters:
+        - name: id
+          in: query
+          description: 'The unique identifier of the class, as represented in your organization.'
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: '1223334444'
+        - name: name
+          in: query
+          description: The name of the class.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Sample+Class
+        - name: start
+          in: query
+          description: When the class starts (in Unix epoch time).
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1333267200
+        - name: end
+          in: query
+          description: When the class ends (in Unix epoch time).
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1333299600
+        - name: expires
+          in: query
+          description: When labs can no longer be associated with the class (in Unix epoch time).
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1335978000
+        - name: instructorFirstName
+          in: query
+          description: The first name of the class instructor.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Demo
+        - name: instructorLastName
+          in: query
+          description: The last name of the class instructor.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Instructor
+        - name: maxActiveLabInstances
+          in: query
+          description: 'The maximum number of active lab instances than can exist concurrently within this class context. This is optional in most situations. However, it is required for classes that host shared environments. If a shared lab is launched against a class that doesn''t have this value set, the launch will fail.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 20
+        - name: AvailableLabs
+          in: query
+          description: 'An optional array of lab profile IDs. When provided, Lab on Demand will know that these labs are available within the class. You do not need to set this value in order to launch labs against the class. This is useful when using Lab on Demand to display a class attendance page, or when consuming shared class environments and you want the shared environment launch link to appear on the class monitor page.'
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: integer
+            uniqueItems: true
+            example:
+              - 17390
+              - 16980
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateClassResponse'
+              examples:
+                Example of response after successfully updating information for a specified class:
+                  value:
+                    Success: true
+                    Status: 1
+                    Error: null
+      deprecated: false
+      tags:
+        - Class Management
+  /deleteclass:
+    get:
+      summary: DeleteClass
+      description: The **DeleteClass** command deletes a specified class.
+      operationId: DeleteClass
+      parameters:
+        - name: id
+          in: query
+          description: 'The unique identifier of the class, as represented in your organization.'
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: '4449999'
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteClassResponse'
+              examples:
+                Example of successfully deleting an existing class:
+                  value:
+                    Success: true
+                    Error: null
+                    Status: 1
+                Example of trying to delete a class that does not exist:
+                  value:
+                    Error: Class not found
+                    Status: 0
+      deprecated: false
+      tags:
+        - Class Management
+  /userrunningandsavedlabs:
+    get:
+      summary: UserRunningAndSavedLabs
+      description: The **UserRunningAndSavedLabs** command retrieves all labs that are currently running or saved for a particular user account.
+      operationId: UserRunningAndSavedLabs
+      parameters:
+        - name: userid
+          in: query
+          description: The unique identifier used to identify the user in within your organization.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: '555'
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRunningAndSavedLabsResponse'
+              examples:
+                Example of retrieving all labs that are currently running or saved for a particular user account:
+                  value:
+                    RunningLabs:
+                      - LabInstanceId: 3497
+                        LabProfileId: 5
+                        LabProfileName: Demo Lab 1
+                        LabProfileNumber: LAB001
+                        Start: 1338223121
+                        Expires: 1338244721
+                        Url: null
+                        IsExam: false
+                    SavedLabs:
+                      - LabInstanceId: 3493
+                        LabProfileId: 1
+                        LabProfileName: Demo Lab 2
+                        LabProfileNumber: LAB002
+                        MinutesRemaining: 359
+                        Saved: 1337987655
+                        Expires: 1338592455
+                        SaveInProgress: false
+                        IsExam: false
+                        SubmittedForGrading: false
+                    Status: 1
+                    Error: null
+      deprecated: false
+      tags:
+        - User Management
+  /CloseUserAccount:
+    get:
+      summary: CloseUserAccount
+      description: The **CloseUserAccount** command closes a user account and removes all  user information using an ID. This is usually a unique identifier used  by the calling system.
+      operationId: CloseUserAccount
+      parameters:
+        - name: userId
+          in: query
+          description: The ID of the user to retrieve. This is usually a unique identifier used by the calling system.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: '555'
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloseUserAccountResponse'
+              examples:
+                Example of successfully closing out a user account:
+                  value:
+                    Status: 1
+                    Error: null
+                    RowsAffected: 25
+                Example response when the user does not exist and no rows are affected:
+                  value:
+                    RowsAffected: 0
+                    Error: null
+                    Status: 1
+      deprecated: false
+      tags:
+        - User Management
+  /LaunchForEvent:
+    get:
+      summary: LaunchForEvent
+      description: The **LaunchForEvent** command launches a lab instance within an event.
+      operationId: LaunchforEvent
+      parameters:
+        - name: labId
+          in: query
+          description: The ID of the lab profile.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 100
+        - name: eventId
+          in: query
+          description: The ID of the event the lab is part of.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 24
+        - name: userid
+          in: query
+          description: The ID you use to identify the user in your external system.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: '555'
+        - name: firstname
+          in: query
+          description: The user’s first name.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Joe
+        - name: lastname
+          in: query
+          description: The user’s last name.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Smith
+        - name: email
+          in: query
+          description: The user’s email address.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: joe.smith@email.com
+        - name: classId
+          in: query
+          description: 'An optional parameter used to associate the lab with a class (see **GetOrCreateClass**). This is the unique identifier of the class as it is represented in your organization.   '
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: '1223334444'
+        - name: canBeMarkedComplete
+          in: query
+          description: 'An optional parameter used to specify if the lab can be marked as complete by the student. 1 = true, 2 = false. If not specified, defaults to 1 (true).'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            enum:
+              - 1
+              - 2
+            default: 1
+            example: 1
+        - name: tag
+          in: query
+          description: An optional parameter that can be used for tagging the lab instance with your own custom data.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: eventLaunch
+        - name: ipAddress
+          in: query
+          description: 'When specified, Lab on Demand will attempt to launch the lab in the closest available delivery region. You should provide the IP address of the user that is taking the lab, not the IP address of your system.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 1.1.1.1
+        - name: regionId
+          in: query
+          description: 'When specified, Lab on Demand will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 1
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LaunchForEventResponse'
+              examples:
+                Example of a successful lab instance launch within an event:
+                  value:
+                    Result: 1
+                    Url: 'https://labondemand.com/console/setup/1b4909d6-0dbe-43db-9ab9-74ee4f913c4e'
+                    LabInstanceId: 3896477
+                    Expires: 1337977153
+                    Status: 1
+                    Error: null
+      deprecated: false
+      tags:
+        - Event Management
+  /LaunchForEventByExternalId:
+    get:
+      summary: LaunchForEventByExternalId
+      description: The **LaunchForEventByExternalId** command launches a lab instance within an event by external ID.
+      operationId: LaunchforEventByExternalId
+      parameters:
+        - name: externalLabId
+          in: query
+          description: The external ID of the lab to launch. This should be the ID you use in your system.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: '100'
+        - name: eventId
+          in: query
+          description: The ID of the event the lab is part of.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 24
+        - name: userid
+          in: query
+          description: The ID you use to identify the user in your external system.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: '555'
+        - name: firstname
+          in: query
+          description: The user’s first name.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Joe
+        - name: lastname
+          in: query
+          description: The user’s last name.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Smith
+        - name: email
+          in: query
+          description: The user’s email address.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: joe.smith@email.com
+        - name: classId
+          in: query
+          description: 'An optional parameter used to associate the lab with a class (see **GetOrCreateClass**). This is the unique identifier of the class as it is represented in your organization.   '
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: '1223334444'
+        - name: canBeMarkedComplete
+          in: query
+          description: 'An optional parameter used to specify if the lab can be marked as complete by the student. 1 = true, 2 = false. If not specified, defaults to 1 (true).'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            enum:
+              - 1
+              - 2
+            default: 1
+            example: 1
+        - name: tag
+          in: query
+          description: An optional parameter that can be used for tagging the lab instance with your own custom data.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: eventLaunch
+        - name: ipAddress
+          in: query
+          description: 'When specified, Lab on Demand will attempt to launch the lab in the closest available delivery region. You should provide the IP address of the user that is taking the lab, not the IP address of your system.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: 1.1.1.1
+        - name: regionId
+          in: query
+          description: 'When specified, Lab on Demand will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 1
+      responses:
+        '200':
+          description: OK Response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LaunchForEventResponse'
+              examples:
+                Example of a successful lab instance launch within an event by external ID:
+                  value:
+                    Result: 1
+                    Url: 'https://labondemand.com/console/setup/1b4909d6-0dbe-43db-9ab9-74ee4f913c4e'
+                    LabInstanceId: 3896477
+                    Expires: 1337977153
+                    Status: 1
+                    Error: null
+      deprecated: false
+      tags:
+        - Event Management
   /GetEvaluationResponsesForEvent:
     get:
-      tags:
-        - LOD-API
       summary: GetEvaluationResponsesForEvent
       description: The **GetEvaluationResponsesForEvent** command returns evaluation responses for a specific event.
       operationId: GetEvaluationResponsesForEvent
@@ -1059,1146 +2536,133 @@ paths:
                     Error: null
                     Status: 1
       deprecated: false
-  /GetLabInstructions:
-    get:
       tags:
-        - LOD-API
-      summary: GetLabInstructions
-      description: The **GetLabInstructions** command allows you to download the IDLx instructions of a lab as a string.
-      operationId: GetLabInstructions
+        - Event Management
+  /catalog:
+    get:
+      summary: Catalog
+      description: 'The **Catalog** command will return all lab series, lab profiles, and delivery regions available to your organization. Lab profiles are generally grouped into series. Depending on your organization, you may have multiple physical delivery regions available to you.'
+      operationId: Catalog
       parameters:
-        - name: id
+        - name: includeAll
           in: query
-          description: The ID of the lab profile that will be the source of the instructions. The profile must be owned by the organization on the API consumer.
-          required: true
+          description: 'This parameter can usually be ignored. When not included (or passed as any value except 1), labs that are not currently available for launch will not be included in catalog results. If you want to include all lab profiles, regardless of whether they are enabled or are developmentally complete, you can pass includeAll=1.'
           style: form
           explode: true
           schema:
             type: integer
             format: int32
-            example: 2393048
+            example: 1
+        - name: LabSeriesID
+          in: query
+          description: 'By providing a LabSeriesID, the response will be filtered so that only lab profiles within the specified lab series will be returned.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 123456
+        - name: OrganizationID
+          in: query
+          description: 'By providing an OrganizationID, the response will be filtered so that only lab profiles belonging to the specified organization will be returned. Typically omitted.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 3
       responses:
         '200':
-          description: OK Response.
+          description: OK Response
           headers: {}
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetLabInstructionsResponse'
+                $ref: '#/components/schemas/CatalogResponse'
               examples:
-                Example of retrieving the instructions from a lab:
+                Example of successfully retrieving a catalog:
                   value:
-                    Instructions: '##Welcome to the world of tomorrow!'
-                    Error: null
+                    LabSeries:
+                      - Id: 1
+                        Name: Demo Series 1
+                        Description: A demo lab series.
+                        NumTrainingDays: 5
+                        EnableScheduledArchive: true
+                        ScheduledArchiveDateTime: '2022-03-07T08:00:00'
+                      - Id: 2
+                        Name: Demo Series 2
+                        Description: Another demo lab series.
+                        NumTrainingDays: 5
+                        EnableScheduledArchive: false
+                        ScheduledArchiveDateTime: null
+                    LabProfiles:
+                      - Id: 1
+                        Name: Demo Lab 1
+                        Number: ' Module 1'
+                        PlatformId: 2
+                        CloudPlatform: null
+                        SeriesId: 1
+                        Enabled: true
+                        ReasonDisabled: null
+                        DevelopmentStatusId: 10
+                        Description: A demo lab.
+                        Objective: This is the HTML-formatted objective of the lab
+                        Scenario: ' This is the HTML-formatted scenario of the lab'
+                        DurationMinutes: 360
+                        ExpectedDurationMinutes: 60
+                        Ram: 8192
+                        HasIntegratedContent: true
+                        ContentVersion: 2
+                        IsExam: false
+                        PremiumPrice: 10
+                        BasicPrice: 8
+                        SharedClassEnvironmentRoleId: 0
+                        Tags:
+                          - Tag1
+                          - Tag2
+                      - Id: 2
+                        Name: Demo Lab 2
+                        Number: ' Module 2'
+                        PlatformId: 2
+                        CloudPlatform: 10
+                        SeriesId: 1
+                        Enabled: true
+                        ReasonDisabled: null
+                        DevelopmentStatusId: 10
+                        Description: Another demo lab.
+                        Objective: This is the HTML-formatted objective of the lab
+                        Scenario: This is the HTML-formatted scenario of the lab
+                        DurationMinutes: 360
+                        ExpectedDurationMinutes: 60
+                        Ram: 4096
+                        HasIntegratedContent: true
+                        ContentVersion: 2
+                        IsExam: false
+                        PremiumPrice: 4
+                        BasicPrice: 4
+                        SharedClassEnvironmentRoleId: 0
+                        Tags:
+                          - Tag1
+                          - Tag2
+                    DeliveryRegions:
+                      - Id: 1
+                        Name: North America
+                        Description: North American datacenters.
+                      - Id: 2
+                        Name: Australia
+                        Description: null
                     Status: 1
-                Example when trying to retrieve instructions for a nonexistent lab profile:
-                  value:
-                    Error: Lab profile not found
-                    Status: 0
+                    Error: null
       deprecated: false
-  /GetLabInstructionsPackage:
-    get:
       tags:
-        - LOD-API
-      summary: GetLabInstructionsPackage
+        - Organization
+  /deliveryregions:
+    get:
+      summary: DeliveryRegions
       description: |-
-        The **GetLabInstructionsPackage** command allows you to download the IDLx instructions of a lab as an archived file.  
-
-        The results are returned as a compressed format that can be exported as a .zip file when using Postman.  There is an additional Header parameter Content-Disposition that is returned which contains the name of the lab.
-      operationId: GetLabInstructionsPackage
-      parameters:
-        - name: id
-          in: query
-          description: The ID of the lab profile that will be the source of the instructions. The profile must be owned by the organization on the API consumer.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 2393048
-      responses:
-        '200':
-          description: OK Response.
-          headers:
-            Content-Disposition:
-              schema:
-                type: string
-              description: |-
-                attachment; filename="DemoLab.zip"  
-
-                **Note:** The filename will contain the name of the Lab Profile.
-          content:
-            application/zip:
-              schema:
-                type: object
-                properties:
-                  '':
-                    type: string
-                    description: The raw binary compressed package.
-                    format: binary
-              examples:
-                example-1:
-                  value:
-                    '': string
-      deprecated: false
-  /GetOrCreateClass:
-    get:
-      tags:
-        - LOD-API
-      summary: GetOrCreateClass
-      description: 'The **GetOrCreateClass** command returns information about a class. If the class doesn’t exist, it is created.'
-      operationId: GetOrCreateClass
-      parameters:
-        - name: id
-          in: query
-          description: 'The unique identifier of the class, as represented in your organization.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '1223334444'
-        - name: name
-          in: query
-          description: The name of the class.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Sample+Class
-        - name: start
-          in: query
-          description: When the class starts (in Unix epoch time).
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1333267200
-        - name: end
-          in: query
-          description: When the class ends (in Unix epoch time).
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1333299600
-        - name: expires
-          in: query
-          description: When labs can no longer be associated with the class (in Unix epoch time).
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1335978000
-        - name: instructorId
-          in: query
-          description: The ID you use to identify the class instructor in your external system.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '65214'
-        - name: instructorFirstName
-          in: query
-          description: The first name of the class instructor.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Demo
-        - name: instructorLastName
-          in: query
-          description: The last name of the class instructor.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Instructor
-        - name: maxActiveLabInstances
-          in: query
-          description: 'The maximum number of active lab instances than can exist concurrently within this class context. This is optional in most situations. However, it is required for classes that host shared environments. If a shared lab is launched against a class that doesn''t have this value set, the launch will fail.'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 20
-        - name: AvailableLabs
-          in: query
-          description: 'An optional array of lab profile IDs. When provided, Lab on Demand will know that these labs are available within the class. You do not need to set this value in order to launch labs against the class. This is useful when using Lab on Demand to display a class attendance page, or when consuming shared class environments and you want the shared environment launch link to appear on the class monitor page.'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: integer
-            uniqueItems: true
-          example: 17390
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetOrCreateClassResponse'
-              examples:
-                Example of creating a class:
-                  value:
-                    Id: '4449999'
-                    Name: Sample Class
-                    Start: 1333267200
-                    StartTime: /Date(1333267200000)/
-                    End: 1333299600
-                    EndTime: /Date(1333299600000)/
-                    Expires: 1335978000
-                    ExpiresTime: /Date(1335978000000)/
-                    Instructor: null
-                    Url: null
-                    MaxActiveLabInstances: null
-                    AvailableLabs:
-                      - 17390
-                      - 17432
-                    Status: 1
-                    Error: null
-                Example of retrieving information on an existing class:
-                  value:
-                    Id: '4449999'
-                    Name: Sample Class
-                    Start: 1333267200
-                    StartTime: /Date(1333267200000)/
-                    End: 1333299600
-                    EndTime: /Date(1333299600000)/
-                    Expires: 1335978000
-                    ExpiresTime: /Date(1335978000000)/
-                    Instructor:
-                      Id: '65214'
-                      FirstName: Demo
-                      LastName: Instructor
-                    Url: null
-                    MaxActiveLabInstances: null
-                    AvailableLabs:
-                      - 17390
-                      - 17432
-                    Status: 1
-                    Error: null
-      deprecated: false
-  /LabAccessUrl:
-    get:
-      summary: LabAccessUrl
-      tags:
-        - LOD-API
-      responses:
-        '200':
-          description: OK Response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LabAccessUrlResponse'
-              examples:
-                Example of successfully retrieving the URL for an active Lab instance.:
-                  value:
-                    Url: 'https://labondemand.com/access/ab1c2345-6d7b-890e-f1gh-234ij5kl6m7n'
-                    Error: null
-                    Status: 1
-      operationId: LabAccessUrl
-      description: The **LabAccessUrl** command returns a single use URL to access a lab instance.
-      parameters:
-        - schema:
-            type: integer
-            format: int64
-          in: query
-          name: labInstanceId
-          style: form
-          description: The unique identifier of the lab instance.
-          required: true
-        - schema:
-            type: integer
-            format: int32
-          in: query
-          name: roleId
-          description: Allows you to specify the role(s) to assign to the user. You may pass multiple instances of this parameter to specify multiple roles. Roles are used for specialized integration purposes and are not needed in typical integration scenarios. Role IDs will be provided by Skillable when appropriate.
-          style: form
-  /LabMonitorUrl:
-    get:
-      summary: LabMonitorUrl
-      tags:
-        - LOD-API
-      responses:
-        '200':
-          description: OK Response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LabMonitorUrlResponse'
-              examples:
-                Example of successfully retrieving the URL to monitor a lab instance:
-                  value:
-                    Url: 'https://labondemand.com/access/ab1c2345-6d7b-890e-f1gh-234ij5kl6m7n?monitor=1'
-                    Error: null
-                    Status: 1
-      operationId: LabMonitorUrl
-      parameters:
-        - schema:
-            type: integer
-            format: int64
-          in: query
-          name: labInstanceId
-          description: The unique identifier of the lab instance.
-          required: true
-          style: form
-      description: The **LabMonitorUrl** command returns a single use URL to monitor a lab instance.
-  /labprofile:
-    get:
-      tags:
-        - LOD-API
-      summary: LabProfile
-      description: The **LabProfile** command will return information about a specific lab profile.
-      operationId: LabProfile
-      parameters:
-        - name: id
-          in: query
-          description: The unique identifier of the lab profile.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 77457
-      responses:
-        '200':
-          description: OK Response.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LabProfileResponse'
-              examples:
-                Example of returning information a specific lab profile:
-                  value:
-                    Id: 1
-                    Name: Demo Lab 1
-                    Number: ' Module 1'
-                    PlatformId: 2
-                    CloudPlatformId: null
-                    SeriesId: 1
-                    Enabled: true
-                    ReasonDisabled: null
-                    DevelopmentStatusId: 10
-                    Description: A demo lab.
-                    Objective: This is the HTML-formatted objective of the lab
-                    Scenario: ' This is the HTML-formatted scenario of the lab'
-                    DurationMinutes: 360
-                    ExpectedDurationMinutes: 60
-                    Ram: 512
-                    HasIntegratedContent: true
-                    ContentVersion: 2
-                    IsExam: false
-                    PremiumPrice: 10
-                    BasicPrice: 8
-                    SharedClassEnvironmentRoleId: 0
-                    Status: 1
-                    Error: null
-                    Tags:
-                      - Tag1
-                      - Tag2
-      deprecated: false
-  /LatestResults:
-    get:
-      tags:
-        - LOD-API
-      summary: LatestResults
-      description: The **LatestResults** command returns information about all lab instance results that have recently changed state.
-      operationId: LatestResults
-      parameters:
-        - name: minutes
-          in: query
-          description: 'Lab instances that have changed state within this many minutes of the current time will be included. This value cannot exceed 10,080 (7 days)'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 60
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LatestResultsResponse'
-              examples:
-                Example response returning information about all lab instance results that have recently changed state:
-                  value:
-                    Results:
-                      - LabInstanceId: 349744
-                        LabProfileId: 5522
-                        Start: 1325376800
-                        End: 1325376900
-                        LastActivity: 1325376899
-                        UserId: '555'
-                        ClassId: null
-                        CompletionStatus: 1
-                        TotalRunTimeSeconds: 2548
-                        TaskCompletePercent: 33
-                        IsExam: false
-                        ExamPassed: null
-                        ExamScore: null
-                        ExamMaxPossibleScore: null
-                        ExamPassingScore: null
-                        IpAddress: null
-                        Country: null
-                        Region: null
-                        City: null
-                        Latitude: null
-                        Longitude: null
-                        LabHostId: 49
-                        DatacenterId: 3
-                        DeliveryRegionId: 2
-                      - LabInstanceId: 349745
-                        LabProfileId: 5523
-                        Start: 1325377000
-                        End: 1325377100
-                        LastActivity: 1325377099
-                        UserId: '555'
-                        ClassId: null
-                        CompletionStatus: 1
-                        TotalRunTimeSeconds: 4168
-                        TaskCompletePercent: 44
-                        IsExam: false
-                        ExamPassed: null
-                        ExamScore: null
-                        ExamMaxPossibleScore: null
-                        ExamPassingScore: null
-                        IpAddress: null
-                        Country: null
-                        Region: null
-                        City: null
-                        Latitude: null
-                        Longitude: null
-                        LabHostId: 125
-                        DatacenterId: 4
-                        DeliveryRegionId: 3
-                    Status: 1
-                    Error: null
-      deprecated: false
-  /launch:
-    get:
-      tags:
-        - LOD-API
-      summary: Launch
-      description: The **Launch** command will launch a specified lab for a specified user.
-      operationId: Launch
-      parameters:
-        - name: labid
-          in: query
-          description: The ID of the lab profile.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 100
-        - name: userid
-          in: query
-          description: The ID you use to identify the user in your external system.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '555'
-        - name: firstname
-          in: query
-          description: The user’s first name.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Joe
-        - name: lastname
-          in: query
-          description: The user’s last name.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Smith
-        - name: email
-          in: query
-          description: The user’s email address.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: joe.smith@email.com
-        - name: classId
-          in: query
-          description: An optional parameter used to associate the lab with a class (see GetOrCreateClass. This is the unique identifier of the class as it is represented in your organization.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '1223334444'
-        - name: canBeMarkedComplete
-          in: query
-          description: 'An optional parameter used to specify if the lab can be marked as complete by the student. 1 = true, 2 = false. If not specified, defaults to 1 (true).'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            enum:
-              - 1
-              - 2
-            default: 1
-            example: 1
-        - name: tag
-          in: query
-          description: An optional parameter that can be used for tagging the lab instance with your own custom data.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: testlaunch
-        - name: ipAddress
-          in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in  the closest available delivery region. You should provide the  IP address of the user that is taking the lab, not the IP address  of your system. IPv4 and IPv6 address are supported.'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: 1.1.1.1
-        - name: regionId
-          in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the DeliveryRegions command  or Catalog command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 1
-        - name: roleId
-          in: query
-          description: Allows you specify the role(s) to assign to the user. You may pass  multiple instances of this parameter to specify multiple roles.  Roles are used for specialized integration purposes and are not  needed in typical integration scenarios. Role IDs will be  provided by Skillable when appropriate.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 1
-        - name: variable-name
-          in: query
-          description: Allows you to set the values of named variables used within the lab instance.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Chad
-        - name: maxSavedLabs
-          in: query
-          description: The max number of labs an individual user may save is capped by the number configured on your API consumer.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 2
-        - name: maxActiveLabs
-          in: query
-          description: The max number of concurrent lab instances is capped by the number configured on your API consumer.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 1
-        - name: lang
-          in: query
-          description: |-
-            Allows you to override the lab client UI language. Please note this only affects the lab client UI elements such as menus, tabs, and dialogs. The lab instructions and content are not affected.  
-              
-              en = English  
-              es = Spanish  
-              fr = French  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Chinese  
-              ka = Korean  
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            enum:
-              - en
-              - es
-              - fr
-              - pt
-              - ja
-              - zh
-              - ka
-            example: en
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LaunchResponse'
-              examples:
-                Example of a successful lab instance launch:
-                  value:
-                    Result: 1
-                    Url: 'https://labondemand.com/console/setup/1b4909d6-0dbe-43db-9ab9-74ee4f913c4e'
-                    LabInstanceId: 3896477
-                    Expires: 1337977153
-                    Status: 1
-                    Error: null
-      deprecated: false
-  /LaunchForEvent:
-    get:
-      tags:
-        - LOD-API
-      summary: LaunchForEvent
-      description: The **LaunchForEvent** command launches a lab instance within an event.
-      operationId: LaunchforEvent
-      parameters:
-        - name: labId
-          in: query
-          description: The ID of the lab profile.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 100
-        - name: eventId
-          in: query
-          description: The ID of the event the lab is part of.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 24
-        - name: userid
-          in: query
-          description: The ID you use to identify the user in your external system.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '555'
-        - name: firstname
-          in: query
-          description: The user’s first name.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Joe
-        - name: lastname
-          in: query
-          description: The user’s last name.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Smith
-        - name: email
-          in: query
-          description: The user’s email address.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: joe.smith@email.com
-        - name: classId
-          in: query
-          description: An optional parameter used to associate the lab with a class (see GetOrCreateClass). This is the unique identifier of the class as it is represented in your organization.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '1223334444'
-        - name: canBeMarkedComplete
-          in: query
-          description: 'An optional parameter used to specify if the lab can be marked as complete by the student. 1 = true, 2 = false. If not specified, defaults to 1 (true).'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            enum:
-              - 1
-              - 2
-            default: 1
-            example: 1
-        - name: tag
-          in: query
-          description: An optional parameter that can be used for tagging the lab instance with your own custom data.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: eventLaunch
-        - name: ipAddress
-          in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in the closest available delivery region. You should provide the IP address of the user that is taking the lab, not the IP address of your system.'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: 1.1.1.1
-        - name: regionId
-          in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in the specified delivery region. Delivery regions can be found using the DeliveryRegions command or Catalog command. Using the ipAddress  parameter will result in a more reliable geo-location of the lab  for the end user.'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 1
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LaunchForEventResponse'
-              examples:
-                Example of a successful lab instance launch within an event:
-                  value:
-                    Result: 1
-                    Url: 'https://labondemand.com/console/setup/1b4909d6-0dbe-43db-9ab9-74ee4f913c4e'
-                    LabInstanceId: 3896477
-                    Expires: 1337977153
-                    Status: 1
-                    Error: null
-      deprecated: false
-  /LaunchForEventByExternalId:
-    get:
-      tags:
-        - LOD-API
-      summary: LaunchForEventByExternalId
-      description: The **LaunchForEventByExternalId** command launches a lab instance within an event by external ID.
-      operationId: LaunchforEventByExternalId
-      parameters:
-        - name: externalLabId
-          in: query
-          description: The external ID of the lab to launch. This should be the ID you use in your system.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '100'
-        - name: eventId
-          in: query
-          description: The ID of the event the lab is part of.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 24
-        - name: userid
-          in: query
-          description: The ID you use to identify the user in your external system.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '555'
-        - name: firstname
-          in: query
-          description: The user’s first name.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Joe
-        - name: lastname
-          in: query
-          description: The user’s last name.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Smith
-        - name: email
-          in: query
-          description: The user’s email address.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: joe.smith@email.com
-        - name: classId
-          in: query
-          description: An optional parameter used to associate the lab with a class (see GetOrCreateClass). This is the unique identifier of the class as it is represented in your organization.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '1223334444'
-        - name: canBeMarkedComplete
-          in: query
-          description: 'An optional parameter used to specify if the lab can be marked as complete by the student. 1 = true, 2 = false. If not specified, defaults to 1 (true).'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            enum:
-              - 1
-              - 2
-            default: 1
-            example: 1
-        - name: tag
-          in: query
-          description: An optional parameter that can be used for tagging the lab instance with your own custom data.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: eventLaunch
-        - name: ipAddress
-          in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in the closest available delivery region. You should provide the IP address of the user that is taking the lab, not the IP address of your system.'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: 1.1.1.1
-        - name: regionId
-          in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in the specified delivery region. Delivery regions can be found using the DeliveryRegions command or Catalog command. Using the ipAddress  parameter will result in a more reliable geo-location of the lab  for the end user.'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 1
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LaunchForEventResponse'
-              examples:
-                Example of a successful lab instance launch within an event by external ID:
-                  value:
-                    Result: 1
-                    Url: 'https://labondemand.com/console/setup/1b4909d6-0dbe-43db-9ab9-74ee4f913c4e'
-                    LabInstanceId: 3896477
-                    Expires: 1337977153
-                    Status: 1
-                    Error: null
-      deprecated: false
-  /Result:
-    get:
-      tags:
-        - LOD-API
-      summary: Result
-      description: The **Result** command returns information about a particular lab instance result.
-      operationId: Result
-      parameters:
-        - name: labinstanceId
-          in: query
-          description: The ID of the lab instance.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 2393049
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResultResponse'
-              examples:
-                Example of successfully returning information about a particular lab instance result:
-                  value:
-                    LabProfileId: 1
-                    Start: 1338224609
-                    End: 1338224624
-                    LastActivity: 1338224624
-                    UserId: '555'
-                    ClassId: null
-                    CompletionStatus: 4
-                    TotalRunTimeSeconds: 4168
-                    TaskCompletePercent: 100
-                    IsExam: false
-                    ExamPassed: null
-                    ExamScore: null
-                    ExamMaxPossibleScore: null
-                    ExamPassingScore: null
-                    IpAddress: null
-                    Country: null
-                    Region: null
-                    City: null
-                    Latitude: null
-                    Longitude: null
-                    LabHostId: 49
-                    DatacenterId: 3
-                    DeliveryRegionId: 2
-                    Status: 1
-                    Error: null
-      deprecated: false
-  /Results:
-    get:
-      tags:
-        - LOD-API
-      summary: Results
-      description: The **Results** command returns information about all lab instance results that started or ended within a specified time range. The time range cannot exceed 7 days.
-      operationId: Results
-      parameters:
-        - name: start
-          in: query
-          description: The start of the timeframe to check against (in Unix epoch time).
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1325376000
-        - name: end
-          in: query
-          description: The end of the timeframe to check against (in Unix epoch time).
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1357002000
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResultsResponse'
-              examples:
-                Example of returning information about all lab instance results that started or ended within a specified time range:
-                  value:
-                    Results:
-                      - LabInstanceId: 349744
-                        LabProfileId: 5522
-                        Start: 1325376800
-                        End: 1325376900
-                        LastActivity: 1325376900
-                        UserId: '555'
-                        ClassId: null
-                        CompletionStatus: 1
-                        TotalRunTimeSeconds: 2548
-                        TaskCompletePercent: 33
-                        IsExam: false
-                        ExamPassed: null
-                        ExamScore: null
-                        ExamMaxPossibleScore: null
-                        ExamPassingScore: null
-                        IpAddress: null
-                        Country: null
-                        Region: null
-                        City: null
-                        Latitude: null
-                        Longitude: null
-                        LabHostId: 49
-                        DatacenterId: 3
-                        DeliveryRegionId: 2
-                      - LabInstanceId: 349745
-                        LabProfileId: 5523
-                        Start: 1325377000
-                        End: 1325377100
-                        LastActivity: 1325377100
-                        UserId: '555'
-                        ClassId: null
-                        CompletionStatus: 1
-                        TotalRunTimeSeconds: 4168
-                        TaskCompletePercent: 44
-                        IsExam: false
-                        ExamPassed: null
-                        ExamScore: null
-                        ExamMaxPossibleScore: null
-                        ExamPassingScore: null
-                        IpAddress: null
-                        Country: null
-                        Region: null
-                        City: null
-                        Latitude: null
-                        Longitude: null
-                        LabHostId: 125
-                        DatacenterId: 4
-                        DeliveryRegionId: 3
-                    Status: 1
-                    Error: null
-                Example when specifying a date range greater than 7 days:
-                  value:
-                    Error: Timeframe cannot exceed 7 days
-                    Status: 0
-      deprecated: false
-  /replacementtokens:
-    get:
-      tags:
-        - LOD-API
-      summary: ReplacementTokens
-      description: The **ReplacementTokens** command retrieves all @lab replacement tokens available for a particular lab instance.
-      operationId: ReplacementTokens
-      parameters:
-        - name: labInstanceId
-          in: query
-          description: The ID of the lab instance.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1286841
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ReplacementTokensResponse'
-              examples:
-                Example of retrieving all @lab replacement tokens available for a particular lab instance:
-                  value:
-                    ReplacementTokens:
-                      - Token: '@lab.VirtualMachine(machine1).Username'
-                        Replacement: user1
-                      - Token: '@lab.VirtualMachine(machine1).Password'
-                        Replacement: h&4Fa?)C3/eQ;)?E
-                      - Token: '@lab.VirtualMachine(machine2).Username'
-                        Replacement: user1
-                      - Token: '@lab.VirtualMachine(machine2).Password'
-                        Replacement: LXM(#(Z^Hw4Upp>f
-                      - Token: '@lab.LabInstance.Id'
-                        Replacement: '15167595'
-                      - Token: '@lab.LabInstance.GlobalId'
-                        Replacement: lod15167595
-                      - Token: '@lab.LabInstance.StartDate'
-                        Replacement: '20190809'
-                      - Token: '@lab.LabProfile.Id'
-                        Replacement: '1581178'
-                      - Token: '@lab.User.Id'
-                        Replacement: '11832814'
-                      - Token: '@lab.User.FirstName'
-                        Replacement: 'John '
-                      - Token: '@lab.User.LastName'
-                        Replacement: Doe
-                      - Token: '@lab.User.Email'
-                        Replacement: john.doe@sample.net
-                    Error: null
-                    Status: 1
-      deprecated: false
-  /resume:
-    get:
-      tags:
-        - LOD-API
-      summary: resume
-      description: The **Resume** command allows you to resume a specified lab instance.
-      operationId: Resume
-      parameters:
-        - name: labinstanceid
-          in: query
-          description: The ID of the lab instance to resume.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 2393049
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ResumeResponse'
-              examples:
-                Example of resuming a lab with a specific lab instance:
-                  value:
-                    Result: 1
-                    Url: 'https://labondemand.com/console/setup/1b4909d6-0dbe-43db-9ab9-74ee4f913c4e'
-                    Expires: 1337977153
-                    Status: 1
-                    Error: null
-      deprecated: false
-  /runningandsavedlabs:
-    get:
-      tags:
-        - LOD-API
-      summary: RunningAndSavedLabs
-      description: The **RunningAndSavedLabs** command retrieves all lab instances launched by this API Consumer that are currently running or saved.
-      operationId: RunningAndSavedLabs
+        The **DeliveryRegions** command will return all delivery regions available to your organization.   
+         **NOTE**: there are no query parameters for this command.
+      operationId: DeliveryRegions
       parameters: []
       responses:
         '200':
@@ -2207,477 +2671,22 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RunningAndSavedLabsResponse'
+                $ref: '#/components/schemas/DeliveryRegionsResponse'
               examples:
-                Example of retrieving all lab instances launched by this API Consumer that are currently running or saved:
+                Example of a successful response listing all delivery regions available to your organization:
                   value:
-                    RunningLabs:
-                      - Id: 3497
-                        UserId: '5843'
-                        UserFirstName: John
-                        UserLastName: Doe
-                        LabProfileId: 5
-                        LabProfileName: Demo Lab 1
-                        LabProfileNumber: LAB001
-                        Start: 1338223121
-                        Expires: 1338244721
-                        IsExam: false
-                    SavedLabs:
-                      - Id: 3493
-                        UserId: '5158'
-                        UserFirstName: Sally
-                        UserLastName: Smith
-                        LabProfileId: 1
-                        LabProfileName: Demo Lab 2
-                        LabProfileNumber: LAB002
-                        Start: 1337987655
-                        Expires: 1338592455
-                        IsExam: false
+                    DeliveryRegions:
+                      - Id: 1
+                        Name: North America
+                        Description: North American datacenters.
+                      - Id: 2
+                        Name: Australia
+                        Description: null
                     Status: 1
                     Error: null
       deprecated: false
-  /save:
-    get:
       tags:
-        - LOD-API
-      summary: Save
-      description: The **Save** command allows you to save a specified lab instance.
-      operationId: Save
-      parameters:
-        - name: labinstanceid
-          in: query
-          description: The ID of the lab instance to save.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 2393049
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SaveResponse'
-              examples:
-                Example of successfully saving a specified lab instance:
-                  value:
-                    Result: 1
-                    Expires: 1337977153
-                    Status: 1
-                    Error: null
-      deprecated: false
-  /scoreactivities:
-    get:
-      tags:
-        - LOD-API
-      summary: ScoreActivities
-      description: |-
-        The **ScoreActivities** command causes all scored activities in a particular lab instance to undergo scoring. Please note that this is API command is only necessary in specialized situations. In most cases, scoring is triggered by the student in the lab client and this command is not needed. However, if your students do not use our lab client, ScoreActivities provides a mechanism to trigger scoring.
-
-        This command does not return scoring results. To obtain scoring  results, use the **Details** command.
-      operationId: ScoreActivities
-      parameters:
-        - name: labinstanceid
-          in: query
-          description: The ID of the lab instance.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 12186142
-        - name: rescoreAll
-          in: query
-          description: The ID of the lab instance.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 12186142
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ScoreActivitiesResponse'
-              examples:
-                Example successful response:
-                  value:
-                    Status: 1
-                    Error: null
-      deprecated: false
-  /sendnotification:
-    post:
-      tags:
-        - LOD-API
-      summary: sendnotification
-      description: 'The **SendNotification** command allows you to send a notification to a specified lab instance for the user to see.  For notifications sent using the POST HTTP verb, the notification text is limited to 4000 characters.'
-      operationId: SendNotification-post
-      parameters:
-        - name: labinstanceid
-          in: query
-          description: The ID of the lab instance to send the notification to.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 2393048
-        - name: notification
-          in: query
-          description: 'The text of the notification to send. Please ensure the message is properly encoded. Line breaks can be included using \n. For notifications sent using the POST HTTP verb, the notification text is limited to 4000 characters.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: I'd+like+to+let+you+know
-        - name: name
-          in: query
-          description: 'An optional name for the notification. If you name the notification, subsequent SendNotification commands using the same labInstanceId and name will cause the existing notification to be updated. It is also possible to delete a named notification by sending the name along with no notification value.'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Hello
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SendNotificationResponse'
-              examples:
-                Example of successfully sending a notification:
-                  value:
-                    Id: 28297
-                    Result: 1
-                    Status: 1
-                    Error: null
-      deprecated: false
-    get:
-      tags:
-        - LOD-API
-      summary: SendNotification
-      description: 'The **SendNotification** command allows you to send a notification to a specified lab instance for the user to see.  For notifications sent using the GET HTTP verb, the notification text is limited to 800 characters. '
-      operationId: SendNotification-get
-      parameters:
-        - name: labinstanceid
-          in: query
-          description: The ID of the lab instance to send the notification to.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 2393048
-        - name: notification
-          in: query
-          description: 'The text of the notification to send. Please ensure the message is properly encoded. Line breaks can be included using \n. For notifications sent using the GET HTTP verb, the notification text is limited to 800 characters.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: I'd+like+to+let+you+know
-        - name: name
-          in: query
-          description: 'An optional name for the notification. If you name the notification, subsequent SendNotification commands using the same labInstanceId and name will cause the existing notification to be updated. It is also possible to delete a named notification by sending the name along with no notification value.'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Hello
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SendNotificationResponse'
-              examples:
-                Example of successfully sending a notification:
-                  value:
-                    Id: 28297
-                    Result: 1
-                    Status: 1
-                    Error: null
-      deprecated: false
-  /stats:
-    get:
-      tags:
-        - LOD-API
-      summary: Stats
-      description: The **Stats** command returns statistics about how many labs are currently active and saved.
-      operationId: Stats
-      parameters: []
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/StatsResponse'
-              examples:
-                Example of returning statistics about how many labs are currently active and saved:
-                  value:
-                    NumActive: 571
-                    NumSaved: 451
-                    Status: 1
-                    Error: null
-      deprecated: false
-  /updateclass:
-    get:
-      tags:
-        - LOD-API
-      summary: UpdateClass
-      description: The **UpdateClass** command updates a specified class.
-      operationId: UpdateClass
-      parameters:
-        - name: id
-          in: query
-          description: 'The unique identifier of the class, as represented in your organization.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '1223334444'
-        - name: name
-          in: query
-          description: The name of the class.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Sample+Class
-        - name: start
-          in: query
-          description: When the class starts (in Unix epoch time).
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1333267200
-        - name: end
-          in: query
-          description: When the class ends (in Unix epoch time).
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1333299600
-        - name: expires
-          in: query
-          description: When labs can no longer be associated with the class (in Unix epoch time).
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1335978000
-        - name: instructorFirstName
-          in: query
-          description: The first name of the class instructor.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Demo
-        - name: instructorLastName
-          in: query
-          description: The last name of the class instructor.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Instructor
-        - name: maxActiveLabInstances
-          in: query
-          description: 'The maximum number of active lab instances than can exist concurrently within this class context. This is optional in most situations. However, it is required for classes that host shared environments. If a shared lab is launched against a class that doesn''t have this value set, the launch will fail.'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 20
-        - name: AvailableLabs
-          in: query
-          description: 'An optional array of lab profile IDs. When provided, Lab on Demand will know that these labs are available within the class. You do not need to set this value in order to launch labs against the class. This is useful when using Lab on Demand to display a class attendance page, or when consuming shared class environments and you want the shared environment launch link to appear on the class monitor page.'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: array
-            items:
-              type: integer
-            uniqueItems: true
-            example: 17390
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateClassResponse'
-              examples:
-                Example of response after successfully updating information for a specified class:
-                  value:
-                    Success: true
-                    Status: 1
-                    Error: null
-      deprecated: false
-  /updatelabinstructions:
-    post:
-      tags:
-        - LOD-API
-      summary: UpdateLabInstructions
-      description: 'The **UpdateLabInstructions** command allows you to update the IDL-MD  instructions of a lab. In order to support longer instructions lengths,  this method requires an HTTP POST. The Content-Type of your post should  be set to application/x-www-form-urlencoded.'
-      operationId: UpdateLabInstructions
-      parameters:
-        - name: id
-          in: query
-          description: The ID of the lab profile to update.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 2393048
-        - name: instructions
-          in: query
-          description: The IDLx instructions. This should included in the body of the post.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: Updated from the API
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UpdateLabInstructionsResponse'
-              examples:
-                Example of successfully updating the lab instructions:
-                  value:
-                    Result: 1
-                    Status: 1
-                    Error: null
-      deprecated: false
-  /updatelabinstructionspackage:
-    post:
-      tags:
-        - LOD-API
-      summary: UpdateLabInstructionsPackage
-      description: 'The **UpdateLabInstructionsPackage** command allows you to update the  IDL-MD instructions of a lab by uploading a ZIP archive containing the instructions and any referenced files, such as images and videos. **This method requires an HTTP POST**. The Content-Type of your post should be set to multipart/form-data. This is the same behavior that a browser uses to upload a file to a server. In .NET environments, the System.Net.WebClient class provides an UploadFile method that can be used. Set your content by using the body tab in postman.'
-      operationId: UpdateLabInstructionsPackage
-      parameters:
-        - name: Id
-          in: query
-          description: The ID of the lab profile to update.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
-            example: 2393048
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                instructionsZip:
-                  type: string
-                  format: binary
-      responses:
-        '200':
-          description: ''
-          headers: {}
-      deprecated: false
-  /userrunningandsavedlabs:
-    get:
-      tags:
-        - LOD-API
-      summary: UserRunningAndSavedLabs
-      description: The **UserRunningAndSavedLabs** command retrieves all labs that are currently running or saved for a particular user account.
-      operationId: UserRunningAndSavedLabs
-      parameters:
-        - name: userid
-          in: query
-          description: The unique identifier used to identify the user in within your organization.
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-            example: '555'
-      responses:
-        '200':
-          description: OK Response.
-          headers: {}
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserRunningAndSavedLabsResponse'
-              examples:
-                Example of retrieving all labs that are currently running or saved for a particular user account:
-                  value:
-                    RunningLabs:
-                      - LabInstanceId: 3497
-                        LabProfileId: 5
-                        LabProfileName: Demo Lab 1
-                        LabProfileNumber: LAB001
-                        Start: 1338223121
-                        Expires: 1338244721
-                        Url: null
-                        IsExam: false
-                    SavedLabs:
-                      - LabInstanceId: 3493
-                        LabProfileId: 1
-                        LabProfileName: Demo Lab 2
-                        LabProfileNumber: LAB002
-                        MinutesRemaining: 359
-                        Saved: 1337987655
-                        Expires: 1338592455
-                        SaveInProgress: false
-                        IsExam: false
-                        SubmittedForGrading: false
-                    Status: 1
-                    Error: null
-      deprecated: false
+        - Organization
 components:
   securitySchemes:
     api_key:
@@ -2854,12 +2863,9 @@ components:
                 nullable: true
               Tags:
                 type: array
+                description: A list of tags associated with the lab profile.
                 items:
-                  type: object
-                  properties:
-                    '':
-                      type: string
-                      description: A tag associated with the lab profile.
+                  type: string
         DeliveryRegions:
           type: array
           uniqueItems: true
@@ -2957,12 +2963,7 @@ components:
           type: array
           description: Array of Available Labs for the class.
           items:
-            type: object
-            properties:
-              '':
-                type: integer
-                description: The unique identifier of the lab profile.
-                format: int32
+            type: integer
         Error:
           type: string
           description: 'In the event of an error, this will contain a detailed error message.'
@@ -3386,6 +3387,7 @@ components:
           nullable: true
         ExamDetails:
           description: Legacy Field from previous scoring engine.
+          type: string
           nullable: true
         ExamScoredDate:
           type: integer
@@ -4464,10 +4466,10 @@ components:
         Url:
           type: string
           description: A URL where the lab can be viewed by the user.
-        LabInstanceId:
+        LabProfileId:
           type: integer
-          description: The Id assigned to the new lab instance.
-          format: int64
+          description: The Id of the resumed lab profile.
+          format: int32
         Expires:
           type: integer
           format: int64
@@ -4743,6 +4745,7 @@ components:
                 description: When the lab will expire (in Unix epoch time).
               Url:
                 description: 'This response property is deprecated. Unless explicitly allowed by Skillable, this field will always be null. To obtain an access URL, use the **LabAccessUrl** command.'
+                type: string
                 nullable: true
               IsExam:
                 type: boolean
@@ -4784,7 +4787,7 @@ components:
                 description: True/false indicating whether the lab is currently in the process of being saved.
               IsExam:
                 type: boolean
-                description: "\tIndicates whether the lab is considered a scorable exam."
+                description: Indicates whether the lab is considered a scorable exam.
               SubmittedForGrading:
                 type: boolean
                 description: Indicates whether the lab has been submitted for grading and is in a saved state while awaiting scoring. This will only be true for exams.

@@ -1,17 +1,29 @@
 openapi: 3.0.3
 info:
   title: LOD API
-  description: |+
-    Documentation on how and when to use the OneLearn LOD API at 
-    [https://docs.skillable.com](https://docs.skillable.com/lod/lod-api/lod-api-main.md).
-
+  description: |
     # LOD API - Introduction
-    This API is documented in **OpenAPI format** and is based on
-    [OneLearn LOD](https://docs.skillable.com/lod/lod-api/lod-api-main.md) provided by [Skillable.com](http://skillable.com) team.
+    Welcome to the Skillable Lab on Demand REST API (Application Programming Interfaces) that powers its platform for the best user Lab experience. Utilizing the Skillable Lab on Demand REST API will unlock the full power and potential to manage, maintain, the users Lab envrionment. This API will grant access to the full skilling data information set. 
 
     ## OpenAPI Specification
-    This API is documented in **OpenAPI format** and is based on
-    [OneLearn LOD](https://lms.learnondemand.net/apidocumentation) provided by [Skillable.com](http://skillable.com) team.
+    The Skillable Lab on Demand REST API is fully described in an OpenAPI 3.0 compliant document.
+
+    OpenAPI is a standard specification for describing REST APIs. OpenAPI descriptions allow both humans and machines to discover the capabilities of an API without needing to first read documentation or understand the implementation. Skillable has made its Lab on Demand REST API publicly available as an OpenAPI 3.0 compliant document.
+
+    ## Using the Skillable OpenAPI description
+    There are many uses for an OpenAPI description. For example, you could:
+    - Generate your own API client.
+    - Explore and interact with the Skillable Lab on Demand REST API using third-party tools, such as Insomnia or Postman.
+    - Skillable uses the REST OpenAPI description to generate the SKillable Lab on Demand REST API reference documentation.
+
+    ## What is a REST API, anyway?
+    API is short for ‘Application Programming Interface’ . An API is a set of rules that lets programs talk to each other, exposing data and functionality across the Internet in a consistent format.
+
+    REST stands for ‘Representational State Transfer’. This is an architectural pattern that describes how distributed systems can expose a consistent interface. When people use the term ‘REST API’, they are generally referring to an API accessed using the HTTP protocol at a predefined set of URLs.
+
+    These URLs represent various resources — any information or content accessed at that location, which can be returned as JSON, HTML, audio files, or images. Often resources have one or more methods that can be performed on them over HTTP, like GET, POST, PUT, and DELETE. The action represented by the first and last of these is clear, but POST and PUT have specific meanings. How they are defined is confusing, but the general rule is: use POST to create resources, and PUT to update resources.
+
+    Skillable Lab on Demand, for example, provides many separate REST APIs for working with launching, saving and resuming labs, obtaining very detailed skilling results from lab instances, create a class of labs and be able to monitor each lab instance, and a whole lot more. In Skillable's ecosystem, each product has its own API.
 
     ## Production API and Integration Testing
     Only lab profiles with a development status of **Complete** are consumable via API.
@@ -33,11 +45,13 @@ info:
     - API Key
 
     <SecurityDefinitions />
-
   termsOfService: 'https://skillable.com/terms-and-conditions/'
   contact:
     name: Skillable Support
     url: 'https://skillable.com/customer-support/'
+  x-logo:
+    url: 'https://github.com/LearnOnDemandSystems/ConnectAPI/raw/main/SkillableConnect.png'
+    altText: Skillable logo
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
@@ -59,7 +73,7 @@ paths:
     get:
       tags:
         - Lab Instance Management
-      summary: Launch
+      summary: Launch a lab
       description: The **Launch** command will launch a specified lab for a specified user.
       operationId: Launch
       parameters:
@@ -245,7 +259,7 @@ paths:
       deprecated: false
   /cancel:
     get:
-      summary: Cancel
+      summary: Cancel a lab instance
       description: The **Cancel** command allows you to cancel a specified lab instance.
       operationId: Cancel
       parameters:
@@ -286,7 +300,7 @@ paths:
     get:
       tags:
         - Lab Instance Management
-      summary: Details
+      summary: Retrieve details about a lab instance
       description: The **Details** command retrieves detailed information about a specified lab instance.
       operationId: Details
       parameters:
@@ -496,7 +510,7 @@ paths:
     get:
       tags:
         - Lab Instance Management
-      summary: Result
+      summary: Retrieve information about a lab instance result
       description: The **Result** command returns information about a particular lab instance result.
       operationId: Result
       parameters:
@@ -551,7 +565,7 @@ paths:
     get:
       tags:
         - Lab Instance Management
-      summary: Results
+      summary: Retrieve information about a lab instance result within a specified time range
       description: The **Results** command returns information about all lab instance results that started or ended within a specified time range. The time range cannot exceed 7 days.
       operationId: Results
       parameters:
@@ -646,7 +660,7 @@ paths:
     get:
       tags:
         - Lab Instance Management
-      summary: Save
+      summary: Save a lab instance
       description: The **Save** command allows you to save a specified lab instance.
       operationId: Save
       parameters:
@@ -680,7 +694,7 @@ paths:
     get:
       tags:
         - Lab Instance Management
-      summary: Resume
+      summary: Resume a lab instance from a saved state
       description: The **Resume** command allows you to resume a specified lab instance.
       operationId: Resume
       parameters:
@@ -716,7 +730,7 @@ paths:
     get:
       tags:
         - Lab Instance Management
-      summary: ScoreActivities
+      summary: Initiate scoring in a lab instance
       description: |-
         The **ScoreActivities** command causes all scored activities in a particular lab instance to undergo scoring. Please note that this is API command is only necessary in specialized situations. In most cases, scoring is triggered by the student in the lab client and this command is not needed. However, if your students do not use our lab client, ScoreActivities provides a mechanism to trigger scoring.
 
@@ -812,7 +826,7 @@ paths:
     get:
       tags:
         - Lab Instance Management
-      summary: SendNotification
+      summary: Send a notification to a lab instance
       description: 'The **SendNotification** command allows you to send a notification to a specified lab instance for the user to see.  For notifications sent using the GET HTTP verb, the notification text is limited to 800 characters. '
       operationId: SendNotification-get
       parameters:
@@ -864,7 +878,7 @@ paths:
     get:
       tags:
         - Lab Instance Management
-      summary: ReplacementTokens
+      summary: Retrieve replacement tokens from a lab instance
       description: The **ReplacementTokens** command retrieves all @lab replacement tokens available for a particular lab instance.
       operationId: ReplacementTokens
       parameters:
@@ -921,7 +935,7 @@ paths:
     get:
       tags:
         - Lab Instance Management
-      summary: LatestResults
+      summary: Returns information about all lab instance results that have recently started or ended
       description: The **LatestResults** command returns information about all lab instance results that have recently changed state.
       operationId: LatestResults
       parameters:
@@ -1002,7 +1016,7 @@ paths:
     get:
       tags:
         - Lab Instance Management
-      summary: RunningAndSavedLabs
+      summary: Retrieves running and saved lab instances available to this API consumer
       description: |-
         The **RunningAndSavedLabs** command retrieves all lab instances launched by this API Consumer that are currently running or saved.  
          **NOTE**: there are no query parameters for this command.
@@ -1048,7 +1062,7 @@ paths:
     get:
       tags:
         - Lab Instance Management
-      summary: Stats
+      summary: Returns statistics about how many labs are currently active and saved
       description: |-
         The **Stats** command returns statistics about how many labs are currently active and saved.  
          **NOTE**: there are no query parameters for this command.
@@ -1074,7 +1088,7 @@ paths:
     get:
       tags:
         - Lab Instance Management
-      summary: GetEvaluationResponses
+      summary: Returns evaluation data for a specific evaluation
       description: The **GetEvaluationResponses** command returns evaluation responses.
       operationId: GetEvaluationResponses
       parameters:
@@ -1313,7 +1327,7 @@ paths:
       deprecated: false
   /labprofile:
     get:
-      summary: LabProfile
+      summary: Retrieves information about a specified lab profile
       description: The **LabProfile** command will return information about a specific lab profile.
       operationId: LabProfile
       parameters:
@@ -1368,7 +1382,7 @@ paths:
         - Lab Profile Management
   /GetLabInstructions:
     get:
-      summary: GetLabInstructions
+      summary: Returns instructions for a specific lab
       description: The **GetLabInstructions** command allows you to download the IDLx instructions of a lab as a string.
       operationId: GetLabInstructions
       parameters:
@@ -1405,7 +1419,7 @@ paths:
         - Lab Profile Management
   /GetLabInstructionsPackage:
     get:
-      summary: GetLabInstructionsPackage
+      summary: Returns the contents of the instructions for a specific lab as a file archive
       description: |-
         The **GetLabInstructionsPackage** command allows you to download the IDLx instructions of a lab as an archived file.  
 
@@ -1451,7 +1465,7 @@ paths:
         - Lab Profile Management
   /updatelabinstructions:
     post:
-      summary: UpdateLabInstructions
+      summary: Update IDLx instructions of a lab profile
       description: 'The **UpdateLabInstructions** command allows you to update the IDLx instructions of a lab. In order to support longer instructions lengths,  this method requires an HTTP POST. The Content-Type of your post should  be set to application/x-www-form-urlencoded.'
       operationId: UpdateLabInstructions
       parameters:
@@ -1493,7 +1507,7 @@ paths:
         - Lab Profile Management
   /updatelabinstructionspackage:
     post:
-      summary: UpdateLabInstructionsPackage
+      summary: Allows you to update the IDLx instructions of a lab by uploading a ZIP archive
       description: |-
         The **UpdateLabInstructionsPackage** command allows you to update the  IDLx instructions of a lab by uploading a ZIP archive containing the instructions and any referenced files, such as images and videos.  
 
@@ -1532,7 +1546,7 @@ paths:
         - Lab Profile Management
   /class:
     get:
-      summary: Class
+      summary: Returns information about a class
       description: The **Class** command returns information about a class.
       operationId: Class
       parameters:
@@ -1581,7 +1595,7 @@ paths:
         - Class Management
   /GetOrCreateClass:
     get:
-      summary: GetOrCreateClass
+      summary: 'Returns information about a class. If the class doesn’t exist, it is created'
       description: 'The **GetOrCreateClass** command returns information about a class. If the class doesn’t exist, it is created.'
       operationId: GetOrCreateClass
       parameters:
@@ -1737,7 +1751,7 @@ paths:
         - Class Management
   /ClassAccessUrl:
     get:
-      summary: ClassAccessUrl
+      summary: Returns a single use URL to access a class
       description: The **ClassAccessUrl** command returns a single use URL to access the  class management page.
       operationId: ClassAccessUrl
       parameters:
@@ -1773,7 +1787,7 @@ paths:
         - Class Management
   /LabMonitorUrl:
     get:
-      summary: LabMonitorUrl
+      summary: Returns a single use URL to monitor a lab instance
       responses:
         '200':
           description: OK Response.
@@ -1802,7 +1816,7 @@ paths:
         - Class Management
   /LabAccessUrl:
     get:
-      summary: LabAccessUrl
+      summary: Returns a single use URL is used to access a lab instance
       responses:
         '200':
           description: OK Response.
@@ -1838,7 +1852,7 @@ paths:
         - Class Management
   /updateclass:
     get:
-      summary: UpdateClass
+      summary: Updates a specified class
       description: The **UpdateClass** command updates a specified class.
       operationId: UpdateClass
       parameters:
@@ -1950,7 +1964,7 @@ paths:
         - Class Management
   /deleteclass:
     get:
-      summary: DeleteClass
+      summary: Deletes a specified class
       description: The **DeleteClass** command deletes a specified class.
       operationId: DeleteClass
       parameters:
@@ -1986,7 +2000,7 @@ paths:
         - Class Management
   /userrunningandsavedlabs:
     get:
-      summary: UserRunningAndSavedLabs
+      summary: Retrieve all running or saved labs for a particular user account
       description: The **UserRunningAndSavedLabs** command retrieves all labs that are currently running or saved for a particular user account.
       operationId: UserRunningAndSavedLabs
       parameters:
@@ -2037,7 +2051,7 @@ paths:
         - User Management
   /CloseUserAccount:
     get:
-      summary: CloseUserAccount
+      summary: Close a user account
       description: The **CloseUserAccount** command closes a user account and removes all  user information using an ID. This is usually a unique identifier used  by the calling system.
       operationId: CloseUserAccount
       parameters:
@@ -2074,7 +2088,7 @@ paths:
         - User Management
   /LaunchForEvent:
     get:
-      summary: LaunchForEvent
+      summary: Launches a specified lab within an event
       description: The **LaunchForEvent** command launches a lab instance within an event.
       operationId: LaunchforEvent
       parameters:
@@ -2207,7 +2221,7 @@ paths:
         - Event Management
   /LaunchForEventByExternalId:
     get:
-      summary: LaunchForEventByExternalId
+      summary: Launches a specified lab within an event using an external lab ID
       description: The **LaunchForEventByExternalId** command launches a lab instance within an event by external ID.
       operationId: LaunchforEventByExternalId
       parameters:
@@ -2339,7 +2353,7 @@ paths:
         - Event Management
   /GetEvaluationResponsesForEvent:
     get:
-      summary: GetEvaluationResponsesForEvent
+      summary: Returns evaluation data for a specific event
       description: The **GetEvaluationResponsesForEvent** command returns evaluation responses for a specific event.
       operationId: GetEvaluationResponsesForEvent
       parameters:
@@ -2540,7 +2554,7 @@ paths:
         - Event Management
   /catalog:
     get:
-      summary: Catalog
+      summary: 'Returns all lab series, lab profiles, and delivery regions available to your organization'
       description: 'The **Catalog** command will return all lab series, lab profiles, and delivery regions available to your organization. Lab profiles are generally grouped into series. Depending on your organization, you may have multiple physical delivery regions available to you.'
       operationId: Catalog
       parameters:
@@ -2658,7 +2672,7 @@ paths:
         - Organization
   /deliveryregions:
     get:
-      summary: DeliveryRegions
+      summary: Returns all delivery regions available to your organization
       description: |-
         The **DeliveryRegions** command will return all delivery regions available to your organization.   
          **NOTE**: there are no query parameters for this command.

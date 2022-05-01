@@ -2,30 +2,34 @@ openapi: 3.0.3
 info:
   title: LOD API
   description: |
-    # LOD API - Introduction
-    Welcome to the Skillable Lab on Demand REST API (Application Programming Interfaces) that powers its platform for the best user Lab experience. Utilizing the Skillable Lab on Demand REST API will unlock the full power and potential to manage, maintain, the users Lab envrionment. This API will grant access to the full skilling data information set. 
+    # Welcome to Skillable Connect : LOD Edition
+    Think you’re in the wrong place? Take a look at [Skillable Connect : TMS Edition](https://connect.skillable.com/tms)
 
-    ## OpenAPI Specification
-    The Skillable Lab on Demand REST API is fully described in an OpenAPI 3.0 compliant document.
+    As of May 2022, the Skillable API is compliant with the OpenAPI Initiative – a Linux Foundation Collaborative Project. We like the OpenAPI Specification (OAS) because it helps business users better communicate with developers, which results in aligned expectations, faster time to market, and happy partnerships. Our aim is to help you provide your customers the best experience possible in ways that enable us to provide the data you need to show results. 
 
-    OpenAPI is a standard specification for describing REST APIs. OpenAPI descriptions allow both humans and machines to discover the capabilities of an API without needing to first read documentation or understand the implementation. Skillable has made its Lab on Demand REST API publicly available as an OpenAPI 3.0 compliant document.
+    Download the LOD API (3.0) OpenAPI specification
 
-    ## Using the Skillable OpenAPI description
-    There are many uses for an OpenAPI description. For example, you could:
-    - Generate your own API client.
-    - Explore and interact with the Skillable Lab on Demand REST API using third-party tools, such as Insomnia or Postman.
-    - Skillable uses the REST OpenAPI description to generate the SKillable Lab on Demand REST API reference documentation.
+    # Introduction - LOD API
+    The Skillable LOD API is structured around REST. "LOD" stands for "Lab on Demand", our core platform for creating, customizing, and managing labs – and delivering labs to your end users. Additionally, this API enables access to the data reflecting each user’s activity and performance for each lab launched.
 
-    ## What is a REST API, anyway?
-    API is short for ‘Application Programming Interface’ . An API is a set of rules that lets programs talk to each other, exposing data and functionality across the Internet in a consistent format.
+    If you're looking to integrate with Skillable TMS, our Training Management System, take a look at [Skillable Connect : TMS Edition](https://connect.skillable.com/tms). 
 
-    REST stands for ‘Representational State Transfer’. This is an architectural pattern that describes how distributed systems can expose a consistent interface. When people use the term ‘REST API’, they are generally referring to an API accessed using the HTTP protocol at a predefined set of URLs.
+    Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
 
-    These URLs represent various resources — any information or content accessed at that location, which can be returned as JSON, HTML, audio files, or images. Often resources have one or more methods that can be performed on them over HTTP, like GET, POST, PUT, and DELETE. The action represented by the first and last of these is clear, but POST and PUT have specific meanings. How they are defined is confusing, but the general rule is: use POST to create resources, and PUT to update resources.
+    Skillable's LOD API provides many separate REST APIs – each for performing a specific action.
 
-    Skillable Lab on Demand, for example, provides many separate REST APIs for working with launching, saving and resuming labs, obtaining very detailed skilling results from lab instances, create a class of labs and be able to monitor each lab instance, and a whole lot more. In Skillable's ecosystem, each product has its own API.
+    Launching, saving or resuming a lab.
+    Obtaining high-level and/or granular skilling data resulting from lab instances
+    Creating a "class" of labs and/or monitoring each lab instance
 
-    ## Production API and Integration Testing
+    ## What is a REST API? Why is it RESTful?
+    "API" stands for "Application Programming Interface" – put simply, a set of rules that helps systems talk and expose/share data to one another across the Internet in a consistent way.
+
+    "REST" stands for "Representational State Transfer" and is a standard architectural pattern describing how distributed systems can expose a consistent interface. When people use the term 'REST API', they are generally referring to an API accessed using the HTTP protocol at a predefined set of URLs.
+
+    These URLs represent various resources — any information or content accessed at that location, which can be returned as JSON, HTML, audio files, or images. Often resources have one or more methods that can be performed on them over HTTP, like GET, POST, PUT, and DELETE. The action represented by the first and last of these is clear, but POST and PUT have specific meanings. How they are defined is confusing, but the general rule is: use POST to create resources and PUT to update resources.
+
+    ## Skillable Production API & Integration Testing
     Only lab profiles with a development status of **Complete** are consumable via API.
 
     Development/Integration Testing API available with all the same API calls your production API can make, but has the following settings:
@@ -34,15 +38,15 @@ info:
     - Max Saved Labs per User: 1
     - Max Active Lab Instances per user: 5
     - Max lab duration: 30 minutes
-    - Allows launching of lab profiles with any Development Status
-      - i.e. is not restricted to a Complete development status
+    - Allows launching of lab profiles with any Development Status (i.e. is not restricted to a Complete development status)
     - Has a dedicated API key
     - Does not generate billable events
 
-    ## Authentication
-        
-    Lab on Demand offers one form of authentication:
-    - API Key
+    ## Authenticate with API Key
+    Skillable APIs offer one form of authentication: an API Key. All methods require an API Key, which must be obtained from a Skillable team member working with your organization. Our systems use this key to validate your development account. 
+
+    Pass your API Key as an HTTP request header with the header name "api_key".
+
 
     <SecurityDefinitions />
   termsOfService: 'https://skillable.com/terms-and-conditions/'
@@ -50,7 +54,7 @@ info:
     name: Skillable Support
     url: 'https://skillable.com/customer-support/'
   x-logo:
-    url: 'https://github.com/LearnOnDemandSystems/ConnectAPI/raw/main/Skillable%20Connect%20Logo.svg'
+    url: 'https://github.com/LearnOnDemandSystems/ConnectAPI/raw/main/SkillableConnect.png'
     altText: Skillable logo
   license:
     name: Apache 2.0

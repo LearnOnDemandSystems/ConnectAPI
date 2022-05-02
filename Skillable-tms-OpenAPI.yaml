@@ -2,14 +2,7 @@ openapi: 3.0.3
 info:
   title: TMS API
   description: |
-    # Welcome to Skillable Connect : TMS Edition
-    Think you’re in the wrong place? Take a look at [Skillable Connect : LOD Edition](https://connect.skillable.com/lod)
-
-    As of May 2022, the Skillable API is compliant with the OpenAPI Initiative – a Linux Foundation Collaborative Project. We like the OpenAPI Specification (OAS) because it helps business users better communicate with developers, which results in aligned expectations, faster time to market, and happy partnerships. Our aim is to help you provide your customers the best experience possible in ways that enable us to provide the data you need to show results. 
-
-    Download the LOD API (3.0) OpenAPI specification
-
-    # Introduction - TMS API
+    # Introduction | TMS API
     The Skillable LOD API is structured around REST. "TMS" stands for "Training Management System", our core platform for manage your users, scheduling training to consume content. Additionally, this API enables access to the data reflecting each user’s activity and performance for each course launched or class attended.
 
     If you're looking to integrate with Skillable LOD, Lab on Demand, take a look at [Skillable Connect : LOD Edition](https://connect.skillable.com/lod). 

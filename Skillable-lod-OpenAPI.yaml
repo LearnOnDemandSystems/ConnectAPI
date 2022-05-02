@@ -55,7 +55,7 @@ info:
     url: 'https://skillable.com/customer-support/'
   x-logo:
     url: 'https://raw.githubusercontent.com/LearnOnDemandSystems/ConnectAPI/main/Skillable%20Connect%20Logo.svg'
-    altText: Skillable logo
+    altText: Skillable Connect
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'

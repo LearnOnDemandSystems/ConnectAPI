@@ -15,7 +15,7 @@ info:
     Obtaining high-level and/or granular skilling data resulting from lab instances
     Creating a "class" of labs and/or monitoring each lab instance
 
-    ## What is a REST API? Why is it RESTful?
+    ## What is a RESTful API?
     "API" stands for "Application Programming Interface" – put simply, a set of rules that helps systems talk and expose/share data to one another across the Internet in a consistent way.
 
     "REST" stands for "Representational State Transfer" and is a standard architectural pattern describing how distributed systems can expose a consistent interface. When people use the term 'REST API', they are generally referring to an API accessed using the HTTP protocol at a predefined set of URLs.

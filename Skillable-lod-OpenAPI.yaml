@@ -62,7 +62,7 @@ info:
   version: '3.0'
 servers:
   - url: 'https://labondemand.com/api/v3'
-    description: OneLearn LOD API
+    description: Skillable Connect LOD API
 security:
   - api_key: []
 tags:

@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: LOD API
   description: |
-    # Introduction - LOD API
+    # Introduction | LOD API
     The Skillable LOD API is structured around REST. "LOD" stands for "Lab on Demand", our core platform for creating, customizing, and managing labs – and delivering labs to your end users. Additionally, this API enables access to the data reflecting each user’s activity and performance for each lab launched.
 
     If you're looking to integrate with Skillable TMS, our Training Management System, take a look at [Skillable Connect : TMS Edition](https://connect.skillable.com/tms). 

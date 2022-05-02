@@ -16,7 +16,7 @@ info:
 
     Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
 
-    Skillable's LOD API provides many separate REST APIs – each for performing a specific action.
+    Skillable's TMS API provides many separate REST APIs – each for performing a specific action.
 
     Creating, managing user accounts.
     Obtain detailed reporting for user activity.

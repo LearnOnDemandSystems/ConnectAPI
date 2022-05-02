@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: TMS API
   description: |
-    # Introduction - TMS API
+    # Introduction | TMS API
     The Skillable LOD API is structured around REST. "TMS" stands for "Training Management System", our core platform for manage your users, scheduling training to consume content. Additionally, this API enables access to the data reflecting each user’s activity and performance for each course launched or class attended.
 
     If you're looking to integrate with Skillable LOD, Lab on Demand, take a look at [Skillable Connect : LOD Edition](https://connect.skillable.com/lod). 

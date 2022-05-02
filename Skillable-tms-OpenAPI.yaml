@@ -45,17 +45,16 @@ info:
   contact:
     name: Skillable Support
     url: 'https://skillable.com/customer-support/'
-    email: apiteam@skillable.com
+  x-logo:
+    url: 'https://raw.githubusercontent.com/LearnOnDemandSystems/ConnectAPI/main/Skillable%20Connect%20Logo.svg'
+    altText: Skillable Connect
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
   version: 2.0.0
-externalDocs:
-  description: Find out how to create Github repo for your OpenAPI spec.
-  url: 'https://github.com/Rebilly/generator-openapi-repo'
 servers:
   - url: 'https://lms.learnondemand.net/api/2.0'
-    description: OneLearn TMS API
+    description: Skillable Connect TMS API
 security:
   - apiKeyHeader: []
   - apiKeyQuery: []
@@ -113,7 +112,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: GetUser
+      summary: Retrieve user information by id
       description: Allows you to get information about a user (user object) with the given ID.
       operationId: GetUser
       parameters:
@@ -146,7 +145,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: GetUserByEmail
+      summary: Retrieve user information by email address
       description: Allows you to get information about a user with the given primary email address.
       operationId: GetUserByEmail
       parameters:
@@ -178,7 +177,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: GetUserByExternalId
+      summary: Retrieve user information using an external platform id
       description: Allows you to get information about a user with the given ExternalID.  The external ID is a unique identifier from your external system.
       operationId: GetUserByExternalId
       parameters:
@@ -211,7 +210,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: CreateUser
+      summary: Create a user
       description: Allows you to create a user.
       operationId: CreateUser
       parameters:
@@ -592,7 +591,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: DeleteUser
+      summary: Delete a user by id
       description: Allows you to delete a user.
       operationId: DeleteUser
       parameters:
@@ -626,7 +625,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: UpdateUser
+      summary: Update a user by id
       description: Allows you to update a user
       operationId: UpdateUser
       parameters:
@@ -987,7 +986,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: AddUserToRole
+      summary: Add a role to a user
       description: Allows you to add a user to a role
       operationId: AddUserToRole
       parameters:
@@ -1031,7 +1030,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: AddUserToRoles
+      summary: Add roles to a user
       description: Allows you to add a user to multiple roles
       operationId: AddUserToRoles
       parameters:
@@ -1075,7 +1074,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: RemoveUserFromRole
+      summary: Remove a user's role
       description: Allows you remove a user from a role
       operationId: RemoveUserFromRole
       parameters:
@@ -1119,7 +1118,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: AddOrganizationManagementToUser
+      summary: Assign a user organization management
       description: Allows you to assign management rights over an organization to a single user
       operationId: AddOrganizationManagementToUser
       parameters:
@@ -1163,7 +1162,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: RemoveOrganizationManagementFromUser
+      summary: Remove a user's organization management
       description: Allows you remove management rights over an organization from a single user
       operationId: RemoveOrganizationManagementFromUser
       parameters:
@@ -1207,7 +1206,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: UpdateUserPassword
+      summary: Update a user's password
       description: Allows you to update a user's password.
       operationId: UpdateUserPassword
       parameters:
@@ -1257,7 +1256,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: GetSsoRedirectUrl
+      summary: Retrieve SSO redirect into the TMS
       description: 'Allows you to retrieve a URL for redirecting a user into the the LMS for single sign-on. This allows you to land the student in the LMS without them having to login. Note: the URL is valid for only 20 seconds. The intention is for you to obtain the URL on demand when the user is to be redirected into the LMS from your system.'
       operationId: GetSsoRedirectUrl
       parameters:
@@ -1299,7 +1298,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: SearchSignInHistory
+      summary: Retrieve user sign-in history
       description: Allows you to search for user sign
       operationId: SearchSignInHistory
       parameters:
@@ -1392,7 +1391,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: SearchUserActivity
+      summary: Retrieve user activity
       description: Allows you to search for user activity.
       operationId: SearchUserActivity
       parameters:
@@ -1484,7 +1483,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: GetActiveSystemAnnouncements
+      summary: Retrieve system announcements
       description: Allows you to retreive active system announcements.
       operationId: GetActiveSystemAnnouncements
       parameters:
@@ -1518,7 +1517,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: CloseUserAccountById
+      summary: Close a user account by id removing personal information
       description: Allows you close a user account removing all identifying information from the system.
       operationId: CloseUserAccountById
       parameters:
@@ -1552,7 +1551,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: CloseUserAccountByExternalId
+      summary: Close a user account by external platform id removing personal information
       description: Allows you close a user account removing all identifying information from the system by providing a unique identifier from your external system.
       operationId: CloseUserAccountByExternalId
       parameters:
@@ -1584,7 +1583,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: DeleteUserDataById
+      summary: Remove specific data for a user using id
       description: Allows you remove specific types of user data for a user in the system.
       operationId: DeleteUserDataById
       parameters:
@@ -1671,7 +1670,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: DeleteUserDataByExternalId
+      summary: Remove specific data for a user using an external platform id
       description: Allows you remove specific types of user data for a user in the system by providing a unique identifier from your external system.
       operationId: DeleteUserDataByExternalId
       parameters:
@@ -1756,7 +1755,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: GetUserRoles
+      summary: Retrieve all assignable user roles
       description: Allows you to view all user roles available to your API integration.
       operationId: GetUserRoles
       parameters:
@@ -1780,7 +1779,7 @@ paths:
     get:
       tags:
         - User Management
-      summary: UpdateUserCustomFieldValue
+      summary: Update a custom field for a user
       description: Updates the current value of a specific custom field for a user.
       operationId: UpdateUserCustomFieldValue
       parameters:
@@ -1848,7 +1847,7 @@ paths:
     get:
       tags:
         - Organization Management
-      summary: GetOrganization
+      summary: Retrieve organization information by id
       description: Allows you to get information about an organization.
       operationId: GetOrganization
       parameters:
@@ -1881,7 +1880,7 @@ paths:
     get:
       tags:
         - Organization Management
-      summary: GetOrganizationByExternalId
+      summary: Retrieve organization information by external platform id
       description: Allows you to get information about an organization by providing a unique identifier from your external system.
       operationId: GetOrganizationByExternalId
       parameters:
@@ -1913,7 +1912,7 @@ paths:
     get:
       tags:
         - Organization Management
-      summary: CreateOrganization
+      summary: Create an organization
       description: Allows you to create an organization.
       operationId: CreateOrganization
       parameters:
@@ -2701,7 +2700,7 @@ paths:
     get:
       tags:
         - Organization Management
-      summary: DeleteOrganization
+      summary: Delete an organization by id
       description: Allows you to delete an organization.
       operationId: DeleteOrganization
       parameters:
@@ -2735,7 +2734,7 @@ paths:
     get:
       tags:
         - Organization Management
-      summary: UpdateOrganization
+      summary: Update an organization by id
       description: Allows you to update an organization.
       operationId: UpdateOrganization
       parameters:
@@ -3525,7 +3524,7 @@ paths:
     get:
       tags:
         - Course Management
-      summary: SearchCourses
+      summary: Search for courses
       description: Allows you to search for courses.
       operationId: SearchCourses
       parameters:
@@ -3655,7 +3654,7 @@ paths:
     get:
       tags:
         - Course Management
-      summary: GetCourse
+      summary: Retrieve information about a course by id
       description: Allows you to get information about a course.
       operationId: GetCourse
       parameters:
@@ -3689,7 +3688,7 @@ paths:
     get:
       tags:
         - Course Management
-      summary: GetCourseByExternalId
+      summary: Retrieve information about a course by external platform id
       description: Allows you to get information about a course by providing a unique identifier from your external system.
       operationId: GetCourseByExternalId
       parameters:
@@ -3721,7 +3720,7 @@ paths:
     get:
       tags:
         - Course Management
-      summary: SearchCourseTagGroups
+      summary: Search for course tag groups
       description: Allows you to search for course tag groups.
       operationId: SearchCourseTagGroups
       parameters:
@@ -3783,7 +3782,7 @@ paths:
     get:
       tags:
         - Course Management
-      summary: SearchCourseFeedback
+      summary: Search for course feedback
       description: Allows you to search for course feedback.
       operationId: SearchCourseFeedback
       parameters:
@@ -3888,7 +3887,7 @@ paths:
     get:
       tags:
         - Class Enrollment Management
-      summary: GetClassEnrollment
+      summary: Retrieve class enrollment information by id
       description: Allows you to get basic information about a class enrollment.
       operationId: GetClassEnrollment
       parameters:
@@ -3920,7 +3919,7 @@ paths:
     get:
       tags:
         - Class Enrollment Management
-      summary: GetClassEnrollmentByClassAndUser
+      summary: Retrieve class enrollment information by class id and user id
       description: Allows you to get information about a class enrollment by providing class and user identifiers.
       operationId: GetClassEnrollmentByClassAndUser
       parameters:
@@ -3964,7 +3963,7 @@ paths:
     get:
       tags:
         - Class Enrollment Management
-      summary: GetClassEnrollmentByExternalId
+      summary: Retrieve class enrollment information by external platform id
       description: Allows you to get information about a class enrollment by providing a unique identifier from your external system.
       operationId: GetClassEnrollmentByExternalId
       parameters:
@@ -3996,7 +3995,7 @@ paths:
     get:
       tags:
         - Class Enrollment Management
-      summary: CreateClassEnrollment
+      summary: Create a class enrollment
       description: Allows you to create a class enrollment.
       operationId: CreateClassEnrollment
       parameters:
@@ -4140,7 +4139,7 @@ paths:
     get:
       tags:
         - Class Enrollment Management
-      summary: DeleteClassEnrollment
+      summary: Delete a class enrollment by id
       description: Allows you to delete a class enrollment.
       operationId: DeleteClassEnrollment
       parameters:
@@ -4174,7 +4173,7 @@ paths:
     get:
       tags:
         - Class Enrollment Management
-      summary: UpdateClassEnrollment
+      summary: Update a class enrollment by id
       description: Allows you to update a class enrollment.
       operationId: UpdateClassEnrollment
       parameters:
@@ -4329,7 +4328,7 @@ paths:
     get:
       tags:
         - Class Enrollment Management
-      summary: SearchClassEnrollments
+      summary: Search for a class enrollment
       description: Allows you to search for a class enrollment.
       operationId: SearchClassEnrollments
       parameters:
@@ -4432,7 +4431,7 @@ paths:
     get:
       tags:
         - Course Assignment Management
-      summary: GetCourseAssignment
+      summary: Retrieve course assignment information by id
       description: Allows you to get information about a course assignment.
       operationId: GetCourseAssignment
       parameters:
@@ -4466,7 +4465,7 @@ paths:
     get:
       tags:
         - Course Assignment Management
-      summary: GetCourseAssignmentByExternalId
+      summary: Retrieve course assignment information by external id
       description: Allows you to get information about a course assignment by providing a unique identifier from your external system.
       operationId: GetCourseAssignmentByExternalId
       parameters:
@@ -4498,7 +4497,7 @@ paths:
     get:
       tags:
         - Course Assignment Management
-      summary: CreateCourseAssignment
+      summary: Create a course assignment
       description: Allows you to create a course assignment.
       operationId: CreateCourseAssignment
       parameters:
@@ -4583,7 +4582,7 @@ paths:
     get:
       tags:
         - Course Assignment Management
-      summary: DeleteCourseAssignment
+      summary: Delete a course assignment by id
       description: Allows you to delete a course assignment.
       operationId: DeleteCourseAssignment
       parameters:
@@ -4616,7 +4615,7 @@ paths:
     get:
       tags:
         - Course Assignment Management
-      summary: UpdateCourseAssignment
+      summary: Update a course assignment by id
       description: Allows you to update a course assignment.
       operationId: UpdateCourseAssignment
       parameters:
@@ -4729,7 +4728,7 @@ paths:
     get:
       tags:
         - Course Assignment Management
-      summary: SearchCourseAssignments
+      summary: Search for course assignments
       description: Allows you to search for course assignments.
       operationId: SearchCourseAssignments
       parameters:
@@ -4903,7 +4902,7 @@ paths:
     get:
       tags:
         - Searching
-      summary: SearchCourseCatalogSearchHistory
+      summary: Search the course catalog's search history
       description: Allows you to search course catalog search history records.
       operationId: SearchCourseCatalogSearchHistory
       parameters:
@@ -5000,7 +4999,7 @@ paths:
     get:
       tags:
         - Searching
-      summary: SearchLabInstances
+      summary: Search for lab instances
       description: Allows you to search for lab instances.
       operationId: SearchLabInstances
       parameters:
@@ -5174,7 +5173,7 @@ paths:
     get:
       tags:
         - Searching
-      summary: SearchCourseExternalActivityLaunches
+      summary: Search for course activities launched from an external link
       description: 'Allows you to search external course activity launches (videos, documents, etc.).'
       operationId: SearchCourseExternalActivityLaunches
       parameters:
@@ -5295,7 +5294,7 @@ paths:
     get:
       tags:
         - Class Management
-      summary: GetClass
+      summary: Retrieve class information by id
       description: Allows you to get information about a class.
       operationId: GetClass
       parameters:
@@ -5329,7 +5328,7 @@ paths:
     get:
       tags:
         - Class Management
-      summary: GetClassByClassTrainingKey
+      summary: Retrieve class information by class training key
       description: Allows you to get information about a class using the class training key.
       operationId: GetClassByClassTrainingKey
       parameters:
@@ -5362,7 +5361,7 @@ paths:
     get:
       tags:
         - Class Management
-      summary: GetClassByExternalId
+      summary: Retrieve class information by external platform ID
       description: Allows you to get information about a class by providing a unique identifier from your external system.
       operationId: GetClassByExternalId
       parameters:
@@ -5395,7 +5394,7 @@ paths:
     get:
       tags:
         - Class Management
-      summary: CreateClass
+      summary: Create a class
       description: Allows you to create a class.
       operationId: CreateClass
       parameters:
@@ -5694,7 +5693,7 @@ paths:
     get:
       tags:
         - Class Management
-      summary: UpdateClass
+      summary: Update a class by id
       description: Allows you to update a class.
       operationId: UpdateClass
       parameters:
@@ -5993,7 +5992,7 @@ paths:
     get:
       tags:
         - Class Management
-      summary: SearchClasses
+      summary: Search for classes
       description: Allows you to search for classes belonging to your organization.
       operationId: SearchClasses
       parameters:
@@ -6139,7 +6138,7 @@ paths:
     get:
       tags:
         - Class Management
-      summary: SearchPublicClassSchedule
+      summary: Search for public class schedules
       description: 'Allows you to search the public class schedule for your organization, including classes made available to your organization by partner organizations.'
       operationId: SearchPublicClassSchedule
       parameters:
@@ -6225,7 +6224,7 @@ paths:
     get:
       tags:
         - Class Management
-      summary: GetClassCustomFields
+      summary: Retrieves a list of class custom fields
       description: Retreives a list of all available custom fields for your organization.
       operationId: GetClassCustomFields
       parameters:
@@ -6249,7 +6248,7 @@ paths:
     get:
       tags:
         - Class Management
-      summary: GetClassCustomFieldValue
+      summary: Retrieves a value within a class' custom field
       description: Retreives the current value of a specific custom field for a class.
       operationId: GetClassCustomFieldValue
       parameters:
@@ -6291,7 +6290,7 @@ paths:
     get:
       tags:
         - Class Management
-      summary: UpdateClassCustomFieldValue
+      summary: Update a custom field for a class
       description: Updates the current value of a specific custom field for a class.
       operationId: UpdateClassCustomFieldValue
       parameters:
@@ -6363,7 +6362,7 @@ paths:
     get:
       tags:
         - Subscription Management
-      summary: GetClubMembership
+      summary: Retrieve subscription assignment information by id
       description: Allows you to get basic information about a subscription.
       operationId: GetClubMembership
       parameters:
@@ -6396,7 +6395,7 @@ paths:
     get:
       tags:
         - Subscription Management
-      summary: GetClubMembershipByExternalId
+      summary: Retrieve subscription assignment information by external platform ID
       description: Allows you to get information about a subscription by providing a unique identifier from your external system.
       operationId: GetClubMembershipByExternalId
       parameters:
@@ -6428,7 +6427,7 @@ paths:
     get:
       tags:
         - Subscription Management
-      summary: CreateClubMembership
+      summary: Create a subscription assignment
       description: Allows you to create a subscription.
       operationId: CreateClubMembership
       parameters:
@@ -6500,7 +6499,7 @@ paths:
     get:
       tags:
         - Subscription Management
-      summary: DeleteClubMembership
+      summary: Delete a subscription assignment by id
       description: Allows you to delete a subscription.
       operationId: DeleteClubMembership
       parameters:
@@ -6533,7 +6532,7 @@ paths:
     get:
       tags:
         - Subscription Management
-      summary: UpdateClubMembership
+      summary: Update a subscription assignment by id
       description: Allows you to update a subscription.
       operationId: UpdateClubMembership
       parameters:
@@ -6619,7 +6618,7 @@ paths:
     get:
       tags:
         - Company Management
-      summary: CreateCompany
+      summary: Create a company
       description: Allows you to create a company.
       operationId: CreateCompany
       parameters:
@@ -6805,7 +6804,7 @@ paths:
     get:
       tags:
         - Company Management
-      summary: UpdateCompany
+      summary: Update a company by id
       description: Allows you to update a company.
       operationId: UpdateCompany
       parameters:
@@ -7000,7 +6999,7 @@ paths:
     get:
       tags:
         - Company Management
-      summary: DeleteCompany
+      summary: Delete a company by id
       description: Allows you to delete a company.
       operationId: DeleteCompany
       parameters:
@@ -7033,7 +7032,7 @@ paths:
     get:
       tags:
         - Company Management
-      summary: GetCompany
+      summary: Search for a company by id
       description: Allows you to get a company.
       operationId: GetCompany
       parameters:
@@ -7066,7 +7065,7 @@ paths:
     get:
       tags:
         - Survey Management
-      summary: ExportSurveyResponses
+      summary: Retrieve survey results by id
       description: Allows you to get a company.
       operationId: ExportSurveyResponses
       parameters:
@@ -7099,7 +7098,7 @@ paths:
     get:
       tags:
         - Subscription Management
-      summary: SearchClubs
+      summary: Search for a subscription profile
       description: Allows you to search for subscription profiles.
       operationId: SearchClubs
       parameters:
@@ -7198,7 +7197,7 @@ paths:
     get:
       tags:
         - Subscription Management
-      summary: SearchClubMemberships
+      summary: Search for subscription assignments
       description: Allows you to search for user's subscriptions.
       operationId: SearchClubMemberships
       parameters:
@@ -7301,7 +7300,7 @@ paths:
     get:
       tags:
         - Subscription Management
-      summary: SearchSubscriptions
+      summary: Search for subscription assignments
       description: Allows you to search for user's subscriptions.
       operationId: SearchSubscriptions
       parameters:

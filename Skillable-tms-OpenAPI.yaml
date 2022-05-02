@@ -50,7 +50,6 @@ servers:
     description: Skillable Connect TMS API
 security:
   - apiKeyHeader: []
-  - apiKeyQuery: []
 tags:
   - name: User Management
     description: |-
@@ -10873,9 +10872,6 @@ components:
   securitySchemes:
     apiKeyHeader:
       type: apiKey
-      name: X-API-KEY
+      name: api_key
       in: header
-    apiKeyQuery:
-      type: apiKey
-      name: api-key
-      in: query
+      description: ''

@@ -233,7 +233,7 @@ paths:
             example: john.smith
         - name: password
           in: query
-          description: 'The user''s password (used during sign-in). Note: even if the user will be using an external authentication provider, the username/password properties should still be provided. The user will be prompted to reset their password on the next signin.'
+          description: 'The user''s password (used during sign-in). Note: even if the user will be using an external authentication provider, the username/password properties should still be provided. The user will be prompted to reset their password on the next sign in.'
           required: true
           style: form
           explode: true
@@ -563,7 +563,7 @@ paths:
             example: 12345678
         - name: managedOrganizationId
           in: query
-          description: 'An identifier for the organization the user should have management rights for. You can provide multiple instances of this parameter if the user should have management rights over multiple organizations. For example: managedOrganizationId=30&managedOrganizationId=45&managedOrganizationId=78. All managed organizations must the API caller organization or one of its children.'
+          description: 'An identifier for the organization the user should have management rights for. You can provide multiple instances of this parameter if the user should have management rights over multiple organizations. For example: managedOrganizationId=30&managedOrganizationId=45&managedOrganizationId=78. All managed organizations must belong to the API caller''s organization or one of its children.'
           required: false
           style: form
           explode: true
@@ -639,7 +639,7 @@ paths:
             type: string
         - name: id
           in: query
-          description: The user's LMS unique identifier.
+          description: The user's ID.
           required: true
           style: form
           explode: true
@@ -1270,7 +1270,7 @@ paths:
             type: string
         - name: userId
           in: query
-          description: The user's LMS unique identifier
+          description: The user's ID
           required: true
           style: form
           explode: true
@@ -1299,7 +1299,7 @@ paths:
       tags:
         - User Management
       summary: Retrieve user sign-in history
-      description: Allows you to search for user sign
+      description: Allows you to search for user sign in dates and times.
       operationId: SearchSignInHistory
       parameters:
         - name: api_key
@@ -1332,13 +1332,7 @@ paths:
             example: 20
         - name: sort
           in: query
-          description: |-
-            The value you want to sort by. If not supplied, a default value of "SignIn DESC" will be assumed. You can append " DESC" after the sort value to sort descending. For example, "SignIn DESC" would sort by sign-in time in descending order. Possible values: 
-            - SignIn 
-            - LastName 
-            - FirstName 
-            - UserName 
-            - Email
+          description: 'The value you want to sort by. If not supplied, a default value of "SignIn DESC" will be assumed. You can append "DESC" after the sort value to sort descending. For example, "SignIn DESC" would sort by sign-in time in descending order. Possible values: - SignIn - LastName - FirstName - UserName - Email'
           required: false
           style: form
           explode: true
@@ -1346,7 +1340,7 @@ paths:
             type: string
         - name: userId
           in: query
-          description: An optional parameter user to filter for sign-ins for a particular user.
+          description: An optional parameter used to filter for sign-ins for a particular user.
           required: false
           style: form
           explode: true
@@ -1438,7 +1432,7 @@ paths:
             type: string
         - name: userId
           in: query
-          description: An optional parameter user to filter for activity for a particular user
+          description: An optional parameter used to filter for activity for a particular user
           required: false
           style: form
           explode: true
@@ -1565,7 +1559,7 @@ paths:
             type: string
         - name: id
           in: path
-          description: The external ID of the user whose account to close
+          description: The external ID of the user whose account is to be closed.
           required: true
           style: simple
           explode: true
@@ -1597,7 +1591,7 @@ paths:
             type: string
         - name: id
           in: path
-          description: The ID of the user to delete data of
+          description: The user's ID.
           required: true
           style: simple
           explode: true
@@ -1684,7 +1678,7 @@ paths:
             type: string
         - name: id
           in: path
-          description: The external ID of the user to delete data
+          description: The external ID of the user to have data deleted.
           required: true
           style: simple
           explode: true

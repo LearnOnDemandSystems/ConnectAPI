@@ -772,7 +772,7 @@ paths:
     post:
       tags:
         - Lab Instance Management
-      summary: sendnotification
+      summary: Send a notification to a lab instance
       description: 'The **SendNotification** command allows you to send a notification to a specified lab instance for the user to see.  For notifications sent using the POST HTTP verb, the notification text is limited to 4000 characters.'
       operationId: SendNotification-post
       parameters:

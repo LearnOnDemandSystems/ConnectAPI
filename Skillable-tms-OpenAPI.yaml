@@ -66,26 +66,26 @@ tags:
     description: 'Courses in the TMS represent a related set of learning activities that create a single learning journey.  The Course Management API commands allow for the searching of courses, which will be required when creating classes and/or subscriptions as well as being able to return any collected course feedback.'
   - name: Class Enrollment Management
     description: |-
-      Classes represent an instance of a course delivered as an instructor led event.  Class enrollements define the connection of a user and the class the user will be part of.  The Class Enrollment Management API alloows the following tasks to be completed:
+      Classes represent an instance of a course delivered as an instructor led event.  Class enrollments define the connection of a user and the class the user will be part of.  The Class Enrollment Management API allows the following tasks to be completed:
       * Create Class Enrollments for a user
       * Update Class Enrollments for a user 
       * Search for Class Enrollments for a user
       * Delete Class Enrollments for a user
-      * Retrive specific details for Class Enrollemnts
+      * Retrieve specific details for Class Enrollments
   - name: Course Assignment Management
     description: |-
       Course Assignments are instances of a course being used for self-study purposes, and not connected with an Instructor or a class.  The Course Assignment Management API group of commands allows the following capabilities:  
-      * Create Class Enrollments for a user  
-      * Update Class Enrollments for a user  
-      * Search for Class Enrollments for a user  
-      * Delete Class Enrollments for a user  
-      * Retrieve  specific details for Classes Enrollemnts  
+      * Create Course Assignments for a user  
+      * Update Course Assignments for a user  
+      * Search for Course Assignments for a user  
+      * Delete Course Assignments for a user  
+      * Retrieve specific details for Course Assignments  
   - name: Searching
     description: |-
-      The Searching API comand group provides commands for the following scenarions:
+      The Searching API comand group provides commands for the following scenarios:
       * To search the TMS Course Catalog
       * Find Lab Instances (Lab Instances represent individual Lab launches against the LOD platform)
-      * Search  for launched activitives external to LOD e.g. Video, documents, SCORM, etc
+      * Search  for launched activities external to LOD e.g. Video, documents, SCORM, etc
   - name: Subscription Management
     description: |-
       Subscriptions (previously known as Clubs), are mostly used for the assignment of self-study learning.  The Subscription Management section allows the creation and management of these subscription assignmenst to users.  The functions are grouped into the areas of:  
@@ -94,11 +94,11 @@ tags:
       * Modify a Subscriptions  
       * Delete a Subscriptions 
   - name: Company Management
-    description: 'Company Management within the Skillable TMS allows for the registration of companies that are the customers of a Skillable TMS customer.  The use of this object type is to enable a Skillable TMS customer to store contact information for their customers.  This information can then be connected to users of the TMS and allows reports to be run which return activity of users from a specific customer.  The API allows for the creation, modification, updating and searching of companies.'
+    description: 'Company Management allows you to register your customers as companies. The use of companies enables you to store contact information for your customers. This information can be connected to users within the TMS, then reports can return user activity from a specific company.'
   - name: Survey Management
     description: Survey Management allows the retrival of all survey responses for a specific course.
   - name: Class Management
-    description: 'The Class Management group of API command allows for the creation, management and finding of scheduled classes within the Skillable TMS.  Classes can be found by using Class ID''s as well as the training key associated with a class'
+    description: 'The Class Management group of API command allows for the creation, management and finding of scheduled classes within the Skillable TMS.  Classes can be found by using Class ID''s as well as the training key associated with a class.'
 paths:
   '/GetUser/{id}':
     get:
@@ -1249,7 +1249,7 @@ paths:
       tags:
         - User Management
       summary: Retrieve SSO redirect into the TMS
-      description: 'Allows you to retrieve a URL for redirecting a user into the the LMS for single sign-on. This allows you to land the student in the LMS without them having to login. Note: the URL is valid for only 20 seconds. The intention is for you to obtain the URL on demand when the user is to be redirected into the LMS from your system.'
+      description: 'Allows you to retrieve a URL for redirecting a user into the the TMS for single sign-on. This allows you to land the student in the TMS without them having to login. Note: the URL is valid for only 20 seconds. The intention is for you to obtain the URL on demand when the user is to be redirected into the TMS from your system.'
       operationId: GetSsoRedirectUrl
       parameters:
         - name: api_key
@@ -1272,7 +1272,7 @@ paths:
             example: 57383
         - name: destinationUrl
           in: query
-          description: 'An optional URL that you want the user to land on within the LMS. For instance, if you wanted to land the user on the class schedule, you could pass a value of "/Class/Schedule." Use of this feature requires some knowledge of the LMS URL schema. In general, you can figure out how URLs work by observing them while navigating within the LMS.'
+          description: 'An optional URL that you want the user to land on within the LMS. For instance, if you wanted to land the user on the class schedule, you could pass a value of "/Class/Schedule." Use of this feature requires some knowledge of the LMS URL schema. In general, you can figure out how URLs work by observing them while navigating within the TMS.'
           required: false
           style: form
           explode: true
@@ -2734,7 +2734,7 @@ paths:
             type: string
         - name: id
           in: path
-          description: The organization's LMS ID
+          description: The organization's ID
           required: true
           style: simple
           explode: true
@@ -3545,7 +3545,7 @@ paths:
         - name: sort
           in: query
           description: |-
-            he value you want to sort by. If not supplied, a default value of "Name" will be used. You can append " DESC" after the sort value to sort descending. For example, "Name DESC" would sort by name in descending order. Possible values: 
+            The value you want to sort by. If not supplied, a default value of "Name" will be used. You can append " DESC" after the sort value to sort descending. For example, "Name DESC" would sort by name in descending order. Possible values: 
             - Name 
             - Organization 
             - ContentProvider 
@@ -3558,7 +3558,7 @@ paths:
             type: string
         - name: name
           in: query
-          description: 'n optional parameter used to filter for courses by name. When specified, only courses that have names that contain or match the this value will be returned.'
+          description: 'An optional parameter used to filter for courses by name. When specified, only courses that have names that contain or match this value will be returned.'
           required: false
           style: form
           explode: true
@@ -3803,14 +3803,14 @@ paths:
         - name: sort
           in: query
           description: |-
-            he value you want to sort by. If not supplied, a default value of "Created" will be used. You can append " DESC" after the sort value to sort descending. For example, "Created DESC" would sort by created date in descending order. Possible values:
+            The value you want to sort by. If not supplied, a default value of "Created" will be used. You can append " DESC" after the sort value to sort descending. For example, "Created DESC" would sort by created date in descending order. Possible values:
             - Created 
             - Title 
             - Content 
             - Positive 
             - Negative 
             - User 
-            - CoruseAssignment 
+            - CourseAssignment 
             - Course 
             - Class 
             - ClassEnrollment 
@@ -3833,7 +3833,7 @@ paths:
             example: 67785
         - name: name
           in: query
-          description: 'An optional parameter used to filter for courses by name. When specified, only feedback entries for courses that have names that contain or match the this value will be returned.'
+          description: 'An optional parameter used to filter for courses by name. When specified, only feedback entries for courses that have names that contain or match this value will be returned.'
           required: false
           style: form
           explode: true
@@ -3919,7 +3919,7 @@ paths:
             type: string
         - name: classId
           in: query
-          description: The ID of the class the enrollment to retrieve is for
+          description: The class ID of the enrollment
           required: true
           style: form
           explode: true
@@ -3929,7 +3929,7 @@ paths:
             example: 445632
         - name: userId
           in: query
-          description: The ID of the user the enrollment to retrieve is for
+          description: The user ID of the enrollment
           required: true
           style: form
           explode: true
@@ -4349,7 +4349,7 @@ paths:
         - name: sort
           in: query
           description: |-
-            TThe value you want to sort by. If not supplied, a default value of "Name" will be used. You can append " DESC" after the sort value to sort descending. For example, "Name DESC" would sort by name in descending order. Possible values:
+            The value you want to sort by. If not supplied, a default value of "Name" will be used. You can append " DESC" after the sort value to sort descending. For example, "Name DESC" would sort by name in descending order. Possible values:
             - Name 
             - Program 
             - CompanyOrganization 
@@ -4538,7 +4538,7 @@ paths:
             example: 1234
         - name: Expires
           in: query
-          description: 'When the course assignment expires (if ever) (as a date string in format yyyy-MM-dd ex: 2025-12-04)'
+          description: 'When the course assignment expires (as a date string in format yyyy-MM-dd ex: 2025-12-04)'
           required: false
           style: form
           explode: true
@@ -5075,7 +5075,7 @@ paths:
         - name: completionStatus
           in: query
           description: |-
-            ilters for lab instances with a particular completion status. Possible values:
+            Filters for lab instances with a particular completion status. Possible values:
             - 0 = Cancelled
             - 10 = In progress
             - 30 = Complete
@@ -6248,7 +6248,7 @@ paths:
             type: string
         - name: customFieldId
           in: query
-          description: The ID of the custom field of which's value to retrieve
+          description: The ID of the custom field.
           required: true
           style: form
           explode: true
@@ -6257,7 +6257,7 @@ paths:
             format: int32
         - name: classId
           in: query
-          description: The ID of the class of which's custom field value to retrieve
+          description: The ID of the class holding the custom field.
           required: true
           style: form
           explode: true
@@ -6290,7 +6290,7 @@ paths:
             type: string
         - name: customFieldId
           in: query
-          description: The ID of the custom field of which's value to update
+          description: The ID of the custom field.
           required: true
           style: form
           explode: true
@@ -6298,7 +6298,7 @@ paths:
             type: string
         - name: classId
           in: query
-          description: The ID of the class of which's custom field value to update
+          description: The ID of the class holding the custom field.
           required: true
           style: form
           explode: true
@@ -6349,7 +6349,7 @@ paths:
       tags:
         - Subscription Management
       summary: Retrieve subscription assignment information by id
-      description: Allows you to get basic information about a subscription.
+      description: Allows you to get basic information about a subscription assignment.
       operationId: GetClubMembership
       parameters:
         - name: api_key
@@ -6382,7 +6382,7 @@ paths:
       tags:
         - Subscription Management
       summary: Retrieve subscription assignment information by external platform ID
-      description: Allows you to get information about a subscription by providing a unique identifier from your external system.
+      description: Allows you to get information about a subscription assignment by providing a unique identifier from your external system.
       operationId: GetClubMembershipByExternalId
       parameters:
         - name: api_key
@@ -6414,7 +6414,7 @@ paths:
       tags:
         - Subscription Management
       summary: Create a subscription assignment
-      description: Allows you to create a subscription.
+      description: Allows you to create a subscription assignment.
       operationId: CreateClubMembership
       parameters:
         - name: api_key
@@ -6486,7 +6486,7 @@ paths:
       tags:
         - Subscription Management
       summary: Delete a subscription assignment by id
-      description: Allows you to delete a subscription.
+      description: Allows you to delete a subscription assignment.
       operationId: DeleteClubMembership
       parameters:
         - name: api_key
@@ -6519,7 +6519,7 @@ paths:
       tags:
         - Subscription Management
       summary: Update a subscription assignment by id
-      description: Allows you to update a subscription.
+      description: Allows you to update a subscription assignment.
       operationId: UpdateClubMembership
       parameters:
         - name: api_key
@@ -7052,7 +7052,7 @@ paths:
       tags:
         - Survey Management
       summary: Retrieve survey results by id
-      description: Allows you to get a company.
+      description: Allows you to get a responses from a survey.
       operationId: ExportSurveyResponses
       parameters:
         - name: api_key
@@ -7184,7 +7184,7 @@ paths:
       tags:
         - Subscription Management
       summary: Search for subscription assignments
-      description: Allows you to search for user's subscriptions.
+      description: Allows you to search for user's subscription assignments.
       operationId: SearchClubMemberships
       parameters:
         - name: api_key
@@ -7218,14 +7218,14 @@ paths:
           description: |-
             The value you want to sort by.  
             Possible values:  
-            UserId  
-            ExternalUserId  
-            Subscription  
-            Starts  
-            Expires  
-            TargetCompletion  
-            Created  
-            LastModified  
+            - UserId  
+            - ExternalUserId  
+            - Subscription  
+            - Starts  
+            - Expires  
+            - TargetCompletion  
+            - Created  
+            - LastModified  
           required: false
           style: form
           explode: true
@@ -7287,7 +7287,7 @@ paths:
       tags:
         - Subscription Management
       summary: Search for subscription assignments
-      description: Allows you to search for user's subscriptions.
+      description: Allows you to search for user's subscription assignments.
       operationId: SearchSubscriptions
       parameters:
         - name: api_key
@@ -7321,14 +7321,14 @@ paths:
           description: |-
             The value you want to sort by.  
             Possible values:  
-            UserId  
-            ExternalUserId  
-            Subscription  
-            Starts  
-            Expires  
-            TargetCompletion  
-            Created  
-            LastModified  
+            - UserId  
+            - ExternalUserId  
+            - Subscription  
+            - Starts  
+            - Expires  
+            - TargetCompletion  
+            - Created  
+            - LastModified  
           required: false
           style: form
           explode: true
@@ -9888,24 +9888,24 @@ components:
           example: .Net Club
         Starts:
           type: string
-          description: When the subscription starts.
-          nullable: true
+          description: When the subscription starts (in Unix epoch time).
           example: '2021-03-19T22:16:07.967Z'
+          nullable: true
         Expires:
           type: string
-          description: When the subscription ends or expires.
-          nullable: true
+          description: 'When the subscription ends or expires (in Unix epoch time). '
           example: '2022-03-19T22:15:59.997Z'
+          nullable: true
         LastModified:
           type: string
-          description: When the subscription was last modified.
-          nullable: true
+          description: When the subscription was last modified (in Unix epoch time).
           example: '2021-04-19T11:23:02.567Z'
+          nullable: true
         Created:
           type: string
-          description: When the subscription was created.
-          nullable: true
+          description: When the subscription was created (in Unix epoch time).
           example: '2021-03-19T22:16:07.967Z'
+          nullable: true
     CreateCompanyResponse:
       type: object
       properties:

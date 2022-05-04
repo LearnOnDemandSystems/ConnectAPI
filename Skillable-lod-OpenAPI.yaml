@@ -60,11 +60,49 @@ security:
   - api_key: []
 tags:
   - name: Lab Instance Management
+    description: |-
+      The Lab Instance Management group of API commands allows interacting with lab instances. This includes but is not limited to the following actions: 
+      * Launch a lab 
+      * Cancel a lab
+      * Save a lab 
+      * Resuming a lab
+      * Initiate scoring of activities in a lab  
+      * Send notifications to a lab  
+      * Retrieve information about lab instances
   - name: Lab Profile Management
+    description: |-
+      The Lab Profile Management group of API commands allows for managing instructions and retrieving information about Lab Profiles within LOD. 
+      * Retrieve information about a specific lab profile
+      * Retrieve lab instructions for a specific lab 
+      * Download instructions in a zip file for a specific lab 
+      * Update lab instructions for a specific lab profile using an HTTP post
+      * Update lab instructions for a specific lab by uploading a zip file
   - name: Class Management
+    description: |-
+      The Class Management group of API commands allows for the creation, management, access, and monitoring of classes within LOD. 
+      * Retrieve information about a class in LOD
+      * Retrieve information about an existing class, if the class does not exist, it will be created
+      * Return a single access URL to access a class management page
+      * Return a single use URL to monitor a lab instance
+      * Return a single use URL to access a lab instance
+      * Update a specific class
+      * Delete a specific class
   - name: User Management
+    description: |-
+      The User Management group of API commands are used to administer user accounts within LOD.
+      * Return information about saved or running labs for a specific user account
+      * Close a user account and remove all associated user information
   - name: Event Management
+    description: |-
+      The Event Management group of API commands allows for launching lab profiles for events and retrieving evaluation responses.
+      * Launch a lab within an event 
+      * Launch a lab within an event, using an external ID
+      * Retrieve evaluation data for a specified event 
   - name: Organization
+    description: |-
+      Organizational API commands within LOD provide the ability to return information about lab profiles, lab series, and delivery regions available to your organization in LOD.
+      * Retrieve information about lab profiles, lab series, and delivery regions available to your organization
+      * Retrieve information about delivery regions that are available to your organization
 paths:
   /launch:
     get:

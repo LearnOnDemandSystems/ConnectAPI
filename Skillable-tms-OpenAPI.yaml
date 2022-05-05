@@ -10305,7 +10305,7 @@ components:
       schema:
         type: string
   securitySchemes:
-    apiKeyHeader:
+    api_key:
       type: apiKey
       name: api_key
       in: header

@@ -49,7 +49,7 @@ servers:
   - url: 'https://lms.learnondemand.net/api/2.0'
     description: Skillable Connect TMS API
 security:
-  - apiKeyHeader: []
+  - api_key: []
 tags:
   - name: User Management
     description: |-

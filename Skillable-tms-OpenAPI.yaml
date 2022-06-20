@@ -2,31 +2,6 @@ openapi: 3.0.3
 info:
   title: TMS API
   description: |
-    # Introduction | TMS API
-    The Skillable LOD API is structured around REST. "TMS" stands for "Training Management System", our core platform for manage your users, scheduling training to consume content. Additionally, this API enables access to the data reflecting each user’s activity and performance for each course launched or class attended.
-
-    If you're looking to integrate with Skillable LOD, Lab on Demand, take a look at [Skillable Connect : LOD Edition](https://connect.skillable.com/lod). 
-
-    Our API has predictable resource-oriented URLs, accepts form-encoded request bodies, returns JSON-encoded responses, and uses standard HTTP response codes, authentication, and verbs.
-
-    Skillable's TMS API provides many separate REST APIs – each for performing a specific action.
-
-    Creating, managing user accounts.
-    Obtain detailed reporting for user activity.
-    Search detailed information on all course data and obtain user feedback.
-    Create, update, and manage class enrollments.
-    Assign course assignments and be able to query on External user ID's
-    Course Subscriptions can be created and updated
-    User Surveys can be exported to obtain the detailed information
-    Create and update classes, assign instructors, obtain listing of classes by training key
-
-    ## What is a RESTful API?
-    "API" stands for "Application Programming Interface" – put simply, a set of rules that helps systems talk and expose/share data to one another across the Internet in a consistent way.
-
-    "REST" stands for "Representational State Transfer" and is a standard architectural pattern describing how distributed systems can expose a consistent interface. When people use the term 'REST API', they are generally referring to an API accessed using the HTTP protocol at a predefined set of URLs.
-
-    These URLs represent various resources — any information or content accessed at that location, which can be returned as JSON, HTML, audio files, or images. Often resources have one or more methods that can be performed on them over HTTP, like GET, POST, PUT, and DELETE. The action represented by the first and last of these is clear, but POST and PUT have specific meanings. How they are defined is confusing, but the general rule is: use POST to create resources and PUT to update resources.
-
     ## Authenticate with API Key
     Skillable APIs offer one form of authentication: an API Key. All methods require an API Key, which must be obtained from a Skillable team member working with your organization. Our systems use this key to validate your development account. 
 

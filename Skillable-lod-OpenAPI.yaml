@@ -2,6 +2,9 @@ openapi: 3.0.3
 info:
   title: LOD API
   description: |
+    # Introduction 
+    Welcome to Skillable Connect: LOD Edition, our core platform for creating, customizing, and managing labs.
+
     ## Skillable Production API & Integration Testing
     Only lab profiles with a development status of **Complete** are consumable via API.
 

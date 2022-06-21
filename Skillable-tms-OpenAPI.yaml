@@ -3,7 +3,7 @@ info:
   title: TMS API
   description: |
     # Introduction
-    Welcome to Skillable Connect: TMS Edition,o ur core platform for managing your users, scheduling training to consume content. 
+    Welcome to Skillable Connect: TMS Edition, our core platform for managing your users, scheduling training to consume content. 
 
     ## Authenticate with API Key
     Skillable APIs offer one form of authentication: an API Key. All methods require an API Key, which must be obtained from a Skillable team member working with your organization. Our systems use this key to validate your development account. 

@@ -449,7 +449,14 @@ paths:
                           - AnswerId: 2856
                             AnswerText: '2'
                             Correct: true
-                        ScriptResults: []
+                        ScriptResults:
+                          - ScriptId: 872
+                            Score: 0
+                            Passed: false
+                            UiResponse: ''
+                            ScriptResponse: Failed to create a file in thefor presence of file in Temp folder.
+                            PlatformError: false
+                            ScriptError: false
                         DisplayScriptsAsTaskList: false
                         AnswerTexts:
                           - Correct: false
@@ -487,7 +494,14 @@ paths:
                           - AnswerId: 2861
                             AnswerText: '2, 2'
                             Correct: true
-                        ScriptResults: []
+                        ScriptResults:
+                          - ScriptId: 872
+                            Score: 0
+                            Passed: false
+                            UiResponse: ''
+                            ScriptResponse: Failed to create a file int he Temp folder.
+                            PlatformError: false
+                            ScriptError: false
                         DisplayScriptsAsTaskList: false
                         AnswerTexts:
                           - Correct: true
@@ -1571,13 +1585,12 @@ paths:
         - name: id
           in: query
           description: 'The unique identifier of the class, as represented in your organization.'
-          required: true
           style: form
           explode: true
           schema:
             type: string
-            format: int32
             example: '1223334444'
+          required: true
       responses:
         '200':
           description: OK Response.

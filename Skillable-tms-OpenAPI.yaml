@@ -5213,13 +5213,13 @@ paths:
         - name: ClassMeetings
           in: query
           description: A collection of ClassMeetings in JSON format.
-          required: true
           style: form
-          explode: true
           schema:
             type: array
             items:
               $ref: '#/components/schemas/ClassMeeting'
+          explode: true
+          required: true
         - name: AvailableToOrganizationIds
           in: query
           description: A comma separated list of int organization Ids that this class should be available to.
@@ -7090,7 +7090,7 @@ components:
           $ref: '#/components/schemas/Error'
         Results:
           type: array
-          description: See CousreAssignment
+          description: See CourseAssignment
           items:
             $ref: '#/components/schemas/CourseAssignment'
     CreateCourseAssignmentResponse:

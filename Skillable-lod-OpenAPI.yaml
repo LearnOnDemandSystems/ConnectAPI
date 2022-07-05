@@ -562,16 +562,30 @@ paths:
                     ActivityGroupResults:
                       - Id: 1131
                         Name: GRP1
-                        ScoreValueTotal: 20
-                        AggregateScore: 0
+                        ScoreValueTotal: 40
+                        AggregateScore: 20
                         ActivityResults:
                           - ActivityId: 91811
                             ActivityName: Instructor First Name
                             Scored: true
+                            Score: 20
+                            Passed: true
+                            ActivityType: 20
+                            TextResult: Jon
+                            UiResponse: Correct
+                            AnswerResults: []
+                            ScriptResults: []
+                            DisplayScriptsAsTaskList: false
+                            AnswerTexts: []
+                            ScriptTexts: []
+                            ShowResultsInReports: true
+                          - ActivityId: 91812
+                            ActivityName: Instructor Last Name
+                            Scored: true
                             Score: 0
                             Passed: false
                             ActivityType: 20
-                            TextResult: null
+                            TextResult: Kirk
                             UiResponse: Incorrect
                             AnswerResults: []
                             ScriptResults: []

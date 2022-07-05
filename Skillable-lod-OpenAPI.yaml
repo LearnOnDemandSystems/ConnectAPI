@@ -444,19 +444,12 @@ paths:
                         Passed: true
                         ActivityType: 0
                         TextResult: null
-                        UiResponse: null
+                        UiResponse: You got the correct answer.
                         AnswerResults:
                           - AnswerId: 2856
                             AnswerText: '2'
                             Correct: true
-                        ScriptResults:
-                          - ScriptId: 872
-                            Score: 0
-                            Passed: false
-                            UiResponse: ''
-                            ScriptResponse: Failed to create a file in thefor presence of file in Temp folder.
-                            PlatformError: false
-                            ScriptError: false
+                        ScriptResults: []
                         DisplayScriptsAsTaskList: false
                         AnswerTexts:
                           - Correct: false
@@ -476,6 +469,7 @@ paths:
                             Text: '4'
                             Chosen: false
                         ScriptTexts: []
+                        ShowResultsInReports: true
                       - ActivityId: 4911
                         ActivityName: Select all that result in a product of 4
                         Scored: true
@@ -483,7 +477,7 @@ paths:
                         Passed: true
                         ActivityType: 10
                         TextResult: null
-                        UiResponse: null
+                        UiResponse: 'Good, you understand what a product function is.'
                         AnswerResults:
                           - AnswerId: 2859
                             AnswerText: '1, 4'
@@ -494,14 +488,6 @@ paths:
                           - AnswerId: 2861
                             AnswerText: '2, 2'
                             Correct: true
-                        ScriptResults:
-                          - ScriptId: 872
-                            Score: 0
-                            Passed: false
-                            UiResponse: ''
-                            ScriptResponse: Failed to create a file int he Temp folder.
-                            PlatformError: false
-                            ScriptError: false
                         DisplayScriptsAsTaskList: false
                         AnswerTexts:
                           - Correct: true
@@ -521,6 +507,7 @@ paths:
                             Text: '2, -2'
                             Chosen: false
                         ScriptTexts: []
+                        ShowResultsInReports: true
                       - ActivityId: 4912
                         ActivityName: What is the southernmost continent on earth?
                         Scored: true
@@ -528,12 +515,84 @@ paths:
                         Passed: true
                         ActivityType: 20
                         TextResult: Antarctica
-                        UiResponse: null
+                        UiResponse: 'Great, you know your geography.'
                         AnswerResults: []
                         ScriptResults: []
                         DisplayScriptsAsTaskList: false
                         AnswerTexts: []
                         ScriptTexts: []
+                        ShowResultsInReports: true
+                      - ActivityId: 110631
+                        ActivityName: What are the colors of the French flag?
+                        Scored: true
+                        Score: 3
+                        Passed: true
+                        ActivityType: 30
+                        TextResult: 'It''s blue, white, red'
+                        UiResponse: 'Correct, move on to the next flag question.'
+                        AnswerResults: []
+                        ScriptResults: []
+                        DisplayScriptsAsTaskList: false
+                        AnswerTexts: []
+                        ScriptTexts: []
+                        ShowResultsInReports: true
+                      - ActivityId: 91810
+                        ActivityName: 'Create a folder called LAB in the root of C:'
+                        Scored: true
+                        Score: 0
+                        Passed: false
+                        ActivityType: 40
+                        TextResult: null
+                        UiResponse: null
+                        AnswerResults: []
+                        ScriptResults:
+                          - ScriptId: 37337
+                            Score: 0
+                            Passed: false
+                            UiResponse: ''
+                            ScriptResponse: "Check if [C:\\LAB] exists.\r\n\r\nPath Does Not Exist\r\n"
+                            PlatformError: false
+                            ScriptError: false
+                        DisplayScriptsAsTaskList: false
+                        AnswerTexts: []
+                        ScriptTexts:
+                          - ScriptId: 37337
+                            Text: null
+                        ShowResultsInReports: true
+                    ActivityGroupResults:
+                      - Id: 1131
+                        Name: GRP1
+                        ScoreValueTotal: 40
+                        AggregateScore: 20
+                        ActivityResults:
+                          - ActivityId: 91811
+                            ActivityName: Instructor First Name
+                            Scored: true
+                            Score: 20
+                            Passed: true
+                            ActivityType: 20
+                            TextResult: Jon
+                            UiResponse: Correct
+                            AnswerResults: []
+                            ScriptResults: []
+                            DisplayScriptsAsTaskList: false
+                            AnswerTexts: []
+                            ScriptTexts: []
+                            ShowResultsInReports: true
+                          - ActivityId: 91812
+                            ActivityName: Instructor Last Name
+                            Scored: true
+                            Score: 0
+                            Passed: false
+                            ActivityType: 20
+                            TextResult: Kirk
+                            UiResponse: Incorrect
+                            AnswerResults: []
+                            ScriptResults: []
+                            DisplayScriptsAsTaskList: false
+                            AnswerTexts: []
+                            ScriptTexts: []
+                            ShowResultsInReports: true
                     EstimatedReadySeconds: null
                     Error: null
                     Status: 1
@@ -3636,6 +3695,95 @@ components:
                 description: The Activity ID and Text displayed in the Task List if Task List is enabled on the activity.
                 items:
                   type: object
+              ShowResultsInReports:
+                type: boolean
+                description: Whether results of the script are shown on the lab instance.
+        ActivityGroupResults:
+          type: array
+          description: An array of results for activities displayed in the lab instance Activity Group. This contains an array of ActivityResult objects.
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int32
+                description: ID of the Activity Group.
+              Name:
+                type: string
+                description: Name of the Activity Group.
+              ScoreValueTotal:
+                type: number
+                format: float
+                description: The maximum score for the Activity Group.
+              AggregateScore:
+                type: number
+                format: float
+                description: The resultant score the of the Activity Group.
+              ActivityResults:
+                type: array
+                description: An array of results for activities displayed in the lab instance Activity Group. This contains an array of ActivityResult objects.
+                items:
+                  type: object
+                  properties:
+                    ActivityId:
+                      type: integer
+                      format: int32
+                      description: ID of the Activity.
+                    ActivityName:
+                      type: string
+                      description: Name of the Activity.
+                    Scored:
+                      type: boolean
+                      description: Whether the activity is scored.
+                    Score:
+                      type: integer
+                      description: The Score received by the student.
+                    Passed:
+                      type: boolean
+                      description: Whether the student received a passing score on the activity.
+                    ActivityType:
+                      type: integer
+                      description: |-
+                        0 = Multiple choice, single answer  
+                        10 = Multiple choice, multiple answer  
+                        20 = Short answer, exact match  
+                        30 = Short answer, regex match  
+                        40 = Automated Activity  
+                    TextResult:
+                      type: string
+                      description: The answer given by a student for Short Answer type questions.
+                    UiResponse:
+                      type: string
+                      description: The response given to the student if specified in the question Answer Feedback.
+                    AnswerResults:
+                      type: array
+                      description: A collection of the answers available in single-answer activities.
+                      items:
+                        type: object
+                    ScriptResults:
+                      type: array
+                      description: 'A collection of the results of the an automated activity. Includes Script ID, Score, Passing Status, UiResponse, ScriptResponse, PlatformError, and ScriptError.'
+                      items:
+                        type: object
+                    DisplayScriptsAsTaskList:
+                      type: boolean
+                      description: Whether automated activities are scored as a TaskList or individually.
+                    AnswerTexts:
+                      type: array
+                      description: A collection of the answers available in multi- answer activities.
+                      items:
+                        type: object
+                        properties:
+                          '':
+                            type: string
+                    ScriptTexts:
+                      type: array
+                      description: The Activity ID and Text displayed in the Task List if Task List is enabled on the activity.
+                      items:
+                        type: object
+                    ShowResultsInReports:
+                      type: boolean
+                      description: Whether results of the script are shown on the lab instance.
         EstimatedReadySeconds:
           type: integer
           description: An estimated number of seconds before the lab is ready.

@@ -3784,7 +3784,7 @@ components:
                     ShowResultsInReports:
                       type: boolean
                       description: Whether results of the script are shown on the lab instance.
-        EstimatedReadySeconds - copy:
+        EstimatedReadySeconds:
           type: integer
           description: An estimated number of seconds before the lab is ready.
           format: int32

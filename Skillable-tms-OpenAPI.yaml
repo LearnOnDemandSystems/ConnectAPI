@@ -4680,8 +4680,8 @@ paths:
             Filters for lab instances with a particular completion status. Possible values:
             - 0 = Cancelled
             - 10 = In progress
-            - 30 = Complete
-            - 40 = Error
+            - 20 = Complete
+            - 30 = Error
           required: false
           style: form
           explode: true

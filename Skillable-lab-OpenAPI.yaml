@@ -83,7 +83,7 @@ tags:
       * Retrieve evaluation data for a specified event 
   - name: Organization
     description: |-
-      Organizational API commands provides the ability to return information about lab profiles, lab series, and delivery regions available to your organization in Skillable Studio.
+      Organizational API commands provide the ability to return information about lab profiles, lab series, and delivery regions available to your organization in Skillable Studio.
       * Retrieve information about lab profiles, lab series, and delivery regions available to your organization
       * Retrieve information about delivery regions that are available to your organization
 paths:

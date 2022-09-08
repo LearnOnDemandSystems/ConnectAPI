@@ -4239,7 +4239,7 @@ paths:
       description: Allows you to update a course assignment.
       operationId: UpdateCourseAssignment
       parameters:
-        - name: CourseAssignmentId
+        - name: Id
           in: query
           description: The ID of the course assignment
           required: true
@@ -4334,7 +4334,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreateCourseAssignmentResponse'
+                $ref: '#/components/schemas/UpdateCourseAssignmentResponse'
       deprecated: false
   /SearchCourseAssignments:
     get:
@@ -7116,6 +7116,24 @@ components:
           description: The ID of the created course assignment.
           format: int32
           example: 45632
+    UpdateCourseAssignmentResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: |-
+            Indicates the status of the API request.  
+
+            - 0 = Success  
+            - 10 = Error  
+            - 20 = Not found  
+            - 30 = Invalid integration key
+          format: int32
+          example: 10
+        error:
+          type: string
+          description: Error details. This will only have a value if an error was encountered. The status property will also be set to Error (10).
+          nullable: true
     SearchCourseAssignmentsResponse:
       type: object
       properties:

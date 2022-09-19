@@ -66,7 +66,7 @@ tags:
       * Search  for launched activities external to LOD e.g. Video, documents, SCORM, etc
   - name: Subscription Management
     description: |-
-      Subscriptions (previously known as Clubs), are mostly used for the assignment of self-study learning.  The Subscription Management section allows the creation and management of these subscription assignmenst to users.  The functions are grouped into the areas of:  
+      Subscriptions (previously known as Clubs), are mostly used for the assignment of self-study learning.  The Subscription Management section allows the creation and management of these subscription assignments to users.  The functions are grouped into the areas of:  
       * Creations of Subscriptions  
       * Searching for Subscriptions   
       * Modify a Subscriptions  

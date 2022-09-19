@@ -1177,7 +1177,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 1
         - name: pageSize
           in: query
           description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
@@ -1187,7 +1186,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 20
         - name: sort
           in: query
           description: 'The value you want to sort by. If not supplied, a default value of "SignIn DESC" will be assumed. You can append "DESC" after the sort value to sort descending. For example, "SignIn DESC" would sort by sign-in time in descending order. Possible values: - SignIn - LastName - FirstName - UserName - Email'
@@ -1256,7 +1254,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 1
         - name: pageSize
           in: query
           description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
@@ -1266,7 +1263,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 20
         - name: sort
           in: query
           description: |-
@@ -3285,7 +3281,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 1
         - name: pageSize
           in: query
           description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
@@ -3295,7 +3290,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 20
         - name: sort
           in: query
           description: |-
@@ -3457,7 +3451,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 1
         - name: pageSize
           in: query
           description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
@@ -3467,7 +3460,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 20
         - name: sort
           in: query
           description: |-
@@ -3511,7 +3503,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 1
         - name: pageSize
           in: query
           description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
@@ -3521,7 +3512,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 20
         - name: sort
           in: query
           description: |-
@@ -4001,7 +3991,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 1
         - name: pageSize
           in: query
           description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
@@ -4011,7 +4000,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 20
         - name: sort
           in: query
           description: |-
@@ -4020,7 +4008,6 @@ paths:
             - Program 
             - CompanyOrganization 
             - Owner 
-            - Club 
             - Company 
             - Starts 
             - Expires 
@@ -4353,7 +4340,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 1
         - name: pageSize
           in: query
           description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
@@ -4363,7 +4349,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 20
         - name: sort
           in: query
           description: The value you want to sort by
@@ -4519,7 +4504,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 1
         - name: pageSize
           in: query
           description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
@@ -4529,7 +4513,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 20
         - name: sort
           in: query
           description: |-
@@ -4608,7 +4591,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 1
         - name: pageSize
           in: query
           description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
@@ -4618,7 +4600,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 20
         - name: sort
           in: query
           description: |-
@@ -4774,7 +4755,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 1
         - name: pageSize
           in: query
           description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
@@ -4784,7 +4764,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 20
         - name: sort
           in: query
           description: |-
@@ -5003,13 +4982,12 @@ paths:
             - Requested = 5
             - Denied = 6
             - Completed = 7
-          required: false
           style: form
           explode: true
           schema:
             type: integer
             format: int32
-            example: 2344
+            example: 0
         - name: OrganizationId
           in: query
           description: The internal Id of the Organization that is running the class. If blank it will default to the API Consumer.
@@ -5043,7 +5021,7 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 5454
+            example: 1
         - name: VirtualMeetingHostId
           in: query
           description: The internal Id of the virtual meeting host to use if a class is to be run virtually
@@ -5214,10 +5192,12 @@ paths:
           in: query
           description: A collection of ClassMeetings in JSON format.
           style: form
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/ClassMeeting'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClassMeeting'
           explode: true
           required: true
         - name: AvailableToOrganizationIds
@@ -5300,7 +5280,7 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 2344
+            example: 1
         - name: OrganizationId
           in: query
           description: The internal Id of the Organization that is running the class. If blank it will default to the API Consumer.
@@ -5504,13 +5484,14 @@ paths:
         - name: ClassMeetings
           in: query
           description: A collection of ClassMeetings in JSON format.
-          required: true
-          style: form
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClassMeeting'
           explode: true
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/ClassMeeting'
+          required: true
         - name: AvailableToOrganizationIds
           in: query
           description: A comma separated list of int organization Ids that this class should be available to.
@@ -5545,7 +5526,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 1
         - name: pageSize
           in: query
           description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
@@ -5555,7 +5535,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 20
         - name: sort
           in: query
           description: |-
@@ -5683,7 +5662,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 1
         - name: pageSize
           in: query
           description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
@@ -5693,7 +5671,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 20
         - name: sort
           in: query
           description: |-
@@ -6531,7 +6508,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 1
         - name: pageSize
           in: query
           description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
@@ -6541,7 +6517,6 @@ paths:
           schema:
             type: integer
             format: int32
-            example: 20
         - name: sort
           in: query
           description: |-
@@ -7911,7 +7886,7 @@ components:
       properties:
         Id:
           type: integer
-          description: TThe tag's unique identifier.
+          description: The tag's unique identifier.
           format: int32
           example: 2
         Name:
@@ -7928,7 +7903,7 @@ components:
           example: MyCustomText
         TexValue:
           type: string
-          description: The value of thecustom field.
+          description: The value of the custom field.
           example: Woohoo!
     CourseTagGroupSearchResult:
       type: object
@@ -8305,7 +8280,6 @@ components:
           type: integer
           description: The zero-based index of the page of results displayed by the search
           format: int32
-          example: 10
         NumResults:
           type: integer
           description: The total number of results matched by the search

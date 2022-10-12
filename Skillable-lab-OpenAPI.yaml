@@ -278,7 +278,10 @@ paths:
   /cancel:
     get:
       summary: Cancel a lab instance
-      description: 'The **Cancel** command allows you to cancel a specified lab instance. **Please note**: when issuing this command that there is some time required for the lab instance tear down process.  If retrying a lab launch for a user where the Max Active Lab Instances Per User is set to 1 for the API consumer, then please take this teardown time into account for the API integration.'
+      description: |-
+        The **Cancel** command allows you to cancel a specified lab instance. 
+
+        **Please note**: when issuing this command that there is some time required for the lab instance tear down process.  If retrying a lab launch for a user where the Max Active Lab Instances Per User is set to 1 for the API consumer, then please take this teardown time into account for the API integration.
       operationId: Cancel
       parameters:
         - name: labinstanceid

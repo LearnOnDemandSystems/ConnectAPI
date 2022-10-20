@@ -8158,6 +8158,10 @@ components:
           description: The Id of the related class
           format: int32
           example: 4421
+        ClassName:
+          type: string
+          description: The name of the class
+          example: Class name sample          
         ClassExternalId:
           type: integer
           description: The external Id of the related class

@@ -5225,6 +5225,16 @@ paths:
       description: Allows you to update a class.
       operationId: UpdateClass
       parameters:
+        - name: CourseId
+          in: query
+          description: The internal Id of the course the class is based on
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 1234
         - name: id
           in: path
           description: The ID of the class to retrieve.

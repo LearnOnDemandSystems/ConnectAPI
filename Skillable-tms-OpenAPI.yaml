@@ -4038,6 +4038,23 @@ paths:
             type: integer
             format: int32
             example: 10
+        - name: enrollmentStatusId
+          in: query
+          description: |-
+            An optional parameter used to filter for class enrollments based on the status of the class enrollment 
+            - 0 = Request 
+            - 10 = Cancel 
+            - 20 = Waitlist 
+            - 30 = Approve 
+            - 40 = Deny 
+            - 50 = Audit 
+            - 60 = Enroll
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
         - name: createdAfter
           in: query
           description: 'An optional parameter used to filter for class enrollments created after a specified date. When used in conjunction with the "createdBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
@@ -4051,6 +4068,26 @@ paths:
         - name: createdBefore
           in: query
           description: 'An optional parameter used to filter for class enrollments created before a specified date. When used in conjunction with the "createdAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 10
+        - name: lastModifiedAfter
+          in: query
+          description: 'An optional parameter used to filter for class enrollments updated after a specified date. When used in conjunction with the "lastModifiedBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 10
+        - name: lastModifiedBefore
+          in: query
+          description: 'An optional parameter used to filter for class enrollments updated before a specified date. When used in conjunction with the "lastModifiedAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           required: false
           style: form
           explode: true
@@ -7065,7 +7102,8 @@ components:
           type: array
           description: See ClassEnrollment
           items:
-            $ref: '#/components/schemas/ClassEnrollment'
+            $ref: '#/components/schemas/ClassEnrollmentSearch'
+      title: ''
     CourseAssignmentResponse:
       type: object
       properties:
@@ -8102,6 +8140,110 @@ components:
           format: int32
           nullable: true
           example: 10
+    ClassEnrollmentSearch:
+      type: object
+      properties:
+        Id:
+          type: integer
+          description: The class enrollment's unique identifier
+          format: int32
+          example: 10
+        ExternalId:
+          type: string
+          description: 'The class enrollment''s external ID, usually a unique identifier from the calling system'
+          nullable: true
+          example: E3G5YZFREFEQ9371
+        UserId:
+          type: integer
+          description: The Id of the related user
+          format: int32
+          example: 897615
+        UserExternalId:
+          type: integer
+          description: The external Id of the related user
+          format: int32
+          example: 897615          
+        ClassId:
+          type: integer
+          description: The Id of the related class
+          format: int32
+          example: 4421
+        ClassName:
+          type: string
+          description: The name of the class
+          example: Class name sample          
+        ClassExternalId:
+          type: integer
+          description: The external Id of the related class
+          format: int32
+          example: 4421
+        EnrollmentStatusId:
+          type: integer
+          description: |-
+            Indicates the status of the class enrollment 
+            - 0 = Request 
+            - 10 = Cancel 
+            - 20 = Waitlist 
+            - 30 = Approve 
+            - 40 = Deny 
+            - 50 = Audit 
+            - 60 = Enroll
+          format: int32
+          example: 60
+        CompletionStatusId:
+          type: integer
+          description: |-
+            Indicates the completion status of the class enrollment 
+            - 0 = Unknown 
+            - 10 = Attending 
+            - 20 = Complete 
+            - 30 = Incomplete 
+            - 40 = NoShow 
+            - 50 = Failed
+          format: int32
+          example: 0
+        LateCancel:
+          type: boolean
+          description: Indicates if the class enrollment was cancelled outside the late cancellation window.
+          example: false
+        Retake:
+          type: boolean
+          description: Indicates if the class enrollment is a retake.
+          example: false
+        LocationTypeId:
+          type: integer
+          description: |-
+            Indicates the location type that the student is assigned to attend the class 
+            - 0 = To Be Determined 
+            - 10 = Classroom 
+            - 20 = Remote Classroom 
+            - 30 = Virtual
+          format: int32
+          nullable: true
+          example: 0
+        ClassroomId:
+          type: integer
+          description: The ID of the classroom (if any) in which the student is assigned to attend the class.
+          format: int32
+          nullable: true
+          example: 3456
+        HoursSpent:
+          type: integer
+          description: The hours spent by the student in the class enrollment.
+          format: int32
+          nullable: true
+          example: 20
+        Grade:
+          type: integer
+          description: The grade the student received for the class enrollment.
+          format: int32
+          nullable: true
+          example: 10
+        LastModified:
+          type: integer
+          description: 'When the class enrollment was last modified. Provided in Unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          format: int64
+          example: 1295375536          
     CourseAssignment:
       type: object
       properties:
@@ -8808,6 +8950,11 @@ components:
           description: The unique identifier of the course the class is based on.
           format: int32
           example: 5678
+        CourseExternalId:
+          type: integer
+          description: The courses's ExternalId identifier the class is based on.
+          format: int32
+          example: 6789
         CourseName:
           type: string
           description: The name of the course the class is based on.
@@ -8849,14 +8996,14 @@ components:
           type: integer
           description: The number of enrolled users in the class.
           format: int32
-          nullable: true
           example: 6
+          nullable: true
         NumEnroll:
           type: integer
           description: The minimum number of students the organization requires to be in the class to run it.
           format: int32
-          nullable: true
           example: 45
+          nullable: true
         MinStudents:
           type: integer
           description: The minimum number of students enrolled
@@ -8871,8 +9018,8 @@ components:
           type: integer
           description: The class's virtual meeting host identifier
           format: int32
-          nullable: true
           example: 14
+          nullable: true
         VirtualMeetingId:
           type: string
           description: The class's VirtualMeeting identifier
@@ -8884,24 +9031,24 @@ components:
         IsPublic:
           type: boolean
           description: Distinguishes if the class is public
-          nullable: true
           example: true
+          nullable: true
         Description:
           type: string
           description: The class's Description
-          nullable: true
           example: Sample Description
+          nullable: true
         ClassroomId:
           type: integer
           description: The class's primary classroom identifier
           format: int32
-          nullable: true
           example: 12345
+          nullable: true
         ClassroomAddress1:
           type: string
           description: Classroom address
-          nullable: true
           example: 123 Sample Dr.
+          nullable: true
         ClassroomAddress2:
           type: string
           description: Classroom address
@@ -8909,23 +9056,23 @@ components:
         ClassroomCity:
           type: string
           description: Classroom address
-          nullable: true
           example: Sample City
+          nullable: true
         ClassroomState:
           type: string
           description: Classroom address
-          nullable: true
           example: Florida
+          nullable: true
         ClassroomCountry:
           type: string
           description: Classroom address
-          nullable: true
           example: Sample County
+          nullable: true
         ClassroomZip:
           type: string
           description: Classroom address
-          nullable: true
           example: '12345'
+          nullable: true
         HtmlDescription:
           type: string
           description: The class's HTML Description
@@ -8942,7 +9089,7 @@ components:
           example: 34
         InstructorId:
           type: integer
-          description: The class's primaryInstructor identifier
+          description: The class's primary instructor identifier
           format: int32
           nullable: true
         InstructorFirstName:
@@ -8960,8 +9107,13 @@ components:
         ClassTrainingKey:
           type: string
           description: The class training key (if enabled) that will allow for self registration in the class
-          nullable: true
           example: ABC1234
+          nullable: true
+        SessionTimes:
+          type: array
+          description: See SessionTimes
+          items:
+            $ref: '#/components/schemas/ClassSession'
     PublicClassSearchResult:
       type: object
       properties:

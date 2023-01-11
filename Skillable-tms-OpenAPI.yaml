@@ -4028,6 +4028,15 @@ paths:
           explode: true
           schema:
             type: string
+        - name: classId
+          in: query
+          description: 'An optional parameter used to filter for class enrollments by classid. When specified, only class enrollments that have an associated class with that Id will be returned.'
+          required: false
+          style: form
+          schema:
+            type: integer
+            format: int32
+            example: 10
         - name: studentId
           in: query
           description: 'An optional parameter used to filter for class enrollments by the associated student''s ID. When specified, only class enrollments that have an associated student with that Id will be returned.'
@@ -8162,7 +8171,7 @@ components:
           type: integer
           description: The external Id of the related user
           format: int32
-          example: 897615          
+          example: 897615
         ClassId:
           type: integer
           description: The Id of the related class
@@ -8171,7 +8180,7 @@ components:
         ClassName:
           type: string
           description: The name of the class
-          example: Class name sample          
+          example: Class name sample
         ClassExternalId:
           type: integer
           description: The external Id of the related class
@@ -8243,7 +8252,7 @@ components:
           type: integer
           description: 'When the class enrollment was last modified. Provided in Unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           format: int64
-          example: 1295375536          
+          example: 1295375536
     CourseAssignment:
       type: object
       properties:

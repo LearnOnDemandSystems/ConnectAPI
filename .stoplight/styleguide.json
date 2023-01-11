@@ -1,6 +1,9 @@
 {
   "description": "",
   "spectralExtends": [],
+  "extends": [
+    "cHJqOjEyMzU4Ng@31"
+  ],
   "formats": [
     "oas2",
     "oas3",
@@ -1293,9 +1296,6 @@
       ]
     }
   },
-  "extends": [
-    "cHJqOjEyMzU4Ng@31"
-  ],
   "extendedStyleguides": [
     {
       "id": "cHJqOjEyMzU4Ng",

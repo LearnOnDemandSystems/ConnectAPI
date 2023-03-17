@@ -2683,11 +2683,11 @@ paths:
           description: 'By providing a Tag, the response will be filtered so that only lab profiles within the specified lab series defined with the identified tag will be returned. Multiple Tag parameters can be defined.'
           schema:
             type: array
+            items:
+              type: string
             example:
               - mytag1
               - mytag2
-          style: form
-          explode: true
       responses:
         '200':
           description: OK Response

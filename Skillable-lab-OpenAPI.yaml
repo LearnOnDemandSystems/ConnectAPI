@@ -2680,7 +2680,9 @@ paths:
             example: 3
         - schema:
             type: array
-            example: [mytag1,mytag2]
+            example:
+              - mytag1
+              - mytag2
           in: query
           name: tag
           description: 'By providing a Tag, the response will be filtered so that only lab profiles within the specified lab series defined with the identified tag will be returned. Multiple Tag parameters can be defined.'
@@ -2966,7 +2968,7 @@ components:
                 description: Indicates the content version (only applicable if HasIntegratedContent = true).
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is scored as an exam.
+                description: Indicates whether the lab is scored.
               PremiumPrice:
                 type: number
                 description: The consumption cost of the lab when premium experience features are included.
@@ -3480,30 +3482,30 @@ components:
           nullable: true
         ExamPassed:
           type: boolean
-          description: Indicates whether the user passed the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates whether the user passed the lab. Will only be set if the lab has activities which have been scored.
           nullable: true
         ExamScore:
           type: integer
-          description: Indicates the exam score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates the lab score. Will only be set if the lab has activities which have been scored.
           format: int32
           nullable: true
         ExamMaxPossibleScore:
           type: integer
-          description: Indicates the exam maximum possible score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates the maximum possible score of the lab. Will only be set if the lab has activities which have been scored.
           format: int32
           nullable: true
         ExamPassingScore:
           type: integer
-          description: Indicates the minimum score required to pass the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates the minimum score required to pass the lab. Will only be set if the lab has activities which have been scored.
           format: int32
           nullable: true
         ExamScoredById:
           type: integer
-          description: The ID of the user that manually scored the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored manually. Automatically scored exams will not include a value for this property.
+          description: The ID of the user that manually scored the lab. Will only be set if the lab has activities which have been scored manually. Automatically scored labs will not include a value for this property.
           format: int64
           nullable: true
         ExamScoredByName:
-          description: The name of the user that manually scored the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored manually. Automatically scored exams will not include a value for this property.
+          description: The name of the user that manually scored the lab. Will only be set if the lab has activities which have been scored manually. Automatically scored labs will not include a value for this property.
           type: string
           nullable: true
         ExamDetails:
@@ -3512,16 +3514,16 @@ components:
           nullable: true
         ExamScoredDate:
           type: integer
-          description: The date the exam was scored (in Unix epoch time).
+          description: The date the lab was scored (in Unix epoch time).
           format: int64
           nullable: true
         ExamScoredTime:
           type: string
-          description: When the exam was scored (in Unix epoch time). Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: When the lab was scored (in Unix epoch time). Will only be set if the lab has activities which have been scored.
           nullable: true
         IsExam:
           type: boolean
-          description: Indicates whether the lab is scored as an exam.
+          description: Indicates whether the lab is scored.
         IpAddress:
           type: string
           description: The user's IP address. This is only included if the IP address was provided when the lab was launched.
@@ -4100,7 +4102,7 @@ components:
           format: int32
         IsExam:
           type: boolean
-          description: Indicates whether the lab is scored as an exam.
+          description: Indicates whether the lab is scored.
         PremiumPrice:
           type: number
           description: The consumption cost of the lab when premium experience features are included.
@@ -4198,26 +4200,26 @@ components:
                 description: 'If the lab has integrated tasks, the percentage of tasks that the user has completed.'
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is scored as an exam.
+                description: Indicates whether the lab is scored.
                 nullable: true
               ExamPassed:
                 type: boolean
-                description: Indicates whether the user passed the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates whether the user passed the lab. Will only be set if the lab has activities which have been scored.
                 nullable: true
               ExamScore:
                 type: integer
                 format: int32
-                description: Indicates the exam score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates the lab score. Will only be set if the lab has activities which have been scored.
                 nullable: true
               ExamMaxPossibleScore:
                 type: integer
                 format: int32
-                description: Indicates the exam maximum possible score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates the maximum possible score of the lab. Will only be set if the lab has activities which have been scored.
                 nullable: true
               ExamPassingScore:
                 type: integer
                 format: int32
-                description: Indicates the minimum score required to pass the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates the minimum score required to pass the lab. Will only be set if the lab has activities which have been scored.
                 nullable: true
               IpAddress:
                 type: string
@@ -4416,24 +4418,24 @@ components:
           format: int32
         IsExam:
           type: boolean
-          description: Indicates whether the lab is scored as an exam.
+          description: Indicates whether the lab is scored.
         ExamPassed:
           type: boolean
-          description: Indicates whether the user passed the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates whether the user passed the lab. Will only be set if the lab has activities which have been scored.
           nullable: true
         ExamScore:
           type: number
-          description: Indicates the exam score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates the lab score. Will only be set if the lab has activities which have been scored.
           format: float
           nullable: true
         ExamMaxPossibleScore:
           type: integer
-          description: Indicates the exam maximum possible score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates the maximum possible score of the lab. Will only be set if the lab has activities which have been scored.
           format: int32
           nullable: true
         ExamPassingScore:
           type: integer
-          description: Indicates the minimum score required to pass the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates the minimum score required to pass the lab. Will only be set if the lab has activities which have been scored.
           format: int32
           nullable: true
         IpAddress:
@@ -4553,25 +4555,25 @@ components:
                 description: 'If the lab has integrated tasks, the percentage of tasks that the user has completed.'
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is scored as an exam
+                description: Indicates whether the lab is scored.
               ExamPassed:
                 type: boolean
-                description: Indicates whether the user passed the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates whether the user passed the lab. Will only be set if the lab has activities which have been scored.
                 nullable: true
               ExamScore:
                 type: number
-                description: Indicates the exam score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates the lab score. Will only be set if the lab has activities which have been scored.
                 format: float
                 nullable: true
               ExamMaxPossibleScore:
                 type: integer
                 format: int32
-                description: Indicates the exam maximum possible score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates the maximum possible score of the lab. Will only be set if the lab has activities which have been scored.
                 nullable: true
               ExamPassingScore:
                 type: integer
                 format: int32
-                description: Indicates the minimum score required to pass the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates the minimum score required to pass the lab. Will only be set if the lab has activities which have been scored.
                 nullable: true
               IpAddress:
                 type: string
@@ -4737,7 +4739,7 @@ components:
                 description: When the lab will expire (in Unix epoch time).
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is considered a scorable exam.
+                description: Indicates whether the lab is scored.
         SavedLabs:
           type: array
           description: Array of LabInstance objects for saved labs.
@@ -4777,7 +4779,7 @@ components:
                 description: When the lab will expire (in Unix epoch time).
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is considered a scorable exam.
+                description: Indicates whether the lab is scored.
         Status:
           type: integer
           format: int32
@@ -4959,7 +4961,7 @@ components:
                 nullable: true
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is considered a scorable exam.
+                description: Indicates whether the lab is scored.
         SavedLabs:
           type: array
           description: Array of SavedLab objects.
@@ -4997,10 +4999,10 @@ components:
                 description: True/false indicating whether the lab is currently in the process of being saved.
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is considered a scorable exam.
+                description: Indicates whether the lab is scored.
               SubmittedForGrading:
                 type: boolean
-                description: Indicates whether the lab has been submitted for grading and is in a saved state while awaiting scoring. This will only be true for exams.
+                description: Indicates whether the lab has been submitted for grading and is in a saved state while awaiting scoring. This will only be true for scored labs.
         Status:
           type: integer
           format: int32

@@ -175,7 +175,7 @@ paths:
             example: testlaunch
         - name: ipAddress
           in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in  the closest available delivery region. You should provide the  IP address of the user that is taking the lab, not the IP address  of your system. IPv4 and IPv6 address are supported.'
+          description: 'When specified, Skillable will attempt to launch the lab in  the closest available delivery region. You should provide the  IP address of the user that is taking the lab, not the IP address  of your system. IPv4 and IPv6 address are supported.'
           required: false
           style: form
           explode: true
@@ -184,7 +184,7 @@ paths:
             example: 1.1.1.1
         - name: regionId
           in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
+          description: 'When specified, Skillable will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
           required: false
           style: form
           explode: true
@@ -239,10 +239,11 @@ paths:
               en = English  
               es = Spanish  
               fr = French  
+              de = German  
               pt = Portuguese  
               ja = Japanese  
-              zh = Chinese  
-              ka = Korean  
+              zh = Simplified Chinese  
+              ko = Korean 
           required: false
           style: form
           explode: true
@@ -252,11 +253,21 @@ paths:
               - en
               - es
               - fr
+              - de
               - pt
               - ja
               - zh
-              - ka
+              - ko
             example: en
+        - name: instructionsId
+          in: query
+          description: When specified, Skillable will attempt to launch the lab and present the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: UofA
       responses:
         '200':
           description: OK Response.
@@ -597,6 +608,8 @@ paths:
                             ScriptTexts: []
                             ShowResultsInReports: true
                     EstimatedReadySeconds: null
+                    InstructionsId: The ID of the Instructions used
+                    Language: en
                     Error: null
                     Status: 1
       deprecated: false
@@ -1779,7 +1792,7 @@ paths:
             example: 20
         - name: AvailableLabs
           in: query
-          description: 'An optional array of lab profile IDs. When provided, Lab on Demand will know that these labs are available within the class. You do not need to set this value in order to launch labs against the class. This is useful when using Lab on Demand to display a class attendance page, or when consuming shared class environments and you want the shared environment launch link to appear on the class monitor page.'
+          description: 'An optional array of lab profile IDs. When provided, Skillable will know that these labs are available within the class. You do not need to set this value in order to launch labs against the class. This is useful when using Skillable to display a class attendance page, or when consuming shared class environments and you want the shared environment launch link to appear on the class monitor page.'
           required: false
           style: form
           explode: true
@@ -2027,7 +2040,7 @@ paths:
             example: 20
         - name: AvailableLabs
           in: query
-          description: 'An optional array of lab profile IDs. When provided, Lab on Demand will know that these labs are available within the class. You do not need to set this value in order to launch labs against the class. This is useful when using Lab on Demand to display a class attendance page, or when consuming shared class environments and you want the shared environment launch link to appear on the class monitor page.'
+          description: 'An optional array of lab profile IDs. When provided, Skillable will know that these labs are available within the class. You do not need to set this value in order to launch labs against the class. This is useful when using Skillable to display a class attendance page, or when consuming shared class environments and you want the shared environment launch link to appear on the class monitor page.'
           style: form
           explode: true
           schema:
@@ -2275,7 +2288,7 @@ paths:
             example: eventLaunch
         - name: ipAddress
           in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in the closest available delivery region. You should provide the IP address of the user that is taking the lab, not the IP address of your system.'
+          description: 'When specified, Skillable will attempt to launch the lab in the closest available delivery region. You should provide the IP address of the user that is taking the lab, not the IP address of your system.'
           required: false
           style: form
           explode: true
@@ -2284,7 +2297,7 @@ paths:
             example: 1.1.1.1
         - name: regionId
           in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
+          description: 'When specified, Skillable will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
           required: false
           style: form
           explode: true
@@ -2292,6 +2305,43 @@ paths:
             type: integer
             format: int32
             example: 1
+        - name: lang
+          in: query
+          description: |-
+            Allows you to override the lab client UI language. Please note this only affects the lab client UI elements such as menus, tabs, and dialogs. The lab instructions and content are not affected.  
+              
+              en = English  
+              es = Spanish  
+              fr = French  
+              de = German  
+              pt = Portuguese  
+              ja = Japanese  
+              zh = Simplified Chinese  
+              ko = Korean 
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - en
+              - es
+              - fr
+              - de
+              - pt
+              - ja
+              - zh
+              - ko
+            example: en
+        - name: instructionsId
+          in: query
+          description: When specified, Skillable will attempt to launch the lab and present the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: UofA
       responses:
         '200':
           description: OK Response.
@@ -2407,7 +2457,7 @@ paths:
             example: eventLaunch
         - name: ipAddress
           in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in the closest available delivery region. You should provide the IP address of the user that is taking the lab, not the IP address of your system.'
+          description: 'When specified, Skillable will attempt to launch the lab in the closest available delivery region. You should provide the IP address of the user that is taking the lab, not the IP address of your system.'
           required: false
           style: form
           explode: true
@@ -2416,7 +2466,7 @@ paths:
             example: 1.1.1.1
         - name: regionId
           in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
+          description: 'When specified, Skillable will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
           required: false
           style: form
           explode: true
@@ -2424,6 +2474,43 @@ paths:
             type: integer
             format: int32
             example: 1
+        - name: lang
+          in: query
+          description: |-
+            Allows you to override the lab client UI language. Please note this only affects the lab client UI elements such as menus, tabs, and dialogs. The lab instructions and content are not affected.  
+              
+              en = English  
+              es = Spanish  
+              fr = French  
+              de = German  
+              pt = Portuguese  
+              ja = Japanese  
+              zh = Simplified Chinese  
+              ko = Korean 
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - en
+              - es
+              - fr
+              - de
+              - pt
+              - ja
+              - zh
+              - ko
+            example: en
+        - name: instructionsId
+          in: query
+          description: When specified, Skillable will attempt to launch the lab and present the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: UofA
       responses:
         '200':
           description: OK Response.
@@ -2816,7 +2903,7 @@ components:
       name: api_key
       type: apiKey
       in: header
-      description: 'All methods require an API key, which must be obtained from Skillable. This key is used by Lab on Demand to validate your account. The key can be passed as an HTTP request header with the header name "api_key".'
+      description: 'All methods require an API key, which must be obtained from Skillable. This key is used by Skillable to validate your account. The key can be passed as an HTTP request header with the header name "api_key".'
   schemas:
     CancelResponse:
       type: object
@@ -3000,7 +3087,7 @@ components:
               Id:
                 type: integer
                 format: int32
-                description: 'The unique identifier of the delivery region. When specified, Lab on Demand will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
+                description: 'The unique identifier of the delivery region. When specified, Skillable will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
               Name:
                 type: string
                 minLength: 1
@@ -3337,7 +3424,7 @@ components:
           description: The name of the datacenter where the lab is located.
         DeliveryRegionId:
           type: integer
-          description: 'When specified, Lab on Demand will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
+          description: 'When specified, Skillable will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
           format: int32
         DeliveryRegionName:
           type: string
@@ -3962,7 +4049,7 @@ components:
           nullable: true
         AvailableLabs:
           type: array
-          description: The IDs of labs available for launch within the class when using the class attendance UI directly in Lab on Demand (generally not used for class deliveries managed outside of Lab on Demand).
+          description: The IDs of labs available for launch within the class when using the class attendance UI directly in Skillable (generally not used for class deliveries managed outside of Skillable).
           items:
             type: integer
         Status:
@@ -4253,7 +4340,7 @@ components:
                 description: The ID of the datacenter that the lab instance is located in.
               DeliveryRegionId:
                 type: integer
-                description: 'When specified, Lab on Demand will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the DeliveryRegions command or Catalog command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
+                description: 'When specified, Skillable will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the DeliveryRegions command or Catalog command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
         Status:
           type: integer
           format: int32
@@ -4476,7 +4563,7 @@ components:
           nullable: true
         DeliveryRegionId:
           type: integer
-          description: 'When specified, Lab on Demand will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
+          description: 'When specified, Skillable will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
           format: int32
           nullable: true
         Status:
@@ -4611,7 +4698,7 @@ components:
                 nullable: true
               DeliveryRegionId:
                 type: integer
-                description: 'When specified, Lab on Demand will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
+                description: 'When specified, Skillable will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
                 nullable: true
         Status:
           type: integer

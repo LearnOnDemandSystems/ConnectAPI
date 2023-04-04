@@ -6826,6 +6826,265 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SearchSubscriptionResponse'
+  /SearchSubscriptionTrainingKeys:
+    get:
+      tags:
+        - Subscription Management
+      summary: Search for subscription training keys
+      description: Allows you to search for an organization's subscription training keys.
+      operationId: SearchSubscriptionTrainingKeys
+      parameters:
+        - name: pageIndex
+          in: query
+          description: 'A 0-based index of the paged results you wish to receive. In general, you should start with a value of zero and increment it as you need to retrieve additional results. If not supplied, a value of 0 is used (the first page of results).'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: pageSize
+          in: query
+          description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: |-
+            The value you want to sort by.  
+            Possible values:  
+            - TrainingKey  
+            - ContentExpiry  
+            - SubscriptionProfileName  
+            - Created  
+            - CreatedById  
+            - LastModified  
+            - LastModifiedById  
+            - ExpirationDate
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: trainingKey
+          in: query
+          description: 'An optional parameter used to filter subscription training keys by the associated subscription training key. When specified, only the subscription training key that match this value will be returned.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: createdById
+          in: query
+          description: 'An optional parameter used to filter subscription training keys by the associated user id. When specified, only the subscription training keys that have been created by this user id value will be returned.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: createdBefore
+          in: query
+          description: 'An optional parameter used to filter subscription training keys created before a specified date. When used in conjunction with the "createdAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+        - name: createdAfter
+          in: query
+          description: 'An optional parameter used to filter subscription training keys created after a specified date. When used in conjunction with the "createdBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+        - name: expiresBefore
+          in: query
+          description: 'An optional parameter used to filter subscription training keys expiring before a specified date. When used in conjunction with the "expiresAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+        - name: expiresAfter
+          in: query
+          description: 'An optional parameter used to filter subscription training keys expiring after a specified date. When used in conjunction with the "expiresBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+        - name: orgId
+          in: query
+          description: 'An optional parameter used to filter subscription training keys by the associated organization id. When specified, only the subscription training keys associated with this organization will be returned.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: lastModifiedBefore
+          in: query
+          description: 'An optional parameter used to filter subscription training keys last modified before a specified date. When used in conjunction with the "lastModifiedAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+        - name: lastModifiedAfter
+          in: query
+          description: 'An optional parameter used to filter subscription training keys last modified after a specified date. When used in conjunction with the "lastModifiedBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+        - name: lastModifiedById
+          in: query
+          description: 'An optional parameter used to filter subscription training keys by the user id that last modified the record. When specified, only the subscription training keys last modified by this user will be returned.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: subscriptionId
+          in: query
+          description: 'An optional parameter used to filter subscriptiontraining keys by subscription id. When specified, only subscription training keys that are associated with this value will be returned.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: contentExpiryBefore
+          in: query
+          description: 'An optional parameter used to filter subscription training keys when the content is expiring before a specified date. When used in conjunction with the "contentExpiryAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+        - name: contentExpiryAfter
+          in: query
+          description: 'An optional parameter used to filter subscription training keys when the content is expiring after a specified date. When used in conjunction with the "contentExpiryBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchSubscriptionTrainingKeyResponse'
+  /UpdateSubscriptionTrainingKey:
+    get:
+      tags:
+        - Subscription Management
+      summary: Update a subscription training key
+      description: Allows you to update a subscription training key.
+      operationId: UpdateSubscriptionTrainingKey
+      parameters:
+        - name: trainingKey
+          in: query
+          description: The subscription training key
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: orgId
+          in: query
+          description: 'An optional parameter for the ID of the related organization'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: subscriptionId
+          in: query
+          description: The Id of the related subscription
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: expirationDate
+          in: query
+          description: When the subscription training key expires (in Unix epoch time)
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+        - name: maxKeyUses
+          in: query
+          description: The maximum number of uses for the related subscription training key
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: contentExpirationDate
+          in: query
+          description: When the content of the subscription training key expires (in Unix epoch time)
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      deprecated: false
+  /DeleteSubscriptionTrainingKey:
+    get:
+      tags:
+        - Subscription Management
+      summary: Delete a subscription training key
+      description: Allows you to delete a subscription training key that has not been converted into a valid subscription assignment.
+      operationId: DeleteSubscriptionTrainingKey
+      parameters:
+        - name: trainingKey
+          in: query
+          description: The subscription training key
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+      deprecated: false
 components:
   schemas:
     CreateResponse:
@@ -9481,6 +9740,80 @@ components:
           type: string
           description: When the subscription was created (in Unix epoch time).
           example: '2021-03-19T22:16:07.967Z'
+          nullable: true
+    SearchSubscriptionTrainingKeyResponse:
+      type: object
+      x-stoplight:
+        id: 26e4593261e30
+      properties:
+        Status:
+          $ref: '#/components/schemas/Status'
+        Error:
+          $ref: '#/components/schemas/Error'
+        SearchSubscriptionsResults:
+          type: array
+          description: See SearchSubscriptionsResult.
+          items:
+            $ref: '#/components/schemas/SearchSubscriptionTrainingKeyResult'
+    SearchSubscriptionTrainingKeyResult:
+      type: object
+      x-stoplight:
+        id: fb13469d3a297
+      properties:
+        OrganizationId:
+          type: integer
+          description: The Id of the Organization associated with this Subscription Profile
+          format: int32
+          example: 121
+        SubscriptionProfileId:
+          type: integer
+          description: The subscription profile's unique identifier.
+          format: int32
+          example: 523
+        SubscriptionProfileName:
+          type: string
+          description: The subscription profile's name.
+          example: .Net Club
+        Created:
+          type: string
+          description: When the subscription training key was created (in Unix epoch time).
+          example: '2021-03-19T22:16:07.967Z'
+          nullable: true
+        CreatedById:
+          type: integer
+          description: The user id that created the subscription training key
+          format: int32
+          example: 121
+        LastModified:
+          type: string
+          description: When the subscription was last modified (in Unix epoch time).
+          example: '2021-04-19T11:23:02.567Z'
+          nullable: true
+        LastModifiedById:
+          type: integer
+          description: The user id that last modified the subscription training key
+          format: int32
+          example: 682
+        ExpirationDate:
+          type: string
+          description: 'When the subscription training key ends or expires (in Unix epoch time). '
+          example: '2022-03-19T22:15:59.997Z'
+          nullable: true
+        MaxKeyUses:
+          type: integer
+          description: The maximum number of times the subscription training key can be used.
+          format: int32
+          example: 25
+          nullable: true
+        ContentExpiry:
+          type: string
+          description: 'When the subscription training key content ends or expires (in Unix epoch time).'
+          example: '2022-03-19T22:15:59.997Z'
+          nullable: true
+        TrainingKey:
+          type: string
+          description: 'The subscription training key value'
+          example: 'E3G5YZFREFEQ9371'
           nullable: true
     CreateCompanyResponse:
       type: object

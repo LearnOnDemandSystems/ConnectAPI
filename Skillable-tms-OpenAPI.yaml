@@ -6841,7 +6841,7 @@ paths:
             format: int32
         - name: pageSize
           in: query
-          description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
+          description: 'Indicates how many results you want per page. If not supplied, a default value of 20 is used (20 records per page).'
           required: false
           style: form
           explode: true
@@ -6851,7 +6851,7 @@ paths:
         - name: sort
           in: query
           description: |-
-            The value you want to sort by.  
+            The value you want to sort by. If not supplied, a default value of "TrainingKey" is used.    
             Possible values:  
             - TrainingKey  
             - ContentExpiry  
@@ -6919,7 +6919,7 @@ paths:
           schema:
             type: integer
             format: int64
-        - name: orgId
+        - name: organizationId
           in: query
           description: 'An optional parameter used to filter subscription training keys by the associated organization id. When specified, only the subscription training keys associated with this organization will be returned.'
           required: false
@@ -6999,13 +6999,13 @@ paths:
       parameters:
         - name: trainingKey
           in: query
-          description: The subscription training key
+          description: The subscription training key. if not supplied, a default value of 0 is used.
           required: true
           style: form
           explode: true
           schema:
             type: string
-        - name: orgId
+        - name: organizationId
           in: query
           description: 'An optional parameter for the ID of the related organization'
           required: false
@@ -7042,7 +7042,7 @@ paths:
             format: int32
         - name: contentExpirationDate
           in: query
-          description: When the content of the subscription training key expires (in Unix epoch time)
+          description: If supplied (in Unix epoch time) then this setting overrides the expiration date and sets the Content Availability Override checkbox. 
           required: false
           style: form
           explode: true
@@ -9758,7 +9758,7 @@ components:
       properties:
         OrganizationId:
           type: integer
-          description: The Id of the Organization associated with this Subscription Profile
+          description: The Id of the Organization associated with this Subscription Training Key.
           format: int32
           example: 121
         SubscriptionProfileId:

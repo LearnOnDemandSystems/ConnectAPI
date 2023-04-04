@@ -5238,12 +5238,10 @@ paths:
           in: query
           description: A collection of ClassMeetings in JSON format.
           style: form
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ClassMeeting'
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ClassMeeting'
           explode: true
           required: true
         - name: AvailableToOrganizationIds
@@ -5540,12 +5538,10 @@ paths:
         - name: ClassMeetings
           in: query
           description: A collection of ClassMeetings in JSON format.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ClassMeeting'
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ClassMeeting'
           explode: true
           required: true
         - name: AvailableToOrganizationIds

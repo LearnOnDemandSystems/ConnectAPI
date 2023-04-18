@@ -6989,6 +6989,84 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SearchSubscriptionTrainingKeyResponse'
+  /CreateSubscriptionTrainingKeys:
+    get:
+      tags:
+        - Subscription Management
+      summary: Create a subscription training key
+      description: Allows you to create a subscription training key.
+      operationId: CreateSubscriptionTrainingKeys
+      parameters:
+        - name: trainingKey
+          in: query
+          description: The subscription training key. If this field is left blank a unique training key will be created.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: numberOfKeys
+          in: query
+          description: The number of subscription training keys to be created. If this field is left blank a single training key will be created.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: subscriptionProfileId
+          in: query
+          description: The ID of the related subscription profile.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: organizationId
+          in: query
+          description: The Id of the related organization. If this field is left blank then the related API consumer organization Id will be used.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: expirationDate
+          in: query
+          description: When the subscription training key expires (in Unix epoch time).
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+        - name: contentExpirationDate
+          in: query
+          description: If supplied (in Unix epoch time) then this setting overrides the expiration date and sets the Content Availability Override checkbox.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+        - name: maxKeyUses
+          in: query
+          description: The maximum number of uses for the related subscription training key. If this field is left blank then only a single use will be allowed.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateSubscriptionTrainingKeysResponse'
+      deprecated: false
   /UpdateSubscriptionTrainingKey:
     get:
       tags:
@@ -6999,7 +7077,15 @@ paths:
       parameters:
         - name: trainingKey
           in: query
-          description: The subscription training key. if not supplied, a default value of 0 is used.
+          description: The subscription training key.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: id
+          in: query
+          description: The subscription training key id.
           required: true
           style: form
           explode: true
@@ -7007,7 +7093,7 @@ paths:
             type: string
         - name: organizationId
           in: query
-          description: 'An optional parameter for the ID of the related organization'
+          description: An optional parameter for the ID of the related organization.
           required: false
           style: form
           explode: true
@@ -7042,7 +7128,7 @@ paths:
             format: int32
         - name: contentExpirationDate
           in: query
-          description: If supplied (in Unix epoch time) then this setting overrides the expiration date and sets the Content Availability Override checkbox. 
+          description: If supplied (in Unix epoch time) then this setting overrides the expiration date and sets the Content Availability Override checkbox.
           required: false
           style: form
           explode: true
@@ -7065,9 +7151,9 @@ paths:
       description: Allows you to delete a subscription training key that has not been converted into a valid subscription assignment.
       operationId: DeleteSubscriptionTrainingKey
       parameters:
-        - name: trainingKey
+        - name: id
           in: query
-          description: The subscription training key
+          description: The subscription training key ID.
           required: true
           style: form
           explode: true
@@ -9689,22 +9775,6 @@ components:
           type: string
           description: The course name.
           example: .NET Programming Fundamentals
-    SearchSubscriptionResponse:
-      type: object
-      properties:
-        Status:
-          $ref: '#/components/schemas/Status'
-        Error:
-          $ref: '#/components/schemas/Error'
-        TotalCount:
-          $ref: '#/components/schemas/TotalCount'
-        TotalPages:
-          $ref: '#/components/schemas/TotalPages'
-        SearchSubscriptionsResults:
-          type: array
-          description: See SearchSubscriptionsResult.
-          items:
-            $ref: '#/components/schemas/SearchSubscriptionsResult'
     SearchSubscriptionsResult:
       type: object
       properties:
@@ -9737,6 +9807,22 @@ components:
           description: When the subscription was created (in Unix epoch time).
           example: '2021-03-19T22:16:07.967Z'
           nullable: true
+    SearchSubscriptionResponse:
+      type: object
+      properties:
+        Status:
+          $ref: '#/components/schemas/Status'
+        Error:
+          $ref: '#/components/schemas/Error'
+        TotalCount:
+          $ref: '#/components/schemas/TotalCount'
+        TotalPages:
+          $ref: '#/components/schemas/TotalPages'
+        SearchSubscriptionsResults:
+          type: array
+          description: See SearchSubscriptionsResult.
+          items:
+            $ref: '#/components/schemas/SearchSubscriptionsResult'
     SearchSubscriptionTrainingKeyResponse:
       type: object
       x-stoplight:
@@ -9756,6 +9842,11 @@ components:
       x-stoplight:
         id: fb13469d3a297
       properties:
+        Id:
+          type: integer
+          description: The Id of the Subscription Training Key.
+          format: int32
+          example: 678
         OrganizationId:
           type: integer
           description: The Id of the Organization associated with this Subscription Training Key.
@@ -9803,13 +9894,13 @@ components:
           nullable: true
         ContentExpiry:
           type: string
-          description: 'When the subscription training key content ends or expires (in Unix epoch time).'
+          description: When the subscription training key content ends or expires (in Unix epoch time).
           example: '2022-03-19T22:15:59.997Z'
           nullable: true
         TrainingKey:
           type: string
-          description: 'The subscription training key value'
-          example: 'E3G5YZFREFEQ9371'
+          description: The subscription training key value
+          example: E3G5YZFREFEQ9371
           nullable: true
     CreateCompanyResponse:
       type: object
@@ -9823,6 +9914,24 @@ components:
           description: The ID of the created company.
           format: int32
           example: 45632
+    CreateSubscriptionTrainingKeysResponse:
+      type: object
+      x-stoplight:
+        id: c557c46799dfb
+      properties:
+        Status:
+          $ref: '#/components/schemas/Status'
+        Error:
+          $ref: '#/components/schemas/Error'
+        Id:
+          type: integer
+          description: The ID of the created Subscription Training Key.
+          format: int32
+          example: 45632
+        trainingKey:
+          type: string
+          description: The Subscription Training Key that has been created.
+          example: E3G5YZFREFEQ9371
     GetCompanyResponse:
       type: object
       properties:

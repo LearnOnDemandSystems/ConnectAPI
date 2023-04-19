@@ -6873,8 +6873,7 @@ paths:
           style: form
           explode: true
           schema:
-            type: integer
-            format: int32
+            type: string
         - name: createdById
           in: query
           description: 'An optional parameter used to filter subscription training keys by the associated user id. When specified, only the subscription training keys that have been created by this user id value will be returned.'
@@ -6955,9 +6954,9 @@ paths:
           schema:
             type: integer
             format: int32
-        - name: subscriptionId
+        - name: subscriptionProfileId
           in: query
-          description: 'An optional parameter used to filter subscriptiontraining keys by subscription id. When specified, only subscription training keys that are associated with this value will be returned.'
+          description: 'An optional parameter used to filter subscription training keys by subscription profile id. When specified, only subscription training keys that are associated with this value will be returned.'
           required: false
           style: form
           explode: true
@@ -9852,6 +9851,10 @@ components:
           description: The Id of the Organization associated with this Subscription Training Key.
           format: int32
           example: 121
+        OrganizationName:
+          type: string
+          description: The name of the Organization associated with the subscription Training Key.
+          example: .Net Club
         SubscriptionProfileId:
           type: integer
           description: The subscription profile's unique identifier.
@@ -9861,6 +9864,11 @@ components:
           type: string
           description: The subscription profile's name.
           example: .Net Club
+        TrainingKey:
+          type: string
+          description: The subscription training key value
+          example: E3G5YZFREFEQ9371
+          nullable: true
         Created:
           type: string
           description: When the subscription training key was created (in Unix epoch time).
@@ -9897,23 +9905,6 @@ components:
           description: When the subscription training key content ends or expires (in Unix epoch time).
           example: '2022-03-19T22:15:59.997Z'
           nullable: true
-        TrainingKey:
-          type: string
-          description: The subscription training key value
-          example: E3G5YZFREFEQ9371
-          nullable: true
-    CreateCompanyResponse:
-      type: object
-      properties:
-        Status:
-          $ref: '#/components/schemas/Status'
-        Error:
-          $ref: '#/components/schemas/Error'
-        CompanyId:
-          type: integer
-          description: The ID of the created company.
-          format: int32
-          example: 45632
     CreateSubscriptionTrainingKeysResponse:
       type: object
       x-stoplight:
@@ -9932,6 +9923,18 @@ components:
           type: string
           description: The Subscription Training Key that has been created.
           example: E3G5YZFREFEQ9371
+    CreateCompanyResponse:
+      type: object
+      properties:
+        Status:
+          $ref: '#/components/schemas/Status'
+        Error:
+          $ref: '#/components/schemas/Error'
+        CompanyId:
+          type: integer
+          description: The ID of the created company.
+          format: int32
+          example: 45632
     GetCompanyResponse:
       type: object
       properties:

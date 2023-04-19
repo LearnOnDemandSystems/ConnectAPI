@@ -7931,7 +7931,7 @@ components:
           example: 3540
         IsExam:
           type: boolean
-          description: The activity's setting as an exam (This only applies to Lab type activities)
+          description: The activity's setting as a scored lab (This only applies to Lab type activities)
           example: false
         Activities:
           type: array

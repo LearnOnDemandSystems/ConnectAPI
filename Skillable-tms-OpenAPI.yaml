@@ -6881,7 +6881,8 @@ paths:
           style: form
           explode: true
           schema:
-            type: string
+            type: integer
+            format: int64
         - name: createdBefore
           in: query
           description: 'An optional parameter used to filter subscription training keys created before a specified date. When used in conjunction with the "createdAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
@@ -6961,8 +6962,7 @@ paths:
           style: form
           explode: true
           schema:
-            type: integer
-            format: int32
+            type: string
         - name: contentExpiryBefore
           in: query
           description: 'An optional parameter used to filter subscription training keys when the content is expiring before a specified date. When used in conjunction with the "contentExpiryAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
@@ -6996,17 +6996,9 @@ paths:
       description: Allows you to create a subscription training key.
       operationId: CreateSubscriptionTrainingKeys
       parameters:
-        - name: trainingKey
+        - name: organizationId
           in: query
-          description: The subscription training key. If this field is left blank a unique training key will be created.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: numberOfKeys
-          in: query
-          description: The number of subscription training keys to be created. If this field is left blank a single training key will be created.
+          description: The Id of the related organization. If not supplied then the related API consumer organization Id will be used.
           required: false
           style: form
           explode: true
@@ -7022,15 +7014,6 @@ paths:
           schema:
             type: integer
             format: int32
-        - name: organizationId
-          in: query
-          description: The Id of the related organization. If this field is left blank then the related API consumer organization Id will be used.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
         - name: expirationDate
           in: query
           description: When the subscription training key expires (in Unix epoch time).
@@ -7040,6 +7023,15 @@ paths:
           schema:
             type: integer
             format: int64
+        - name: maxKeyUses
+          in: query
+          description: The maximum number of uses for the related subscription training key. If not supplied then only a single use will be allowed.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
         - name: contentExpirationDate
           in: query
           description: If supplied (in Unix epoch time) then this setting overrides the expiration date and sets the Content Availability Override checkbox.
@@ -7049,9 +7041,17 @@ paths:
           schema:
             type: integer
             format: int64
-        - name: maxKeyUses
+        - name: trainingKeys
           in: query
-          description: The maximum number of uses for the related subscription training key. If this field is left blank then only a single use will be allowed.
+          description: The subscription training key in JSON format and must be unique. If not supplied then a set of unique training keys will be auto-created based on the numberOfKeys parameter.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: numberOfKeys
+          in: query
+          description: The number of subscription training keys to be created. If not supplied a single unique training key will be created.
           required: false
           style: form
           explode: true
@@ -7074,17 +7074,17 @@ paths:
       description: Allows you to update a subscription training key.
       operationId: UpdateSubscriptionTrainingKey
       parameters:
-        - name: trainingKey
+        - name: id
           in: query
-          description: The subscription training key.
+          description: The subscription training key id.
           required: true
           style: form
           explode: true
           schema:
             type: string
-        - name: id
+        - name: trainingKey
           in: query
-          description: The subscription training key id.
+          description: The subscription training key.
           required: true
           style: form
           explode: true
@@ -7097,10 +7097,11 @@ paths:
           style: form
           explode: true
           schema:
-            type: string
-        - name: subscriptionId
+            type: integer
+            format: int32
+        - name: subscriptionProfileId
           in: query
-          description: The Id of the related subscription
+          description: The Id of the related subscription profile.
           required: true
           style: form
           explode: true
@@ -7109,7 +7110,7 @@ paths:
             format: int32
         - name: expirationDate
           in: query
-          description: When the subscription training key expires (in Unix epoch time)
+          description: When the subscription training key expires (in Unix epoch time).
           required: true
           style: form
           explode: true
@@ -7118,8 +7119,8 @@ paths:
             format: int64
         - name: maxKeyUses
           in: query
-          description: The maximum number of uses for the related subscription training key
-          required: true
+          description: The maximum number of uses for the related subscription training key. If not supplied then this setting will default to 1.
+          required: false
           style: form
           explode: true
           schema:
@@ -7140,14 +7141,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: '#/components/schemas/UpdateSubscriptionTrainingKeysResponse'
       deprecated: false
   /DeleteSubscriptionTrainingKey:
     get:
       tags:
         - Subscription Management
       summary: Delete a subscription training key
-      description: Allows you to delete a subscription training key that has not been converted into a valid subscription assignment.
+      description: |
+        Allows you to delete a subscription training key that has not been converted into a valid subscription assignment.
+        
+        **NOTE:** A subscription training key can not be deleted once it has been converted into a valid subscription assignment.
       operationId: DeleteSubscriptionTrainingKey
       parameters:
         - name: id
@@ -7164,7 +7168,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: '#/components/schemas/DeleteSubscriptionTrainingKeysResponse'
       deprecated: false
 components:
   schemas:
@@ -9869,42 +9873,42 @@ components:
           description: The subscription training key value
           example: E3G5YZFREFEQ9371
           nullable: true
-        Created:
-          type: string
-          description: When the subscription training key was created (in Unix epoch time).
-          example: '2021-03-19T22:16:07.967Z'
-          nullable: true
-        CreatedById:
-          type: integer
-          description: The user id that created the subscription training key
-          format: int32
-          example: 121
-        LastModified:
-          type: string
-          description: When the subscription was last modified (in Unix epoch time).
-          example: '2021-04-19T11:23:02.567Z'
-          nullable: true
-        LastModifiedById:
-          type: integer
-          description: The user id that last modified the subscription training key
-          format: int32
-          example: 682
-        ExpirationDate:
-          type: string
-          description: 'When the subscription training key ends or expires (in Unix epoch time). '
-          example: '2022-03-19T22:15:59.997Z'
-          nullable: true
         MaxKeyUses:
           type: integer
           description: The maximum number of times the subscription training key can be used.
           format: int32
           example: 25
           nullable: true
+        ExpirationDate:
+          type: string
+          description: 'When the subscription training key ends or expires (in Unix epoch time). '
+          example: '2022-03-19T22:15:59.997Z'
+          nullable: true
         ContentExpiry:
           type: string
           description: When the subscription training key content ends or expires (in Unix epoch time).
           example: '2022-03-19T22:15:59.997Z'
           nullable: true
+        Created:
+          type: string
+          description: When the subscription training key was created (in Unix epoch time).
+          example: '2021-03-19T22:16:07.967Z'
+          nullable: true
+        LastModified:
+          type: string
+          description: When the subscription was last modified (in Unix epoch time).
+          example: '2021-04-19T11:23:02.567Z'
+          nullable: true
+        CreatedById:
+          type: integer
+          description: The user id that created the subscription training key
+          format: int32
+          example: 121
+        LastModifiedById:
+          type: integer
+          description: The user id that last modified the subscription training key
+          format: int32
+          example: 682
     CreateSubscriptionTrainingKeysResponse:
       type: object
       x-stoplight:
@@ -9914,6 +9918,16 @@ components:
           $ref: '#/components/schemas/Status'
         Error:
           $ref: '#/components/schemas/Error'
+        CreateSubscriptionsResults:
+          type: array
+          description: See CreateSubscriptionsResult.
+          items:
+            $ref: '#/components/schemas/CreateSubscriptionTrainingKeyResult'
+    CreateSubscriptionTrainingKeyResult:
+      type: object
+      x-stoplight:
+        id: fb13469d3a297
+      properties:
         Id:
           type: integer
           description: The ID of the created Subscription Training Key.
@@ -9923,6 +9937,24 @@ components:
           type: string
           description: The Subscription Training Key that has been created.
           example: E3G5YZFREFEQ9371
+    UpdateSubscriptionTrainingKeysResponse:
+      type: object
+      x-stoplight:
+        id: c557c46799dfb
+      properties:
+        Status:
+          $ref: '#/components/schemas/Status'
+        Error:
+          $ref: '#/components/schemas/Error'
+    DeleteSubscriptionTrainingKeysResponse:
+      type: object
+      x-stoplight:
+        id: c557c46799dfb
+      properties:
+        Status:
+          $ref: '#/components/schemas/Status'
+        Error:
+          $ref: '#/components/schemas/Error'
     CreateCompanyResponse:
       type: object
       properties:

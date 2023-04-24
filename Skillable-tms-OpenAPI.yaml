@@ -10139,12 +10139,13 @@ components:
       type: integer
       description: |-
         Indicates the status of the API request.  
+        
         0 = Success  
         10 = Error  
         20 = Not found  
         30 = Invalid integration key
       format: int32
-      example: 0
+      example: 10
     Error:
       type: string
       description: Error details. This will only have a value if an error was encountered. The status property will also be set to Error (10).

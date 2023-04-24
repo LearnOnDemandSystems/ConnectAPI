@@ -6291,7 +6291,7 @@ paths:
       parameters:
         - name: Id
           in: query
-          description: The ID of the company
+          description: The Id of the company
           required: true
           style: form
           explode: true
@@ -6866,9 +6866,18 @@ paths:
           explode: true
           schema:
             type: string
+        - name: organizationId
+          in: query
+          description: 'Filter subscription training keys by the associated organization id. When specified, only the subscription training keys associated with this organization will be returned.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
         - name: trainingKey
           in: query
-          description: 'An optional parameter used to filter subscription training keys by the associated subscription training key. When specified, only the subscription training key that match this value will be returned.'
+          description: 'Filter for a specific subscription training key. When specified, only the subscription training key that matches this value will be returned.'
           required: false
           style: form
           explode: true
@@ -6876,7 +6885,7 @@ paths:
             type: string
         - name: createdById
           in: query
-          description: 'An optional parameter used to filter subscription training keys by the associated user id. When specified, only the subscription training keys that have been created by this user id value will be returned.'
+          description: 'Filter subscription training keys by the associated user id. When specified, only the subscription training keys that have been created by this user id value will be returned.'
           required: false
           style: form
           explode: true
@@ -6885,7 +6894,7 @@ paths:
             format: int64
         - name: createdBefore
           in: query
-          description: 'An optional parameter used to filter subscription training keys created before a specified date. When used in conjunction with the "createdAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          description: 'Filter subscription training keys created before a specified date. When used in conjunction with the "createdAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           required: false
           style: form
           explode: true
@@ -6894,7 +6903,7 @@ paths:
             format: int64
         - name: createdAfter
           in: query
-          description: 'An optional parameter used to filter subscription training keys created after a specified date. When used in conjunction with the "createdBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          description: 'Filter subscription training keys created after a specified date. When used in conjunction with the "createdBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           required: false
           style: form
           explode: true
@@ -6903,7 +6912,7 @@ paths:
             format: int64
         - name: expiresBefore
           in: query
-          description: 'An optional parameter used to filter subscription training keys expiring before a specified date. When used in conjunction with the "expiresAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          description: 'Filter subscription training keys expiring before a specified date. When used in conjunction with the "expiresAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           required: false
           style: form
           explode: true
@@ -6912,25 +6921,16 @@ paths:
             format: int64
         - name: expiresAfter
           in: query
-          description: 'An optional parameter used to filter subscription training keys expiring after a specified date. When used in conjunction with the "expiresBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          description: 'Filter subscription training keys expiring after a specified date. When used in conjunction with the "expiresBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           required: false
           style: form
           explode: true
           schema:
             type: integer
             format: int64
-        - name: organizationId
-          in: query
-          description: 'An optional parameter used to filter subscription training keys by the associated organization id. When specified, only the subscription training keys associated with this organization will be returned.'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int32
         - name: lastModifiedBefore
           in: query
-          description: 'An optional parameter used to filter subscription training keys last modified before a specified date. When used in conjunction with the "lastModifiedAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          description: 'Filter subscription training keys last modified before a specified date. When used in conjunction with the "lastModifiedAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           required: false
           style: form
           explode: true
@@ -6939,7 +6939,7 @@ paths:
             format: int64
         - name: lastModifiedAfter
           in: query
-          description: 'An optional parameter used to filter subscription training keys last modified after a specified date. When used in conjunction with the "lastModifiedBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          description: 'Filter subscription training keys last modified after a specified date. When used in conjunction with the "lastModifiedBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           required: false
           style: form
           explode: true
@@ -6948,7 +6948,7 @@ paths:
             format: int64
         - name: lastModifiedById
           in: query
-          description: 'An optional parameter used to filter subscription training keys by the user id that last modified the record. When specified, only the subscription training keys last modified by this user will be returned.'
+          description: 'Filter subscription training keys by the user id that last modified the record. When specified, only the subscription training keys last modified by this user will be returned.'
           required: false
           style: form
           explode: true
@@ -6957,7 +6957,7 @@ paths:
             format: int32
         - name: subscriptionProfileId
           in: query
-          description: 'An optional parameter used to filter subscription training keys by subscription profile id. When specified, only subscription training keys that are associated with this value will be returned.'
+          description: 'Filter subscription training keys by subscription profile id. When specified, only subscription training keys that are associated with this value will be returned.'
           required: false
           style: form
           explode: true
@@ -6965,7 +6965,7 @@ paths:
             type: string
         - name: contentExpiryBefore
           in: query
-          description: 'An optional parameter used to filter subscription training keys when the content is expiring before a specified date. When used in conjunction with the "contentExpiryAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          description: 'Filter subscription training keys when the content is expiring before a specified date. When used in conjunction with the "contentExpiryAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           required: false
           style: form
           explode: true
@@ -6974,7 +6974,7 @@ paths:
             format: int64
         - name: contentExpiryAfter
           in: query
-          description: 'An optional parameter used to filter subscription training keys when the content is expiring after a specified date. When used in conjunction with the "contentExpiryBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          description: 'Filter subscription training keys when the content is expiring after a specified date. When used in conjunction with the "contentExpiryBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           required: false
           style: form
           explode: true
@@ -6993,7 +6993,7 @@ paths:
       tags:
         - Subscription Management
       summary: Create a subscription training key
-      description: Allows you to create a subscription training key.
+      description: Allows you to create one or more unique subscription training keys.
       operationId: CreateSubscriptionTrainingKeys
       parameters:
         - name: organizationId
@@ -7007,7 +7007,7 @@ paths:
             format: int32
         - name: subscriptionProfileId
           in: query
-          description: The ID of the related subscription profile.
+          description: The Id of the related subscription profile.
           required: true
           style: form
           explode: true
@@ -7043,7 +7043,7 @@ paths:
             format: int64
         - name: trainingKeys
           in: query
-          description: The subscription training key in JSON format and must be unique. If not supplied then a set of unique training keys will be auto-created based on the numberOfKeys parameter.
+          description: A comma-separated list of subscription training keys unique to the Skillable TMS. If not supplied then a set of unique training keys will be auto-created based on the numberOfKeys parameter.
           required: false
           style: form
           explode: true
@@ -7051,7 +7051,7 @@ paths:
             type: string
         - name: numberOfKeys
           in: query
-          description: The number of subscription training keys to be created. If not supplied a single unique training key will be created.
+          description: The number of subscription training keys to be created. If not supplied then a single training key will be created that is unique to the Skillable TMS. If the trainingKeys parameter is supplied then this parameter will be ignored.
           required: false
           style: form
           explode: true
@@ -7070,13 +7070,13 @@ paths:
     get:
       tags:
         - Subscription Management
-      summary: Update a subscription training key
+      summary: Update a subscription training key by id
       description: Allows you to update a subscription training key.
       operationId: UpdateSubscriptionTrainingKey
       parameters:
-        - name: id
+        - name: Id
           in: query
-          description: The subscription training key id.
+          description: The Id of the subscription training key.
           required: true
           style: form
           explode: true
@@ -7092,7 +7092,7 @@ paths:
             type: string
         - name: organizationId
           in: query
-          description: An optional parameter for the ID of the related organization.
+          description: The Id of the related organization.
           required: false
           style: form
           explode: true
@@ -7147,7 +7147,7 @@ paths:
     get:
       tags:
         - Subscription Management
-      summary: Delete a subscription training key
+      summary: Delete a subscription training key by id
       description: |
         Allows you to delete a subscription training key that has not been converted into a valid subscription assignment.
         
@@ -7156,7 +7156,7 @@ paths:
       parameters:
         - name: id
           in: query
-          description: The subscription training key ID.
+          description: The Id of the subscription training key.
           required: true
           style: form
           explode: true

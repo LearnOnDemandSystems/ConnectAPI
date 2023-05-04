@@ -2772,6 +2772,8 @@ paths:
           explode: true
           schema:
             type: array
+            items:
+              type: string
             example: 
               - mytag1
               - mytag2

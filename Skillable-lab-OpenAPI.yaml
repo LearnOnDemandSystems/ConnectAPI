@@ -3076,6 +3076,14 @@ components:
                 description: A list of tags associated with the lab profile.
                 items:
                   type: string
+              Created:
+                type: integer
+                format: int64
+                description: When date the lab profile was created (in Unix epoch time).
+              LastModified:
+                type: integer
+                format: int64
+                description: When date the lab profile was last modified (in Unix epoch time).
         DeliveryRegions:
           type: array
           uniqueItems: true

@@ -3079,11 +3079,11 @@ components:
               Created:
                 type: integer
                 format: int64
-                description: When date the lab profile was created (in Unix epoch time).
+                description: The date when the lab profile was created (in Unix epoch time).
               LastModified:
                 type: integer
                 format: int64
-                description: When date the lab profile was last modified (in Unix epoch time).
+                description: The date when the lab profile was last modified (in Unix epoch time).
         DeliveryRegions:
           type: array
           uniqueItems: true

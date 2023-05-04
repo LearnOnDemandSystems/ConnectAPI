@@ -2772,7 +2772,7 @@ paths:
           explode: true
           schema:
             type: array
-            example:
+            example: 
               - mytag1
               - mytag2
       responses:

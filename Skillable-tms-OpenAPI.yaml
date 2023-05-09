@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: TMS API
+  title: Skillable TMS API
   description: |
     # Introduction
     Welcome to Skillable Connect: TMS Edition, our core platform for managing your users, scheduling training to consume content, managing course assignments and subscriptions.
@@ -7150,7 +7150,7 @@ paths:
       summary: Delete a subscription training key by id
       description: |
         Allows you to delete a subscription training key that has not been converted into a valid subscription assignment.
-        
+
         **NOTE:** A subscription training key can not be deleted once it has been converted into a valid subscription assignment.
       operationId: DeleteSubscriptionTrainingKey
       parameters:
@@ -10139,7 +10139,7 @@ components:
       type: integer
       description: |-
         Indicates the status of the API request.  
-        
+
         0 = Success  
         10 = Error  
         20 = Not found  

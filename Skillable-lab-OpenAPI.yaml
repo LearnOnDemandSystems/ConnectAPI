@@ -234,8 +234,10 @@ paths:
         - name: lang
           in: query
           description: |-
-            Allows you to override the lab client UI language. Please note this only affects the lab client UI elements such as menus, tabs, and dialogs. The lab instructions and content are not affected.  
+            Allows you to override the language of the Instruction Set as well as the lab client UI language. This affects lab client UI elements like menus, tabs, and dialogs. Using this in connection with <strong>instructionsId</strong> will allow you to select launching labs with a specific Instruction Set in the specified language if they have been defined within the lab profile.  
               
+            NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.  
+
               en = English  
               es = Spanish  
               fr = French  
@@ -261,13 +263,16 @@ paths:
             example: en
         - name: instructionsId
           in: query
-          description: When specified, Skillable will attempt to launch the lab and present the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead.
+          description: |-
+            When specified, Skillable will attempt to launch the lab and present the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead. This is a string that cannot contain spaces.  
+
+            NOTE: To be able to see how to use this parameter, add the column "<strong>API Example</strong>" in the <strong>Manage Instruction Sets</strong> feature while editing the instructions.  
           required: false
           style: form
           explode: true
           schema:
             type: string
-            example: UofA
+            example: Base-01
       responses:
         '200':
           description: OK Response.
@@ -2308,7 +2313,9 @@ paths:
         - name: lang
           in: query
           description: |-
-            Allows you to override the lab client UI language. Please note this only affects the lab client UI elements such as menus, tabs, and dialogs. The lab instructions and content are not affected.  
+            Allows you to override the language of the Instruction Set as well as the lab client UI language. This affects lab client UI elements like menus, tabs, and dialogs. Using this in connection with <strong>instructionsId</strong> will allow you to select launching labs with a specific Instruction Set in the specified language if they have been defined within the lab profile.  
+              
+            NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.  
               
               en = English  
               es = Spanish  
@@ -2335,7 +2342,11 @@ paths:
             example: en
         - name: instructionsId
           in: query
-          description: When specified, Skillable will attempt to launch the lab and present the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead.
+          description: |-
+            When specified, Skillable will attempt to launch the lab and present the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead. This is a string that cannot contain spaces.  
+
+            NOTE: To be able to see how to use this parameter, add the column "<strong>API Example</strong>" in the <strong>Manage Instruction Sets</strong> feature while editing the instructions.  
+
           required: false
           style: form
           explode: true
@@ -2477,7 +2488,9 @@ paths:
         - name: lang
           in: query
           description: |-
-            Allows you to override the lab client UI language. Please note this only affects the lab client UI elements such as menus, tabs, and dialogs. The lab instructions and content are not affected.  
+            Allows you to override the language of the Instruction Set as well as the lab client UI language. This affects lab client UI elements like menus, tabs, and dialogs. Using this in connection with <strong>instructionsId</strong> will allow you to select launching labs with a specific Instruction Set in the specified language if they have been defined within the lab profile.  
+              
+            NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.    
               
               en = English  
               es = Spanish  
@@ -2504,7 +2517,10 @@ paths:
             example: en
         - name: instructionsId
           in: query
-          description: When specified, Skillable will attempt to launch the lab and present the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead.
+          description: |-
+            When specified, Skillable will attempt to launch the lab and present the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead. This is a string that cannot contain spaces.  
+
+            NOTE: To be able to see how to use this parameter, add the column "<strong>API Example</strong>" in the <strong>Manage Instruction Sets</strong> feature while editing the instructions.  
           required: false
           style: form
           explode: true
@@ -3902,6 +3918,14 @@ components:
           type: integer
           description: An estimated number of seconds before the lab is ready.
           format: int32
+          nullable: true
+        InstructionsId:
+          type: string
+          description: The ID of the Instructions used
+          nullable: true
+        Lang:
+          type: string
+          description: en
           nullable: true
         Error:
           type: string

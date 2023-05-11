@@ -2352,7 +2352,7 @@ paths:
           explode: true
           schema:
             type: string
-            example: UofA
+            example: Base-01
       responses:
         '200':
           description: OK Response.
@@ -2526,7 +2526,7 @@ paths:
           explode: true
           schema:
             type: string
-            example: UofA
+            example: Base-01
       responses:
         '200':
           description: OK Response.

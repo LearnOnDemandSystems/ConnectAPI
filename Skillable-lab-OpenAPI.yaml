@@ -175,7 +175,7 @@ paths:
             example: testlaunch
         - name: ipAddress
           in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in  the closest available delivery region. You should provide the  IP address of the user that is taking the lab, not the IP address  of your system. IPv4 and IPv6 address are supported.'
+          description: 'When specified, Skillable will attempt to launch the lab in  the closest available delivery region. You should provide the  IP address of the user that is taking the lab, not the IP address  of your system. IPv4 and IPv6 address are supported.'
           required: false
           style: form
           explode: true
@@ -184,7 +184,7 @@ paths:
             example: 1.1.1.1
         - name: regionId
           in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
+          description: 'When specified, Skillable will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
           required: false
           style: form
           explode: true
@@ -234,15 +234,18 @@ paths:
         - name: lang
           in: query
           description: |-
-            Allows you to override the lab client UI language. Please note this only affects the lab client UI elements such as menus, tabs, and dialogs. The lab instructions and content are not affected.  
+            Allows you to override the language of the Instruction Set as well as the lab client UI language. This affects lab client UI elements like menus, tabs, and dialogs. Using this in connection with <strong>instructionsId</strong> will allow you to select launching labs with a specific Instruction Set in the specified language if they have been defined within the lab profile.  
               
+            NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.  
+
               en = English  
               es = Spanish  
               fr = French  
+              de = German  
               pt = Portuguese  
               ja = Japanese  
-              zh = Chinese  
-              ka = Korean  
+              zh = Simplified Chinese  
+              ko = Korean 
           required: false
           style: form
           explode: true
@@ -252,11 +255,24 @@ paths:
               - en
               - es
               - fr
+              - de
               - pt
               - ja
               - zh
-              - ka
+              - ko
             example: en
+        - name: instructionsId
+          in: query
+          description: |-
+            When specified, Skillable will attempt to launch the lab and present the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead. This is a string that cannot contain spaces.  
+
+            NOTE: To be able to see how to use this parameter, add the column "<strong>API Example</strong>" in the <strong>Manage Instruction Sets</strong> feature while editing the instructions.  
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Base-01
       responses:
         '200':
           description: OK Response.
@@ -597,6 +613,8 @@ paths:
                             ScriptTexts: []
                             ShowResultsInReports: true
                     EstimatedReadySeconds: null
+                    InstructionsId: The ID of the Instructions used
+                    Language: en
                     Error: null
                     Status: 1
       deprecated: false
@@ -1779,7 +1797,7 @@ paths:
             example: 20
         - name: AvailableLabs
           in: query
-          description: 'An optional array of lab profile IDs. When provided, Lab on Demand will know that these labs are available within the class. You do not need to set this value in order to launch labs against the class. This is useful when using Lab on Demand to display a class attendance page, or when consuming shared class environments and you want the shared environment launch link to appear on the class monitor page.'
+          description: 'An optional array of lab profile IDs. When provided, Skillable will know that these labs are available within the class. You do not need to set this value in order to launch labs against the class. This is useful when using Skillable to display a class attendance page, or when consuming shared class environments and you want the shared environment launch link to appear on the class monitor page.'
           required: false
           style: form
           explode: true
@@ -2027,7 +2045,7 @@ paths:
             example: 20
         - name: AvailableLabs
           in: query
-          description: 'An optional array of lab profile IDs. When provided, Lab on Demand will know that these labs are available within the class. You do not need to set this value in order to launch labs against the class. This is useful when using Lab on Demand to display a class attendance page, or when consuming shared class environments and you want the shared environment launch link to appear on the class monitor page.'
+          description: 'An optional array of lab profile IDs. When provided, Skillable will know that these labs are available within the class. You do not need to set this value in order to launch labs against the class. This is useful when using Skillable to display a class attendance page, or when consuming shared class environments and you want the shared environment launch link to appear on the class monitor page.'
           style: form
           explode: true
           schema:
@@ -2275,7 +2293,7 @@ paths:
             example: eventLaunch
         - name: ipAddress
           in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in the closest available delivery region. You should provide the IP address of the user that is taking the lab, not the IP address of your system.'
+          description: 'When specified, Skillable will attempt to launch the lab in the closest available delivery region. You should provide the IP address of the user that is taking the lab, not the IP address of your system.'
           required: false
           style: form
           explode: true
@@ -2284,7 +2302,7 @@ paths:
             example: 1.1.1.1
         - name: regionId
           in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
+          description: 'When specified, Skillable will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
           required: false
           style: form
           explode: true
@@ -2292,6 +2310,49 @@ paths:
             type: integer
             format: int32
             example: 1
+        - name: lang
+          in: query
+          description: |-
+            Allows you to override the language of the Instruction Set as well as the lab client UI language. This affects lab client UI elements like menus, tabs, and dialogs. Using this in connection with <strong>instructionsId</strong> will allow you to select launching labs with a specific Instruction Set in the specified language if they have been defined within the lab profile.  
+              
+            NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.  
+              
+              en = English  
+              es = Spanish  
+              fr = French  
+              de = German  
+              pt = Portuguese  
+              ja = Japanese  
+              zh = Simplified Chinese  
+              ko = Korean 
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - en
+              - es
+              - fr
+              - de
+              - pt
+              - ja
+              - zh
+              - ko
+            example: en
+        - name: instructionsId
+          in: query
+          description: |-
+            When specified, Skillable will attempt to launch the lab and present the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead. This is a string that cannot contain spaces.  
+
+            NOTE: To be able to see how to use this parameter, add the column "<strong>API Example</strong>" in the <strong>Manage Instruction Sets</strong> feature while editing the instructions.  
+
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Base-01
       responses:
         '200':
           description: OK Response.
@@ -2407,7 +2468,7 @@ paths:
             example: eventLaunch
         - name: ipAddress
           in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in the closest available delivery region. You should provide the IP address of the user that is taking the lab, not the IP address of your system.'
+          description: 'When specified, Skillable will attempt to launch the lab in the closest available delivery region. You should provide the IP address of the user that is taking the lab, not the IP address of your system.'
           required: false
           style: form
           explode: true
@@ -2416,7 +2477,7 @@ paths:
             example: 1.1.1.1
         - name: regionId
           in: query
-          description: 'When specified, Lab on Demand will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
+          description: 'When specified, Skillable will attempt to launch the lab in  the specified delivery region if a suitable host in that region  is available and all required storage is available in that region.  Delivery regions can be found using the **DeliveryRegions** command  or **Catalog** command. Using the ipAddress parameter will result in  a more reliable geo-location of the lab for the end user.'
           required: false
           style: form
           explode: true
@@ -2424,6 +2485,48 @@ paths:
             type: integer
             format: int32
             example: 1
+        - name: lang
+          in: query
+          description: |-
+            Allows you to override the language of the Instruction Set as well as the lab client UI language. This affects lab client UI elements like menus, tabs, and dialogs. Using this in connection with <strong>instructionsId</strong> will allow you to select launching labs with a specific Instruction Set in the specified language if they have been defined within the lab profile.  
+              
+            NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.    
+              
+              en = English  
+              es = Spanish  
+              fr = French  
+              de = German  
+              pt = Portuguese  
+              ja = Japanese  
+              zh = Simplified Chinese  
+              ko = Korean 
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - en
+              - es
+              - fr
+              - de
+              - pt
+              - ja
+              - zh
+              - ko
+            example: en
+        - name: instructionsId
+          in: query
+          description: |-
+            When specified, Skillable will attempt to launch the lab and present the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead. This is a string that cannot contain spaces.  
+
+            NOTE: To be able to see how to use this parameter, add the column "<strong>API Example</strong>" in the <strong>Manage Instruction Sets</strong> feature while editing the instructions.  
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Base-01
       responses:
         '200':
           description: OK Response.
@@ -2810,7 +2913,7 @@ components:
       name: api_key
       type: apiKey
       in: header
-      description: 'All methods require an API key, which must be obtained from Skillable. This key is used by Lab on Demand to validate your account. The key can be passed as an HTTP request header with the header name "api_key".'
+      description: 'All methods require an API key, which must be obtained from Skillable. This key is used by Skillable to validate your account. The key can be passed as an HTTP request header with the header name "api_key".'
   schemas:
     CancelResponse:
       type: object
@@ -2962,7 +3065,7 @@ components:
                 description: Indicates the content version (only applicable if HasIntegratedContent = true).
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is scored as an exam.
+                description: Indicates whether the lab is scored.
               PremiumPrice:
                 type: number
                 description: The consumption cost of the lab when premium experience features are included.
@@ -2983,6 +3086,14 @@ components:
                 description: A list of tags associated with the lab profile.
                 items:
                   type: string
+              Created:
+                type: integer
+                format: int64
+                description: The date when the lab profile was created (in Unix epoch time).
+              LastModified:
+                type: integer
+                format: int64
+                description: The date when the lab profile was last modified (in Unix epoch time).
         DeliveryRegions:
           type: array
           uniqueItems: true
@@ -2994,7 +3105,7 @@ components:
               Id:
                 type: integer
                 format: int32
-                description: 'The unique identifier of the delivery region. When specified, Lab on Demand will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
+                description: 'The unique identifier of the delivery region. When specified, Skillable will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
               Name:
                 type: string
                 minLength: 1
@@ -3331,7 +3442,7 @@ components:
           description: The name of the datacenter where the lab is located.
         DeliveryRegionId:
           type: integer
-          description: 'When specified, Lab on Demand will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
+          description: 'When specified, Skillable will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
           format: int32
         DeliveryRegionName:
           type: string
@@ -3476,30 +3587,30 @@ components:
           nullable: true
         ExamPassed:
           type: boolean
-          description: Indicates whether the user passed the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates whether the user passed the lab. Will only be set if the lab has activities which have been scored.
           nullable: true
         ExamScore:
           type: integer
-          description: Indicates the exam score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates the lab score. Will only be set if the lab has activities which have been scored.
           format: int32
           nullable: true
         ExamMaxPossibleScore:
           type: integer
-          description: Indicates the exam maximum possible score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates the maximum possible score of the lab. Will only be set if the lab has activities which have been scored.
           format: int32
           nullable: true
         ExamPassingScore:
           type: integer
-          description: Indicates the minimum score required to pass the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates the minimum score required to pass the lab. Will only be set if the lab has activities which have been scored.
           format: int32
           nullable: true
         ExamScoredById:
           type: integer
-          description: The ID of the user that manually scored the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored manually. Automatically scored exams will not include a value for this property.
+          description: The ID of the user that manually scored the lab. Will only be set if the lab has activities which have been scored manually. Automatically scored labs will not include a value for this property.
           format: int64
           nullable: true
         ExamScoredByName:
-          description: The name of the user that manually scored the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored manually. Automatically scored exams will not include a value for this property.
+          description: The name of the user that manually scored the lab. Will only be set if the lab has activities which have been scored manually. Automatically scored labs will not include a value for this property.
           type: string
           nullable: true
         ExamDetails:
@@ -3508,16 +3619,16 @@ components:
           nullable: true
         ExamScoredDate:
           type: integer
-          description: The date the exam was scored (in Unix epoch time).
+          description: The date the lab was scored (in Unix epoch time).
           format: int64
           nullable: true
         ExamScoredTime:
           type: string
-          description: When the exam was scored (in Unix epoch time). Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: When the lab was scored (in Unix epoch time). Will only be set if the lab has activities which have been scored.
           nullable: true
         IsExam:
           type: boolean
-          description: Indicates whether the lab is scored as an exam.
+          description: Indicates whether the lab is scored.
         IpAddress:
           type: string
           description: The user's IP address. This is only included if the IP address was provided when the lab was launched.
@@ -3802,6 +3913,14 @@ components:
           description: An estimated number of seconds before the lab is ready.
           format: int32
           nullable: true
+        InstructionsId:
+          type: string
+          description: The ID of the Instructions used
+          nullable: true
+        Lang:
+          type: string
+          description: en
+          nullable: true
         Error:
           type: string
           description: 'In the event of an error, this will contain a detailed error message.'
@@ -3956,7 +4075,7 @@ components:
           nullable: true
         AvailableLabs:
           type: array
-          description: The IDs of labs available for launch within the class when using the class attendance UI directly in Lab on Demand (generally not used for class deliveries managed outside of Lab on Demand).
+          description: The IDs of labs available for launch within the class when using the class attendance UI directly in Skillable (generally not used for class deliveries managed outside of Skillable).
           items:
             type: integer
         Status:
@@ -4096,7 +4215,7 @@ components:
           format: int32
         IsExam:
           type: boolean
-          description: Indicates whether the lab is scored as an exam.
+          description: Indicates whether the lab is scored.
         PremiumPrice:
           type: number
           description: The consumption cost of the lab when premium experience features are included.
@@ -4194,26 +4313,26 @@ components:
                 description: 'If the lab has integrated tasks, the percentage of tasks that the user has completed.'
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is scored as an exam.
+                description: Indicates whether the lab is scored.
                 nullable: true
               ExamPassed:
                 type: boolean
-                description: Indicates whether the user passed the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates whether the user passed the lab. Will only be set if the lab has activities which have been scored.
                 nullable: true
               ExamScore:
                 type: integer
                 format: int32
-                description: Indicates the exam score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates the lab score. Will only be set if the lab has activities which have been scored.
                 nullable: true
               ExamMaxPossibleScore:
                 type: integer
                 format: int32
-                description: Indicates the exam maximum possible score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates the maximum possible score of the lab. Will only be set if the lab has activities which have been scored.
                 nullable: true
               ExamPassingScore:
                 type: integer
                 format: int32
-                description: Indicates the minimum score required to pass the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates the minimum score required to pass the lab. Will only be set if the lab has activities which have been scored.
                 nullable: true
               IpAddress:
                 type: string
@@ -4247,7 +4366,7 @@ components:
                 description: The ID of the datacenter that the lab instance is located in.
               DeliveryRegionId:
                 type: integer
-                description: 'When specified, Lab on Demand will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the DeliveryRegions command or Catalog command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
+                description: 'When specified, Skillable will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the DeliveryRegions command or Catalog command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
         Status:
           type: integer
           format: int32
@@ -4412,24 +4531,24 @@ components:
           format: int32
         IsExam:
           type: boolean
-          description: Indicates whether the lab is scored as an exam.
+          description: Indicates whether the lab is scored.
         ExamPassed:
           type: boolean
-          description: Indicates whether the user passed the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates whether the user passed the lab. Will only be set if the lab has activities which have been scored.
           nullable: true
         ExamScore:
           type: number
-          description: Indicates the exam score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates the lab score. Will only be set if the lab has activities which have been scored.
           format: float
           nullable: true
         ExamMaxPossibleScore:
           type: integer
-          description: Indicates the exam maximum possible score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates the maximum possible score of the lab. Will only be set if the lab has activities which have been scored.
           format: int32
           nullable: true
         ExamPassingScore:
           type: integer
-          description: Indicates the minimum score required to pass the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+          description: Indicates the minimum score required to pass the lab. Will only be set if the lab has activities which have been scored.
           format: int32
           nullable: true
         IpAddress:
@@ -4470,7 +4589,7 @@ components:
           nullable: true
         DeliveryRegionId:
           type: integer
-          description: 'When specified, Lab on Demand will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
+          description: 'When specified, Skillable will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
           format: int32
           nullable: true
         Status:
@@ -4549,25 +4668,25 @@ components:
                 description: 'If the lab has integrated tasks, the percentage of tasks that the user has completed.'
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is scored as an exam
+                description: Indicates whether the lab is scored.
               ExamPassed:
                 type: boolean
-                description: Indicates whether the user passed the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates whether the user passed the lab. Will only be set if the lab has activities which have been scored.
                 nullable: true
               ExamScore:
                 type: number
-                description: Indicates the exam score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates the lab score. Will only be set if the lab has activities which have been scored.
                 format: float
                 nullable: true
               ExamMaxPossibleScore:
                 type: integer
                 format: int32
-                description: Indicates the exam maximum possible score. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates the maximum possible score of the lab. Will only be set if the lab has activities which have been scored.
                 nullable: true
               ExamPassingScore:
                 type: integer
                 format: int32
-                description: Indicates the minimum score required to pass the exam. Will only be set if the lab is an exam (IsExam = true) and the exam has been scored.
+                description: Indicates the minimum score required to pass the lab. Will only be set if the lab has activities which have been scored.
                 nullable: true
               IpAddress:
                 type: string
@@ -4605,7 +4724,7 @@ components:
                 nullable: true
               DeliveryRegionId:
                 type: integer
-                description: 'When specified, Lab on Demand will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
+                description: 'When specified, Skillable will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
                 nullable: true
         Status:
           type: integer
@@ -4733,7 +4852,7 @@ components:
                 description: When the lab will expire (in Unix epoch time).
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is considered a scorable exam.
+                description: Indicates whether the lab is scored.
         SavedLabs:
           type: array
           description: Array of LabInstance objects for saved labs.
@@ -4773,7 +4892,7 @@ components:
                 description: When the lab will expire (in Unix epoch time).
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is considered a scorable exam.
+                description: Indicates whether the lab is scored.
         Status:
           type: integer
           format: int32
@@ -4955,7 +5074,7 @@ components:
                 nullable: true
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is considered a scorable exam.
+                description: Indicates whether the lab is scored.
         SavedLabs:
           type: array
           description: Array of SavedLab objects.
@@ -4993,10 +5112,10 @@ components:
                 description: True/false indicating whether the lab is currently in the process of being saved.
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is considered a scorable exam.
+                description: Indicates whether the lab is scored.
               SubmittedForGrading:
                 type: boolean
-                description: Indicates whether the lab has been submitted for grading and is in a saved state while awaiting scoring. This will only be true for exams.
+                description: Indicates whether the lab has been submitted for grading and is in a saved state while awaiting scoring. This will only be true for scored labs.
         Status:
           type: integer
           format: int32

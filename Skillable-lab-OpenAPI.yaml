@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: LAB API
+  title: Skillable Lab API
   description: |
     # Introduction 
     Welcome to Skillable Connect: LAB Edition, our core platform for creating, customizing, and managing labs. 
@@ -2788,7 +2788,7 @@ paths:
             type: array
             items:
               type: string
-            example: 
+            example:
               - mytag1
               - mytag2
       responses:
@@ -2876,12 +2876,6 @@ paths:
       deprecated: false
       tags:
         - Organization
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
   /deliveryregions:
     get:
       summary: Returns all delivery regions available to your organization

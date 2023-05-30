@@ -1652,10 +1652,6 @@ paths:
                     type: string
                     description: The raw binary compressed package.
                     format: binary
-              examples:
-                example-1:
-                  value:
-                    '': string
       deprecated: false
       tags:
         - Lab Profile Management

@@ -1508,6 +1508,48 @@ paths:
             type: integer
             format: int32
             example: 2393048
+        - name: lang
+          in: query
+          description: |-
+            Allows you to select the language of the Instruction Set. Using this in connection with <strong>instructionsId</strong> will allow you to select a specific lab Instruction Set in the specified language if they have been defined within the lab profile.  
+              
+            NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option will be used instead.  
+
+              en = English  
+              es = Spanish  
+              fr = French  
+              de = German  
+              pt = Portuguese  
+              ja = Japanese  
+              zh = Simplified Chinese  
+              ko = Korean 
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - en
+              - es
+              - fr
+              - de
+              - pt
+              - ja
+              - zh
+              - ko
+            example: en
+        - name: instructionsId
+          in: query
+          description: |-
+            When specified, Skillable will attempt to retrieve the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead. This is a string that cannot contain spaces.  
+
+            NOTE: To be able to see how to use this parameter, add the column "<strong>API Example</strong>" in the <strong>Manage Instruction Sets</strong> feature while editing the instructions.  
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Base-01
       responses:
         '200':
           description: OK Response.
@@ -1548,6 +1590,48 @@ paths:
             type: integer
             format: int32
             example: 2393048
+        - name: lang
+          in: query
+          description: |-
+            Allows you to select the language of the Instruction Set. Using this in connection with <strong>instructionsId</strong> will allow you to select a specific lab Instruction Set in the specified language if they have been defined within the lab profile.  
+              
+            NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option will be used instead.  
+
+              en = English  
+              es = Spanish  
+              fr = French  
+              de = German  
+              pt = Portuguese  
+              ja = Japanese  
+              zh = Simplified Chinese  
+              ko = Korean 
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - en
+              - es
+              - fr
+              - de
+              - pt
+              - ja
+              - zh
+              - ko
+            example: en
+        - name: instructionsId
+          in: query
+          description: |-
+            When specified, Skillable will attempt to retrieve the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead. This is a string that cannot contain spaces.  
+
+            NOTE: To be able to see how to use this parameter, add the column "<strong>API Example</strong>" in the <strong>Manage Instruction Sets</strong> feature while editing the instructions.  
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Base-01
       responses:
         '200':
           description: OK Response.
@@ -1568,10 +1652,6 @@ paths:
                     type: string
                     description: The raw binary compressed package.
                     format: binary
-              examples:
-                example-1:
-                  value:
-                    '': string
       deprecated: false
       tags:
         - Lab Profile Management
@@ -1591,6 +1671,48 @@ paths:
             type: integer
             format: int32
             example: 2393048
+        - name: lang
+          in: query
+          description: |-
+            Allows you to select the language of the Instruction Set. Using this in connection with <strong>instructionsId</strong> will allow you to update a specific lab Instruction Set in the specified language if they have been defined within the lab profile.  
+              
+            NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option will be used instead.  
+
+              en = English  
+              es = Spanish  
+              fr = French  
+              de = German  
+              pt = Portuguese  
+              ja = Japanese  
+              zh = Simplified Chinese  
+              ko = Korean 
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - en
+              - es
+              - fr
+              - de
+              - pt
+              - ja
+              - zh
+              - ko
+            example: en
+        - name: instructionsId
+          in: query
+          description: |-
+            When specified, Skillable will attempt to update the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be updated instead. This is a string that cannot contain spaces.  
+
+            NOTE: To be able to see how to use this parameter, add the column "<strong>API Example</strong>" in the <strong>Manage Instruction Sets</strong> feature while editing the instructions.  
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Base-01
         - name: instructions
           in: query
           description: The IDLx instructions. This should included in the body of the post.
@@ -1611,7 +1733,6 @@ paths:
               examples:
                 Example of successfully updating the lab instructions:
                   value:
-                    Result: 1
                     Status: 1
                     Error: null
       deprecated: false
@@ -1636,23 +1757,74 @@ paths:
             type: integer
             format: int32
             example: 2393048
+        - name: lang
+          in: query
+          description: |-
+            Allows you to select the language of the Instruction Set. Using this in connection with <strong>instructionsId</strong> will allow you to select a specific lab Instruction Set in the specified language if they have been defined within the lab profile.  
+              
+            NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.  
+
+              en = English  
+              es = Spanish  
+              fr = French  
+              de = German  
+              pt = Portuguese  
+              ja = Japanese  
+              zh = Simplified Chinese  
+              ko = Korean 
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            enum:
+              - en
+              - es
+              - fr
+              - de
+              - pt
+              - ja
+              - zh
+              - ko
+            example: en
+        - name: instructionsId
+          in: query
+          description: |-
+            When specified, Skillable will attempt to update the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be updated instead. This is a string that cannot contain spaces.  
+
+            NOTE: To be able to see how to use this parameter, add the column "<strong>API Example</strong>" in the <strong>Manage Instruction Sets</strong> feature while editing the instructions.  
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: Base-01
       requestBody:
         content:
           multipart/form-data:
             schema:
               type: object
               properties:
-                instructionsZip:
+                file:
                   type: string
                   format: binary
             examples:
               example-1:
                 value:
-                  instructionsZip: string
+                  file: string
       responses:
         '200':
-          description: ''
+          description: OK Response.
           headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateLabInstructionsResponse'
+              examples:
+                Example of successfully updating the lab instructions:
+                  value:
+                    Status: 1
+                    Error: null
       deprecated: false
       tags:
         - Lab Profile Management
@@ -5018,13 +5190,6 @@ components:
       type: object
       x-examples: {}
       properties:
-        Result:
-          type: integer
-          description: |-
-            Result of the updating the instructions.  
-            0 = Error  
-            1 = Success  
-          format: int32
         Status:
           type: integer
           description: |-

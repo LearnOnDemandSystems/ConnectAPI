@@ -1733,7 +1733,6 @@ paths:
               examples:
                 Example of successfully updating the lab instructions:
                   value:
-                    Result: 1
                     Status: 1
                     Error: null
       deprecated: false
@@ -1815,8 +1814,17 @@ paths:
                   file: string
       responses:
         '200':
-          description: ''
+          description: OK Response.
           headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateLabInstructionsResponse'
+              examples:
+                Example of successfully updating the lab instructions:
+                  value:
+                    Status: 1
+                    Error: null
       deprecated: false
       tags:
         - Lab Profile Management
@@ -5182,13 +5190,6 @@ components:
       type: object
       x-examples: {}
       properties:
-        Result:
-          type: integer
-          description: |-
-            Result of the updating the instructions.  
-            0 = Error  
-            1 = Success  
-          format: int32
         Status:
           type: integer
           description: |-

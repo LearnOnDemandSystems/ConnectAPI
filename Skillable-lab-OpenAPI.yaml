@@ -1791,7 +1791,7 @@ paths:
         - name: instructionsId
           in: query
           description: |-
-            When specified, Skillable will attempt to retrieve the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead. This is a string that cannot contain spaces.  
+            When specified, Skillable will attempt to update the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be updated instead. This is a string that cannot contain spaces.  
 
             NOTE: To be able to see how to use this parameter, add the column "<strong>API Example</strong>" in the <strong>Manage Instruction Sets</strong> feature while editing the instructions.  
           required: false
@@ -1806,13 +1806,13 @@ paths:
             schema:
               type: object
               properties:
-                instructionsZip:
+                file:
                   type: string
                   format: binary
             examples:
               example-1:
                 value:
-                  instructionsZip: string
+                  file: string
       responses:
         '200':
           description: ''

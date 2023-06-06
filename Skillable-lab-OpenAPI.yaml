@@ -1808,10 +1808,6 @@ paths:
                 file:
                   type: string
                   format: binary
-            examples:
-              example-1:
-                value:
-                  file: string
       responses:
         '200':
           description: OK Response.

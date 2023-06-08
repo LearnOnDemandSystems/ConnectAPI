@@ -3008,6 +3008,8 @@ paths:
                         Tags:
                           - Tag1
                           - Tag2
+                        Created: 1685798489
+                        LastModified: 1686238516
                       - Id: 2
                         Name: Demo Lab 2
                         Number: ' Module 2'
@@ -3032,6 +3034,8 @@ paths:
                         Tags:
                           - Tag1
                           - Tag2
+                        Created: 1685798489
+                        LastModified: 1686238516
                     DeliveryRegions:
                       - Id: 1
                         Name: North America

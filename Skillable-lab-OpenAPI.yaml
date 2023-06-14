@@ -4297,6 +4297,17 @@ components:
       type: object
       x-examples: {}
       properties:
+        Error:
+          type: string
+          description: 'In the event of an error, this will contain a detailed error message.'
+          nullable: true
+        Status:
+          type: integer
+          description: |-
+            Indicates the status of the API request.  
+            0 = Error  
+            1 = Success
+          format: int32
         Id:
           type: integer
           description: The unique identifier of the lab profile.
@@ -4473,17 +4484,6 @@ components:
         UsesRdp:
           type: boolean
           description: Indicates whether this lab profile uses Remote Desktop Protocol (RDP) or not.
-        Status:
-          type: integer
-          description: |-
-            Indicates the status of the API request.  
-            0 = Error  
-            1 = Success
-          format: int32
-        Error:
-          type: string
-          description: 'In the event of an error, this will contain a detailed error message.'
-          nullable: true
         Tags:
           type: array
           description: A list of tags associated with the lab profile.

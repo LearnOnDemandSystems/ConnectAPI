@@ -1485,7 +1485,7 @@ paths:
                     Scenario: ' This is the HTML-formatted scenario of the lab'
                     DurationMinutes: 360
                     ExpectedDurationMinutes: 60
-                    ResourceUnits: 0
+                    ResourceUnits: 16
                     Ram: 512
                     HasIntegratedContent: true
                     ContentVersion: 2
@@ -1495,6 +1495,7 @@ paths:
                     PricePerHour: 2
                     ExpectedCloudCost: 0
                     ParticipantLabPrice: 0
+                    ExamPages: null
                     SharedClassEnvironmentRoleId: 0
                     SharedClassEnvironmentRole: 0
                     SharedClassEnvironmentLabProfileId: 0
@@ -4399,7 +4400,7 @@ components:
             8 = VerificationFailed  
             10 = Complete
           format: int32
-        DevelopmentStatusI:
+        DevelopmentStatus:
           type: integer
           description: |-
             Indicates the development status of the lab. In general, a lab not marked as Complete should not be launched (though it can be).  
@@ -4442,7 +4443,7 @@ components:
           format: int32
         ResourceUnits:
           type: integer
-          description: WK - Need to fill in
+          description: This response property is obsolete, and will show the value of RAM/32.
           format: int32
         Ram:
           type: integer
@@ -4506,6 +4507,11 @@ components:
         UsesRdp:
           type: boolean
           description: Indicates whether this lab profile uses Remote Desktop Protocol (RDP) or not.
+        ExamPages:
+          type: array
+          description: Not Populated.
+          items:
+            type: string
         Tags:
           type: array
           description: A list of tags associated with the lab profile.

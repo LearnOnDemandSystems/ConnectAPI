@@ -1495,7 +1495,8 @@ paths:
                     PricePerHour: 2
                     ExpectedCloudCost: 0
                     ParticipantLabPrice: 0
-                    ExamPages: null
+                    ExamPages: 
+                      - Empty
                     SharedClassEnvironmentRoleId: 0
                     SharedClassEnvironmentRole: 0
                     SharedClassEnvironmentLabProfileId: 0

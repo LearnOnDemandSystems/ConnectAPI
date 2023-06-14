@@ -4319,6 +4319,17 @@ components:
       type: object
       x-examples: {}
       properties:
+        Error:
+          type: string
+          description: 'In the event of an error, this will contain a detailed error message.'
+          nullable: true
+        Status:
+          type: integer
+          description: |-
+            Indicates the status of the API request.  
+            0 = Error  
+            1 = Success
+          format: int32
         Id:
           type: integer
           description: The unique identifier of the lab profile.
@@ -4541,17 +4552,6 @@ components:
           type: integer
           format: int64
           description: The date when the lab profile was last modified (in Unix epoch time).
-        Error:
-          type: string
-          description: 'In the event of an error, this will contain a detailed error message.'
-          nullable: true
-        Status:
-          type: integer
-          description: |-
-            Indicates the status of the API request.  
-            0 = Error  
-            1 = Success
-          format: int32
     LatestResultsResponse:
       type: object
       x-examples: {}

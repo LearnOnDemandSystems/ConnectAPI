@@ -1463,32 +1463,54 @@ paths:
               examples:
                 Example of returning information a specific lab profile:
                   value:
+                    Error: null
+                    Status: 1
                     Id: 1
                     Name: Demo Lab 1
                     Number: ' Module 1'
                     PlatformId: 2
+                    Platform: 2
                     CloudPlatformId: null
                     SeriesId: 1
+                    OrganizationId: 5
                     Enabled: true
                     ReasonDisabled: null
                     DevelopmentStatusId: 10
+                    DevelopmentStatus: 10
+                    RequiresBrowserPlugin: false
+                    RequiresNestedVirtualization: false
+                    NumPublicIpAddresses: 0
                     Description: A demo lab.
                     Objective: This is the HTML-formatted objective of the lab
                     Scenario: ' This is the HTML-formatted scenario of the lab'
                     DurationMinutes: 360
                     ExpectedDurationMinutes: 60
+                    ResourceUnits: 0
                     Ram: 512
                     HasIntegratedContent: true
                     ContentVersion: 2
                     IsExam: false
                     PremiumPrice: 10
                     BasicPrice: 8
+                    PricePerHour: 2
+                    ExpectedCloudCost: 0
+                    ParticipantLabPrice: 0
                     SharedClassEnvironmentRoleId: 0
-                    Status: 1
-                    Error: null
+                    SharedClassEnvironmentRole: 0
+                    SharedClassEnvironmentLabProfileId: 0
+                    UsesRdp: false
                     Tags:
                       - Tag1
                       - Tag2
+                    Instructionsets:
+                      Id: 'Base-01'
+                      Language: 'en'
+                      Description: 'Basic Instructions'
+                      LabTitle: 'A demo lab'
+                      DurationMinutes: 60
+                      OrganizationId: 1
+                    Created: 1656366326607
+                    LastModified: 1656440153550
       deprecated: false
       tags:
         - Lab Profile Management

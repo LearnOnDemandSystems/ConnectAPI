@@ -4357,7 +4357,7 @@ components:
         Platform:
           type: integer
           description: |-
-            The virtualization platform the lab is run on.  
+            This response property is obsolete, and identifies the virtualization platform the lab is run on.  
             1 = None  
             2 = Hyper-V  
             3 = ESX  
@@ -4365,6 +4365,7 @@ components:
             11 = AWS  
             20 = Docker
           format: int32
+          deprecated: true
         CloudPlatformId:
           type: integer
           description: |-
@@ -4404,13 +4405,14 @@ components:
         DevelopmentStatus:
           type: integer
           description: |-
-            Indicates the development status of the lab. In general, a lab not marked as Complete should not be launched (though it can be).  
+            This response property is obsolete, and indicates the development status of the lab. In general, a lab not marked as Complete should not be launched (though it can be).  
             1 = In Development  
             5 = AwaitingVerification  
             7 = InVerification  
             8 = VerificationFailed  
             10 = Complete
           format: int32
+          deprecated: true
         RequiresBrowserPlugin:
           type: boolean
           description: Indicates if this lab profile requires the use of a browser plugin.
@@ -4442,10 +4444,12 @@ components:
           type: integer
           description: 'This response property is obsolete, and will reflect the same value shown for DurationMinutes.'
           format: int32
+          deprecated: true
         ResourceUnits:
           type: integer
           description: This response property is obsolete, and will show the value of RAM/32.
           format: int32
+          deprecated: true
         Ram:
           type: integer
           description: The amount of RAM in MB used by the lab.
@@ -4494,12 +4498,13 @@ components:
         SharedClassEnvironmentRole:
           type: integer
           description: |-
-            Indicates the role the lab plays in a shared environment.  
+            This response property is obsolete, and indicates the role the lab plays in a shared environment.  
             0 = None. This lab has no shared environment involvement at all. Most labs work this way.)  
             10 = Shared Environment. This lab provides the shared infrastructure that participant labs will connect into. Typically launched and maintained by an administrator or instructor.  
             20 = Participant. This lab will connect into shared environments and act as a participant. Typically launched by students.
           format: int32
           nullable: true
+          deprecated: true
         SharedClassEnvironmentLabProfileId:
           type: integer
           description: The id of the lab profile that will be used in the shared class environment.
@@ -4510,9 +4515,10 @@ components:
           description: Indicates whether this lab profile uses Remote Desktop Protocol (RDP) or not.
         ExamPages:
           type: array
-          description: Not Populated.
+          description: This response property is obsolete and is not Populated.
           items:
             type: string
+          deprecated: true
         Tags:
           type: array
           description: A list of tags associated with the lab profile.

@@ -1484,7 +1484,7 @@ paths:
                     Objective: This is the HTML-formatted objective of the lab
                     Scenario: ' This is the HTML-formatted scenario of the lab'
                     DurationMinutes: 360
-                    ExpectedDurationMinutes: 60
+                    ExpectedDurationMinutes: 360
                     ResourceUnits: 16
                     Ram: 512
                     HasIntegratedContent: true
@@ -1509,7 +1509,7 @@ paths:
                       Language: 'en'
                       Description: 'Basic Instructions'
                       LabTitle: 'A demo lab'
-                      DurationMinutes: 60
+                      DurationMinutes: 360
                       OrganizationId: 1
                     Created: 1656366326607
                     LastModified: 1656440153550
@@ -3021,7 +3021,7 @@ paths:
                         Objective: This is the HTML-formatted objective of the lab
                         Scenario: ' This is the HTML-formatted scenario of the lab'
                         DurationMinutes: 360
-                        ExpectedDurationMinutes: 60
+                        ExpectedDurationMinutes: 360
                         Ram: 8192
                         HasIntegratedContent: true
                         ContentVersion: 2
@@ -3045,7 +3045,7 @@ paths:
                         Objective: This is the HTML-formatted objective of the lab
                         Scenario: This is the HTML-formatted scenario of the lab
                         DurationMinutes: 360
-                        ExpectedDurationMinutes: 60
+                        ExpectedDurationMinutes: 360
                         Ram: 4096
                         HasIntegratedContent: true
                         ContentVersion: 2

@@ -4356,14 +4356,7 @@ components:
           format: int32
         Platform:
           type: integer
-          description: |-
-            This response property is obsolete, and identifies the virtualization platform the lab is run on.  
-            1 = None  
-            2 = Hyper-V  
-            3 = ESX  
-            10 = Azure  
-            11 = AWS  
-            20 = Docker
+          description: This response property is obsolete, and will show the same value as PlatformId.  
           format: int32
           deprecated: true
         CloudPlatformId:
@@ -4404,13 +4397,7 @@ components:
           format: int32
         DevelopmentStatus:
           type: integer
-          description: |-
-            This response property is obsolete, and indicates the development status of the lab. In general, a lab not marked as Complete should not be launched (though it can be).  
-            1 = In Development  
-            5 = AwaitingVerification  
-            7 = InVerification  
-            8 = VerificationFailed  
-            10 = Complete
+          description: This response property is obsolete, and will show the same values as DevelopmentStatusId.  
           format: int32
           deprecated: true
         RequiresBrowserPlugin:
@@ -4497,11 +4484,7 @@ components:
           nullable: true
         SharedClassEnvironmentRole:
           type: integer
-          description: |-
-            This response property is obsolete, and indicates the role the lab plays in a shared environment.  
-            0 = None. This lab has no shared environment involvement at all. Most labs work this way.)  
-            10 = Shared Environment. This lab provides the shared infrastructure that participant labs will connect into. Typically launched and maintained by an administrator or instructor.  
-            20 = Participant. This lab will connect into shared environments and act as a participant. Typically launched by students.
+          description: This response property is obsolete, and will show the same value as SharedClassEnvironmentRoleId.
           format: int32
           nullable: true
           deprecated: true

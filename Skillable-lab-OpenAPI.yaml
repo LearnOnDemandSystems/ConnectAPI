@@ -1463,32 +1463,56 @@ paths:
               examples:
                 Example of returning information a specific lab profile:
                   value:
+                    Error: null
+                    Status: 1
                     Id: 1
                     Name: Demo Lab 1
                     Number: ' Module 1'
                     PlatformId: 2
+                    Platform: 2
                     CloudPlatformId: null
                     SeriesId: 1
+                    OrganizationId: 5
                     Enabled: true
                     ReasonDisabled: null
                     DevelopmentStatusId: 10
+                    DevelopmentStatus: 10
+                    RequiresBrowserPlugin: false
+                    RequiresNestedVirtualization: false
+                    NumPublicIpAddresses: 0
                     Description: A demo lab.
                     Objective: This is the HTML-formatted objective of the lab
                     Scenario: ' This is the HTML-formatted scenario of the lab'
                     DurationMinutes: 360
-                    ExpectedDurationMinutes: 60
+                    ExpectedDurationMinutes: 360
+                    ResourceUnits: 16
                     Ram: 512
                     HasIntegratedContent: true
                     ContentVersion: 2
                     IsExam: false
                     PremiumPrice: 10
                     BasicPrice: 8
+                    PricePerHour: 2
+                    ExpectedCloudCost: 0
+                    ParticipantLabPrice: 0
+                    ExamPages: 
+                      - Empty
                     SharedClassEnvironmentRoleId: 0
-                    Status: 1
-                    Error: null
+                    SharedClassEnvironmentRole: 0
+                    SharedClassEnvironmentLabProfileId: 0
+                    UsesRdp: false
                     Tags:
                       - Tag1
                       - Tag2
+                    Instructionsets:
+                      Id: 'Base-01'
+                      Language: 'en'
+                      Description: 'Basic Instructions'
+                      LabTitle: 'A demo lab'
+                      DurationMinutes: 360
+                      OrganizationId: 1
+                    Created: 1656366326607
+                    LastModified: 1656440153550
       deprecated: false
       tags:
         - Lab Profile Management
@@ -2997,7 +3021,7 @@ paths:
                         Objective: This is the HTML-formatted objective of the lab
                         Scenario: ' This is the HTML-formatted scenario of the lab'
                         DurationMinutes: 360
-                        ExpectedDurationMinutes: 60
+                        ExpectedDurationMinutes: 360
                         Ram: 8192
                         HasIntegratedContent: true
                         ContentVersion: 2
@@ -3021,7 +3045,7 @@ paths:
                         Objective: This is the HTML-formatted objective of the lab
                         Scenario: This is the HTML-formatted scenario of the lab
                         DurationMinutes: 360
-                        ExpectedDurationMinutes: 60
+                        ExpectedDurationMinutes: 360
                         Ram: 4096
                         HasIntegratedContent: true
                         ContentVersion: 2
@@ -4297,6 +4321,17 @@ components:
       type: object
       x-examples: {}
       properties:
+        Error:
+          type: string
+          description: 'In the event of an error, this will contain a detailed error message.'
+          nullable: true
+        Status:
+          type: integer
+          description: |-
+            Indicates the status of the API request.  
+            0 = Error  
+            1 = Success
+          format: int32
         Id:
           type: integer
           description: The unique identifier of the lab profile.
@@ -4319,6 +4354,11 @@ components:
             11 = AWS  
             20 = Docker
           format: int32
+        Platform:
+          type: integer
+          description: This response property is obsolete, and will show the same value as PlatformId.  
+          format: int32
+          deprecated: true
         CloudPlatformId:
           type: integer
           description: |-
@@ -4331,6 +4371,11 @@ components:
         SeriesId:
           type: integer
           description: The unique identifier of the series the lab profile belongs to.
+          format: int32
+          nullable: true
+        OrganizationId:
+          type: integer
+          description: The unique identifier of the Organization the lab profile belongs to.
           format: int32
           nullable: true
         Enabled:
@@ -4350,6 +4395,22 @@ components:
             8 = VerificationFailed  
             10 = Complete
           format: int32
+        DevelopmentStatus:
+          type: integer
+          description: This response property is obsolete, and will show the same values as DevelopmentStatusId.  
+          format: int32
+          deprecated: true
+        RequiresBrowserPlugin:
+          type: boolean
+          description: Indicates if this lab profile requires the use of a browser plugin.
+        RequiresNestedVirtualization:
+          type: boolean
+          description: Indicates if this lab profile requires the use of nested virtualization.
+        NumPublicIpAddresses:
+          type: integer
+          description: Indicates the number of public ip addresses used in this lab profile.
+          format: int32
+          nullable: false
         Description:
           type: string
           description: A brief description of the lab profile.
@@ -4370,6 +4431,12 @@ components:
           type: integer
           description: 'This response property is obsolete, and will reflect the same value shown for DurationMinutes.'
           format: int32
+          deprecated: true
+        ResourceUnits:
+          type: integer
+          description: This response property is obsolete, and will show the value of RAM/32.
+          format: int32
+          deprecated: true
         Ram:
           type: integer
           description: The amount of RAM in MB used by the lab.
@@ -4392,31 +4459,95 @@ components:
           type: number
           description: The consumption cost of the lab when only basic experience features are included.
           format: float
+        PricePerHour:
+          type: number
+          description: The hourly consumption cost of the lab when only basic experience features are included.
+          format: float
+        ExpectedCloudCost:
+          type: number
+          description: The expected cloud cost of the lab.
+          format: float
+          nullable: true
+        ParticipantLabPrice:
+          type: number
+          description: The expected participant cost of the shared lab.
+          format: float
+          nullable: true
         SharedClassEnvironmentRoleId:
           type: integer
           description: |-
-            Indicates the role the lab plays in a shared environment  
+            Indicates the role the lab plays in a shared environment.  
             0 = None. This lab has no shared environment involvement at all. Most labs work this way.)  
             10 = Shared Environment. This lab provides the shared infrastructure that participant labs will connect into. Typically launched and maintained by an administrator or instructor.  
             20 = Participant. This lab will connect into shared environments and act as a participant. Typically launched by students.
           format: int32
           nullable: true
-        Status:
+        SharedClassEnvironmentRole:
           type: integer
-          description: |-
-            Indicates the status of the API request.  
-            0 = Error  
-            1 = Success
+          description: This response property is obsolete, and will show the same value as SharedClassEnvironmentRoleId.
           format: int32
-        Error:
-          type: string
-          description: 'In the event of an error, this will contain a detailed error message.'
           nullable: true
+          deprecated: true
+        SharedClassEnvironmentLabProfileId:
+          type: integer
+          description: The id of the lab profile that will be used in the shared class environment.
+          format: int32
+          nullable: true
+        UsesRdp:
+          type: boolean
+          description: Indicates whether this lab profile uses Remote Desktop Protocol (RDP) or not.
+        ExamPages:
+          type: array
+          description: This response property is obsolete and is not Populated.
+          items:
+            type: string
+          deprecated: true
         Tags:
           type: array
           description: A list of tags associated with the lab profile.
           items:
             type: string
+        InstructionSets:
+          type: array
+          description: A list of the available instruction sets and their basic details for the lab profile.
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                description: The unique identifier of the instruction set.
+              Language:
+                type: string
+                description: |-
+                  The 2 character language of the instruction set.  
+                  en = English
+                  es = Spanish  
+                  fr = French  
+                  de = German  
+                  pt = Portuguese  
+                  ja = Japanese  
+                  zh = Simplified Chinese  
+                  ko = Korean 
+              Description:
+                type: string
+                description: The description of the instruction set.
+              LabTitle:
+                type: string
+                description: The title of the lab as used in this instruction set.
+              DurationMinutes:
+                type: integer
+                description: The duration of the lab, in minutes, when using this instruction set.
+              OrganizationId:
+                type: integer
+                description: The unique identifier of the organization to which this instruction set belongs.
+        Created:
+          type: integer
+          format: int64
+          description: The date when the lab profile was created (in Unix epoch time).
+        LastModified:
+          type: integer
+          format: int64
+          description: The date when the lab profile was last modified (in Unix epoch time).
     LatestResultsResponse:
       type: object
       x-examples: {}

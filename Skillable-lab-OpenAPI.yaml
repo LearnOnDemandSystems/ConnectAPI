@@ -2999,63 +2999,88 @@ paths:
                         Name: Demo Series 1
                         Description: A demo lab series.
                         NumTrainingDays: 5
-                        EnableScheduledArchive: true
-                        ScheduledArchiveDateTime: '2022-03-07T08:00:00'
+                        AllowAssignments: true
+                        AllowAssignmentsUntil: '2022-03-07T08:00:00'
                       - Id: 2
                         Name: Demo Series 2
                         Description: Another demo lab series.
                         NumTrainingDays: 5
-                        EnableScheduledArchive: false
-                        ScheduledArchiveDateTime: null
+                        AllowAssignments: false
+                        AllowAssignmentsUntil: null
                     LabProfiles:
                       - Id: 1
                         Name: Demo Lab 1
                         Number: ' Module 1'
-                        PlatformId: 2
-                        CloudPlatform: null
-                        SeriesId: 1
-                        Enabled: true
-                        ReasonDisabled: null
-                        DevelopmentStatusId: 10
                         Description: A demo lab.
+                        SeriesId: 1
+                        OrganizationId: 5
                         Objective: This is the HTML-formatted objective of the lab
                         Scenario: ' This is the HTML-formatted scenario of the lab'
                         DurationMinutes: 360
                         ExpectedDurationMinutes: 360
+                        ResourceUnits: 11.25
+                        PlatformId: 2
+                        SharedClassEnvironmentRoleId: 0
+                        SharedClassEnvironmentLabProfileId: 5
+                        UsesRdp: false
                         Ram: 8192
+                        Enabled: true
+                        ReasonDisabled: null
                         HasIntegratedContent: true
-                        ContentVersion: 2
+                        DevelopmentStatusId: 10
+                        RequiresBrowserPlugin: false
+                        RequiresNestedVirtualization: false
+                        NumPublicAddresses: 0
                         IsExam: false
                         PremiumPrice: 10
                         BasicPrice: 8
-                        SharedClassEnvironmentRoleId: 0
+                        PricePerHour: 2.67
+                        ExpectedCloudCost: 0
+                        ParticipantLabPrice: 8
+                        ExamPages: null
                         Tags:
                           - Tag1
                           - Tag2
+                        CloudPlatformId: null
+                        ContentVersion: 2
+                        Created: 1587647356923
+                        LastModified: 1615997111827
                       - Id: 2
                         Name: Demo Lab 2
                         Number: ' Module 2'
-                        PlatformId: 2
-                        CloudPlatform: 10
-                        SeriesId: 1
-                        Enabled: true
-                        ReasonDisabled: null
-                        DevelopmentStatusId: 10
                         Description: Another demo lab.
+                        SeriesId: 1
+                        OrganizationId: 7
                         Objective: This is the HTML-formatted objective of the lab
                         Scenario: This is the HTML-formatted scenario of the lab
                         DurationMinutes: 360
                         ExpectedDurationMinutes: 360
+                        ResourceUnits: 11.25
+                        PlatformId: 2
+                        SharedClassEnvironmentRoleId: 0
+                        SharedClassEnvironmentLabProfileId: 9
+                        UsesRdp: false
                         Ram: 4096
+                        Enabled: true
+                        ReasonDisabled: null
                         HasIntegratedContent: true
-                        ContentVersion: 2
+                        DevelopmentStatusId: 10
+                        RequiresBrowserPlugin: false
+                        NumPublicIpAddresses: 0
                         IsExam: false
                         PremiumPrice: 4
                         BasicPrice: 4
-                        SharedClassEnvironmentRoleId: 0
+                        PricePerHour: 1.33
+                        ExpectedCloudCost: 0
+                        ParticipantLabPrice: 8
+                        ExamPages: null
                         Tags:
                           - Tag1
                           - Tag2
+                        CloudPlatformId: 10
+                        ContentVersion: 2
+                        Created: 1588248305437
+                        LastModified: 1684848422383
                     DeliveryRegions:
                       - Id: 1
                         Name: North America
@@ -3315,7 +3340,7 @@ components:
                 description: A list of tags associated with the lab profile.
                 items:
                   type: string
-              CloudPlatform:
+              CloudPlatformId:
                 type: integer
                 description: |-
                   The cloud platform the lab is run on.  

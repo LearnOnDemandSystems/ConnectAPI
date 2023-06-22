@@ -2999,63 +2999,88 @@ paths:
                         Name: Demo Series 1
                         Description: A demo lab series.
                         NumTrainingDays: 5
-                        EnableScheduledArchive: true
-                        ScheduledArchiveDateTime: '2022-03-07T08:00:00'
+                        AllowAssignments: true
+                        AllowAssignmentsUntil: '2022-03-07T08:00:00'
                       - Id: 2
                         Name: Demo Series 2
                         Description: Another demo lab series.
                         NumTrainingDays: 5
-                        EnableScheduledArchive: false
-                        ScheduledArchiveDateTime: null
+                        AllowAssignments: false
+                        AllowAssignmentsUntil: null
                     LabProfiles:
                       - Id: 1
                         Name: Demo Lab 1
                         Number: ' Module 1'
-                        PlatformId: 2
-                        CloudPlatform: null
-                        SeriesId: 1
-                        Enabled: true
-                        ReasonDisabled: null
-                        DevelopmentStatusId: 10
                         Description: A demo lab.
+                        SeriesId: 1
+                        OrganizationId: 5
                         Objective: This is the HTML-formatted objective of the lab
                         Scenario: ' This is the HTML-formatted scenario of the lab'
                         DurationMinutes: 360
                         ExpectedDurationMinutes: 360
+                        ResourceUnits: 11.25
+                        PlatformId: 2
+                        SharedClassEnvironmentRoleId: 0
+                        SharedClassEnvironmentLabProfileId: 5
+                        UsesRdp: false
                         Ram: 8192
+                        Enabled: true
+                        ReasonDisabled: null
                         HasIntegratedContent: true
-                        ContentVersion: 2
+                        DevelopmentStatusId: 10
+                        RequiresBrowserPlugin: false
+                        RequiresNestedVirtualization: false
+                        NumPublicAddresses: 0
                         IsExam: false
                         PremiumPrice: 10
                         BasicPrice: 8
-                        SharedClassEnvironmentRoleId: 0
+                        PricePerHour: 2.67
+                        ExpectedCloudCost: 0
+                        ParticipantLabPrice: 8
+                        ExamPages: null
                         Tags:
                           - Tag1
                           - Tag2
+                        CloudPlatformId: null
+                        ContentVersion: 2
+                        Created: 1587647356923
+                        LastModified: 1615997111827
                       - Id: 2
                         Name: Demo Lab 2
                         Number: ' Module 2'
-                        PlatformId: 2
-                        CloudPlatform: 10
-                        SeriesId: 1
-                        Enabled: true
-                        ReasonDisabled: null
-                        DevelopmentStatusId: 10
                         Description: Another demo lab.
+                        SeriesId: 1
+                        OrganizationId: 7
                         Objective: This is the HTML-formatted objective of the lab
                         Scenario: This is the HTML-formatted scenario of the lab
                         DurationMinutes: 360
                         ExpectedDurationMinutes: 360
+                        ResourceUnits: 11.25
+                        PlatformId: 2
+                        SharedClassEnvironmentRoleId: 0
+                        SharedClassEnvironmentLabProfileId: 9
+                        UsesRdp: false
                         Ram: 4096
+                        Enabled: true
+                        ReasonDisabled: null
                         HasIntegratedContent: true
-                        ContentVersion: 2
+                        DevelopmentStatusId: 10
+                        RequiresBrowserPlugin: false
+                        NumPublicIpAddresses: 0
                         IsExam: false
                         PremiumPrice: 4
                         BasicPrice: 4
-                        SharedClassEnvironmentRoleId: 0
+                        PricePerHour: 1.33
+                        ExpectedCloudCost: 0
+                        ParticipantLabPrice: 8
+                        ExamPages: null
                         Tags:
                           - Tag1
                           - Tag2
+                        CloudPlatformId: 10
+                        ContentVersion: 2
+                        Created: 1588248305437
+                        LastModified: 1684848422383
                     DeliveryRegions:
                       - Id: 1
                         Name: North America
@@ -3155,13 +3180,13 @@ components:
               NumTrainingDays:
                 type: integer
                 description: The number of training days expected to complete the series.
-              EnableScheduledArchive:
+              AllowAssignments:
                 type: boolean
-                description: The number of training days expected to complete the series.
-              ScheduledArchiveDateTime:
-                type: string
-                minLength: 1
-                description: The number of training days expected to complete the series.
+                description: Indicates that the Lab Series can be assigned.
+              AllowAssignmentsUntil:
+                type: integer
+                format: int64
+                description: The date (in Unix epoch time) after which assignments are no longer valid. A null value indicates that assignments do not expire.
                 nullable: true
         LabProfiles:
           type: array
@@ -3182,49 +3207,19 @@ components:
                 type: string
                 minLength: 1
                 description: 'The lab number (usually to identify a lab within a series, e.g. Module 1, Module 2, etc.).'
-              PlatformId:
-                type: integer
-                description: |-
-                  The virtualization platform the lab is run on.  
-                  1 = None  
-                  2 = Hyper-V  
-                  3 = ESX  
-                  10 = Azure  
-                  11 = AWS  
-                  20 = Docker
-              CloudPlatform:
-                type: integer
-                description: |-
-                  The cloud platform the lab is run on.  
-                  null = None  
-                  10 = Azure  
-                  11 = AWS
+              Description:
+                type: string
+                minLength: 1
+                description: A brief description of the lab profile.
                 nullable: true
               SeriesId:
                 type: integer
                 description: The unique identifier of the series the lab profile belongs to.
                 format: int32
-              Enabled:
-                type: boolean
-                description: Whether the lab is currently enabled for launch.
-              ReasonDisabled:
-                type: string
-                description: The reason the lab is disabled. Only supplied when the lab is not enabled.
-                nullable: true
-              DevelopmentStatusId:
+              OrganizationId:
                 type: integer
+                description: The unique identifier of the Organization the lab profile belongs to.
                 format: int32
-                description: |-
-                  Indicates the development status of the lab. In general, a lab not marked as Complete should not be launched (though it can be).  
-                  1 = In Development  
-                  5 = AwaitingVerification  
-                  7 = InVerification  
-                  8 = VerificationFailed  
-                  10 = Complete
-              Description:
-                type: string
-                minLength: 1
-                description: A brief description of the lab profile.
                 nullable: true
               Objective:
                 type: string
@@ -3244,26 +3239,21 @@ components:
                 type: integer
                 description: The expected number of minutes a user will take to complete the lab.
                 format: int32
-              Ram:
+              ResourceUnits:
                 type: integer
+                description: This response property is obsolete, and will show the value of RAM/32.
                 format: int32
-                description: The amount of RAM in MB used by the lab.
-              HasIntegratedContent:
-                type: boolean
-                description: Indicates whether the lab has integrated digital lab (IDL) content.
-              ContentVersion:
+                deprecated: true
+              PlatformId:
                 type: integer
-                format: int32
-                description: Indicates the content version (only applicable if HasIntegratedContent = true).
-              IsExam:
-                type: boolean
-                description: Indicates whether the lab is scored.
-              PremiumPrice:
-                type: number
-                description: The consumption cost of the lab when premium experience features are included.
-              BasicPrice:
-                type: number
-                description: The consumption cost of the lab when only basic experience features are included.
+                description: |-
+                  The virtualization platform the lab is run on.  
+                  1 = None  
+                  2 = Hyper-V  
+                  3 = ESX  
+                  10 = Azure  
+                  11 = AWS  
+                  20 = Docker
               SharedClassEnvironmentRoleId:
                 type: integer
                 description: |-
@@ -3273,11 +3263,95 @@ components:
                   20 = Participant. This lab will connect into shared environments and act as a participant. Typically launched by students.
                 format: int32
                 nullable: true
+              SharedClassEnvironmentLabProfileId:
+                type: integer
+                description: The id of the lab profile that will be used in the shared class environment.
+                format: int32
+                nullable: true
+              UsesRdp:
+                type: boolean
+                description: Indicates whether this lab profile uses Remote Desktop Protocol (RDP) or not.
+              Ram:
+                type: integer
+                format: int32
+                description: The amount of RAM in MB used by the lab.
+              Enabled:
+                type: boolean
+                description: Whether the lab is currently enabled for launch.
+              ReasonDisabled:
+                type: string
+                description: The reason the lab is disabled. Only supplied when the lab is not enabled.
+                nullable: true
+              HasIntegratedContent:
+                type: boolean
+                description: Indicates whether the lab has integrated digital lab (IDL) content.
+              DevelopmentStatusId:
+                type: integer
+                format: int32
+                description: |-
+                  Indicates the development status of the lab. In general, a lab not marked as Complete should not be launched (though it can be).  
+                  1 = In Development  
+                  5 = AwaitingVerification  
+                  7 = InVerification  
+                  8 = VerificationFailed  
+                  10 = Complete
+              RequiresBrowserPlugin:
+                type: boolean
+                description: Indicates if this lab profile requires the use of a browser plugin.
+              RequiresNestedVirtualization:
+                type: boolean
+                description: Indicates if this lab profile requires the use of nested virtualization.
+              NumPublicIpAddresses:
+                type: integer
+                description: Indicates the number of public ip addresses used in this lab profile.
+                format: int32
+                nullable: false
+              IsExam:
+                type: boolean
+                description: Indicates whether the lab is scored.
+              PremiumPrice:
+                type: number
+                description: The consumption cost of the lab when premium experience features are included.
+              BasicPrice:
+                type: number
+                description: The consumption cost of the lab when only basic experience features are included.
+              PricePerHour:
+                type: number
+                description: The hourly consumption cost of the lab when only basic experience features are included.
+                format: float
+              ExpectedCloudCost:
+                type: number
+                description: The expected cloud cost of the lab.
+                format: float
+                nullable: true
+              ParticipantLabPrice:
+                type: number
+                description: The expected participant cost of the shared lab.
+                format: float
+                nullable: true
+              ExamPages:
+                type: array
+                description: This response property is obsolete and is not Populated.
+                items:
+                  type: string
+                deprecated: true
               Tags:
                 type: array
                 description: A list of tags associated with the lab profile.
                 items:
                   type: string
+              CloudPlatformId:
+                type: integer
+                description: |-
+                  The cloud platform the lab is run on.  
+                  null = None  
+                  10 = Azure  
+                  11 = AWS
+                nullable: true
+              ContentVersion:
+                type: integer
+                format: int32
+                description: Indicates the content version (only applicable if HasIntegratedContent = true).
               Created:
                 type: integer
                 format: int64

@@ -3381,16 +3381,16 @@ components:
                 minLength: 1
                 description: A brief description of the delivery region.
                 nullable: true
-        Error:
-          description: 'In the event of an error, this will contain a detailed error message.'
-          type: string
-          nullable: true
         Status:
           type: number
           description: |-
             Indicates the status of the API request.  
             0 = Error  
             1 = Success
+        Error:
+          description: 'In the event of an error, this will contain a detailed error message.'
+          type: string
+          nullable: true
     ClassResponse:
       description: ''
       type: object

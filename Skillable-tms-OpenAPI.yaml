@@ -8271,7 +8271,7 @@ components:
           nullable: true
         Country:
           type: string
-          description: The user's country
+          description: The user's country.
           nullable: true
           deprecated: true
         CountryCode:

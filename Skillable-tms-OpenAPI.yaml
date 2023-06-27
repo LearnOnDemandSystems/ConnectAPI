@@ -312,19 +312,10 @@ paths:
           explode: true
           schema:
             type: string
-        - name: country
-          in: query
-          description: The user's country.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-          deprecated: true
         - name: countryCode
           in: query
           description: |
-            The 2-character code for the user's country.
+            The input field, **Country**, has been *deprecated* in favor of **CountryCode**. This field is a 2-character code for the user's country.
 
             **Allowed values**  
 
@@ -979,7 +970,7 @@ paths:
         - name: countryCode
           in: query
           description: |
-            The 2-character code for the user's country.
+            The input field, **Country**, has been *deprecated* in favor of **CountryCode**. This field is a 2-character code for the user's country.
 
             **Allowed values**  
 

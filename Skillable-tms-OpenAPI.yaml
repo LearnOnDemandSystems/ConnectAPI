@@ -312,15 +312,16 @@ paths:
           explode: true
           schema:
             type: string
-        - name: country
-          in: query
-          description: The user's country.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-          deprecated: true
+# Deprecated Field removed to prevent display in TryIt function
+#        - name: country
+#          in: query
+#          description: The user's country.
+#          required: false
+#          style: form
+#          explode: true
+#          schema:
+#            type: string
+#          deprecated: true
         - name: countryCode
           in: query
           description: |
@@ -967,15 +968,16 @@ paths:
           explode: true
           schema:
             type: string
-        - name: country
-          in: query
-          description: The user's country.
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-          deprecated: true
+# Deprecated Field removed to prevent display in TryIt function
+#        - name: country
+#          in: query
+#          description: The user's country.
+#          required: false
+#          style: form
+#          explode: true
+#          schema:
+#            type: string
+#          deprecated: true
         - name: countryCode
           in: query
           description: |

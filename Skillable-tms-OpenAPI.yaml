@@ -324,8 +324,8 @@ paths:
         - name: countryCode
           in: query
           description: |
-            The input field, **Country**, has been *deprecated* in favor of **CountryCode**. If this the **Country** field is provided but this field is not then **CountryCode** will be defaulted to **OT - Other** 
-            This field is a 2-character code for the user's country.
+            The input field, **Country**, has been *deprecated* in favor of **CountryCode**. If the **Country** field is provided but the **CountryCode** field is not then **CountryCode** will be defaulted to **OT - Other** 
+            The **CountryCode** field is a 2-character code for the user's country.
 
             **Allowed values**  
 
@@ -989,8 +989,8 @@ paths:
         - name: countryCode
           in: query
           description: |
-            The input field, **Country**, has been *deprecated* in favor of **CountryCode**. If this the **Country** field is provided but this field is not then **CountryCode** will be defaulted to **OT - Other** 
-            This field is a 2-character code for the user's country.
+            The input field, **Country**, has been *deprecated* in favor of **CountryCode**. If the **Country** field is provided but the **CountryCode** field is not then **CountryCode** will be defaulted to **OT - Other** 
+            The **CountryCode** field is a 2-character code for the user's country.
 
             **Allowed values**  
 

@@ -766,6 +766,14 @@ paths:
             type: integer
             format: int32
             example: 12345678
+        - name: enableGeneralNotifications
+          in: query
+          description: An optional parameter to allow the sending of general notifications to the user.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: boolean
         - name: forcePasswordChange
           in: query
           description: An optional parameter to force the user to change their password on the next login
@@ -1402,6 +1410,14 @@ paths:
           explode: true
           schema:
             type: string
+        - name: enableGeneralNotifications
+          in: query
+          description: An optional parameter to allow the sending of general notifications to the user.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: boolean
         - name: forcePasswordChange
           in: query
           description: An optional parameter to force the user to change their password on the next login

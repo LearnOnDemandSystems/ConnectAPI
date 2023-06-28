@@ -312,23 +312,24 @@ paths:
           explode: true
           schema:
             type: string
-# Deprecated Field removed to prevent display in TryIt function
-#        - name: country
-#          in: query
-#          description: The user's country.
-#          required: false
-#          style: form
-#          explode: true
-#          schema:
-#            type: string
-#          deprecated: true
+        - name: country
+          in: query
+          description: The user's country. The CountryCode field will override this value if both are provided.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+          deprecated: true
         - name: countryCode
           in: query
           description: |
-            The input field, **Country**, has been *deprecated* in favor of **CountryCode**. This field is a 2-character code for the user's country.
+            The input field, **Country**, has been *deprecated* in favor of **CountryCode**. If this the **Country** field is provided but this field is not then **CountryCode** will be defaulted to **OT - Other** 
+            This field is a 2-character code for the user's country.
 
             **Allowed values**  
 
+              OT  Other - The **Country** field must be provided
               AF	Afghanistan  
               AX	Åland Islands  
               AL	Albania  
@@ -976,23 +977,24 @@ paths:
           explode: true
           schema:
             type: string
-# Deprecated Field removed to prevent display in TryIt function
-#        - name: country
-#          in: query
-#          description: The user's country.
-#          required: false
-#          style: form
-#          explode: true
-#          schema:
-#            type: string
-#          deprecated: true
+        - name: country
+          in: query
+          description: The user's country. The CountryCode field will override this value if both are provided.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+          deprecated: true
         - name: countryCode
           in: query
           description: |
-            The input field, **Country**, has been *deprecated* in favor of **CountryCode**. This field is a 2-character code for the user's country.
+            The input field, **Country**, has been *deprecated* in favor of **CountryCode**. If this the **Country** field is provided but this field is not then **CountryCode** will be defaulted to **OT - Other** 
+            This field is a 2-character code for the user's country.
 
             **Allowed values**  
 
+              OT  Other - The **Country** field must be provided
               AF	Afghanistan  
               AX	Åland Islands  
               AL	Albania  

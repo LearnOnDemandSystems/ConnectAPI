@@ -3117,6 +3117,14 @@ paths:
                         ContentVersion: 2
                         Created: 1587647356923
                         LastModified: 1615997111827
+                        SCORMLastDownloaded: 1615997111827
+                        InstructionSets:
+                          - Id: Base-01
+                          - Language: en
+                          - Description: Basic Lab Instructions - English
+                          - LabTitle: Your Basic Lab
+                          - DurationMinutes: 60
+                          - OrganizationId: 1001
                       - Id: 2
                         Name: Demo Lab 2
                         Number: ' Module 2'
@@ -3153,6 +3161,14 @@ paths:
                         ContentVersion: 2
                         Created: 1588248305437
                         LastModified: 1684848422383
+                        SCORMLastDownloaded: 1615997111827
+                        InstructionSets:
+                          - Id: Base-02
+                          - Language: fr
+                          - Description: Basic Lab Instructions - French
+                          - LabTitle: Votre laboratoire de base
+                          - DurationMinutes: 60
+                          - OrganizationId: 1001
                     DeliveryRegions:
                       - Id: 1
                         Name: North America

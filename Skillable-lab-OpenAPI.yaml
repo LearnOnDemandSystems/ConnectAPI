@@ -2973,6 +2973,78 @@ paths:
             type: integer
             format: int32
             example: 3
+        - name: LabSeriesCreatedAfter
+          in: query
+          description: 'By providing the LabSeriesCreatedAfter date, the response will be filtered so that only lab series created after this date will be returned. Typically omitted.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1587647356923
+        - name: LabSeriesCreatedBefore
+          in: query
+          description: 'By providing the LabSeriesCreatedBefore date, the response will be filtered so that only lab series created before this date will be returned. Typically omitted.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1615997111827
+        - name: LabSeriesModifiedAfter
+          in: query
+          description: 'By providing the LabSeriesModifiedAfter date, the response will be filtered so that only lab series modified after this date will be returned. Typically omitted.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1587647356923
+        - name: LabSeriesModifieddBefore
+          in: query
+          description: 'By providing the LabSeriesModifieddBefore date, the response will be filtered so that only lab series modified before this date will be returned. Typically omitted.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1615997111827
+        - name: LabProfileCreatedAfter
+          in: query
+          description: 'By providing the LabProfileCreatedAfter date, the response will be filtered so that only lab profiles created after this date will be returned. Typically omitted.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1587647356923
+        - name: LabProfileCreatedBefore
+          in: query
+          description: 'By providing the LabProfileCreatedBefore date, the response will be filtered so that only lab profiles created before this date will be returned. Typically omitted.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1615997111827
+        - name: LabProfileModifiedAfter
+          in: query
+          description: 'By providing the LabProfileModifiedAfter date, the response will be filtered so that only lab profiles modified after this date will be returned. Typically omitted.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1587647356923
+        - name: LabProfileModifiedBefore
+          in: query
+          description: 'By providing the LabProfileModifiedBefore date, the response will be filtered so that only lab profiles modified before this date will be returned. Typically omitted.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1615997111827
         - name: tag
           in: query
           description: 'By providing a Tag, the response will be filtered so that only lab profiles within the specified lab series defined with the identified tag will be returned. Multiple Tag parameters can be defined.'
@@ -3188,6 +3260,16 @@ components:
                 format: int64
                 description: The date (in Unix epoch time) after which assignments are no longer valid. A null value indicates that assignments do not expire.
                 nullable: true
+              LastModified:
+                type: integer
+                format: int64
+                description: The date when the lab series was last modified (in Unix epoch time).
+                nullable: true
+              Created:
+                type: integer
+                format: int64
+                description: The date when the lab series was created (in Unix epoch time).
+                nullable: true
         LabProfiles:
           type: array
           uniqueItems: true
@@ -3360,6 +3442,43 @@ components:
                 type: integer
                 format: int64
                 description: The date when the lab profile was last modified (in Unix epoch time).
+              SCORMLastDownloaded:
+                type: integer
+                format: int64
+                description: The date when a SCORM module was last downloaded for the lab profile (in Unix epoch time).
+              InstructionSets:
+                type: array
+                description: A list of the available instruction sets and their basic details for the lab profile.
+                items:
+                  type: object
+                  properties:
+                    Id:
+                      type: integer
+                      description: The unique identifier of the instruction set.
+                    Language:
+                      type: string
+                      description: |-
+                        The 2 character language of the instruction set.  
+                        en = English
+                        es = Spanish  
+                        fr = French  
+                        de = German  
+                        pt = Portuguese  
+                        ja = Japanese  
+                        zh = Simplified Chinese  
+                        ko = Korean 
+                    Description:
+                      type: string
+                      description: The description of the instruction set.
+                    LabTitle:
+                      type: string
+                      description: The title of the lab as used in this instruction set.
+                    DurationMinutes:
+                      type: integer
+                      description: The duration of the lab, in minutes, when using this instruction set.
+                    OrganizationId:
+                      type: integer
+                      description: The unique identifier of the organization to which this instruction set belongs.
         DeliveryRegions:
           type: array
           uniqueItems: true
@@ -4622,6 +4741,10 @@ components:
           type: integer
           format: int64
           description: The date when the lab profile was last modified (in Unix epoch time).
+        SCORMLastDownloaded:
+          type: integer
+          format: int64
+          description: The date when a SCORM module was last downloaded for the lab profile (in Unix epoch time).
     LatestResultsResponse:
       type: object
       x-examples: {}

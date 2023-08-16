@@ -3000,9 +3000,9 @@ paths:
             type: integer
             format: int64
             example: 1587647356923
-        - name: LabSeriesModifieddBefore
+        - name: LabSeriesModifiedBefore
           in: query
-          description: 'By providing the LabSeriesModifieddBefore date, the response will be filtered so that only lab series modified before this date will be returned. Typically omitted.'
+          description: 'By providing the LabSeriesModifiedBefore date, the response will be filtered so that only lab series modified before this date will be returned. Typically omitted.'
           style: form
           explode: true
           schema:

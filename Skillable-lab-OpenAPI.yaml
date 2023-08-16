@@ -3120,11 +3120,17 @@ paths:
                         SCORMLastDownloaded: 1615997111827
                         InstructionSets:
                           - Id: Base-01
-                          - Language: en
-                          - Description: Basic Lab Instructions - English
-                          - LabTitle: Your Basic Lab
-                          - DurationMinutes: 60
-                          - OrganizationId: 1001
+                            Language: en
+                            Description: Basic Lab Instructions - English
+                            LabTitle: Your Basic Lab
+                            DurationMinutes: 60
+                            OrganizationId: 1001
+                          - Id: Base-01
+                            Language: en
+                            Description: Advanced Lab Instructions - English
+                            LabTitle: Your Advanced Lab
+                            DurationMinutes: 60
+                            OrganizationId: 1001
                       - Id: 2
                         Name: Demo Lab 2
                         Number: ' Module 2'
@@ -3164,11 +3170,17 @@ paths:
                         SCORMLastDownloaded: 1615997111827
                         InstructionSets:
                           - Id: Base-02
-                          - Language: fr
-                          - Description: Basic Lab Instructions - French
-                          - LabTitle: Votre laboratoire de base
-                          - DurationMinutes: 60
-                          - OrganizationId: 1001
+                            Language: fr
+                            Description: Basic Lab Instructions - French
+                            LabTitle: Votre laboratoire de base
+                            DurationMinutes: 60
+                            OrganizationId: 1001
+                          - Id: Base-02
+                            Language: fr
+                            Description: Advanced Lab Instructions - French
+                            LabTitle: Instructions de laboratoire avancées
+                            DurationMinutes: 60
+                            OrganizationId: 1001
                     DeliveryRegions:
                       - Id: 1
                         Name: North America

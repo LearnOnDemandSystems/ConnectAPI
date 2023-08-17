@@ -238,14 +238,15 @@ paths:
               
             NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.  
 
-              en = English  
-              es = Spanish  
-              fr = French  
-              de = German  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Simplified Chinese  
-              ko = Korean 
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hant = Traditional Chinese
+            zh-hans = Simplified Chinese  
+            ko = Korean 
           required: false
           style: form
           explode: true
@@ -1505,14 +1506,21 @@ paths:
                       - Tag1
                       - Tag2
                     Instructionsets:
-                      Id: 'Base-01'
-                      Language: 'en'
-                      Description: 'Basic Instructions'
-                      LabTitle: 'A demo lab'
-                      DurationMinutes: 360
-                      OrganizationId: 1
+                      - Id: 'Base-01'
+                        Language: 'en'
+                        Description: 'Basic Instructions'
+                        LabTitle: 'A demo lab'
+                        DurationMinutes: 360
+                        OrganizationId: 1
+                      - Id: 'Base-01'
+                        Language: 'fr'
+                        Description: 'Instructions de base'
+                        LabTitle: 'Un laboratoire de démonstration'
+                        DurationMinutes: 360
+                        OrganizationId: 1
                     Created: 1656366326607
                     LastModified: 1656440153550
+                    SCORMLastDownloaded: 1755781199000
       deprecated: false
       tags:
         - Lab Profile Management
@@ -1539,14 +1547,15 @@ paths:
               
             NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option will be used instead.  
 
-              en = English  
-              es = Spanish  
-              fr = French  
-              de = German  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Simplified Chinese  
-              ko = Korean 
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hant = Traditional Chinese
+            zh-hans = Simplified Chinese  
+            ko = Korean 
           required: false
           style: form
           explode: true
@@ -1621,14 +1630,15 @@ paths:
               
             NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option will be used instead.  
 
-              en = English  
-              es = Spanish  
-              fr = French  
-              de = German  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Simplified Chinese  
-              ko = Korean 
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hant = Traditional Chinese
+            zh-hans = Simplified Chinese  
+            ko = Korean 
           required: false
           style: form
           explode: true
@@ -1641,7 +1651,8 @@ paths:
               - de
               - pt
               - ja
-              - zh
+              - zh-hant
+              - zh-hans
               - ko
             example: en
         - name: instructionsId
@@ -1702,14 +1713,15 @@ paths:
               
             NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option will be used instead.  
 
-              en = English  
-              es = Spanish  
-              fr = French  
-              de = German  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Simplified Chinese  
-              ko = Korean 
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hant = Traditional Chinese
+            zh-hans = Simplified Chinese  
+            ko = Korean 
           required: false
           style: form
           explode: true
@@ -1722,7 +1734,8 @@ paths:
               - de
               - pt
               - ja
-              - zh
+              - zh-hant
+              - zh-hans
               - ko
             example: en
         - name: instructionsId
@@ -1788,14 +1801,15 @@ paths:
               
             NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.  
 
-              en = English  
-              es = Spanish  
-              fr = French  
-              de = German  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Simplified Chinese  
-              ko = Korean 
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hant = Traditional Chinese
+            zh-hans = Simplified Chinese  
+            ko = Korean 
           required: false
           style: form
           explode: true
@@ -2509,14 +2523,15 @@ paths:
               
             NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.  
               
-              en = English  
-              es = Spanish  
-              fr = French  
-              de = German  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Simplified Chinese  
-              ko = Korean 
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hant = Traditional Chinese
+            zh-hans = Simplified Chinese  
+            ko = Korean 
           required: false
           style: form
           explode: true
@@ -2684,14 +2699,15 @@ paths:
               
             NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.    
               
-              en = English  
-              es = Spanish  
-              fr = French  
-              de = German  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Simplified Chinese  
-              ko = Korean 
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hant = Traditional Chinese
+            zh-hans = Simplified Chinese  
+            ko = Korean 
           required: false
           style: form
           explode: true
@@ -2983,6 +2999,78 @@ paths:
             example:
               - mytag1
               - mytag2
+        - name: LabSeriesCreatedAfter
+          in: query
+          description: 'By providing a LabSeriesCreateAfter (in Unix epoch format), the response will be filtered so that only lab series, and the associated lab profiles, will be returned where the lab series has been created after the specified date.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1755781199000
+        - name: LabSeriesCreatedBefore
+          in: query
+          description: 'By providing a LabSeriesCreateBefore (in Unix epoch format), the response will be filtered so that only lab series, and the associated lab profiles, will be returned where the lab series has been created before the specified date.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1755781199000
+        - name: LabSeriesModifiedAfter
+          in: query
+          description: 'By providing a LabSeriesModifiedAfter (in Unix epoch format), the response will be filtered so that only lab series, and the associated lab profiles, will be returned where the lab series has been modified after the specified date.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1755781199000
+        - name: LabSeriesModifiedBefore
+          in: query
+          description: 'By providing a LabSeriesModifiedBefore (in Unix epoch format), the response will be filtered so that only lab series, and the associated lab profiles, will be returned where the lab series has been modified before the specified date.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1755781199000
+        - name: LabProfileCreatedAfter
+          in: query
+          description: 'By providing a LabProfileCreatedAfter (in Unix epoch format), the response will be filtered so that only lab profiles, and the parent lab series, will be returned where the lab profile has been created after the specified date.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1755781199000
+        - name: LabProfileCreatedBefore
+          in: query
+          description: 'By providing a LabProfileCreatedBefore (in Unix epoch format), the response will be filtered so that only lab profiles, and the parent lab series, will be returned where the lab profile has been created before the specified date.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1755781199000
+        - name: LabProfileModifiedAfter
+          in: query
+          description: 'By providing a LabProfileModifiedAfter (in Unix epoch format), the response will be filtered so that only lab profiles, and the parent lab series, will be returned where the lab profile has been modified after the specified date.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1755781199000
+        - name: LabProfileModifiedBefore
+          in: query
+          description: 'By providing a LabProfileModifiedBefore (in Unix epoch format), the response will be filtered so that only lab profiles, and the parent lab series, will be returned where the lab profile has been modified before the specified date.'
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1755781199000
       responses:
         '200':
           description: OK Response
@@ -3000,13 +3088,17 @@ paths:
                         Description: A demo lab series.
                         NumTrainingDays: 5
                         AllowAssignments: true
-                        AllowAssignmentsUntil: '2022-03-07T08:00:00'
+                        AllowAssignmentsUntil: 1723899599000
+                        LastModified: 1692285792
+                        created: 1691777772
                       - Id: 2
                         Name: Demo Series 2
                         Description: Another demo lab series.
                         NumTrainingDays: 5
                         AllowAssignments: false
                         AllowAssignmentsUntil: null
+                        LastModified: 1690297380
+                        created: 1690208809
                     LabProfiles:
                       - Id: 1
                         Name: Demo Lab 1
@@ -3045,6 +3137,7 @@ paths:
                         ContentVersion: 2
                         Created: 1587647356923
                         LastModified: 1615997111827
+                        SCORMLastDownloaded: 1723899599000
                       - Id: 2
                         Name: Demo Lab 2
                         Number: ' Module 2'
@@ -3081,6 +3174,7 @@ paths:
                         ContentVersion: 2
                         Created: 1588248305437
                         LastModified: 1684848422383
+                        SCORMLastDownloaded: 1755781199000
                     DeliveryRegions:
                       - Id: 1
                         Name: North America
@@ -3188,6 +3282,16 @@ components:
                 format: int64
                 description: The date (in Unix epoch time) after which assignments are no longer valid. A null value indicates that assignments do not expire.
                 nullable: true
+              LastModified:
+                type: integer
+                format: int64
+                description: The last date the lab series was modified (in Unix epoch time).
+                nullable: true
+              Created:
+                type: integer
+                format: int64
+                description: The date the lab series was created (in Unix epoch time).
+                nullable: true
         LabProfiles:
           type: array
           uniqueItems: true
@@ -3240,9 +3344,8 @@ components:
                 description: The expected number of minutes a user will take to complete the lab.
                 format: int32
               ResourceUnits:
-                type: integer
+                type: number
                 description: This response property is obsolete, and will show the value of RAM/32.
-                format: int32
                 deprecated: true
               PlatformId:
                 type: integer
@@ -3334,6 +3437,7 @@ components:
                 description: This response property is obsolete and is not Populated.
                 items:
                   type: string
+                nullable: true
                 deprecated: true
               Tags:
                 type: array
@@ -3360,6 +3464,47 @@ components:
                 type: integer
                 format: int64
                 description: The date when the lab profile was last modified (in Unix epoch time).
+              SCORMLastDownloaded:
+                type: integer
+                format: int64
+                description: The date when the SCORM package was last downloaded from the lab profile (in Unix epoch time).
+              InstructionSets:
+                  type: array
+                  description: Array of instruction sets for the lab profile
+                  items:
+                    type: object
+                    properties:
+                      Id:
+                        type: string
+                        description: The display id of the instruction set.
+                      Language:
+                        type: string
+                        description: |-
+                          The lanuage code of the instruction set.
+  
+                          en = English  
+                          es = Spanish  
+                          fr = French  
+                          de = German  
+                          pt = Portuguese  
+                          ja = Japanese  
+                          zh-hant = Traditional Chinese
+                          zh-hans = Simplified Chinese  
+                          ko = Korean 
+                      Description: 
+                        type: string
+                        description: The description of the instruction set.
+                      LabTitle:
+                        type: string
+                        description: The title of the lab to be displayed in the lab instructions.
+                      DurationMinutes:
+                        type: integer
+                        format: int32
+                        description: The duration of the lab when using the specified instruction set.
+                      OrganizationId:
+                        type: integer
+                        format: int32
+                        description: The id of the organization to which the instruction set belongs.
         DeliveryRegions:
           type: array
           uniqueItems: true
@@ -4593,14 +4738,16 @@ components:
               Language:
                 type: string
                 description: |-
-                  The 2 character language of the instruction set.  
-                  en = English
+                  The character code for the language of the instruction set.  
+
+                  en = English  
                   es = Spanish  
                   fr = French  
                   de = German  
                   pt = Portuguese  
                   ja = Japanese  
-                  zh = Simplified Chinese  
+                  zh-hant = Traditional Chinese
+                  zh-hans = Simplified Chinese  
                   ko = Korean 
               Description:
                 type: string
@@ -4622,6 +4769,10 @@ components:
           type: integer
           format: int64
           description: The date when the lab profile was last modified (in Unix epoch time).
+        SCORMLastDownloaded:
+          type: integer
+          format: int64
+          description: The date when the SCORM package was last downloaded for the lab profile (in Unix epoch time).
     LatestResultsResponse:
       type: object
       x-examples: {}

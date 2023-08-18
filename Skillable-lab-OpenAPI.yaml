@@ -244,8 +244,8 @@ paths:
             de = German  
             pt = Portuguese  
             ja = Japanese  
-            zh-hant = Traditional Chinese  
             zh-hans = Simplified Chinese  
+            zh-hant = Traditional Chinese  
             ko = Korean 
           required: false
           style: form
@@ -259,8 +259,8 @@ paths:
               - de
               - pt
               - ja
-              - zh-hant
               - zh-hans
+              - zh-hant
               - ko
             example: en
         - name: instructionsId
@@ -1554,8 +1554,8 @@ paths:
             de = German  
             pt = Portuguese  
             ja = Japanese  
-            zh-hant = Traditional Chinese  
             zh-hans = Simplified Chinese  
+            zh-hant = Traditional Chinese  
             ko = Korean 
           required: false
           style: form
@@ -1569,8 +1569,8 @@ paths:
               - de
               - pt
               - ja
-              - zh-hant
               - zh-hans
+              - zh-hant
               - ko
             example: en
         - name: instructionsId
@@ -1638,8 +1638,8 @@ paths:
             de = German  
             pt = Portuguese  
             ja = Japanese  
-            zh-hant = Traditional Chinese
             zh-hans = Simplified Chinese  
+            zh-hant = Traditional Chinese  
             ko = Korean 
           required: false
           style: form
@@ -1653,8 +1653,8 @@ paths:
               - de
               - pt
               - ja
-              - zh-hant
               - zh-hans
+              - zh-hant
               - ko
             example: en
         - name: instructionsId
@@ -1721,8 +1721,8 @@ paths:
             de = German  
             pt = Portuguese  
             ja = Japanese  
-            zh-hant = Traditional Chinese
             zh-hans = Simplified Chinese  
+            zh-hant = Traditional Chinese  
             ko = Korean 
           required: false
           style: form
@@ -1736,8 +1736,8 @@ paths:
               - de
               - pt
               - ja
-              - zh-hant
               - zh-hans
+              - zh-hant
               - ko
             example: en
         - name: instructionsId
@@ -1809,8 +1809,8 @@ paths:
             de = German  
             pt = Portuguese  
             ja = Japanese  
-            zh-hant = Traditional Chinese
             zh-hans = Simplified Chinese  
+            zh-hant = Traditional Chinese  
             ko = Korean 
           required: false
           style: form
@@ -1824,8 +1824,8 @@ paths:
               - de
               - pt
               - ja
-              - zh-hant
               - zh-hans
+              - zh-hant
               - ko
             example: en
         - name: instructionsId
@@ -2532,9 +2532,9 @@ paths:
             de = German  
             pt = Portuguese  
             ja = Japanese  
-            zh-hant = Traditional Chinese
             zh-hans = Simplified Chinese  
-            ko = Korean 
+            zh-hant = Traditional Chinese  
+            ko = Korean  
           required: false
           style: form
           explode: true
@@ -2547,8 +2547,8 @@ paths:
               - de
               - pt
               - ja
-              - zh-hant
               - zh-hans
+              - zh-hant
               - ko
             example: en
         - name: instructionsId
@@ -2709,9 +2709,9 @@ paths:
             de = German  
             pt = Portuguese  
             ja = Japanese  
-            zh-hant = Traditional Chinese
             zh-hans = Simplified Chinese  
-            ko = Korean 
+            zh-hant = Traditional Chinese  
+            ko = Korean  
           required: false
           style: form
           explode: true
@@ -2724,8 +2724,8 @@ paths:
               - de
               - pt
               - ja
-              - zh-hant
               - zh-hans
+              - zh-hant
               - ko
             example: en
         - name: instructionsId
@@ -3433,8 +3433,8 @@ components:
                           de = German  
                           pt = Portuguese  
                           ja = Japanese  
-                          zh-hant = Traditional Chinese  
                           zh-hans = Simplified Chinese  
+                          zh-hant = Traditional Chinese  
                           ko = Korean 
                       Description: 
                         type: string
@@ -4691,8 +4691,8 @@ components:
                   de = German  
                   pt = Portuguese  
                   ja = Japanese  
-                  zh-hant = Traditional Chinese
                   zh-hans = Simplified Chinese  
+                  zh-hant = Traditional Chinese  
                   ko = Korean 
               Description:
                 type: string

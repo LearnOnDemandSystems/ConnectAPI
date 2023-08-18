@@ -3062,6 +3062,19 @@ paths:
                         Created: 1587647356923
                         LastModified: 1615997111827
                         SCORMLastDownloaded: 1723899599000
+                        InstructionSets:
+                          - Id: Base-02
+                            Language: es
+                            Description: Advanced Instructions - Spanish
+                            LabTitle: laboratorio avanzado
+                            DurationMinutes: 60
+                            OrganizationId: 158
+                          - Id: Base-02  
+                            Language: de  
+                            Description: Advanced Instructions - German  
+                            LabTitle: Fortgeschrittenes Labor  
+                            DurationMinutes: 60  
+                            OrganizationId: 158  
                       - Id: 2
                         Name: Demo Lab 2
                         Number: ' Module 2'
@@ -3099,6 +3112,19 @@ paths:
                         Created: 1588248305437
                         LastModified: 1684848422383
                         SCORMLastDownloaded: 1755781199000
+                        InstructionSets:
+                          - Id: Base-01
+                            Language: en
+                            Description: Base Instructions
+                            LabTitle: General Lab
+                            DurationMinutes: 60
+                            OrganizationId: 158
+                          - Id: Base-01  
+                            Language: fr  
+                            Description: Base Instructions - French  
+                            LabTitle: Laboratoire général  
+                            DurationMinutes: 60  
+                            OrganizationId: 158  
                     DeliveryRegions:
                       - Id: 1
                         Name: North America
@@ -3402,7 +3428,7 @@ components:
                           de = German  
                           pt = Portuguese  
                           ja = Japanese  
-                          zh-hant = Traditional Chinese
+                          zh-hant = Traditional Chinese  
                           zh-hans = Simplified Chinese  
                           ko = Korean 
                       Description: 

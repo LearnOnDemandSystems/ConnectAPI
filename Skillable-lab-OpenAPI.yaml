@@ -244,7 +244,7 @@ paths:
             de = German  
             pt = Portuguese  
             ja = Japanese  
-            zh-hant = Traditional Chinese
+            zh-hant = Traditional Chinese  
             zh-hans = Simplified Chinese  
             ko = Korean 
           required: false
@@ -1554,7 +1554,7 @@ paths:
             de = German  
             pt = Portuguese  
             ja = Japanese  
-            zh-hant = Traditional Chinese
+            zh-hant = Traditional Chinese  
             zh-hans = Simplified Chinese  
             ko = Korean 
           required: false

@@ -238,14 +238,15 @@ paths:
               
             NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.  
 
-              en = English  
-              es = Spanish  
-              fr = French  
-              de = German  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Simplified Chinese  
-              ko = Korean 
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hans = Simplified Chinese  
+            zh-hant = Traditional Chinese  
+            ko = Korean 
           required: false
           style: form
           explode: true
@@ -258,7 +259,8 @@ paths:
               - de
               - pt
               - ja
-              - zh
+              - zh-hans
+              - zh-hant
               - ko
             example: en
         - name: instructionsId
@@ -1505,14 +1507,21 @@ paths:
                       - Tag1
                       - Tag2
                     Instructionsets:
-                      Id: 'Base-01'
-                      Language: 'en'
-                      Description: 'Basic Instructions'
-                      LabTitle: 'A demo lab'
-                      DurationMinutes: 360
-                      OrganizationId: 1
+                      - Id: 'Base-01'
+                        Language: 'en'
+                        Description: 'Basic Instructions'
+                        LabTitle: 'A demo lab'
+                        DurationMinutes: 360
+                        OrganizationId: 1
+                      - Id: 'Base-01'
+                        Language: 'fr'
+                        Description: 'Instructions de base'
+                        LabTitle: 'Un laboratoire de démonstration'
+                        DurationMinutes: 360
+                        OrganizationId: 1
                     Created: 1656366326607
                     LastModified: 1656440153550
+                    SCORMLastDownloaded: 1755781199000
       deprecated: false
       tags:
         - Lab Profile Management
@@ -1539,14 +1548,15 @@ paths:
               
             NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option will be used instead.  
 
-              en = English  
-              es = Spanish  
-              fr = French  
-              de = German  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Simplified Chinese  
-              ko = Korean 
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hans = Simplified Chinese  
+            zh-hant = Traditional Chinese  
+            ko = Korean 
           required: false
           style: form
           explode: true
@@ -1559,7 +1569,8 @@ paths:
               - de
               - pt
               - ja
-              - zh
+              - zh-hans
+              - zh-hant
               - ko
             example: en
         - name: instructionsId
@@ -1621,14 +1632,15 @@ paths:
               
             NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option will be used instead.  
 
-              en = English  
-              es = Spanish  
-              fr = French  
-              de = German  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Simplified Chinese  
-              ko = Korean 
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hans = Simplified Chinese  
+            zh-hant = Traditional Chinese  
+            ko = Korean 
           required: false
           style: form
           explode: true
@@ -1641,7 +1653,8 @@ paths:
               - de
               - pt
               - ja
-              - zh
+              - zh-hans
+              - zh-hant
               - ko
             example: en
         - name: instructionsId
@@ -1702,14 +1715,15 @@ paths:
               
             NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option will be used instead.  
 
-              en = English  
-              es = Spanish  
-              fr = French  
-              de = German  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Simplified Chinese  
-              ko = Korean 
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hans = Simplified Chinese  
+            zh-hant = Traditional Chinese  
+            ko = Korean 
           required: false
           style: form
           explode: true
@@ -1722,7 +1736,8 @@ paths:
               - de
               - pt
               - ja
-              - zh
+              - zh-hans
+              - zh-hant
               - ko
             example: en
         - name: instructionsId
@@ -1788,14 +1803,15 @@ paths:
               
             NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.  
 
-              en = English  
-              es = Spanish  
-              fr = French  
-              de = German  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Simplified Chinese  
-              ko = Korean 
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hans = Simplified Chinese  
+            zh-hant = Traditional Chinese  
+            ko = Korean 
           required: false
           style: form
           explode: true
@@ -1808,7 +1824,8 @@ paths:
               - de
               - pt
               - ja
-              - zh
+              - zh-hans
+              - zh-hant
               - ko
             example: en
         - name: instructionsId
@@ -2509,14 +2526,15 @@ paths:
               
             NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.  
               
-              en = English  
-              es = Spanish  
-              fr = French  
-              de = German  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Simplified Chinese  
-              ko = Korean 
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hans = Simplified Chinese  
+            zh-hant = Traditional Chinese  
+            ko = Korean  
           required: false
           style: form
           explode: true
@@ -2529,7 +2547,8 @@ paths:
               - de
               - pt
               - ja
-              - zh
+              - zh-hans
+              - zh-hant
               - ko
             example: en
         - name: instructionsId
@@ -2684,14 +2703,15 @@ paths:
               
             NOTE: If this parameter is omitted, or if the specified language is not specified on one of the Instruction sets in a lab profile, then the default language as defined in the <strong>Lab Profile &#10132; Manage Instructions Sets</strong> option.    
               
-              en = English  
-              es = Spanish  
-              fr = French  
-              de = German  
-              pt = Portuguese  
-              ja = Japanese  
-              zh = Simplified Chinese  
-              ko = Korean 
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hans = Simplified Chinese  
+            zh-hant = Traditional Chinese  
+            ko = Korean  
           required: false
           style: form
           explode: true
@@ -2704,7 +2724,8 @@ paths:
               - de
               - pt
               - ja
-              - zh
+              - zh-hans
+              - zh-hant
               - ko
             example: en
         - name: instructionsId
@@ -3000,7 +3021,7 @@ paths:
                         Description: A demo lab series.
                         NumTrainingDays: 5
                         AllowAssignments: true
-                        AllowAssignmentsUntil: '2022-03-07T08:00:00'
+                        AllowAssignmentsUntil: 1723899599000
                       - Id: 2
                         Name: Demo Series 2
                         Description: Another demo lab series.
@@ -3045,6 +3066,20 @@ paths:
                         ContentVersion: 2
                         Created: 1587647356923
                         LastModified: 1615997111827
+                        SCORMLastDownloaded: 1723899599000
+                        InstructionSets:
+                          - Id: Base-02
+                            Language: es
+                            Description: Advanced Instructions - Spanish
+                            LabTitle: laboratorio avanzado
+                            DurationMinutes: 60
+                            OrganizationId: 158
+                          - Id: Base-02  
+                            Language: de  
+                            Description: Advanced Instructions - German  
+                            LabTitle: Fortgeschrittenes Labor  
+                            DurationMinutes: 60  
+                            OrganizationId: 158  
                       - Id: 2
                         Name: Demo Lab 2
                         Number: ' Module 2'
@@ -3081,6 +3116,20 @@ paths:
                         ContentVersion: 2
                         Created: 1588248305437
                         LastModified: 1684848422383
+                        SCORMLastDownloaded: 1755781199000
+                        InstructionSets:
+                          - Id: Base-01
+                            Language: en
+                            Description: Base Instructions
+                            LabTitle: General Lab
+                            DurationMinutes: 60
+                            OrganizationId: 158
+                          - Id: Base-01  
+                            Language: fr  
+                            Description: Base Instructions - French  
+                            LabTitle: Laboratoire général  
+                            DurationMinutes: 60  
+                            OrganizationId: 158  
                     DeliveryRegions:
                       - Id: 1
                         Name: North America
@@ -3240,9 +3289,8 @@ components:
                 description: The expected number of minutes a user will take to complete the lab.
                 format: int32
               ResourceUnits:
-                type: integer
+                type: number
                 description: This response property is obsolete, and will show the value of RAM/32.
-                format: int32
                 deprecated: true
               PlatformId:
                 type: integer
@@ -3334,6 +3382,7 @@ components:
                 description: This response property is obsolete and is not Populated.
                 items:
                   type: string
+                nullable: true
                 deprecated: true
               Tags:
                 type: array
@@ -3360,6 +3409,47 @@ components:
                 type: integer
                 format: int64
                 description: The date when the lab profile was last modified (in Unix epoch time).
+              SCORMLastDownloaded:
+                type: integer
+                format: int64
+                description: The date when the SCORM package was last downloaded from the lab profile (in Unix epoch time).
+              InstructionSets:
+                  type: array
+                  description: Array of instruction sets for the lab profile
+                  items:
+                    type: object
+                    properties:
+                      Id:
+                        type: string
+                        description: The display id of the instruction set.
+                      Language:
+                        type: string
+                        description: |-
+                          The lanuage code of the instruction set.
+  
+                          en = English  
+                          es = Spanish  
+                          fr = French  
+                          de = German  
+                          pt = Portuguese  
+                          ja = Japanese  
+                          zh-hans = Simplified Chinese  
+                          zh-hant = Traditional Chinese  
+                          ko = Korean 
+                      Description: 
+                        type: string
+                        description: The description of the instruction set.
+                      LabTitle:
+                        type: string
+                        description: The title of the lab to be displayed in the lab instructions.
+                      DurationMinutes:
+                        type: integer
+                        format: int32
+                        description: The duration of the lab when using the specified instruction set.
+                      OrganizationId:
+                        type: integer
+                        format: int32
+                        description: The id of the organization to which the instruction set belongs.
         DeliveryRegions:
           type: array
           uniqueItems: true
@@ -4593,14 +4683,16 @@ components:
               Language:
                 type: string
                 description: |-
-                  The 2 character language of the instruction set.  
-                  en = English
+                  The character code for the language of the instruction set.  
+
+                  en = English  
                   es = Spanish  
                   fr = French  
                   de = German  
                   pt = Portuguese  
                   ja = Japanese  
-                  zh = Simplified Chinese  
+                  zh-hans = Simplified Chinese  
+                  zh-hant = Traditional Chinese  
                   ko = Korean 
               Description:
                 type: string
@@ -4622,6 +4714,10 @@ components:
           type: integer
           format: int64
           description: The date when the lab profile was last modified (in Unix epoch time).
+        SCORMLastDownloaded:
+          type: integer
+          format: int64
+          description: The date when the SCORM package was last downloaded for the lab profile (in Unix epoch time).
     LatestResultsResponse:
       type: object
       x-examples: {}

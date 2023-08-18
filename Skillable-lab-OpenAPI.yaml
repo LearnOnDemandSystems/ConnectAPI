@@ -2999,78 +2999,6 @@ paths:
             example:
               - mytag1
               - mytag2
-        - name: LabSeriesCreatedAfter
-          in: query
-          description: 'By providing a LabSeriesCreateAfter (in Unix epoch format), the response will be filtered so that only lab series, and the associated lab profiles, will be returned where the lab series has been created after the specified date.'
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1755781199000
-        - name: LabSeriesCreatedBefore
-          in: query
-          description: 'By providing a LabSeriesCreateBefore (in Unix epoch format), the response will be filtered so that only lab series, and the associated lab profiles, will be returned where the lab series has been created before the specified date.'
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1755781199000
-        - name: LabSeriesModifiedAfter
-          in: query
-          description: 'By providing a LabSeriesModifiedAfter (in Unix epoch format), the response will be filtered so that only lab series, and the associated lab profiles, will be returned where the lab series has been modified after the specified date.'
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1755781199000
-        - name: LabSeriesModifiedBefore
-          in: query
-          description: 'By providing a LabSeriesModifiedBefore (in Unix epoch format), the response will be filtered so that only lab series, and the associated lab profiles, will be returned where the lab series has been modified before the specified date.'
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1755781199000
-        - name: LabProfileCreatedAfter
-          in: query
-          description: 'By providing a LabProfileCreatedAfter (in Unix epoch format), the response will be filtered so that only lab profiles, and the parent lab series, will be returned where the lab profile has been created after the specified date.'
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1755781199000
-        - name: LabProfileCreatedBefore
-          in: query
-          description: 'By providing a LabProfileCreatedBefore (in Unix epoch format), the response will be filtered so that only lab profiles, and the parent lab series, will be returned where the lab profile has been created before the specified date.'
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1755781199000
-        - name: LabProfileModifiedAfter
-          in: query
-          description: 'By providing a LabProfileModifiedAfter (in Unix epoch format), the response will be filtered so that only lab profiles, and the parent lab series, will be returned where the lab profile has been modified after the specified date.'
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1755781199000
-        - name: LabProfileModifiedBefore
-          in: query
-          description: 'By providing a LabProfileModifiedBefore (in Unix epoch format), the response will be filtered so that only lab profiles, and the parent lab series, will be returned where the lab profile has been modified before the specified date.'
-          style: form
-          explode: true
-          schema:
-            type: integer
-            format: int64
-            example: 1755781199000
       responses:
         '200':
           description: OK Response
@@ -3089,16 +3017,12 @@ paths:
                         NumTrainingDays: 5
                         AllowAssignments: true
                         AllowAssignmentsUntil: 1723899599000
-                        LastModified: 1692285792
-                        created: 1691777772
                       - Id: 2
                         Name: Demo Series 2
                         Description: Another demo lab series.
                         NumTrainingDays: 5
                         AllowAssignments: false
                         AllowAssignmentsUntil: null
-                        LastModified: 1690297380
-                        created: 1690208809
                     LabProfiles:
                       - Id: 1
                         Name: Demo Lab 1
@@ -3281,16 +3205,6 @@ components:
                 type: integer
                 format: int64
                 description: The date (in Unix epoch time) after which assignments are no longer valid. A null value indicates that assignments do not expire.
-                nullable: true
-              LastModified:
-                type: integer
-                format: int64
-                description: The last date the lab series was modified (in Unix epoch time).
-                nullable: true
-              Created:
-                type: integer
-                format: int64
-                description: The date the lab series was created (in Unix epoch time).
                 nullable: true
         LabProfiles:
           type: array

@@ -3415,7 +3415,7 @@ components:
                 description: The date when the SCORM package was last downloaded from the lab profile (in Unix epoch time).
               InstructionSets:
                   type: array
-                  description: Array of instruction sets for the lab profile
+                  description: Array of instruction sets for the lab profile.
                   items:
                     type: object
                     properties:

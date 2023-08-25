@@ -616,7 +616,7 @@ paths:
                             ShowResultsInReports: true
                     EstimatedReadySeconds: null
                     InstructionsId: The ID of the Instructions used
-                    Language: en
+                    Lang: en
                     Error: null
                     Status: 1
       deprecated: false
@@ -1506,7 +1506,7 @@ paths:
                     Tags:
                       - Tag1
                       - Tag2
-                    Instructionsets:
+                    InstructionSets:
                       - Id: 'Base-01'
                         Language: 'en'
                         Description: 'Basic Instructions'
@@ -3004,6 +3004,86 @@ paths:
             example:
               - mytag1
               - mytag2
+        - name: LabSeriesCreatedAfter
+          in: query
+          description: The date/time (in Unix epoch time) that the Lab Series was created after.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1598465099
+        - name: LabSeriesCreatedBefore
+          in: query
+          description: The date/time (in Unix epoch time) that the Lab Series was created before.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1598465099
+        - name: LabSeriesModifiedAfter
+          in: query
+          description: The date/time (in Unix epoch time) that the Lab Series was modified after.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1598465099
+        - name: LabSeriesModifiedBefore
+          in: query
+          description: The date/time (in Unix epoch time) that the Lab Series was modified before.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1598465099
+        - name: LabProfileCreatedAfter
+          in: query
+          description: The date/time (in Unix epoch time) that the Lab Profile was created after.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1598465099
+        - name: LabProfileCreatedBefore
+          in: query
+          description: The date/time (in Unix epoch time) that the Lab Profile was created before.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1598465099
+        - name: LabProfileModifiedAfter
+          in: query
+          description: The date/time (in Unix epoch time) that the Lab Profile was modified after.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1598465099
+        - name: LabProfileModifiedBefore
+          in: query
+          description: The date/time (in Unix epoch time) that the Lab Profile was modified before.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1598465099
       responses:
         '200':
           description: OK Response
@@ -3022,12 +3102,16 @@ paths:
                         NumTrainingDays: 5
                         AllowAssignments: true
                         AllowAssignmentsUntil: 1723899599000
+                        Created: 1689505754000
+                        LastModified: 1692886226000
                       - Id: 2
                         Name: Demo Series 2
                         Description: Another demo lab series.
                         NumTrainingDays: 5
                         AllowAssignments: false
                         AllowAssignmentsUntil: null
+                        Created: 1689505754000
+                        LastModified: 1692886226000
                     LabProfiles:
                       - Id: 1
                         Name: Demo Lab 1
@@ -3051,7 +3135,7 @@ paths:
                         DevelopmentStatusId: 10
                         RequiresBrowserPlugin: false
                         RequiresNestedVirtualization: false
-                        NumPublicAddresses: 0
+                        NumPublicIpAddresses: 0
                         IsExam: false
                         PremiumPrice: 10
                         BasicPrice: 8
@@ -3236,6 +3320,16 @@ components:
                 type: integer
                 format: int64
                 description: The date (in Unix epoch time) after which assignments are no longer valid. A null value indicates that assignments do not expire.
+                nullable: true
+              Created:
+                type: integer
+                format: int64
+                description: The date (in Unix epoch time) that the Lab Series was created.
+                nullable: false
+              LastModified:
+                type: integer
+                format: int64
+                description: The date (in Unix epoch time) that the Lab Series was modified.
                 nullable: true
         LabProfiles:
           type: array
@@ -4678,8 +4772,9 @@ components:
             type: object
             properties:
               Id:
-                type: integer
+                type: string
                 description: The unique identifier of the instruction set.
+                nullable: false
               Language:
                 type: string
                 description: |-

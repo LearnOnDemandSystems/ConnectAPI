@@ -4591,9 +4591,9 @@ components:
             1 = Success
           format: int32
         Id:
-          type: string
+          type: integer
           description: The unique identifier of the lab profile.
-          nullable: false
+          nullable: int32
         Name:
           type: string
           description: The name of the lab profile.
@@ -4772,8 +4772,9 @@ components:
             type: object
             properties:
               Id:
-                type: integer
+                type: string
                 description: The unique identifier of the instruction set.
+                nullable: false
               Language:
                 type: string
                 description: |-

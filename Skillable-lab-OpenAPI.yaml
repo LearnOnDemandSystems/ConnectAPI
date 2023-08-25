@@ -616,7 +616,7 @@ paths:
                             ShowResultsInReports: true
                     EstimatedReadySeconds: null
                     InstructionsId: The ID of the Instructions used
-                    Language: en
+                    Lang: en
                     Error: null
                     Status: 1
       deprecated: false
@@ -1506,7 +1506,7 @@ paths:
                     Tags:
                       - Tag1
                       - Tag2
-                    Instructionsets:
+                    InstructionSets:
                       - Id: 'Base-01'
                         Language: 'en'
                         Description: 'Basic Instructions'
@@ -3135,7 +3135,7 @@ paths:
                         DevelopmentStatusId: 10
                         RequiresBrowserPlugin: false
                         RequiresNestedVirtualization: false
-                        NumPublicAddresses: 0
+                        NumPublicIPAddresses: 0
                         IsExam: false
                         PremiumPrice: 10
                         BasicPrice: 8

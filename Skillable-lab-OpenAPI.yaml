@@ -4593,7 +4593,7 @@ components:
         Id:
           type: integer
           description: The unique identifier of the lab profile.
-          nullable: int32
+          format: int32
         Name:
           type: string
           description: The name of the lab profile.

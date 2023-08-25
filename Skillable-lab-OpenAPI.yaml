@@ -3135,7 +3135,7 @@ paths:
                         DevelopmentStatusId: 10
                         RequiresBrowserPlugin: false
                         RequiresNestedVirtualization: false
-                        NumPublicIPAddresses: 0
+                        NumPublicIpAddresses: 0
                         IsExam: false
                         PremiumPrice: 10
                         BasicPrice: 8
@@ -4591,9 +4591,9 @@ components:
             1 = Success
           format: int32
         Id:
-          type: integer
+          type: string
           description: The unique identifier of the lab profile.
-          format: int32
+          nullable: false
         Name:
           type: string
           description: The name of the lab profile.

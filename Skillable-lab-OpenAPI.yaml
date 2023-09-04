@@ -45,47 +45,47 @@ tags:
   - name: Lab Instance Management
     description: |-
       The Lab Instance Management group of API commands allows interacting with lab instances. This includes but is not limited to the following actions: 
-      * Launch a lab 
-      * Cancel a lab
-      * Save a lab 
-      * Resuming a lab
-      * Initiate scoring of activities in a lab  
-      * Send notifications to a lab  
-      * Retrieve information about lab instances
+      * [Launch a lab](https://connect.skillable.com/lab/operation/Launch/) 
+      * [Cancel a lab](https://connect.skillable.com/lab/operation/Cancel/)
+      * [Save a lab](https://connect.skillable.com/lab/operation/Save/) 
+      * [Resuming a lab](https://connect.skillable.com/lab/operation/Resume/) 
+      * [Initiate scoring of activities in a lab](https://connect.skillable.com/lab/operation/ScoreActivities/) 
+      * [Send notifications to a lab](https://connect.skillable.com/lab/operation/SendNotification-post/) 
+      * [Retrieve information about lab instances](https://connect.skillable.com/lab/operation/Results/)
   - name: Lab Profile Management
     description: |-
       The Lab Profile Management group of API commands allows for managing instructions and retrieving information about Lab Profiles within Skillable Studio. 
-      * Retrieve information about a specific lab profile
-      * Retrieve lab instructions for a specific lab 
-      * Download instructions in a zip file for a specific lab 
-      * Update lab instructions for a specific lab profile using an HTTP post
-      * Update lab instructions for a specific lab by uploading a zip file
+      * [Retrieve information about a specific lab profile](https://connect.skillable.com/lab/operation/LabProfile/) 
+      * [Retrieve lab instructions for a specific lab](https://connect.skillable.com/lab/operation/LabProfile/) 
+      * [Download instructions in a zip file for a specific lab](https://connect.skillable.com/lab/operation/GetLabInstructionsPackage/) 
+      * [Update lab instructions for a specific lab profile using an HTTP post](https://connect.skillable.com/lab/operation/UpdateLabInstructions/) 
+      * [Update lab instructions for a specific lab by uploading a zip file](https://connect.skillable.com/lab/operation/UpdateLabInstructionsPackage/) 
   - name: Class Management
     description: |-
       The Class Management group of API commands allows for the creation, management, access, and monitoring of classes within Skillable Studio. 
-      * Retrieve information about a class in Skillable Studio
-      * Retrieve information about an existing class, if the class does not exist, it will be created
-      * Return a single access URL to access a class management page
-      * Return a single use URL to monitor a lab instance
-      * Return a single use URL to access a lab instance
-      * Update a specific class
-      * Delete a specific class
+      * [Retrieve information about a class in Skillable Studio](https://connect.skillable.com/lab/operation/Class/) 
+      * [Retrieve information about an existing class, if the class does not exist, it will be created](https://connect.skillable.com/lab/operation/GetOrCreateClass/)       
+      * [Return a single access URL to access a class management page](https://connect.skillable.com/lab/operation/ClassAccessUrl/) 
+      * [Return a single use URL to monitor a lab instance](https://connect.skillable.com/lab/operation/LabMonitorUrl/) 
+      * [Return a single use URL to access a lab instance](https://connect.skillable.com/lab/operation/LabAccessUrl/) 
+      * [Update a specific class](https://connect.skillable.com/lab/operation/UpdateClass/) 
+      * [Delete a specific class](https://connect.skillable.com/lab/operation/DeleteClass/) 
   - name: User Management
     description: |-
       The User Management group of API commands are used to administer user accounts within Skillable Studio.
-      * Return information about saved or running labs for a specific user account
-      * Close a user account and remove all associated user information
+      * [Return information about saved or running labs for a specific user account](https://connect.skillable.com/lab/operation/UserRunningAndSavedLabs/)  
+      * [Close a user account and remove all associated user information](https://connect.skillable.com/lab/operation/CloseUserAccount/) 
   - name: Event Management
     description: |-
       The Event Management group of API commands allows for launching lab profiles for events and retrieving evaluation responses.
-      * Launch a lab within an event 
-      * Launch a lab within an event, using an external ID
-      * Retrieve evaluation data for a specified event 
+      * [Launch a lab within an event](https://connect.skillable.com/lab/operation/LaunchforEvent/) 
+      * [Launch a lab within an event, using an external ID](https://connect.skillable.com/lab/operation/LaunchforEventByExternalId/) 
+      * [Retrieve evaluation data for a specified event](https://connect.skillable.com/lab/operation/GetEvaluationResponsesForEvent/) 
   - name: Organization
     description: |-
       Organizational API commands provide the ability to return information about lab profiles, lab series, and delivery regions available to your organization in Skillable Studio.
-      * Retrieve information about lab profiles, lab series, and delivery regions available to your organization
-      * Retrieve information about delivery regions that are available to your organization
+      * [Retrieve information about lab profiles, lab series, and delivery regions available to your organization](https://connect.skillable.com/lab/operation/Catalog/) 
+      * [Retrieve information about delivery regions that are available to your organization](https://connect.skillable.com/lab/operation/DeliveryRegions/) 
 paths:
   /launch:
     get:
@@ -848,7 +848,7 @@ paths:
       description: |-
         The **ScoreActivities** command causes all scored activities in a particular lab instance to undergo scoring. Please note that this is API command is only necessary in specialized situations. In most cases, scoring is triggered by the student in the lab client and this command is not needed. However, if your students do not use our lab client, ScoreActivities provides a mechanism to trigger scoring.
 
-        This command does not return scoring results. To obtain scoring  results, use the **Details** command.
+        This command does not return scoring results. To obtain scoring  results, use the **[Details](https://connect.skillable.com/lab/operation/Details/)** command.
       operationId: ScoreActivities
       parameters:
         - name: labinstanceid

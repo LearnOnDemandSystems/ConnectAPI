@@ -32,12 +32,11 @@ tags:
   - name: User Management
     description: |-
       The User Management API commands are used to administer all types of user accounts within the TMS.  This includes but is not limited to the following actions:
-      * Creating user accounts
-      * Search for user accounts    
-      * Modify user accounts    
-      * Retrieve user accounts properties    
-      * Query user activity    
-      * Closure and deletion of user accounts
+      * [Create user accounts](https://connect.skillable.com/tms/operation/CreateUser/) 
+      * [Modify user accounts](https://connect.skillable.com/tms/operation/UpdateUser/) 
+      * [Closure and deletion of user accounts](https://connect.skillable.com/tms/operation/DeleteUser/) 
+      * [Retrieve user accounts properties](https://connect.skillable.com/tms/operation/GetUser/) 
+      * [Query user activity](https://connect.skillable.com/tms/operation/SearchUserActivity/) 
   - name: Organization Management
     description: 'Organizations within the TMS provide the ability to separate content and access between different customers. For most customers there is little need for Organization Management using the API.  However, for large content providers Organization Management can be vital. The Organization Management of the TMS allows for the query, creation, modification, and deletion of Organizations.'
   - name: Course Management
@@ -45,32 +44,32 @@ tags:
   - name: Class Enrollment Management
     description: |-
       Classes represent an instance of a course delivered as an instructor led event.  Class enrollments define the connection of a user and the class the user will be part of.  The Class Enrollment Management API allows the following tasks to be completed:
-      * Create Class Enrollments for a user
-      * Update Class Enrollments for a user 
-      * Search for Class Enrollments for a user
-      * Delete Class Enrollments for a user
-      * Retrieve specific details for Class Enrollments
+      * [Create Class Enrollments for a user](https://connect.skillable.com/tms/operation/CreateClassEnrollment/) 
+      * [Update Class Enrollments for a user](https://connect.skillable.com/tms/operation/UpdateClassEnrollment/) 
+      * [Search for Class Enrollments for a user](https://connect.skillable.com/tms/operation/SearchClassEnrollments/) 
+      * [Delete Class Enrollments for a user](https://connect.skillable.com/tms/operation/DeleteClassEnrollment/) 
+      * [Retrieve specific details for Class Enrollments](https://connect.skillable.com/tms/operation/GetClassEnrollment/) 
   - name: Course Assignment Management
     description: |-
       Course Assignments are instances of a course being used for self-study purposes, and not connected with an Instructor or a class.  The Course Assignment Management API group of commands allows the following capabilities:  
-      * Create Course Assignments for a user  
-      * Update Course Assignments for a user  
-      * Search for Course Assignments for a user  
-      * Delete Course Assignments for a user  
-      * Retrieve specific details for Course Assignments  
+      * [Create Course Assignments for a user](https://connect.skillable.com/tms/operation/CreateCourseAssignment/) 
+      * [Update Course Assignments for a user](https://connect.skillable.com/tms/operation/UpdateCourseAssignment/) 
+      * [Search for Course Assignments for a user](https://connect.skillable.com/tms/operation/SearchCourseAssignments/) 
+      * [Delete Course Assignments for a user](https://connect.skillable.com/tms/operation/DeleteCourseAssignment/) 
+      * [Retrieve specific details for Course Assignments](https://connect.skillable.com/tms/operation/GetCourseAssignment/) 
   - name: Searching
     description: |-
       The Searching API comand group provides commands for the following scenarios:
-      * To search the TMS Course Catalog
-      * Find Lab Instances (Lab Instances represent individual Lab launches against the LOD platform)
-      * Search  for launched activities external to LOD e.g. Video, documents, SCORM, etc
+      * [To search the TMS Course Catalog Search history](https://connect.skillable.com/tms/operation/SearchCourseCatalogSearchHistory/) 
+      * [Find Lab Instances](https://connect.skillable.com/tms/operation/SearchLabInstances/) (Lab Instances represent individual Lab launches against the LOD platform)
+      * [Search  for launched activities external to LOD](https://connect.skillable.com/tms/operation/SearchCourseExternalActivityLaunches/) (e.g. Video, documents, SCORM, etc)
   - name: Subscription Management
     description: |-
       Subscriptions (previously known as Clubs), are mostly used for the assignment of self-study learning.  The Subscription Management section allows the creation and management of these subscription assignments to users.  The functions are grouped into the areas of:  
-      * Creations of Subscriptions  
-      * Searching for Subscriptions   
-      * Modify a Subscriptions  
-      * Delete a Subscriptions 
+      * [Creations of Subscription Assignments](https://connect.skillable.com/tms/operation/CreateClubMembership/) 
+      * [Searching for Subscriptions Assignments](https://connect.skillable.com/tms/operation/SearchClubMemberships/) 
+      * [Modify a Subscriptions Assignments](https://connect.skillable.com/tms/operation/UpdateClubMembership/) 
+      * [Delete a Subscriptions Assignments](https://connect.skillable.com/tms/operation/DeleteClubMembership/) 
   - name: Company Management
     description: 'Company Management allows you to register your customers as companies. The use of companies enables you to store contact information for your customers. This information can be connected to users within the TMS, then reports can return user activity from a specific company.'
   - name: Survey Management

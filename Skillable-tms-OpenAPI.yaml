@@ -7028,8 +7028,8 @@ paths:
     get:
       tags:
         - Company Management
-      summary: Search for a company by id
-      description: Allows you to get a company.
+      summary: Get a company by id
+      description: Allows you to retrieve a company and their details by their Id.
       operationId: GetCompany
       parameters:
         - name: id

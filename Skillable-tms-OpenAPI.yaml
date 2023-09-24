@@ -16,6 +16,7 @@ info:
   contact:
     name: Skillable Support
     url: 'https://skillable.com/customer-support/'
+    email: 'support@skillable.com'
   x-logo:
     url: 'https://raw.githubusercontent.com/LearnOnDemandSystems/ConnectAPI/main/Skillable%20Connect%20Logo.svg'
     altText: Skillable Connect
@@ -29,18 +30,6 @@ servers:
 security:
   - api_key: []
 tags:
-  - name: User Management
-    description: |-
-      The User Management API commands are used to administer all types of user accounts within the TMS.  This includes but is not limited to the following actions:
-      * [Create user accounts](https://connect.skillable.com/tms/operation/CreateUser/) 
-      * [Modify user accounts](https://connect.skillable.com/tms/operation/UpdateUser/) 
-      * [Closure and deletion of user accounts](https://connect.skillable.com/tms/operation/DeleteUser/) 
-      * [Retrieve user accounts properties](https://connect.skillable.com/tms/operation/GetUser/) 
-      * [Query user activity](https://connect.skillable.com/tms/operation/SearchUserActivity/) 
-  - name: Organization Management
-    description: 'Organizations within the TMS provide the ability to separate content and access between different customers. For most customers there is little need for Organization Management using the API.  However, for large content providers Organization Management can be vital. The Organization Management of the TMS allows for the query, creation, modification, and deletion of Organizations.'
-  - name: Course Management
-    description: 'Courses in the TMS represent a related set of learning activities that create a single learning journey.  The Course Management API commands allow for the searching of courses, which will be required when creating classes and/or subscriptions as well as being able to return any collected course feedback.'
   - name: Class Enrollment Management
     description: |-
       Classes represent an instance of a course delivered as an instructor led event.  Class enrollments define the connection of a user and the class the user will be part of.  The Class Enrollment Management API allows the following tasks to be completed:
@@ -49,6 +38,10 @@ tags:
       * [Search for Class Enrollments for a user](https://connect.skillable.com/tms/operation/SearchClassEnrollments/) 
       * [Delete Class Enrollments for a user](https://connect.skillable.com/tms/operation/DeleteClassEnrollment/) 
       * [Retrieve specific details for Class Enrollments](https://connect.skillable.com/tms/operation/GetClassEnrollment/) 
+  - name: Class Management
+    description: 'The Class Management group of API command allows for the creation, management and finding of scheduled classes within the Skillable TMS.  Classes can be found by using Class ID''s as well as the training key associated with a class.'
+  - name: Company Management
+    description: 'Company Management allows you to register your customers as companies. The use of companies enables you to store contact information for your customers. This information can be connected to users within the TMS, then reports can return user activity from a specific company.'
   - name: Course Assignment Management
     description: |-
       Course Assignments are instances of a course being used for self-study purposes, and not connected with an Instructor or a class.  The Course Assignment Management API group of commands allows the following capabilities:  
@@ -57,11 +50,19 @@ tags:
       * [Search for Course Assignments for a user](https://connect.skillable.com/tms/operation/SearchCourseAssignments/) 
       * [Delete Course Assignments for a user](https://connect.skillable.com/tms/operation/DeleteCourseAssignment/) 
       * [Retrieve specific details for Course Assignments](https://connect.skillable.com/tms/operation/GetCourseAssignment/) 
+  - name: Course Management
+    description: 'Courses in the TMS represent a related set of learning activities that create a single learning journey.  The Course Management API commands allow for the searching of courses, which will be required when creating classes and/or subscriptions as well as being able to return any collected course feedback.'
+  - name: Lab Instance Management
+    description: |-
+      The Lab Instance Management group of API commands allows interacting with lab instances. This includes but is not limited to the following actions: 
+      * [Find Lab Instances](https://connect.skillable.com/tms/operation/SearchLabInstances/) (Lab Instances represent individual Lab launches against the LOD platform)
+      * [Retrieve information about lab instances](https://connect.skillable.com/tms/operation/GetLabInstanceDetail/)
+  - name: Organization Management
+    description: 'Organizations within the TMS provide the ability to separate content and access between different customers. For most customers there is little need for Organization Management using the API.  However, for large content providers Organization Management can be vital. The Organization Management of the TMS allows for the query, creation, modification, and deletion of Organizations.'
   - name: Searching
     description: |-
       The Searching API comand group provides commands for the following scenarios:
       * [To search the TMS Course Catalog Search history](https://connect.skillable.com/tms/operation/SearchCourseCatalogSearchHistory/) 
-      * [Find Lab Instances](https://connect.skillable.com/tms/operation/SearchLabInstances/) (Lab Instances represent individual Lab launches against the LOD platform)
       * [Search  for launched activities external to LOD](https://connect.skillable.com/tms/operation/SearchCourseExternalActivityLaunches/) (e.g. Video, documents, SCORM, etc)
   - name: Subscription Management
     description: |-
@@ -70,12 +71,16 @@ tags:
       * [Searching for Subscriptions Assignments](https://connect.skillable.com/tms/operation/SearchClubMemberships/) 
       * [Modify a Subscriptions Assignments](https://connect.skillable.com/tms/operation/UpdateClubMembership/) 
       * [Delete a Subscriptions Assignments](https://connect.skillable.com/tms/operation/DeleteClubMembership/) 
-  - name: Company Management
-    description: 'Company Management allows you to register your customers as companies. The use of companies enables you to store contact information for your customers. This information can be connected to users within the TMS, then reports can return user activity from a specific company.'
   - name: Survey Management
     description: Survey Management allows the retrival of all survey responses for a specific course.
-  - name: Class Management
-    description: 'The Class Management group of API command allows for the creation, management and finding of scheduled classes within the Skillable TMS.  Classes can be found by using Class ID''s as well as the training key associated with a class.'
+  - name: User Management
+    description: |-
+      The User Management API commands are used to administer all types of user accounts within the TMS.  This includes but is not limited to the following actions:
+      * [Create user accounts](https://connect.skillable.com/tms/operation/CreateUser/) 
+      * [Modify user accounts](https://connect.skillable.com/tms/operation/UpdateUser/) 
+      * [Closure and deletion of user accounts](https://connect.skillable.com/tms/operation/DeleteUser/) 
+      * [Retrieve user accounts properties](https://connect.skillable.com/tms/operation/GetUser/) 
+      * [Query user activity](https://connect.skillable.com/tms/operation/SearchUserActivity/) 
 paths:
   '/GetUser/{id}':
     get:
@@ -322,256 +327,7 @@ paths:
           deprecated: true
         - name: countryCode
           in: query
-          description: |
-            The input field, **Country**, has been *deprecated* in favor of **CountryCode**. If the **Country** field is provided but the **CountryCode** field is not then **CountryCode** will be defaulted to **OT - Other**.  
-            The **CountryCode** field is a 2-character code for the user's country.  
-
-            **Allowed values**  
-
-              OT  Other - The **Country** field must be provided  
-              AF	Afghanistan  
-              AX	Åland Islands  
-              AL	Albania  
-              DZ	Algeria  
-              AS	American Samoa  
-              AD	Andorra  
-              AO	Angola  
-              AI	Anguilla  
-              AG	Antigua and Barbuda  
-              AR	Argentina  
-              AM	Armenia  
-              AW	Aruba  
-              AU	Australia  
-              AT	Austria  
-              AZ	Azerbaijan  
-              BS	Bahamas  
-              BH	Bahrain  
-              BD	Bangladesh  
-              BB	Barbados  
-              BY	Belarus  
-              BE	Belgium  
-              BZ	Belize  
-              BJ	Benin  
-              BM	Bermuda  
-              BT	Bhutan  
-              BO	Bolivia  
-              BQ	Bonaire, Sint Eustatius and Saba  
-              BA	Bosnia and Herzegovina  
-              BW	Botswana  
-              BR	Brazil  
-              IO	British Indian Ocean Territory  
-              VG	British Virgin Islands  
-              BN	Brunei  
-              BG	Bulgaria  
-              BF	Burkina Faso  
-              BI	Burundi  
-              CV	Cabo Verde  
-              KH	Cambodia  
-              CM	Cameroon  
-              CA	Canada  
-              KY	Cayman Islands  
-              CF	Central African Republic  
-              TD	Chad  
-              CL	Chile  
-              CN	China  
-              CX	Christmas Island  
-              CC	Cocos (Keeling) Islands  
-              CO	Colombia  
-              KM	Comoros  
-              CG	Congo  
-              CD	Congo (DRC)  
-              CK	Cook Islands  
-              CR	Costa Rica  
-              CI	Côte d’Ivoire  
-              HR	Croatia  
-              CU	Cuba  
-              CW	Curaçao  
-              CY	Cyprus  
-              CZ	Czech Republic  
-              DK	Denmark  
-              DJ	Djibouti  
-              DM	Dominica  
-              DO	Dominican Republic  
-              EC	Ecuador  
-              EG	Egypt  
-              SV	El Salvador  
-              GQ	Equatorial Guinea  
-              ER	Eritrea  
-              EE	Estonia  
-              ET	Ethiopia  
-              FK	Falkland Islands  
-              FO	Faroe Islands  
-              FJ	Fiji  
-              FI	Finland  
-              FR	France  
-              GF	French Guiana  
-              PF	French Polynesia  
-              GA	Gabon  
-              GM	Gambia  
-              GE	Georgia  
-              DE	Germany  
-              GH	Ghana  
-              GI	Gibraltar  
-              GR	Greece  
-              GL	Greenland  
-              GD	Grenada  
-              GP	Guadeloupe  
-              GU	Guam  
-              GT	Guatemala  
-              GG	Guernsey  
-              GN	Guinea  
-              GW	Guinea-Bissau  
-              GY	Guyana  
-              HT	Haiti  
-              HN	Honduras  
-              HK	Hong Kong SAR  
-              HU	Hungary  
-              IS	Iceland  
-              IN	India  
-              ID	Indonesia  
-              IR	Iran  
-              IQ	Iraq  
-              IE	Ireland  
-              IM	Isle of Man  
-              IL	Israel  
-              IT	Italy  
-              JM	Jamaica  
-              JP	Japan  
-              JE	Jersey  
-              JO	Jordan  
-              KZ	Kazakhstan  
-              KE	Kenya  
-              KI	Kiribati  
-              KR	Korea  
-              XK	Kosovo  
-              KW	Kuwait  
-              KG	Kyrgyzstan  
-              LA	Laos  
-              LV	Latvia  
-              LB	Lebanon  
-              LS	Lesotho  
-              LR	Liberia  
-              LY	Libya  
-              LI	Liechtenstein  
-              LT	Lithuania  
-              LU	Luxembourg  
-              MO	Macao SAR  
-              MK	Macedonia, FYRO  
-              MG	Madagascar  
-              MW	Malawi  
-              MY	Malaysia  
-              MV	Maldives  
-              ML	Mali  
-              MT	Malta  
-              MH	Marshall Islands  
-              MQ	Martinique  
-              MR	Mauritania  
-              MU	Mauritius  
-              YT	Mayotte  
-              MX	Mexico  
-              FM	Micronesia  
-              MD	Moldova  
-              MC	Monaco  
-              MN	Mongolia  
-              ME	Montenegro  
-              MS	Montserrat  
-              MA	Morocco  
-              MZ	Mozambique  
-              MM	Myanmar  
-              NA	Namibia  
-              NR	Nauru  
-              NP	Nepal  
-              NL	Netherlands  
-              NC	New Caledonia  
-              NZ	New Zealand  
-              NI	Nicaragua  
-              NE	Niger  
-              NG	Nigeria  
-              NU	Niue  
-              NF	Norfolk Island  
-              KP	North Korea  
-              MP	Northern Mariana Islands  
-              NO	Norway  
-              OM	Oman  
-              PK	Pakistan  
-              PW	Palau  
-              PS	Palestinian Authority  
-              PA	Panama  
-              PG	Papua New Guinea  
-              PY	Paraguay  
-              PE	Peru  
-              PH	Philippines  
-              PN	Pitcairn Islands  
-              PL	Poland  
-              PT	Portugal  
-              PR	Puerto Rico  
-              QA	Qatar  
-              RE	Réunion  
-              RO	Romania  
-              RU	Russia  
-              RW	Rwanda  
-              BL	Saint Barthélemy  
-              KN	Saint Kitts and Nevis  
-              LC	Saint Lucia  
-              MF	Saint Martin  
-              PM	Saint Pierre and Miquelon  
-              VC	Saint Vincent and the Grenadines  
-              WS	Samoa  
-              SM	San Marino  
-              ST	São Tomé and Príncipe  
-              SA	Saudi Arabia  
-              SN	Senegal  
-              RS	Serbia  
-              SC	Seychelles  
-              SL	Sierra Leone  
-              SG	Singapore  
-              SX	Sint Maarten  
-              SK	Slovakia  
-              SI	Slovenia  
-              SB	Solomon Islands  
-              SO	Somalia  
-              ZA	South Africa  
-              SS	South Sudan  
-              ES	Spain  
-              LK	Sri Lanka  
-              SH	St Helena, Ascension, Tristan da Cunha  
-              SD	Sudan  
-              SR	Suriname  
-              SJ	Svalbard and Jan Mayen  
-              SZ	Swaziland  
-              SE	Sweden  
-              CH	Switzerland  
-              SY	Syria  
-              TW	Taiwan  
-              TJ	Tajikistan  
-              TZ	Tanzania  
-              TH	Thailand  
-              TL	Timor-Leste  
-              TG	Togo  
-              TK	Tokelau  
-              TO	Tonga  
-              TT	Trinidad and Tobago  
-              TN	Tunisia  
-              TR	Turkey  
-              TM	Turkmenistan  
-              TC	Turks and Caicos Islands  
-              TV	Tuvalu  
-              UM	U.S. Outlying Islands  
-              VI	U.S. Virgin Islands  
-              UG	Uganda  
-              UA	Ukraine  
-              AE	United Arab Emirates  
-              GB	United Kingdom  
-              US	United States  
-              UY	Uruguay  
-              UZ	Uzbekistan  
-              VU	Vanuatu  
-              VE	Venezuela  
-              VN	Vietnam  
-              WF	Wallis and Futuna  
-              YE	Yemen  
-              ZM	Zambia  
-              ZW	Zimbabwe
+          description: "The input field, **Country**, has been *deprecated* in favor of **CountryCode**. If the **Country** field is provided but the **CountryCode** field is not then **CountryCode** will be defaulted to **OT - Other**.  \nThe **CountryCode** field is a 2-character code for the user's country.  \n\n**Allowed values**  \n\n  OT  Other - The **Country** field must be provided  \n  AF\tAfghanistan  \n  AX\tÅland Islands  \n  AL\tAlbania  \n  DZ\tAlgeria  \n  AS\tAmerican Samoa  \n  AD\tAndorra  \n  AO\tAngola  \n  AI\tAnguilla  \n  AG\tAntigua and Barbuda  \n  AR\tArgentina  \n  AM\tArmenia  \n  AW\tAruba  \n  AU\tAustralia  \n  AT\tAustria  \n  AZ\tAzerbaijan  \n  BS\tBahamas  \n  BH\tBahrain  \n  BD\tBangladesh  \n  BB\tBarbados  \n  BY\tBelarus  \n  BE\tBelgium  \n  BZ\tBelize  \n  BJ\tBenin  \n  BM\tBermuda  \n  BT\tBhutan  \n  BO\tBolivia  \n  BQ\tBonaire, Sint Eustatius and Saba  \n  BA\tBosnia and Herzegovina  \n  BW\tBotswana  \n  BR\tBrazil  \n  IO\tBritish Indian Ocean Territory  \n  VG\tBritish Virgin Islands  \n  BN\tBrunei  \n  BG\tBulgaria  \n  BF\tBurkina Faso  \n  BI\tBurundi  \n  CV\tCabo Verde  \n  KH\tCambodia  \n  CM\tCameroon  \n  CA\tCanada  \n  KY\tCayman Islands  \n  CF\tCentral African Republic  \n  TD\tChad  \n  CL\tChile  \n  CN\tChina  \n  CX\tChristmas Island  \n  CC\tCocos (Keeling) Islands  \n  CO\tColombia  \n  KM\tComoros  \n  CG\tCongo  \n  CD\tCongo (DRC)  \n  CK\tCook Islands  \n  CR\tCosta Rica  \n  CI\tCôte d’Ivoire  \n  HR\tCroatia  \n  CU\tCuba  \n  CW\tCuraçao  \n  CY\tCyprus  \n  CZ\tCzech Republic  \n  DK\tDenmark  \n  DJ\tDjibouti  \n  DM\tDominica  \n  DO\tDominican Republic  \n  EC\tEcuador  \n  EG\tEgypt  \n  SV\tEl Salvador  \n  GQ\tEquatorial Guinea  \n  ER\tEritrea  \n  EE\tEstonia  \n  ET\tEthiopia  \n  FK\tFalkland Islands  \n  FO\tFaroe Islands  \n  FJ\tFiji  \n  FI\tFinland  \n  FR\tFrance  \n  GF\tFrench Guiana  \n  PF\tFrench Polynesia  \n  GA\tGabon  \n  GM\tGambia  \n  GE\tGeorgia  \n  DE\tGermany  \n  GH\tGhana  \n  GI\tGibraltar  \n  GR\tGreece  \n  GL\tGreenland  \n  GD\tGrenada  \n  GP\tGuadeloupe  \n  GU\tGuam  \n  GT\tGuatemala  \n  GG\tGuernsey  \n  GN\tGuinea  \n  GW\tGuinea-Bissau  \n  GY\tGuyana  \n  HT\tHaiti  \n  HN\tHonduras  \n  HK\tHong Kong SAR  \n  HU\tHungary  \n  IS\tIceland  \n  IN\tIndia  \n  ID\tIndonesia  \n  IR\tIran  \n  IQ\tIraq  \n  IE\tIreland  \n  IM\tIsle of Man  \n  IL\tIsrael  \n  IT\tItaly  \n  JM\tJamaica  \n  JP\tJapan  \n  JE\tJersey  \n  JO\tJordan  \n  KZ\tKazakhstan  \n  KE\tKenya  \n  KI\tKiribati  \n  KR\tKorea  \n  XK\tKosovo  \n  KW\tKuwait  \n  KG\tKyrgyzstan  \n  LA\tLaos  \n  LV\tLatvia  \n  LB\tLebanon  \n  LS\tLesotho  \n  LR\tLiberia  \n  LY\tLibya  \n  LI\tLiechtenstein  \n  LT\tLithuania  \n  LU\tLuxembourg  \n  MO\tMacao SAR  \n  MK\tMacedonia, FYRO  \n  MG\tMadagascar  \n  MW\tMalawi  \n  MY\tMalaysia  \n  MV\tMaldives  \n  ML\tMali  \n  MT\tMalta  \n  MH\tMarshall Islands  \n  MQ\tMartinique  \n  MR\tMauritania  \n  MU\tMauritius  \n  YT\tMayotte  \n  MX\tMexico  \n  FM\tMicronesia  \n  MD\tMoldova  \n  MC\tMonaco  \n  MN\tMongolia  \n  ME\tMontenegro  \n  MS\tMontserrat  \n  MA\tMorocco  \n  MZ\tMozambique  \n  MM\tMyanmar  \n  NA\tNamibia  \n  NR\tNauru  \n  NP\tNepal  \n  NL\tNetherlands  \n  NC\tNew Caledonia  \n  NZ\tNew Zealand  \n  NI\tNicaragua  \n  NE\tNiger  \n  NG\tNigeria  \n  NU\tNiue  \n  NF\tNorfolk Island  \n  KP\tNorth Korea  \n  MP\tNorthern Mariana Islands  \n  NO\tNorway  \n  OM\tOman  \n  PK\tPakistan  \n  PW\tPalau  \n  PS\tPalestinian Authority  \n  PA\tPanama  \n  PG\tPapua New Guinea  \n  PY\tParaguay  \n  PE\tPeru  \n  PH\tPhilippines  \n  PN\tPitcairn Islands  \n  PL\tPoland  \n  PT\tPortugal  \n  PR\tPuerto Rico  \n  QA\tQatar  \n  RE\tRéunion  \n  RO\tRomania  \n  RU\tRussia  \n  RW\tRwanda  \n  BL\tSaint Barthélemy  \n  KN\tSaint Kitts and Nevis  \n  LC\tSaint Lucia  \n  MF\tSaint Martin  \n  PM\tSaint Pierre and Miquelon  \n  VC\tSaint Vincent and the Grenadines  \n  WS\tSamoa  \n  SM\tSan Marino  \n  ST\tSão Tomé and Príncipe  \n  SA\tSaudi Arabia  \n  SN\tSenegal  \n  RS\tSerbia  \n  SC\tSeychelles  \n  SL\tSierra Leone  \n  SG\tSingapore  \n  SX\tSint Maarten  \n  SK\tSlovakia  \n  SI\tSlovenia  \n  SB\tSolomon Islands  \n  SO\tSomalia  \n  ZA\tSouth Africa  \n  SS\tSouth Sudan  \n  ES\tSpain  \n  LK\tSri Lanka  \n  SH\tSt Helena, Ascension, Tristan da Cunha  \n  SD\tSudan  \n  SR\tSuriname  \n  SJ\tSvalbard and Jan Mayen  \n  SZ\tSwaziland  \n  SE\tSweden  \n  CH\tSwitzerland  \n  SY\tSyria  \n  TW\tTaiwan  \n  TJ\tTajikistan  \n  TZ\tTanzania  \n  TH\tThailand  \n  TL\tTimor-Leste  \n  TG\tTogo  \n  TK\tTokelau  \n  TO\tTonga  \n  TT\tTrinidad and Tobago  \n  TN\tTunisia  \n  TR\tTurkey  \n  TM\tTurkmenistan  \n  TC\tTurks and Caicos Islands  \n  TV\tTuvalu  \n  UM\tU.S. Outlying Islands  \n  VI\tU.S. Virgin Islands  \n  UG\tUganda  \n  UA\tUkraine  \n  AE\tUnited Arab Emirates  \n  GB\tUnited Kingdom  \n  US\tUnited States  \n  UY\tUruguay  \n  UZ\tUzbekistan  \n  VU\tVanuatu  \n  VE\tVenezuela  \n  VN\tVietnam  \n  WF\tWallis and Futuna  \n  YE\tYemen  \n  ZM\tZambia  \n  ZW\tZimbabwe\n"
           required: false
           style: form
           explode: true
@@ -987,256 +743,7 @@ paths:
           deprecated: true
         - name: countryCode
           in: query
-          description: |
-            The input field, **Country**, has been *deprecated* in favor of **CountryCode**. If the **Country** field is provided but the **CountryCode** field is not then **CountryCode** will be defaulted to **OT - Other**.  
-            The **CountryCode** field is a 2-character code for the user's country.  
-
-            **Allowed values**  
-
-              OT  Other - The **Country** field must be provided  
-              AF	Afghanistan  
-              AX	Åland Islands  
-              AL	Albania  
-              DZ	Algeria  
-              AS	American Samoa  
-              AD	Andorra  
-              AO	Angola  
-              AI	Anguilla  
-              AG	Antigua and Barbuda  
-              AR	Argentina  
-              AM	Armenia  
-              AW	Aruba  
-              AU	Australia  
-              AT	Austria  
-              AZ	Azerbaijan  
-              BS	Bahamas  
-              BH	Bahrain  
-              BD	Bangladesh  
-              BB	Barbados  
-              BY	Belarus  
-              BE	Belgium  
-              BZ	Belize  
-              BJ	Benin  
-              BM	Bermuda  
-              BT	Bhutan  
-              BO	Bolivia  
-              BQ	Bonaire, Sint Eustatius and Saba  
-              BA	Bosnia and Herzegovina  
-              BW	Botswana  
-              BR	Brazil  
-              IO	British Indian Ocean Territory  
-              VG	British Virgin Islands  
-              BN	Brunei  
-              BG	Bulgaria  
-              BF	Burkina Faso  
-              BI	Burundi  
-              CV	Cabo Verde  
-              KH	Cambodia  
-              CM	Cameroon  
-              CA	Canada  
-              KY	Cayman Islands  
-              CF	Central African Republic  
-              TD	Chad  
-              CL	Chile  
-              CN	China  
-              CX	Christmas Island  
-              CC	Cocos (Keeling) Islands  
-              CO	Colombia  
-              KM	Comoros  
-              CG	Congo  
-              CD	Congo (DRC)  
-              CK	Cook Islands  
-              CR	Costa Rica  
-              CI	Côte d’Ivoire  
-              HR	Croatia  
-              CU	Cuba  
-              CW	Curaçao  
-              CY	Cyprus  
-              CZ	Czech Republic  
-              DK	Denmark  
-              DJ	Djibouti  
-              DM	Dominica  
-              DO	Dominican Republic  
-              EC	Ecuador  
-              EG	Egypt  
-              SV	El Salvador  
-              GQ	Equatorial Guinea  
-              ER	Eritrea  
-              EE	Estonia  
-              ET	Ethiopia  
-              FK	Falkland Islands  
-              FO	Faroe Islands  
-              FJ	Fiji  
-              FI	Finland  
-              FR	France  
-              GF	French Guiana  
-              PF	French Polynesia  
-              GA	Gabon  
-              GM	Gambia  
-              GE	Georgia  
-              DE	Germany  
-              GH	Ghana  
-              GI	Gibraltar  
-              GR	Greece  
-              GL	Greenland  
-              GD	Grenada  
-              GP	Guadeloupe  
-              GU	Guam  
-              GT	Guatemala  
-              GG	Guernsey  
-              GN	Guinea  
-              GW	Guinea-Bissau  
-              GY	Guyana  
-              HT	Haiti  
-              HN	Honduras  
-              HK	Hong Kong SAR  
-              HU	Hungary  
-              IS	Iceland  
-              IN	India  
-              ID	Indonesia  
-              IR	Iran  
-              IQ	Iraq  
-              IE	Ireland  
-              IM	Isle of Man  
-              IL	Israel  
-              IT	Italy  
-              JM	Jamaica  
-              JP	Japan  
-              JE	Jersey  
-              JO	Jordan  
-              KZ	Kazakhstan  
-              KE	Kenya  
-              KI	Kiribati  
-              KR	Korea  
-              XK	Kosovo  
-              KW	Kuwait  
-              KG	Kyrgyzstan  
-              LA	Laos  
-              LV	Latvia  
-              LB	Lebanon  
-              LS	Lesotho  
-              LR	Liberia  
-              LY	Libya  
-              LI	Liechtenstein  
-              LT	Lithuania  
-              LU	Luxembourg  
-              MO	Macao SAR  
-              MK	Macedonia, FYRO  
-              MG	Madagascar  
-              MW	Malawi  
-              MY	Malaysia  
-              MV	Maldives  
-              ML	Mali  
-              MT	Malta  
-              MH	Marshall Islands  
-              MQ	Martinique  
-              MR	Mauritania  
-              MU	Mauritius  
-              YT	Mayotte  
-              MX	Mexico  
-              FM	Micronesia  
-              MD	Moldova  
-              MC	Monaco  
-              MN	Mongolia  
-              ME	Montenegro  
-              MS	Montserrat  
-              MA	Morocco  
-              MZ	Mozambique  
-              MM	Myanmar  
-              NA	Namibia  
-              NR	Nauru  
-              NP	Nepal  
-              NL	Netherlands  
-              NC	New Caledonia  
-              NZ	New Zealand  
-              NI	Nicaragua  
-              NE	Niger  
-              NG	Nigeria  
-              NU	Niue  
-              NF	Norfolk Island  
-              KP	North Korea  
-              MP	Northern Mariana Islands  
-              NO	Norway  
-              OM	Oman  
-              PK	Pakistan  
-              PW	Palau  
-              PS	Palestinian Authority  
-              PA	Panama  
-              PG	Papua New Guinea  
-              PY	Paraguay  
-              PE	Peru  
-              PH	Philippines  
-              PN	Pitcairn Islands  
-              PL	Poland  
-              PT	Portugal  
-              PR	Puerto Rico  
-              QA	Qatar  
-              RE	Réunion  
-              RO	Romania  
-              RU	Russia  
-              RW	Rwanda  
-              BL	Saint Barthélemy  
-              KN	Saint Kitts and Nevis  
-              LC	Saint Lucia  
-              MF	Saint Martin  
-              PM	Saint Pierre and Miquelon  
-              VC	Saint Vincent and the Grenadines  
-              WS	Samoa  
-              SM	San Marino  
-              ST	São Tomé and Príncipe  
-              SA	Saudi Arabia  
-              SN	Senegal  
-              RS	Serbia  
-              SC	Seychelles  
-              SL	Sierra Leone  
-              SG	Singapore  
-              SX	Sint Maarten  
-              SK	Slovakia  
-              SI	Slovenia  
-              SB	Solomon Islands  
-              SO	Somalia  
-              ZA	South Africa  
-              SS	South Sudan  
-              ES	Spain  
-              LK	Sri Lanka  
-              SH	St Helena, Ascension, Tristan da Cunha  
-              SD	Sudan  
-              SR	Suriname  
-              SJ	Svalbard and Jan Mayen  
-              SZ	Swaziland  
-              SE	Sweden  
-              CH	Switzerland  
-              SY	Syria  
-              TW	Taiwan  
-              TJ	Tajikistan  
-              TZ	Tanzania  
-              TH	Thailand  
-              TL	Timor-Leste  
-              TG	Togo  
-              TK	Tokelau  
-              TO	Tonga  
-              TT	Trinidad and Tobago  
-              TN	Tunisia  
-              TR	Turkey  
-              TM	Turkmenistan  
-              TC	Turks and Caicos Islands  
-              TV	Tuvalu  
-              UM	U.S. Outlying Islands  
-              VI	U.S. Virgin Islands  
-              UG	Uganda  
-              UA	Ukraine  
-              AE	United Arab Emirates  
-              GB	United Kingdom  
-              US	United States  
-              UY	Uruguay  
-              UZ	Uzbekistan  
-              VU	Vanuatu  
-              VE	Venezuela  
-              VN	Vietnam  
-              WF	Wallis and Futuna  
-              YE	Yemen  
-              ZM	Zambia  
-              ZW	Zimbabwe
+          description: "The input field, **Country**, has been *deprecated* in favor of **CountryCode**. If the **Country** field is provided but the **CountryCode** field is not then **CountryCode** will be defaulted to **OT - Other**.  \nThe **CountryCode** field is a 2-character code for the user's country.  \n\n**Allowed values**  \n\n  OT  Other - The **Country** field must be provided  \n  AF\tAfghanistan  \n  AX\tÅland Islands  \n  AL\tAlbania  \n  DZ\tAlgeria  \n  AS\tAmerican Samoa  \n  AD\tAndorra  \n  AO\tAngola  \n  AI\tAnguilla  \n  AG\tAntigua and Barbuda  \n  AR\tArgentina  \n  AM\tArmenia  \n  AW\tAruba  \n  AU\tAustralia  \n  AT\tAustria  \n  AZ\tAzerbaijan  \n  BS\tBahamas  \n  BH\tBahrain  \n  BD\tBangladesh  \n  BB\tBarbados  \n  BY\tBelarus  \n  BE\tBelgium  \n  BZ\tBelize  \n  BJ\tBenin  \n  BM\tBermuda  \n  BT\tBhutan  \n  BO\tBolivia  \n  BQ\tBonaire, Sint Eustatius and Saba  \n  BA\tBosnia and Herzegovina  \n  BW\tBotswana  \n  BR\tBrazil  \n  IO\tBritish Indian Ocean Territory  \n  VG\tBritish Virgin Islands  \n  BN\tBrunei  \n  BG\tBulgaria  \n  BF\tBurkina Faso  \n  BI\tBurundi  \n  CV\tCabo Verde  \n  KH\tCambodia  \n  CM\tCameroon  \n  CA\tCanada  \n  KY\tCayman Islands  \n  CF\tCentral African Republic  \n  TD\tChad  \n  CL\tChile  \n  CN\tChina  \n  CX\tChristmas Island  \n  CC\tCocos (Keeling) Islands  \n  CO\tColombia  \n  KM\tComoros  \n  CG\tCongo  \n  CD\tCongo (DRC)  \n  CK\tCook Islands  \n  CR\tCosta Rica  \n  CI\tCôte d’Ivoire  \n  HR\tCroatia  \n  CU\tCuba  \n  CW\tCuraçao  \n  CY\tCyprus  \n  CZ\tCzech Republic  \n  DK\tDenmark  \n  DJ\tDjibouti  \n  DM\tDominica  \n  DO\tDominican Republic  \n  EC\tEcuador  \n  EG\tEgypt  \n  SV\tEl Salvador  \n  GQ\tEquatorial Guinea  \n  ER\tEritrea  \n  EE\tEstonia  \n  ET\tEthiopia  \n  FK\tFalkland Islands  \n  FO\tFaroe Islands  \n  FJ\tFiji  \n  FI\tFinland  \n  FR\tFrance  \n  GF\tFrench Guiana  \n  PF\tFrench Polynesia  \n  GA\tGabon  \n  GM\tGambia  \n  GE\tGeorgia  \n  DE\tGermany  \n  GH\tGhana  \n  GI\tGibraltar  \n  GR\tGreece  \n  GL\tGreenland  \n  GD\tGrenada  \n  GP\tGuadeloupe  \n  GU\tGuam  \n  GT\tGuatemala  \n  GG\tGuernsey  \n  GN\tGuinea  \n  GW\tGuinea-Bissau  \n  GY\tGuyana  \n  HT\tHaiti  \n  HN\tHonduras  \n  HK\tHong Kong SAR  \n  HU\tHungary  \n  IS\tIceland  \n  IN\tIndia  \n  ID\tIndonesia  \n  IR\tIran  \n  IQ\tIraq  \n  IE\tIreland  \n  IM\tIsle of Man  \n  IL\tIsrael  \n  IT\tItaly  \n  JM\tJamaica  \n  JP\tJapan  \n  JE\tJersey  \n  JO\tJordan  \n  KZ\tKazakhstan  \n  KE\tKenya  \n  KI\tKiribati  \n  KR\tKorea  \n  XK\tKosovo  \n  KW\tKuwait  \n  KG\tKyrgyzstan  \n  LA\tLaos  \n  LV\tLatvia  \n  LB\tLebanon  \n  LS\tLesotho  \n  LR\tLiberia  \n  LY\tLibya  \n  LI\tLiechtenstein  \n  LT\tLithuania  \n  LU\tLuxembourg  \n  MO\tMacao SAR  \n  MK\tMacedonia, FYRO  \n  MG\tMadagascar  \n  MW\tMalawi  \n  MY\tMalaysia  \n  MV\tMaldives  \n  ML\tMali  \n  MT\tMalta  \n  MH\tMarshall Islands  \n  MQ\tMartinique  \n  MR\tMauritania  \n  MU\tMauritius  \n  YT\tMayotte  \n  MX\tMexico  \n  FM\tMicronesia  \n  MD\tMoldova  \n  MC\tMonaco  \n  MN\tMongolia  \n  ME\tMontenegro  \n  MS\tMontserrat  \n  MA\tMorocco  \n  MZ\tMozambique  \n  MM\tMyanmar  \n  NA\tNamibia  \n  NR\tNauru  \n  NP\tNepal  \n  NL\tNetherlands  \n  NC\tNew Caledonia  \n  NZ\tNew Zealand  \n  NI\tNicaragua  \n  NE\tNiger  \n  NG\tNigeria  \n  NU\tNiue  \n  NF\tNorfolk Island  \n  KP\tNorth Korea  \n  MP\tNorthern Mariana Islands  \n  NO\tNorway  \n  OM\tOman  \n  PK\tPakistan  \n  PW\tPalau  \n  PS\tPalestinian Authority  \n  PA\tPanama  \n  PG\tPapua New Guinea  \n  PY\tParaguay  \n  PE\tPeru  \n  PH\tPhilippines  \n  PN\tPitcairn Islands  \n  PL\tPoland  \n  PT\tPortugal  \n  PR\tPuerto Rico  \n  QA\tQatar  \n  RE\tRéunion  \n  RO\tRomania  \n  RU\tRussia  \n  RW\tRwanda  \n  BL\tSaint Barthélemy  \n  KN\tSaint Kitts and Nevis  \n  LC\tSaint Lucia  \n  MF\tSaint Martin  \n  PM\tSaint Pierre and Miquelon  \n  VC\tSaint Vincent and the Grenadines  \n  WS\tSamoa  \n  SM\tSan Marino  \n  ST\tSão Tomé and Príncipe  \n  SA\tSaudi Arabia  \n  SN\tSenegal  \n  RS\tSerbia  \n  SC\tSeychelles  \n  SL\tSierra Leone  \n  SG\tSingapore  \n  SX\tSint Maarten  \n  SK\tSlovakia  \n  SI\tSlovenia  \n  SB\tSolomon Islands  \n  SO\tSomalia  \n  ZA\tSouth Africa  \n  SS\tSouth Sudan  \n  ES\tSpain  \n  LK\tSri Lanka  \n  SH\tSt Helena, Ascension, Tristan da Cunha  \n  SD\tSudan  \n  SR\tSuriname  \n  SJ\tSvalbard and Jan Mayen  \n  SZ\tSwaziland  \n  SE\tSweden  \n  CH\tSwitzerland  \n  SY\tSyria  \n  TW\tTaiwan  \n  TJ\tTajikistan  \n  TZ\tTanzania  \n  TH\tThailand  \n  TL\tTimor-Leste  \n  TG\tTogo  \n  TK\tTokelau  \n  TO\tTonga  \n  TT\tTrinidad and Tobago  \n  TN\tTunisia  \n  TR\tTurkey  \n  TM\tTurkmenistan  \n  TC\tTurks and Caicos Islands  \n  TV\tTuvalu  \n  UM\tU.S. Outlying Islands  \n  VI\tU.S. Virgin Islands  \n  UG\tUganda  \n  UA\tUkraine  \n  AE\tUnited Arab Emirates  \n  GB\tUnited Kingdom  \n  US\tUnited States  \n  UY\tUruguay  \n  UZ\tUzbekistan  \n  VU\tVanuatu  \n  VE\tVenezuela  \n  VN\tVietnam  \n  WF\tWallis and Futuna  \n  YE\tYemen  \n  ZM\tZambia  \n  ZW\tZimbabwe\n"
           required: false
           style: form
           explode: true
@@ -5154,7 +4661,7 @@ paths:
   /SearchLabInstances:
     get:
       tags:
-        - Searching
+        - Lab Instance Management
       summary: Search for lab instances
       description: Allows you to search for lab instances.
       operationId: SearchLabInstances
@@ -6418,6 +5925,293 @@ paths:
               schema:
                 $ref: '#/components/schemas/CustomFieldValueResponse'
       deprecated: false
+  /Getlabinstancedetail:
+    get:
+      tags:
+        - Lab Instance Management
+      summary: Retrieve details about a lab instance
+      description: The **GetLabInstanceDetail** command retrieves detailed information about a specified LOD lab instance using the TMS Lab Instance Id.
+      operationId: Details
+      parameters:
+        - name: labinstanceid
+          in: query
+          description: The TMS ID of the lab instance.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 360701
+      responses:
+        '200':
+          description: OK Response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLabInstanceDetailResponse'
+              examples:
+                Example of the details returned from a specific lab instance:
+                  value:
+                    Id: 360701
+                    LabProfileId: 18100
+                    LabProfileName: '01: Launch/Details Call'
+                    SeriesId: 10702
+                    SeriesName: API Examples
+                    UserId: '11'
+                    UserFirstName: Chad
+                    UserLastName: S
+                    ClassId: null
+                    ClassName: null
+                    Start: 1603295589
+                    StartTime: /Date(1603295589000)/
+                    Expires: 1603299334
+                    ExpiresTime: /Date(1603299334000)/
+                    End: 1603295793
+                    EndTime: /Date(1603295793000)/
+                    LastActivity: 1603295787
+                    LastActivityTime: /Date(1603295787000)/
+                    LastSave: null
+                    LastSaveTime: null
+                    SaveExpires: null
+                    SaveExpiresTime: null
+                    State: Tearing Down
+                    CompletionStatus: Complete
+                    PoolMemberName: null
+                    LabHostId: 111
+                    LabHostName: LOD-HV03
+                    DatacenterId: 4
+                    DatacenterName: LOD-East
+                    DeliveryRegionId: 1
+                    DeliveryRegionName: Default
+                    PlatformId: 2
+                    LastSaveTriggerType: null
+                    TimeInSession: 204
+                    TotalRunTime: 204
+                    TimeRemaining: 0
+                    InstructorName: null
+                    StartupDuration: 145
+                    Errors: []
+                    Snapshots: []
+                    Sessions:
+                      - Start: 1603295589
+                        StartTime: /Date(1603295589000)/
+                        End: 1603295793
+                        EndTime: /Date(1603295793000)/
+                    Notes:
+                      - Time: 1603295793
+                        TimeValue: /Date(1603295793000)/
+                        Title: This environment has been submitted for grading and can no longer be accessed.
+                        Text: Submitted for scoring from the lab console by the student.
+                    HasContent: true
+                    Task: null
+                    Exercise: null
+                    NumTasks: 0
+                    NumCompletedTasks: 0
+                    TaskCompletePercent: 100
+                    MonitorUrl: null
+                    DetailsUrl: 'https://labondemand.com/LabInstance/360701'
+                    RemoteController: HTML5
+                    Tag: null
+                    BrowserUserAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.80 Safari/537.36 Edg/86.0.622.48'
+                    LastLatency: 35
+                    ExamPassed: true
+                    ExamScore: 5
+                    ExamMaxPossibleScore: 5
+                    ExamPassingScore: 2
+                    ExamScoredById: null
+                    ExamScoredByName: null
+                    ExamDetails: null
+                    ExamScoredDate: 1603295793
+                    ExamScoredTime: /Date(1603295793000)/
+                    IsExam: true
+                    IpAddress: 198.199.209.76
+                    Country: United States of America
+                    Region: Florida
+                    City: Lakeland
+                    Latitude: 28.03947
+                    Longitude: -81.9498
+                    PublicIpAddresses: []
+                    CloudCredentials:
+                      - PropertiesJson: '{  "Username": "Username2",  "Password": "Password2"}'
+                        Expires: 1645557720000
+                        DisplayName: Demo Demo Demo Demo Demo
+                        Message: null
+                    CloudPortalCredentials:
+                      - CloudPlatform: 10
+                        PropertiesJson: "{\r\n  \"Username\": \"User1-360701@lod.onmicrosoft.com\",\r\n  \"Password\": \"1234ABCD\",\r\n  \"_FirstName\": \"Chad\",\r\n  \"_LastName\": \"S\"\r\n}"
+                    VirtualMachineCredentials:
+                      - Id: 13484
+                        Name: Windows 10 2004
+                        Username: Student
+                        Password: Pa$$w0rd
+                    CloudPlatformId: 10
+                    ClientUrl: null
+                    ActivityResults:
+                      - ActivityId: 4910
+                        ActivityName: What is 1 + 1?
+                        Scored: true
+                        Score: 1
+                        Passed: true
+                        ActivityType: 0
+                        TextResult: null
+                        UiResponse: You got the correct answer.
+                        AnswerResults:
+                          - AnswerId: 2856
+                            AnswerText: '2'
+                            Correct: true
+                        ScriptResults: []
+                        DisplayScriptsAsTaskList: false
+                        AnswerTexts:
+                          - Correct: false
+                            AnswerId: 2855
+                            Text: '1'
+                            Chosen: false
+                          - Correct: true
+                            AnswerId: 2856
+                            Text: '2'
+                            Chosen: true
+                          - Correct: false
+                            AnswerId: 2857
+                            Text: '3'
+                            Chosen: false
+                          - Correct: false
+                            AnswerId: 2858
+                            Text: '4'
+                            Chosen: false
+                        ScriptTexts: []
+                        ShowResultsInReports: true
+                      - ActivityId: 4911
+                        ActivityName: Select all that result in a product of 4
+                        Scored: true
+                        Score: 3
+                        Passed: true
+                        ActivityType: 10
+                        TextResult: null
+                        UiResponse: 'Good, you understand what a product function is.'
+                        AnswerResults:
+                          - AnswerId: 2859
+                            AnswerText: '1, 4'
+                            Correct: true
+                          - AnswerId: 2860
+                            AnswerText: '-1, -4'
+                            Correct: true
+                          - AnswerId: 2861
+                            AnswerText: '2, 2'
+                            Correct: true
+                        DisplayScriptsAsTaskList: false
+                        AnswerTexts:
+                          - Correct: true
+                            AnswerId: 2859
+                            Text: '1, 4'
+                            Chosen: true
+                          - Correct: true
+                            AnswerId: 2860
+                            Text: '-1, -4'
+                            Chosen: true
+                          - Correct: true
+                            AnswerId: 2861
+                            Text: '2, 2'
+                            Chosen: true
+                          - Correct: false
+                            AnswerId: 2862
+                            Text: '2, -2'
+                            Chosen: false
+                        ScriptTexts: []
+                        ShowResultsInReports: true
+                      - ActivityId: 4912
+                        ActivityName: What is the southernmost continent on earth?
+                        Scored: true
+                        Score: 1
+                        Passed: true
+                        ActivityType: 20
+                        TextResult: Antarctica
+                        UiResponse: 'Great, you know your geography.'
+                        AnswerResults: []
+                        ScriptResults: []
+                        DisplayScriptsAsTaskList: false
+                        AnswerTexts: []
+                        ScriptTexts: []
+                        ShowResultsInReports: true
+                      - ActivityId: 110631
+                        ActivityName: What are the colors of the French flag?
+                        Scored: true
+                        Score: 3
+                        Passed: true
+                        ActivityType: 30
+                        TextResult: 'It''s blue, white, red'
+                        UiResponse: 'Correct, move on to the next flag question.'
+                        AnswerResults: []
+                        ScriptResults: []
+                        DisplayScriptsAsTaskList: false
+                        AnswerTexts: []
+                        ScriptTexts: []
+                        ShowResultsInReports: true
+                      - ActivityId: 91810
+                        ActivityName: 'Create a folder called LAB in the root of C:'
+                        Scored: true
+                        Score: 0
+                        Passed: false
+                        ActivityType: 40
+                        TextResult: null
+                        UiResponse: null
+                        AnswerResults: []
+                        ScriptResults:
+                          - ScriptId: 37337
+                            Score: 0
+                            Passed: false
+                            UiResponse: ''
+                            ScriptResponse: "Check if [C:\\LAB] exists.\r\n\r\nPath Does Not Exist\r\n"
+                            PlatformError: false
+                            ScriptError: false
+                        DisplayScriptsAsTaskList: false
+                        AnswerTexts: []
+                        ScriptTexts:
+                          - ScriptId: 37337
+                            Text: null
+                        ShowResultsInReports: true
+                    ActivityGroupResults:
+                      - Id: 1131
+                        Name: GRP1
+                        ScoreValueTotal: 40
+                        AggregateScore: 20
+                        ActivityResults:
+                          - ActivityId: 91811
+                            ActivityName: Instructor First Name
+                            Scored: true
+                            Score: 20
+                            Passed: true
+                            ActivityType: 20
+                            TextResult: Jon
+                            UiResponse: Correct
+                            AnswerResults: []
+                            ScriptResults: []
+                            DisplayScriptsAsTaskList: false
+                            AnswerTexts: []
+                            ScriptTexts: []
+                            ShowResultsInReports: true
+                          - ActivityId: 91812
+                            ActivityName: Instructor Last Name
+                            Scored: true
+                            Score: 0
+                            Passed: false
+                            ActivityType: 20
+                            TextResult: Kirk
+                            UiResponse: Incorrect
+                            AnswerResults: []
+                            ScriptResults: []
+                            DisplayScriptsAsTaskList: false
+                            AnswerTexts: []
+                            ScriptTexts: []
+                            ShowResultsInReports: true
+                    EstimatedReadySeconds: null
+                    InstructionsId: The ID of the Instructions used
+                    Lang: en
+                    Error: null
+                    Status: 1
+      deprecated: false
+      x-stoplight:
+        id: gjs3manumlc0r
   /GetClubMembership:
     get:
       tags:
@@ -9438,6 +9232,648 @@ components:
           format: int64
           nullable: true
           example: 1585690845
+    GetLabInstanceDetailResponse:
+      type: object
+      x-stoplight:
+        id: 5b72f520a1cc1
+      x-examples: {}
+      properties:
+        Id:
+          type: integer
+          description: The ID of the lab instance.
+          format: int64
+        LabProfileId:
+          type: integer
+          description: The ID of the lab profile.
+          format: int32
+        LabProfileName:
+          type: string
+          description: The name of the lab profile.
+        SeriesId:
+          type: integer
+          description: The ID of the lab series.
+          format: int32
+          nullable: true
+        SeriesName:
+          type: string
+          description: The name of the lab series.
+          nullable: true
+        UserId:
+          type: string
+          description: The ID you use to identify the user in your external system.
+        UserFirstName:
+          type: string
+          description: The user's first name.
+        UserLastName:
+          type: string
+          description: The user's last name.
+        ClassId:
+          description: The ID you use to identify the associated class in your external system.
+          type: string
+          nullable: true
+        ClassName:
+          description: The name of the class the lab instance is associated with.
+          type: string
+          nullable: true
+        Start:
+          type: integer
+          description: When the lab was started (in Unix epoch time).
+          format: int64
+        StartTime:
+          type: string
+          description: When the lab was started (in Unix epoch time).
+        Expires:
+          type: integer
+          description: When the lab expires (in Unix epoch time).
+          format: int64
+        ExpiresTime:
+          type: string
+          description: When the lab expires (in Unix epoch time).
+        End:
+          type: integer
+          description: When the lab ended (in Unix epoch time).
+          format: int64
+          nullable: true
+        EndTime:
+          type: string
+          description: When the lab ended (in Unix epoch time).
+          nullable: true
+        LastActivity:
+          type: integer
+          description: When student activity was last detected (in Unix epoch time).
+          format: int64
+          nullable: true
+        LastActivityTime:
+          type: string
+          description: When student activity was last detected (in Unix epoch time).
+          nullable: true
+        LastSave:
+          type: integer
+          description: When the lab was last saved (in Unix epoch time).
+          format: int64
+          nullable: true
+        LastSaveTime:
+          type: string
+          description: When the lab was last saved (in Unix epoch time).
+          nullable: true
+        SaveExpires:
+          type: integer
+          description: 'If the lab instance is saved, when the saved data will expire and be deleted (in Unix epoch time).'
+          format: int64
+          nullable: true
+        SaveExpiresTime:
+          type: string
+          description: 'If the lab instance is saved, when the saved data will expire and be deleted (in Unix epoch time).'
+          nullable: true
+        State:
+          type: string
+          description: |-
+            The state of the lab instance. Possible values:  
+            Off  
+            Provisioning Storage  
+            Building  
+            Building (Displayable)  
+            Starting  
+            Running  
+            Saving  
+            Saved  
+            Resuming  
+            Creating Snapshot  
+            Applying Snapshot  
+            Updating Lab Profile  
+            Tearing Down  
+            Cloning  
+            Creating As Clone  
+            Moving (Running)  
+            Moving (Saved)  
+            Creating New Lab Profile  
+            Scoring  
+            Scheduled
+        CompletionStatus:
+          type: string
+          description: |-
+            The student's completion status. Possible values:  
+            Scheduled  
+            Cancelled  
+            Not Started  
+            Incomplete  
+            Complete  
+            Storage Provisioning Failed  
+            Lab Creation Failed  
+            Resume Failed  
+            Save Failed  
+            Submitted For Grading  
+            Grading In Progress
+        PoolMemberName:
+          description: 'If the lab contains a virtual machine pool, the name of the pool member that was used.'
+          type: string
+          nullable: true
+        LabHostId:
+          type: integer
+          description: The ID of the lab host machine.
+          format: int32
+        LabHostName:
+          type: string
+          description: The name of the lab host machine.
+        DatacenterId:
+          type: integer
+          description: The ID of the datacenter where the lab is located.
+          format: int32
+        DatacenterName:
+          type: string
+          description: The name of the datacenter where the lab is located.
+        DeliveryRegionId:
+          type: integer
+          description: 'When specified, Skillable will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
+          format: int32
+        DeliveryRegionName:
+          type: string
+          description: The name of the delivery region where the lab is located.
+        PlatformId:
+          type: integer
+          description: |-
+            The platform the lab has hosted on. Possible values:  
+            2 = Hyper-V  
+            3 = ESX  
+            20 = Docker  
+            -1 = None
+          format: int32
+        LastSaveTriggerType:
+          description: |-
+            If the lab is currently saved, what triggered the save operation. Possible values:  
+            Unknown  
+            By Student  
+            By Administrator  
+            Automatic  
+            From API Consumer
+          type: string
+          nullable: true
+        TimeInSession:
+          type: integer
+          description: The total number of seconds the user spent in the lab.
+          format: int32
+        TotalRunTime:
+          type: integer
+          description: 'The total number of seconds the lab was running, whether or not the student was present.'
+          format: int32
+        TimeRemaining:
+          type: integer
+          description: The total number of seconds remaining before the lab expires.
+          format: int32
+        InstructorName:
+          description: The name of the instructor for the associated class.
+          type: string
+          nullable: true
+        StartupDuration:
+          type: integer
+          description: The number of seconds it took the lab to start.
+          format: int32
+          nullable: true
+        Errors:
+          type: array
+          description: An array of all errors associated with the lab instance.
+          items:
+            type: object
+        Snapshots:
+          type: array
+          description: An array of snapshots created by the user within the lab. This contains an array of LabInstanceSnapshot objects.
+          items:
+            type: object
+            properties:
+              Name:
+                type: string
+                description: The name that the student gave to the snapshot.
+              Time:
+                type: integer
+                description: When the student created the snapshot (in Unix epoch time).
+                format: int64
+        Sessions:
+          type: array
+          description: An array of session times the student spent in the lab. This contains an array of LabInstanceSnapshot objects.
+          items:
+            type: object
+            properties:
+              Start:
+                type: integer
+                format: int64
+                description: When the session started (in Unix epoch time).
+              StartTime:
+                type: string
+              End:
+                type: integer
+                description: When the session ended (in Unix epoch time).
+                nullable: true
+              EndTime:
+                type: string
+        Notes:
+          type: array
+          description: Array of notes applicable to the lab instance.
+          items:
+            type: object
+            properties:
+              Time:
+                type: integer
+              TimeValue:
+                type: string
+              Title:
+                type: string
+              Text:
+                type: string
+        HasContent:
+          type: boolean
+          description: 'Indicates whether the lab has content, or simply houses virtual machines.'
+        Task:
+          description: 'If the lab has content (HasContent=true), indicates the name of the task the student is working on.'
+          type: string
+          nullable: true
+        Exercise:
+          description: 'If the lab has content (HasContent=true), indicates the name of the exercise the student is working on.'
+          type: string
+          nullable: true
+        NumTasks:
+          type: integer
+          description: 'If the lab has content (HasContent=true), indicates the total number of tasks in the lab.'
+          format: int32
+        NumCompletedTasks:
+          type: integer
+          description: 'If the lab has content (HasContent=true), indicates the number of tasks the student has completed.'
+          format: int32
+        TaskCompletePercent:
+          type: integer
+          description: 'If the lab has content (HasContent=true), indicates the percentage of tasks that the student has completed.'
+          format: int32
+        MonitorUrl:
+          description: |-
+            This response property is deprecated. Unless explicitly allowed by Skillable, this field will always be null.  
+            To obtain an access URL, use the **LabMonitorUrl** command.
+          type: string
+          nullable: true
+        DetailsUrl:
+          type: string
+          description: The URL at which the lab instance details can be reviewed (required authentication to view).
+        RemoteController:
+          type: string
+          description: The name of the remote controller used by the user.
+        Tag:
+          type: string
+          description: Lab instance tag data.
+          nullable: true
+        BrowserUserAgent:
+          type: string
+          description: The browser user agent used by the user.
+          nullable: true
+        LastLatency:
+          type: integer
+          description: The last known latency value as measured between the client and the lab's datacenter.
+          format: int32
+          nullable: true
+        ExamPassed:
+          type: boolean
+          description: Indicates whether the user passed the lab. Will only be set if the lab has activities which have been scored.
+          nullable: true
+        ExamScore:
+          type: integer
+          description: Indicates the lab score. Will only be set if the lab has activities which have been scored.
+          format: int32
+          nullable: true
+        ExamMaxPossibleScore:
+          type: integer
+          description: Indicates the maximum possible score of the lab. Will only be set if the lab has activities which have been scored.
+          format: int32
+          nullable: true
+        ExamPassingScore:
+          type: integer
+          description: Indicates the minimum score required to pass the lab. Will only be set if the lab has activities which have been scored.
+          format: int32
+          nullable: true
+        ExamScoredById:
+          type: integer
+          description: The ID of the user that manually scored the lab. Will only be set if the lab has activities which have been scored manually. Automatically scored labs will not include a value for this property.
+          format: int64
+          nullable: true
+        ExamScoredByName:
+          description: The name of the user that manually scored the lab. Will only be set if the lab has activities which have been scored manually. Automatically scored labs will not include a value for this property.
+          type: string
+          nullable: true
+        ExamDetails:
+          description: Legacy Field from previous scoring engine.
+          type: string
+          nullable: true
+        ExamScoredDate:
+          type: integer
+          description: The date the lab was scored (in Unix epoch time).
+          format: int64
+          nullable: true
+        ExamScoredTime:
+          type: string
+          description: When the lab was scored (in Unix epoch time). Will only be set if the lab has activities which have been scored.
+          nullable: true
+        IsExam:
+          type: boolean
+          description: Indicates whether the lab is scored.
+        IpAddress:
+          type: string
+          description: The user's IP address. This is only included if the IP address was provided when the lab was launched.
+          nullable: true
+        Country:
+          type: string
+          description: The user's country as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
+          nullable: true
+        Region:
+          type: string
+          description: The user's state/region as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
+          nullable: true
+        City:
+          type: string
+          description: The user's city as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
+          nullable: true
+        Latitude:
+          type: number
+          description: The user's latitude as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
+          format: float
+          nullable: true
+        Longitude:
+          type: number
+          description: The user's longitude as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
+          format: float
+          nullable: true
+        PublicIpAddresses:
+          type: array
+          description: An array of public IP address information objects. This contains an array of IpAddressInfo objects.
+          items:
+            type: object
+            properties:
+              IpAddress:
+                type: string
+                description: An IP address.
+              MacAddress:
+                type: string
+                description: The MAC address of the NIC that the IP address was assigned to.
+              MachineInstanceName:
+                type: string
+                description: The name of the virtual machine instance that the IP address was assigned to.
+        CloudCredentials:
+          type: array
+          description: An array of credentials assigned to the lab instance. This contains an array of CloudCredential objects.
+          items:
+            type: object
+            properties:
+              PropertiesJson:
+                type: string
+                description: 'Json serialized properties for the credentials, as defined in the cloud credential pool.'
+              Expires:
+                type: integer
+                description: When the credentials expire (in Unix epoch time).
+                format: int64
+              DisplayName:
+                type: string
+                description: Friendly credential name displayed in the lab user interface.
+              Message:
+                type: string
+                nullable: true
+        CloudPortalCredentials:
+          type: array
+          description: An array of credentials assigned to the lab instance. This contains an array of CloudPortalCredential objects.
+          items:
+            type: object
+            properties:
+              CloudPlatform:
+                type: integer
+                format: int32
+                description: |-
+                  The ID of the cloud platform to which the credentials belong.  
+                  10 = Azure  
+                  11 = AWS
+              PropertiesJson:
+                type: string
+                description: Json serialized properties for the credentials.
+        VirtualMachineCredentials:
+          type: array
+          description: An array of credentials used to access the virtual machines. This contains an array of VirtualMachineCredential objects.
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                description: ID of the virtual machine.
+                format: int32
+              Name:
+                type: string
+                description: Name of the virtual machine.
+              Username:
+                type: string
+                description: Username used to accces the virtual machine.
+              Password:
+                type: string
+                description: Password used to access the virtual machine.
+        CloudPlatformId:
+          type: integer
+          description: |-
+            The ID of the cloud platform. Possible values:  
+            10 = Azure  
+            11 = AWS
+          format: int32
+          nullable: true
+        ClientUrl:
+          description: |-
+            This response property is deprecated. Unless explicitly allowed by Skillable, this field will always be null.  
+            To obtain an access URL, use the **LabAccessUrl** command.
+          type: string
+          nullable: true
+        ActivityResults:
+          type: array
+          description: An array of results for activities displayed in the lab instance. This contains an array of ActivityResult objects.
+          items:
+            type: object
+            properties:
+              ActivityId:
+                type: integer
+                description: ID of the Activity.
+                format: int32
+              ActivityName:
+                type: string
+                description: Name of the Activity.
+              Scored:
+                type: boolean
+                description: Whether the activity is scored.
+              Score:
+                type: number
+                description: The Score received by the student.
+                format: float
+              Passed:
+                type: boolean
+                description: Whether the student received a passing score on the activity.
+              ActivityType:
+                type: integer
+                description: |-
+                  0 = Multiple choice, single answer  
+                  10 = Multiple choice, multiple answer  
+                  20 = Short answer, exact match  
+                  30 = Short answer, regex match  
+                  40 = Automated Activity  
+                format: int32
+              TextResult:
+                type: string
+                description: The answer given by a student for Short Answer type questions.
+                nullable: true
+              UiResponse:
+                type: string
+                description: The response given to the student if specified in the question Answer Feedback.
+                nullable: true
+              AnswerResults:
+                type: array
+                description: A collection of the answers available in single-answer activities.
+                items:
+                  type: object
+                  properties:
+                    AnswerId:
+                      type: integer
+                      format: int32
+                    AnswerText:
+                      type: string
+                    Correct:
+                      type: boolean
+              ScriptResults:
+                type: array
+                description: 'A collection of the results of the an automated activity. Includes Script ID, Score, Passing Status, UiResponse, ScriptResponse, PlatformError, and ScriptError.'
+                items:
+                  type: object
+              DisplayScriptsAsTaskList:
+                type: boolean
+                description: Whether automated activities are scored as a TaskList or individually.
+              AnswerTexts:
+                type: array
+                description: A collection of the answers available in multi- answer activities.
+                items:
+                  type: object
+                  properties:
+                    Correct:
+                      type: boolean
+                    AnswerId:
+                      type: integer
+                      format: int32
+                    Text:
+                      type: string
+                    Chosen:
+                      type: boolean
+              ScriptTexts:
+                type: array
+                description: The Activity ID and Text displayed in the Task List if Task List is enabled on the activity.
+                items:
+                  type: object
+              ShowResultsInReports:
+                type: boolean
+                description: Whether results of the script are shown on the lab instance.
+        ActivityGroupResults:
+          type: array
+          description: An array of results for activities displayed in the lab instance Activity Group. This contains an array of ActivityResult objects.
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                format: int32
+                description: ID of the Activity Group.
+              Name:
+                type: string
+                description: Name of the Activity Group.
+              ScoreValueTotal:
+                type: number
+                format: float
+                description: The maximum score for the Activity Group.
+              AggregateScore:
+                type: number
+                format: float
+                description: The resultant score the of the Activity Group.
+              ActivityResults:
+                type: array
+                description: An array of results for activities displayed in the lab instance Activity Group. This contains an array of ActivityResult objects.
+                items:
+                  type: object
+                  properties:
+                    ActivityId:
+                      type: integer
+                      format: int32
+                      description: ID of the Activity.
+                    ActivityName:
+                      type: string
+                      description: Name of the Activity.
+                    Scored:
+                      type: boolean
+                      description: Whether the activity is scored.
+                    Score:
+                      type: integer
+                      description: The Score received by the student.
+                    Passed:
+                      type: boolean
+                      description: Whether the student received a passing score on the activity.
+                    ActivityType:
+                      type: integer
+                      description: |-
+                        0 = Multiple choice, single answer  
+                        10 = Multiple choice, multiple answer  
+                        20 = Short answer, exact match  
+                        30 = Short answer, regex match  
+                        40 = Automated Activity  
+                    TextResult:
+                      type: string
+                      description: The answer given by a student for Short Answer type questions.
+                    UiResponse:
+                      type: string
+                      description: The response given to the student if specified in the question Answer Feedback.
+                    AnswerResults:
+                      type: array
+                      description: A collection of the answers available in single-answer activities.
+                      items:
+                        type: object
+                    ScriptResults:
+                      type: array
+                      description: 'A collection of the results of the an automated activity. Includes Script ID, Score, Passing Status, UiResponse, ScriptResponse, PlatformError, and ScriptError.'
+                      items:
+                        type: object
+                    DisplayScriptsAsTaskList:
+                      type: boolean
+                      description: Whether automated activities are scored as a TaskList or individually.
+                    AnswerTexts:
+                      type: array
+                      description: A collection of the answers available in multi- answer activities.
+                      items:
+                        type: object
+                        properties:
+                          '':
+                            type: string
+                    ScriptTexts:
+                      type: array
+                      description: The Activity ID and Text displayed in the Task List if Task List is enabled on the activity.
+                      items:
+                        type: object
+                    ShowResultsInReports:
+                      type: boolean
+                      description: Whether results of the script are shown on the lab instance.
+        EstimatedReadySeconds:
+          type: integer
+          description: An estimated number of seconds before the lab is ready.
+          format: int32
+          nullable: true
+        InstructionsId:
+          type: string
+          description: The ID of the Instructions used
+          nullable: true
+        Lang:
+          type: string
+          description: en
+          nullable: true
+        Error:
+          type: string
+          description: 'In the event of an error, this will contain a detailed error message.'
+          nullable: true
+        Status:
+          type: integer
+          description: |-
+            Indicates the status of the API request.  
+            0 = Error  
+            1 = Success  
+          format: int32
     CourseExternalActivityLaunchSearchResult:
       type: object
       properties:

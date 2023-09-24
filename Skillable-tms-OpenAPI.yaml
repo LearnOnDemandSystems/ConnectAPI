@@ -56,7 +56,7 @@ tags:
     description: |-
       The Lab Instance Management group of API commands allows interacting with lab instances. This includes but is not limited to the following actions: 
       * [Find Lab Instances](https://connect.skillable.com/tms/operation/SearchLabInstances/) (Lab Instances represent individual Lab launches against the LOD platform)
-      * [Retrieve information about lab instances](https://connect.skillable.com/tms/operation/GetLabInstanceDetail/)
+      * [Retrieve information about lab instances](https://connect.skillable.com/tms/operation/GetLabInstanceDetails/)
   - name: Organization Management
     description: 'Organizations within the TMS provide the ability to separate content and access between different customers. For most customers there is little need for Organization Management using the API.  However, for large content providers Organization Management can be vital. The Organization Management of the TMS allows for the query, creation, modification, and deletion of Organizations.'
   - name: Searching
@@ -5925,12 +5925,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/CustomFieldValueResponse'
       deprecated: false
-  /Getlabinstancedetail:
+  /Getlabinstancedetails:
     get:
       tags:
         - Lab Instance Management
       summary: Retrieve details about a lab instance
-      description: The **GetLabInstanceDetail** command retrieves detailed information about a specified LOD lab instance using the TMS Lab Instance Id.
+      description: The **GetLabInstanceDetails** command retrieves detailed information about a specified LOD lab instance using the TMS Lab Instance Id.
       operationId: Details
       parameters:
         - name: labinstanceid
@@ -5949,7 +5949,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetLabInstanceDetailResponse'
+                $ref: '#/components/schemas/GetLabInstanceDetailsResponse'
               examples:
                 Example of the details returned from a specific lab instance:
                   value:
@@ -9232,7 +9232,7 @@ components:
           format: int64
           nullable: true
           example: 1585690845
-    GetLabInstanceDetailResponse:
+    GetLabInstanceDetailsResponse:
       type: object
       x-stoplight:
         id: 5b72f520a1cc1

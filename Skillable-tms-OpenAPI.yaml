@@ -7029,7 +7029,7 @@ paths:
       tags:
         - Company Management
       summary: Get a company by id
-      description: Allows you to retrieve a company and their details.
+      description: Allows you to retrieve a company and their details by their Id.
       operationId: GetCompany
       parameters:
         - name: id

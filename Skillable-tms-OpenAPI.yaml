@@ -5931,7 +5931,7 @@ paths:
         - Lab Instance Management
       summary: Retrieve details about a lab instance based on the TMS Lab Instance Id.
       description: The **GetLabInstanceDetails** command retrieves detailed information about a specified TMS lab instance using the TMS Lab Instance Id.
-      operationId: Details
+      operationId: GetLabInstanceDetails
       parameters:
         - name: labinstanceid
           in: query

@@ -4369,7 +4369,18 @@ components:
           nullable: true
         Lang:
           type: string
-          description: en
+          description: |-
+            The lanuage code of the instruction set.
+            
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hans = Simplified Chinese  
+            zh-hant = Traditional Chinese  
+            ko = Korean  
           nullable: true
         Error:
           type: string

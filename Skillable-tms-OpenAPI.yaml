@@ -5925,12 +5925,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/CustomFieldValueResponse'
       deprecated: false
-  /Getlabinstancedetails:
+  /GetLabInstanceDetails:
     get:
       tags:
         - Lab Instance Management
-      summary: Retrieve details about a lab instance
-      description: The **GetLabInstanceDetails** command retrieves detailed information about a specified LOD lab instance using the TMS Lab Instance Id.
+      summary: Retrieve details about a lab instance based on the TMS Lab Instance Id.
+      description: The **GetLabInstanceDetails** command retrieves detailed information about a specified TMS lab instance using the TMS Lab Instance Id.
       operationId: Details
       parameters:
         - name: labinstanceid
@@ -5954,8 +5954,8 @@ paths:
                 Example of the details returned from a specific lab instance:
                   value:
                     Id: 360701
-                    LabProfileId: 18100
-                    LabProfileName: '01: Launch/Details Call'
+                    LabId: 18100
+                    LabName: '01: Launch/Details Call'
                     SeriesId: 10702
                     SeriesName: API Examples
                     UserId: '11'
@@ -5963,6 +5963,7 @@ paths:
                     UserLastName: S
                     ClassId: null
                     ClassName: null
+                    AssignmentId: null
                     Start: 1603295589
                     StartTime: /Date(1603295589000)/
                     Expires: 1603299334
@@ -6009,8 +6010,6 @@ paths:
                     NumTasks: 0
                     NumCompletedTasks: 0
                     TaskCompletePercent: 100
-                    MonitorUrl: null
-                    DetailsUrl: 'https://labondemand.com/LabInstance/360701'
                     RemoteController: HTML5
                     Tag: null
                     BrowserUserAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.80 Safari/537.36 Edg/86.0.622.48'
@@ -6205,8 +6204,8 @@ paths:
                             ScriptTexts: []
                             ShowResultsInReports: true
                     EstimatedReadySeconds: null
-                    InstructionsId: The ID of the Instructions used
-                    Lang: en
+                    InstructionsSetId: The ID of the Instructions used
+                    Language: en
                     Error: null
                     Status: 1
       deprecated: false
@@ -9240,15 +9239,15 @@ components:
       properties:
         Id:
           type: integer
-          description: The ID of the lab instance.
+          description: The TMS ID of the lab instance.
           format: int64
-        LabProfileId:
+        LabId:
           type: integer
-          description: The ID of the lab profile.
+          description: The TMS ID of the lab.
           format: int32
-        LabProfileName:
+        LabName:
           type: string
-          description: The name of the lab profile.
+          description: The TMS name of the lab.
         SeriesId:
           type: integer
           description: The ID of the lab series.
@@ -9273,6 +9272,10 @@ components:
           nullable: true
         ClassName:
           description: The name of the class the lab instance is associated with.
+          type: string
+          nullable: true
+        AssignmentId:
+          description: The ID you use to identify the class assignment in your external system.
           type: string
           nullable: true
         Start:
@@ -9502,15 +9505,6 @@ components:
           type: integer
           description: 'If the lab has content (HasContent=true), indicates the percentage of tasks that the student has completed.'
           format: int32
-        MonitorUrl:
-          description: |-
-            This response property is deprecated. Unless explicitly allowed by Skillable, this field will always be null.  
-            To obtain an access URL, use the **LabMonitorUrl** command.
-          type: string
-          nullable: true
-        DetailsUrl:
-          type: string
-          description: The URL at which the lab instance details can be reviewed (required authentication to view).
         RemoteController:
           type: string
           description: The name of the remote controller used by the user.
@@ -9855,11 +9849,11 @@ components:
           description: An estimated number of seconds before the lab is ready.
           format: int32
           nullable: true
-        InstructionsId:
+        InstructionsSetId:
           type: string
-          description: The ID of the Instructions used
+          description: The ID of the Instructions Set used.
           nullable: true
-        Lang:
+        Language:
           type: string
           description: en
           nullable: true

@@ -9267,7 +9267,7 @@ components:
           type: string
           description: The user's last name.
         ClassId:
-          description: The ID you use to identify the associated class in your external system.
+          description: The ID of the class the lab instance is associated with.
           type: string
           nullable: true
         ClassName:
@@ -9275,7 +9275,7 @@ components:
           type: string
           nullable: true
         AssignmentId:
-          description: The ID you use to identify the class assignment in your external system.
+          description: The ID of the class assignment the lab instance is associated with.
           type: string
           nullable: true
         Start:
@@ -9855,7 +9855,18 @@ components:
           nullable: true
         Language:
           type: string
-          description: en
+          description: |-
+            The lanuage code of the instruction set.
+  
+            en = English  
+            es = Spanish  
+            fr = French  
+            de = German  
+            pt = Portuguese  
+            ja = Japanese  
+            zh-hans = Simplified Chinese  
+            zh-hant = Traditional Chinese  
+            ko = Korean  
           nullable: true
         Error:
           type: string

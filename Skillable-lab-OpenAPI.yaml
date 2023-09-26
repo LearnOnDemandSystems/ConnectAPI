@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Skillable Lab API
+  title: Lab API
   description: |
     # Introduction 
     Welcome to Skillable Connect: LAB Edition, our core platform for creating, customizing, and managing labs. 

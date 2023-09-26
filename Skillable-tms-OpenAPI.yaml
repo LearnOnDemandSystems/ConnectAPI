@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Skillable TMS API
+  title: TMS API
   description: |
     # Introduction
     Welcome to Skillable Connect: TMS Edition, our core platform for managing your users, scheduling training to consume content, managing course assignments and subscriptions.

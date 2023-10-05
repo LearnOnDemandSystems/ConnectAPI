@@ -4175,7 +4175,7 @@ paths:
     get:
       tags:
         - Class Enrollment Management
-      summary: Get the custom field values for a specific class enrollment
+      summary: Retrieves the custom field values for a specific class enrollment
       description: Retrieves the current values of a specific custom field for a class enrollment.
       operationId: GetClassEnrollmentCustomFieldValues
       parameters:

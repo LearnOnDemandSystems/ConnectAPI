@@ -16,7 +16,7 @@ info:
   contact:
     name: Skillable Support
     url: 'https://skillable.com/customer-support/'
-    email: 'support@skillable.com'
+    email: support@skillable.com
   x-logo:
     url: 'https://raw.githubusercontent.com/LearnOnDemandSystems/ConnectAPI/main/Skillable%20Connect%20Logo.svg'
     altText: Skillable Connect
@@ -38,6 +38,9 @@ tags:
       * [Search for Class Enrollments for a user](https://connect.skillable.com/tms/operation/SearchClassEnrollments/) 
       * [Delete Class Enrollments for a user](https://connect.skillable.com/tms/operation/DeleteClassEnrollment/) 
       * [Retrieve specific details for Class Enrollments](https://connect.skillable.com/tms/operation/GetClassEnrollment/) 
+      * [Retrieve Custom Fields for Class Enrollments](https://connect.skillable.com/tms/operation/GetClassEnrollmentCustomFields/) 
+      * [Retrieve specific Custom Field values for a Class Enrollments](https://connect.skillable.com/tms/operation/GetClassEnrollmentCustomFieldValues/) 
+      * [Update a specific Custom Field value for Class Enrollments](https://connect.skillable.com/tms/operation/UpdateClassEnrollmentCustomFieldValue/) 
   - name: Class Management
     description: 'The Class Management group of API command allows for the creation, management and finding of scheduled classes within the Skillable TMS.  Classes can be found by using Class ID''s as well as the training key associated with a class.'
   - name: Company Management
@@ -4150,6 +4153,124 @@ paths:
               schema:
                 $ref: '#/components/schemas/ClassEnrollmentSearchResponse'
       deprecated: false
+  /GetClassEnrollmentCustomFields:
+    get:
+      tags:
+        - Class Enrollment Management
+      summary: Retrieves a list of class enrollment custom fields
+      description: Retreives a list of all available custom fields for your organization.
+      operationId: GetClassEnrollmentCustomFields
+      parameters: []
+      responses:
+        '200':
+          description: OK Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassEnrollmentCustomFieldResponse'
+      deprecated: false
+      x-stoplight:
+        id: qsvtp0mm2cu2q
+  /GetClassEnrollmentCustomFieldValues:
+    get:
+      tags:
+        - Class Enrollment Management
+      summary: Retrieves the custom field values for a specific class enrollment
+      description: Retrieves the current values of a specific custom field for a class enrollment.
+      operationId: GetClassEnrollmentCustomFieldValues
+      parameters:
+        - name: customFieldId
+          in: query
+          description: The ID of the custom field.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: classEnrollmentId
+          in: query
+          description: The ID of the class enrollment holding the custom field.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomFieldValueResponse'
+      deprecated: false
+      x-stoplight:
+        id: al1q899grmie2
+  /UpdateClassEnrollmentCustomFieldValue:
+    get:
+      tags:
+        - Class Enrollment Management
+      summary: Update a custom field for a class enrollment
+      description: Updates the current value of a specific custom field for a class enrollment.
+      operationId: UpdateClassEnrollmentCustomFieldValue
+      parameters:
+        - name: customFieldId
+          in: query
+          description: The ID of the custom field.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: classEnrollmentId
+          in: query
+          description: The ID of the class enrollment holding the custom field.
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: textValue
+          in: query
+          description: 'The value of a text type class enrollment custom field: Textbox and Dropdown List'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: numericValue
+          in: query
+          description: The value of a numeric type class enrollment custom field
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: booleanValue
+          in: query
+          description: 'The value for a boolean type class enrollment custom field.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: boolean
+        - name: separatedListValues
+          in: query
+          description: 'A Tab separated list of all the text values for a multi-select custom field type: Checkbox List'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomFieldValueResponse'
+      deprecated: false
+      x-stoplight:
+        id: tar1qj1894qsy
   '/GetCourseAssignment/{id}':
     get:
       tags:
@@ -5908,7 +6029,7 @@ paths:
           style: form
           explode: true
           schema:
-            type: string
+            type: boolean
         - name: separatedListValues
           in: query
           description: 'A Tab separated list of all the text values for a multi-select custom field type: Checkbox List'
@@ -7965,6 +8086,20 @@ components:
           description: See PublicClassSearchResult
           items:
             $ref: '#/components/schemas/PublicClassSearchResult'
+    ClassEnrollmentCustomFieldResponse:
+      type: object
+      x-stoplight:
+        id: 50c16a1fcd2d9
+      properties:
+        Status:
+          $ref: '#/components/schemas/Status'
+        Error:
+          $ref: '#/components/schemas/Error'
+        Results:
+          type: array
+          description: This is the full list of class enrollment custom fields available to the requesting organization.
+          items:
+            $ref: '#/components/schemas/ClassEnrollmentCustomFields'
     ClassCustomFieldResponse:
       type: object
       properties:
@@ -7974,7 +8109,7 @@ components:
           $ref: '#/components/schemas/Error'
         Results:
           type: array
-          description: See CousreAssignment
+          description: See CourseAssignment
           items:
             $ref: '#/components/schemas/ClassCustomFields'
     CustomFieldValueResponse:
@@ -8822,6 +8957,32 @@ components:
           format: int32
           nullable: true
           example: 10
+        CustomFields:
+          type: array
+          description: Custom Fields that have values for the user
+          example:
+            - Name: Unique Text
+              TextValue: AXY12345
+              CustomFieldId: 5089
+            - Name: Unique Number
+              TextValue: '44'
+              CustomFieldId: 5090
+            - Name: Dropdown-01
+              TextValue: Second Choice
+              CustomFieldId: 5087
+          items:
+            type: object
+            properties:
+              'Name':
+                type: string
+                description: The name that is given to this custom field
+              TextValue:
+                type: string
+                description: The text value for this field can be updated using the /UpdateClassEnrollmentCustomFieldValue API endpoint.
+              CustomFieldId:
+                type: integer
+                format: int32
+                description: The Custom Field's system generated unique id.
     ClassEnrollmentSearch:
       type: object
       properties:
@@ -9857,7 +10018,7 @@ components:
           type: string
           description: |-
             The lanuage code of the instruction set.
-  
+
             en = English  
             es = Spanish  
             fr = French  
@@ -10573,6 +10734,51 @@ components:
           description: The class's delivery identifier
           format: int32
           example: 34
+    ClassEnrollmentCustomFields:
+      type: object
+      x-stoplight:
+        id: c6a3ce5745aaa
+      properties:
+        Id:
+          type: integer
+          description: The custom field's unique identifier
+          format: int32
+          example: 10
+        Name:
+          type: string
+          description: The name of the custom field
+          example: CustomClassEnrollmentFieldName1
+        Description:
+          type: string
+          description: The description of the custom field
+          nullable: true
+          example: Sample custom class enrollment field name 1
+        DataTypeId:
+          type: integer
+          description: |-
+            The data type id of the custom field 
+            - 0 = Textbox
+            - 10 = Dropdown List
+            - 20 = Checkbox
+            - 30 = Number
+            - 60 = User Selector
+            - 70 = Checkbox List
+          format: int32
+          example: 10
+        ListValues:
+          type: array
+          description: 'An array of type String representing the available selectable options in the case of Dropdown List and Checkbox List, for all other data types it will be an empty array ([])'
+          example:
+            - string 1
+            - string 2
+            - string 3
+          items:
+            type: string
+        SortOrder:
+          type: integer
+          format: int32
+          description: 'The order in which this field will appear in the JSON response.'
+          example: 2
     ClassCustomFields:
       type: object
       properties:
@@ -10951,7 +11157,7 @@ components:
           $ref: '#/components/schemas/Status'
         Error:
           $ref: '#/components/schemas/Error'
-        SearchSubscriptionsResults:
+        Company:
           type: array
           description: See Company results.
           items:

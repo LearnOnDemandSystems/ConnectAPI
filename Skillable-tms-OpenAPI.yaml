@@ -10777,7 +10777,7 @@ components:
             type: string
         SortOrder:
           type: integer
-          description: A comma separated list of integers representing the fields that will be used to sort the results in ascending order.
+          description: 'A comma separated list of integers representing the fields that will be used to sort the results in ascending order.'
           format: int32
           example: 2,3,1
     ClassCustomFields:

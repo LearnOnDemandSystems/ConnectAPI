@@ -10777,7 +10777,7 @@ components:
         SortOrder:
           type: integer
           format: int32
-          description: 'The order in which the fields will appear in the JSON response.'
+          description: 'The order in which this field will appear in the JSON response.'
           example: 2
     ClassCustomFields:
       type: object

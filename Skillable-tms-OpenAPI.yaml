@@ -8149,6 +8149,7 @@ components:
         BooleanValue:
           type: boolean
           description: 'The boolean value of a custom field, if any.'
+          nullable: true
         SeparatedListValue:
           type: string
           description: A tab separated list of the selected values of a custom field.

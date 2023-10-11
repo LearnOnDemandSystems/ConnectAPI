@@ -8149,8 +8149,6 @@ components:
         BooleanValue:
           type: boolean
           description: 'The boolean value of a custom field, if any.'
-          schema:
-            type: boolean
         SeparatedListValue:
           type: string
           description: A tab separated list of the selected values of a custom field.
@@ -8966,7 +8964,7 @@ components:
               TextValue: AXY12345
               CustomFieldId: 5089
             - Name: Unique Number
-              TextValue: 44
+              TextValue: '44'
               CustomFieldId: 5090
             - Name: Dropdown-01
               TextValue: Second Choice
@@ -10776,10 +10774,9 @@ components:
           items:
             type: string
         SortOrder:
-          type: integer
+          type: string
           description: 'A comma separated list of integers representing the fields that will be used to sort the results in ascending order.'
-          format: int32
-          example: 2,3,1
+          example: '2,3,1'
     ClassCustomFields:
       type: object
       properties:

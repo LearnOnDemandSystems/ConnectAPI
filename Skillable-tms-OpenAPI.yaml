@@ -4247,12 +4247,12 @@ paths:
             type: string
         - name: booleanValue
           in: query
-          description: 'The value for a boolean type class enrollment custom field: Checkbox'
+          description: 'The value for a boolean type class enrollment custom field.'
           required: false
           style: form
           explode: true
           schema:
-            type: string
+            type: boolean
         - name: separatedListValues
           in: query
           description: 'A Tab separated list of all the text values for a multi-select custom field type: Checkbox List'
@@ -6029,7 +6029,7 @@ paths:
           style: form
           explode: true
           schema:
-            type: string
+            type: boolean
         - name: separatedListValues
           in: query
           description: 'A Tab separated list of all the text values for a multi-select custom field type: Checkbox List'
@@ -8149,7 +8149,8 @@ components:
         BooleanValue:
           type: boolean
           description: 'The boolean value of a custom field, if any.'
-          nullable: true
+          schema:
+            type: boolean
         SeparatedListValue:
           type: string
           description: A tab separated list of the selected values of a custom field.
@@ -8973,8 +8974,16 @@ components:
           items:
             type: object
             properties:
-              '':
+              'Name':
                 type: string
+                description: The name that is given to this custom field
+              TextValue:
+                type: string
+                description: The text value for this field can be updated using the /UpdateClassEnrollmentCustomFieldValue API endpoint.
+              CustomFieldId:
+                type: integer
+                format: int32
+                description: The Custom Field's system generated unique id.
     ClassEnrollmentSearch:
       type: object
       properties:

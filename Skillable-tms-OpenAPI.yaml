@@ -10775,8 +10775,9 @@ components:
           items:
             type: string
         SortOrder:
-          type: string
-          description: 'A comma separated list of integers representing the fields that will be used to sort the results in ascending order.'
+          type: integer
+          format: int32
+          description: 'The order in which the fields will appear in the JSON response.'
           example: '2,3,1'
     ClassCustomFields:
       type: object

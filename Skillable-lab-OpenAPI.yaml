@@ -28,6 +28,7 @@ info:
   termsOfService: 'https://skillable.com/terms-and-conditions/'
   contact:
     name: Skillable Support
+    email: support@skillable.com
     url: 'https://skillable.com/customer-support/'
   x-logo:
     url: 'https://raw.githubusercontent.com/LearnOnDemandSystems/ConnectAPI/main/Skillable%20Connect%20Logo.svg'
@@ -42,6 +43,22 @@ servers:
 security:
   - api_key: []
 tags:
+  - name: Class Management
+    description: |-
+      The Class Management group of API commands allows for the creation, management, access, and monitoring of classes within Skillable Studio. 
+      * [Retrieve information about a class in Skillable Studio](https://connect.skillable.com/lab/operation/Class/) 
+      * [Retrieve information about an existing class, if the class does not exist, it will be created](https://connect.skillable.com/lab/operation/GetOrCreateClass/)       
+      * [Return a single access URL to access a class management page](https://connect.skillable.com/lab/operation/ClassAccessUrl/) 
+      * [Return a single use URL to monitor a lab instance](https://connect.skillable.com/lab/operation/LabMonitorUrl/) 
+      * [Return a single use URL to access a lab instance](https://connect.skillable.com/lab/operation/LabAccessUrl/) 
+      * [Update a specific class](https://connect.skillable.com/lab/operation/UpdateClass/) 
+      * [Delete a specific class](https://connect.skillable.com/lab/operation/DeleteClass/) 
+  - name: Event Management
+    description: |-
+      The Event Management group of API commands allows for launching lab profiles for events and retrieving evaluation responses.
+      * [Launch a lab within an event](https://connect.skillable.com/lab/operation/LaunchforEvent/) 
+      * [Launch a lab within an event, using an external ID](https://connect.skillable.com/lab/operation/LaunchforEventByExternalId/) 
+      * [Retrieve evaluation data for a specified event](https://connect.skillable.com/lab/operation/GetEvaluationResponsesForEvent/) 
   - name: Lab Instance Management
     description: |-
       The Lab Instance Management group of API commands allows interacting with lab instances. This includes but is not limited to the following actions: 
@@ -60,32 +77,16 @@ tags:
       * [Download instructions in a zip file for a specific lab](https://connect.skillable.com/lab/operation/GetLabInstructionsPackage/) 
       * [Update lab instructions for a specific lab profile using an HTTP post](https://connect.skillable.com/lab/operation/UpdateLabInstructions/) 
       * [Update lab instructions for a specific lab by uploading a zip file](https://connect.skillable.com/lab/operation/UpdateLabInstructionsPackage/) 
-  - name: Class Management
-    description: |-
-      The Class Management group of API commands allows for the creation, management, access, and monitoring of classes within Skillable Studio. 
-      * [Retrieve information about a class in Skillable Studio](https://connect.skillable.com/lab/operation/Class/) 
-      * [Retrieve information about an existing class, if the class does not exist, it will be created](https://connect.skillable.com/lab/operation/GetOrCreateClass/)       
-      * [Return a single access URL to access a class management page](https://connect.skillable.com/lab/operation/ClassAccessUrl/) 
-      * [Return a single use URL to monitor a lab instance](https://connect.skillable.com/lab/operation/LabMonitorUrl/) 
-      * [Return a single use URL to access a lab instance](https://connect.skillable.com/lab/operation/LabAccessUrl/) 
-      * [Update a specific class](https://connect.skillable.com/lab/operation/UpdateClass/) 
-      * [Delete a specific class](https://connect.skillable.com/lab/operation/DeleteClass/) 
-  - name: User Management
-    description: |-
-      The User Management group of API commands are used to administer user accounts within Skillable Studio.
-      * [Return information about saved or running labs for a specific user account](https://connect.skillable.com/lab/operation/UserRunningAndSavedLabs/)  
-      * [Close a user account and remove all associated user information](https://connect.skillable.com/lab/operation/CloseUserAccount/) 
-  - name: Event Management
-    description: |-
-      The Event Management group of API commands allows for launching lab profiles for events and retrieving evaluation responses.
-      * [Launch a lab within an event](https://connect.skillable.com/lab/operation/LaunchforEvent/) 
-      * [Launch a lab within an event, using an external ID](https://connect.skillable.com/lab/operation/LaunchforEventByExternalId/) 
-      * [Retrieve evaluation data for a specified event](https://connect.skillable.com/lab/operation/GetEvaluationResponsesForEvent/) 
   - name: Organization
     description: |-
       Organizational API commands provide the ability to return information about lab profiles, lab series, and delivery regions available to your organization in Skillable Studio.
       * [Retrieve information about lab profiles, lab series, and delivery regions available to your organization](https://connect.skillable.com/lab/operation/Catalog/) 
       * [Retrieve information about delivery regions that are available to your organization](https://connect.skillable.com/lab/operation/DeliveryRegions/) 
+  - name: User Management
+    description: |-
+      The User Management group of API commands are used to administer user accounts within Skillable Studio.
+      * [Return information about saved or running labs for a specific user account](https://connect.skillable.com/lab/operation/UserRunningAndSavedLabs/)  
+      * [Close a user account and remove all associated user information](https://connect.skillable.com/lab/operation/CloseUserAccount/) 
 paths:
   /launch:
     get:
@@ -3148,8 +3149,8 @@ paths:
                           - Tag2
                         CloudPlatformId: null
                         ContentVersion: 2
-                        Created: 1587647356923
-                        LastModified: 1615997111827
+                        Created: "/Date(1534438041470)/"
+                        LastModified: "/Date(1623367490010)/"
                         SCORMLastDownloaded: 1723899599000
                         InstructionSets:
                           - Id: Base-02
@@ -3198,8 +3199,8 @@ paths:
                           - Tag2
                         CloudPlatformId: 10
                         ContentVersion: 2
-                        Created: 1588248305437
-                        LastModified: 1684848422383
+                        Created: "/Date(1534438041470)/"
+                        LastModified: "/Date(1623367490010)"
                         SCORMLastDownloaded: 1755781199000
                         InstructionSets:
                           - Id: Base-01
@@ -3496,12 +3497,10 @@ components:
                 format: int32
                 description: Indicates the content version (only applicable if HasIntegratedContent = true).
               Created:
-                type: integer
-                format: int64
+                type: string
                 description: The date when the lab profile was created (in Unix epoch time).
               LastModified:
-                type: integer
-                format: int64
+                type: string
                 description: The date when the lab profile was last modified (in Unix epoch time).
               SCORMLastDownloaded:
                 type: integer

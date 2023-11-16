@@ -11276,15 +11276,19 @@ components:
     SearchCompaniesResponse:
       type: object
       properties:
-        Status:
-          $ref: '#/components/schemas/Status'
-        Error:
-          $ref: '#/components/schemas/Error'
+        TotalCount:
+          $ref: '#/components/schemas/TotalCount'
+        TotalPages:
+          $ref: '#/components/schemas/TotalPages'
         Companies:
           type: array
           description: See Companies results.
           items:
             $ref: '#/components/schemas/Companies'
+        Status:
+          $ref: '#/components/schemas/Status'
+        Error:
+          $ref: '#/components/schemas/Error'
     Company:
       type: object
       properties:

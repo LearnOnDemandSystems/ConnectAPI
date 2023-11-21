@@ -7000,7 +7000,7 @@ paths:
           description: |-
             The value you want to sort by. If not supplied, a default value of "Name" will be used. You can append " DESC" after the sort value to sort descending. For example, "Name DESC" would sort by name in descending order. Possible values: 
             - Name 
-            - Organization 
+            - OrganizationName 
             - ExternalId 
             - Created 
             - LastModified
@@ -7019,7 +7019,7 @@ paths:
             type: string
         - name: externalId
           in: query
-          description: An optional parameter used to filter for companies by external ID
+          description: An optional parameter used to filter for a company by external ID. Specifying the unique External ID paramter value will only ever return a single matching result.
           required: false
           style: form
           explode: true
@@ -7027,7 +7027,7 @@ paths:
             type: string
         - name: organizationId
           in: query
-          description: 'Filter companies by the associated organization id. When specified, only the companies associated with this organization will be returned.'
+          description: 'An optional parameter used to filter companies by the associated organization id. When specified, only the companies associated with this organization will be returned.'
           required: false
           style: form
           explode: true
@@ -7036,7 +7036,7 @@ paths:
             format: int32
         - name: createdAfter
           in: query
-          description: 'An optional parameter used to filter for courses created after a specified date. When used in conjunction with the "createdBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          description: 'An optional parameter used to filter for companies created after a specified date. When used in conjunction with the "createdBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           required: false
           style: form
           explode: true
@@ -7044,7 +7044,7 @@ paths:
             type: string
         - name: createdBefore
           in: query
-          description: 'An optional parameter used to filter for courses created before a specified date. When used in conjunction with the "createdAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          description: 'An optional parameter used to filter for companies created before a specified date. When used in conjunction with the "createdAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           required: false
           style: form
           explode: true
@@ -7052,7 +7052,7 @@ paths:
             type: string
         - name: lastModifiedAfter
           in: query
-          description: 'An optional parameter used to filter for courses modified after a specified date. When used in conjunction with the "lastModifiedBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          description: 'An optional parameter used to filter for companies modified after a specified date. When used in conjunction with the "lastModifiedBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           required: false
           style: form
           explode: true
@@ -7060,7 +7060,7 @@ paths:
             type: string
         - name: lastModifiedBefore
           in: query
-          description: 'An optional parameter used to filter for courses modified before a specified date. When used in conjunction with the "lastModifiedAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          description: 'An optional parameter used to filter for companies modified before a specified date. When used in conjunction with the "lastModifiedAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           required: false
           style: form
           explode: true

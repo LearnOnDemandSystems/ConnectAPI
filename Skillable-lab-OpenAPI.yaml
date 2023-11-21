@@ -28,6 +28,7 @@ info:
   termsOfService: 'https://skillable.com/terms-and-conditions/'
   contact:
     name: Skillable Support
+    email: support@skillable.com
     url: 'https://skillable.com/customer-support/'
   x-logo:
     url: 'https://raw.githubusercontent.com/LearnOnDemandSystems/ConnectAPI/main/Skillable%20Connect%20Logo.svg'
@@ -3148,8 +3149,8 @@ paths:
                           - Tag2
                         CloudPlatformId: null
                         ContentVersion: 2
-                        Created: 1587647356923
-                        LastModified: 1615997111827
+                        Created: "/Date(1534438041470)/"
+                        LastModified: "/Date(1623367490010)/"
                         SCORMLastDownloaded: 1723899599000
                         InstructionSets:
                           - Id: Base-02
@@ -3198,8 +3199,8 @@ paths:
                           - Tag2
                         CloudPlatformId: 10
                         ContentVersion: 2
-                        Created: 1588248305437
-                        LastModified: 1684848422383
+                        Created: "/Date(1534438041470)/"
+                        LastModified: "/Date(1623367490010)"
                         SCORMLastDownloaded: 1755781199000
                         InstructionSets:
                           - Id: Base-01
@@ -3496,12 +3497,10 @@ components:
                 format: int32
                 description: Indicates the content version (only applicable if HasIntegratedContent = true).
               Created:
-                type: integer
-                format: int64
+                type: string
                 description: The date when the lab profile was created (in Unix epoch time).
               LastModified:
-                type: integer
-                format: int64
+                type: string
                 description: The date when the lab profile was last modified (in Unix epoch time).
               SCORMLastDownloaded:
                 type: integer

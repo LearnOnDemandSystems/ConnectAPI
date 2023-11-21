@@ -44,7 +44,13 @@ tags:
   - name: Class Management
     description: 'The Class Management group of API command allows for the creation, management and finding of scheduled classes within the Skillable TMS.  Classes can be found by using Class ID''s as well as the training key associated with a class.'
   - name: Company Management
-    description: 'Company Management allows you to register your customers as companies. The use of companies enables you to store contact information for your customers. This information can be connected to users within the TMS, then reports can return user activity from a specific company.'
+    description: |-
+      Company Management allows you to register your customers as companies. The use of companies enables you to store contact information for your customers. This information can be connected to users within the TMS, then reports can return user activity from a specific company.
+      * [Create a Company](https://connect.skillable.com/tms/operation/CreateCompany/) 
+      * [Update a Company by Id](https://connect.skillable.com/tms/operation/UpdateCompany/) 
+      * [Search for Companies](https://connect.skillable.com/tms/operation/SearchCompanies/) 
+      * [Delete a Company by Id](https://connect.skillable.com/tms/operation/DeleteCompany/) 
+      * [Retrieve a specific Company](https://connect.skillable.com/tms/operation/GetCompany/) 
   - name: Course Assignment Management
     description: |-
       Course Assignments are instances of a course being used for self-study purposes, and not connected with an Instructor or a class.  The Course Assignment Management API group of commands allows the following capabilities:  
@@ -4247,7 +4253,7 @@ paths:
             type: string
         - name: booleanValue
           in: query
-          description: 'The value for a boolean type class enrollment custom field.'
+          description: The value for a boolean type class enrollment custom field.
           required: false
           style: form
           explode: true
@@ -6963,6 +6969,111 @@ paths:
               schema:
                 $ref: '#/components/schemas/GetCompanyResponse'
       deprecated: false
+  /SearchCompanies:
+    get:
+      tags:
+        - Company Management
+      summary: Search for companies
+      description: Allows you to search for companies.
+      operationId: SearchCompanies
+      parameters:
+        - name: pageIndex
+          in: query
+          description: 'A 0-based index of the paged results you wish to receive. In general, you should start with a value of zero and increment it as you need to retrieve additional results. If not supplied, a value of 0 is used (the first page of results).'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: pageSize
+          in: query
+          description: 'Indicates how many results you want per page. if not supplied, a default value of 100 is used.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: sort
+          in: query
+          description: |-
+            The value you want to sort by. If not supplied, a default value of "Name" will be used. You can append " DESC" after the sort value to sort descending. For example, "Name DESC" would sort by name in descending order. Possible values: 
+            - Name 
+            - OrganizationName 
+            - ExternalId 
+            - Created 
+            - LastModified
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: 'An optional parameter used to filter for companies by name. When specified, only companies that have names that contain or match this value will be returned.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: externalId
+          in: query
+          description: An optional parameter used to filter for a company by external ID. Specifying the unique External ID paramter value will only ever return a single matching result.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: organizationId
+          in: query
+          description: 'An optional parameter used to filter companies by the associated organization id. When specified, only the companies associated with this organization will be returned.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+        - name: createdAfter
+          in: query
+          description: 'An optional parameter used to filter for companies created after a specified date. When used in conjunction with the "createdBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: createdBefore
+          in: query
+          description: 'An optional parameter used to filter for companies created before a specified date. When used in conjunction with the "createdAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: lastModifiedAfter
+          in: query
+          description: 'An optional parameter used to filter for companies modified after a specified date. When used in conjunction with the "lastModifiedBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: lastModifiedBefore
+          in: query
+          description: 'An optional parameter used to filter for companies modified before a specified date. When used in conjunction with the "lastModifiedAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchCompaniesResponse'
+      deprecated: false
   /ExportSurveyResponses:
     get:
       tags:
@@ -8973,7 +9084,7 @@ components:
           items:
             type: object
             properties:
-              'Name':
+              Name:
                 type: string
                 description: The name that is given to this custom field
               TextValue:
@@ -10482,7 +10593,7 @@ components:
         OrganizationName:
           type: string
           description: The class's organization name
-          example: Sample Organization Id
+          example: Sample Organization Name
         NumOpen:
           type: integer
           description: The number of enrolled users in the class.
@@ -10777,7 +10888,7 @@ components:
         SortOrder:
           type: integer
           format: int32
-          description: 'The order in which this field will appear in the JSON response.'
+          description: The order in which this field will appear in the JSON response.
           example: 2
     ClassCustomFields:
       type: object
@@ -11162,6 +11273,22 @@ components:
           description: See Company results.
           items:
             $ref: '#/components/schemas/Company'
+    SearchCompaniesResponse:
+      type: object
+      properties:
+        TotalCount:
+          $ref: '#/components/schemas/TotalCount'
+        TotalPages:
+          $ref: '#/components/schemas/TotalPages'
+        Companies:
+          type: array
+          description: See Companies results.
+          items:
+            $ref: '#/components/schemas/Companies'
+        Status:
+          $ref: '#/components/schemas/Status'
+        Error:
+          $ref: '#/components/schemas/Error'
     Company:
       type: object
       properties:
@@ -11248,6 +11375,102 @@ components:
           type: string
           description: The second Custom Dropdown list for a Company
           nullable: true
+    Companies:
+      type: object
+      properties:
+        Id:
+          type: integer
+          description: The company's unique identifier.
+          format: int32
+          example: 123456789
+        OrganizationId:
+          type: integer
+          description: The Id of the Organization associated with this company
+          format: int32
+          example: 951624
+        OrganizationName:
+          type: string
+          description: The Name of the Organization associated with this company
+          example: ABC Organization
+        Name:
+          type: string
+          description: The Name of the company
+          example: ABC Training Company
+        Description:
+          type: string
+          description: The Description of the company
+          nullable: true
+          example: The Description of the company
+        ExternalId:
+          type: string
+          description: The External Id of the company
+          nullable: true
+          example: cmp123456
+        Address1:
+          type: string
+          description: The first Address line for a Company
+          nullable: true
+          example: Some street
+        Address2:
+          type: string
+          description: The second Address line for a Company
+          nullable: true
+          example: Some avenue
+        City:
+          type: string
+          description: The City for a Company
+          nullable: true
+          example: Grand Rapids
+        State:
+          type: string
+          description: 'The State for a Company (recommended use standard 2-character abbreviation, limit 50 characters)'
+          nullable: true
+          example: MI
+        Zip:
+          type: string
+          description: The Zip code for a Company
+          nullable: true
+          example: "123456"
+        Country:
+          type: string
+          description: 'The Country for a Company (recommended use standard 2-character abbreviation, limit 80 characters)'
+          nullable: true
+          example: US
+        Email:
+          type: string
+          description: The Email address for a Company
+          nullable: true
+          example: someemail@abccompany.com
+        Phone:
+          type: string
+          description: The Phone number for a Company
+          nullable: true
+          example: "123-456-7890"
+        Phone2:
+          type: string
+          description: The alternate Phone number for a Company
+          nullable: true
+          example: "555-654-9870"
+        Fax:
+          type: string
+          description: The Fax number for a Company
+          nullable: true
+          example: "555-555-5555"
+        WebSiteUrl:
+          type: string
+          description: The Web Site Url for a Company
+          nullable: true
+          example: "https://sampleurl.com"
+        Created:
+          type: integer
+          description: 'When the Company was created. Provided in Unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          format: int64
+          example: 1449496820
+        LastModified:
+          type: integer
+          description: 'When the Company was last modified. Provided in Unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          format: int64
+          example: 1584035105
     SurveyResultResponse:
       type: object
       properties:

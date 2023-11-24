@@ -3153,13 +3153,15 @@ paths:
                         LastModified: "/Date(1623367490010)/"
                         SCORMLastDownloaded: 1723899599000
                         InstructionSets:
-                          - Id: Base-02
+                          - UId: 2376859
+                            Id: Base-02
                             Language: es
                             Description: Advanced Instructions - Spanish
                             LabTitle: laboratorio avanzado
                             DurationMinutes: 60
                             OrganizationId: 158
-                          - Id: Base-02  
+                          - UId: 2376860
+                            Id: Base-02  
                             Language: de  
                             Description: Advanced Instructions - German  
                             LabTitle: Fortgeschrittenes Labor  

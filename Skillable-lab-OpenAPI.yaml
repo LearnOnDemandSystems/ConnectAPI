@@ -117,7 +117,7 @@ paths:
             example: '555'
         - name: firstname
           in: query
-          description: The user’s first name. If this value is not provided for a new user a random anonymized value will be created.
+          description: An optional parameter used to set the user’s first name. If this value is not provided for a new user a random anonymized value will be created.
           required: false
           style: form
           explode: true
@@ -126,7 +126,7 @@ paths:
             example: Joe
         - name: lastname
           in: query
-          description: The user’s last name. If this value is not provided for a new user a random anonymized value will be created.
+          description: An optional parameter used to set the user’s last name. If this value is not provided for a new user a random anonymized value will be created.
           required: false
           style: form
           explode: true
@@ -135,7 +135,7 @@ paths:
             example: Smith
         - name: email
           in: query
-          description: The user’s email address.
+          description: An optional parametre used to set the user’s email address.
           required: false
           style: form
           explode: true

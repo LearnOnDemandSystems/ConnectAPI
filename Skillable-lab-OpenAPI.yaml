@@ -117,8 +117,8 @@ paths:
             example: '555'
         - name: firstname
           in: query
-          description: The user’s first name.
-          required: true
+          description: An optional parameter used to set the user’s first name. If this value is not provided for a new user a random anonymized value in the format 'anon-#######' will be created.
+          required: false
           style: form
           explode: true
           schema:
@@ -126,8 +126,8 @@ paths:
             example: Joe
         - name: lastname
           in: query
-          description: The user’s last name.
-          required: true
+          description: An optional parameter used to set the user’s last name. If this value is not provided for a new user a random anonymized value in the format 'anon-########' will be created.
+          required: false
           style: form
           explode: true
           schema:
@@ -135,7 +135,7 @@ paths:
             example: Smith
         - name: email
           in: query
-          description: The user’s email address.
+          description: An optional parametre used to set the user’s email address.
           required: false
           style: form
           explode: true
@@ -3153,13 +3153,15 @@ paths:
                         LastModified: "/Date(1623367490010)/"
                         SCORMLastDownloaded: 1723899599000
                         InstructionSets:
-                          - Id: Base-02
+                          - UId: 2376859
+                            Id: Base-02
                             Language: es
                             Description: Advanced Instructions - Spanish
                             LabTitle: laboratorio avanzado
                             DurationMinutes: 60
                             OrganizationId: 158
-                          - Id: Base-02  
+                          - UId: 2376860
+                            Id: Base-02  
                             Language: de  
                             Description: Advanced Instructions - German  
                             LabTitle: Fortgeschrittenes Labor  
@@ -3512,6 +3514,9 @@ components:
                   items:
                     type: object
                     properties:
+                      UId:
+                        type: string
+                        description: The internal system id of the instruction set/language combination.
                       Id:
                         type: string
                         description: The display id of the instruction set.

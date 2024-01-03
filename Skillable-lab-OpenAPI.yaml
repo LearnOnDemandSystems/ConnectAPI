@@ -2225,6 +2225,15 @@ paths:
             type: integer
             format: int64
             example: 1335978000
+        - name: instructorId
+          in: query
+          description: The unique identifier of the class instructor, as represented in your organization.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: ABC123
         - name: instructorFirstName
           in: query
           description: The first name of the class instructor.
@@ -3153,14 +3162,14 @@ paths:
                         LastModified: "/Date(1623367490010)/"
                         SCORMLastDownloaded: 1723899599000
                         InstructionSets:
-                          - UId: 2376859
+                          - UId: "2376859"
                             Id: Base-02
                             Language: es
                             Description: Advanced Instructions - Spanish
                             LabTitle: laboratorio avanzado
                             DurationMinutes: 60
                             OrganizationId: 158
-                          - UId: 2376860
+                          - UId: "2376860"
                             Id: Base-02  
                             Language: de  
                             Description: Advanced Instructions - German  

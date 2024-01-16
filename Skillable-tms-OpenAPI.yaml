@@ -4884,6 +4884,7 @@ paths:
           explode: true
           schema:
             type: string
+            example: ABC123
         - name: completionStatus
           in: query
           description: |-

@@ -9513,7 +9513,7 @@ components:
           example: 56476
         ClassExternalId:
           type: string
-          description: The unique identifier from the calling system of the class the lab instance was launched from
+          description: The unique identifier from the calling system for the class the lab instance was launched from
           nullable: true
           example: ABC123
         UserIpAddress:

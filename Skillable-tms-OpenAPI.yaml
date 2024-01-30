@@ -4866,6 +4866,25 @@ paths:
             type: integer
             format: int32
             example: 56765
+        - name: classId
+          in: query
+          description: An optional parameter used to filter for lab instances launched from a particular class
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int32
+            example: 68457
+        - name: classExternalId
+          in: query
+          description: An optional parameter used to filter for lab instances launched from a particular class. Usually a unique identifier from the calling system.
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+            example: ABC123
         - name: completionStatus
           in: query
           description: |-
@@ -9492,6 +9511,11 @@ components:
           format: int32
           nullable: true
           example: 56476
+        ClassExternalId:
+          type: string
+          description: The unique identifier from the calling system for the class the lab instance was launched from
+          nullable: true
+          example: ABC123
         UserIpAddress:
           type: string
           description: The user's ip address recorded when a new lab instance is launched

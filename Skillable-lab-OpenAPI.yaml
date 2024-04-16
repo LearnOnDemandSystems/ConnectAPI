@@ -1498,7 +1498,7 @@ paths:
                     PricePerHour: 2
                     ExpectedCloudCost: 0
                     ParticipantLabPrice: 0
-                    ExamPages: 
+                    ExamPages:
                       - Empty
                     SharedClassEnvironmentRoleId: 0
                     SharedClassEnvironmentRole: 0
@@ -1508,16 +1508,16 @@ paths:
                       - Tag1
                       - Tag2
                     InstructionSets:
-                      - Id: 'Base-01'
-                        Language: 'en'
-                        Description: 'Basic Instructions'
-                        LabTitle: 'A demo lab'
+                      - Id: Base-01
+                        Language: en
+                        Description: Basic Instructions
+                        LabTitle: A demo lab
                         DurationMinutes: 360
                         OrganizationId: 1
-                      - Id: 'Base-01'
-                        Language: 'fr'
-                        Description: 'Instructions de base'
-                        LabTitle: 'Un laboratoire de démonstration'
+                      - Id: Base-01
+                        Language: fr
+                        Description: Instructions de base
+                        LabTitle: Un laboratoire de démonstration
                         DurationMinutes: 360
                         OrganizationId: 1
                     Created: 1656366326607
@@ -2227,7 +2227,7 @@ paths:
             example: 1335978000
         - name: instructorId
           in: query
-          description: The unique identifier of the class instructor, as represented in your organization.
+          description: 'The unique identifier of the class instructor, as represented in your organization.'
           required: false
           style: form
           explode: true
@@ -2567,7 +2567,6 @@ paths:
             When specified, Skillable will attempt to launch the lab and present the selected instructions. If not specified, or the instruction Id could not be found, the default instructions, as defined on the Lab Profile, will be used instead. This is a string that cannot contain spaces.  
 
             NOTE: To be able to see how to use this parameter, add the column "<strong>API Example</strong>" in the <strong>Manage Instruction Sets</strong> feature while editing the instructions.  
-
           required: false
           style: form
           explode: true
@@ -3158,24 +3157,24 @@ paths:
                           - Tag2
                         CloudPlatformId: null
                         ContentVersion: 2
-                        Created: "/Date(1534438041470)/"
-                        LastModified: "/Date(1623367490010)/"
+                        Created: /Date(1534438041470)/
+                        LastModified: /Date(1623367490010)/
                         SCORMLastDownloaded: 1723899599000
                         InstructionSets:
-                          - UId: "2376859"
+                          - UId: '2376859'
                             Id: Base-02
                             Language: es
                             Description: Advanced Instructions - Spanish
                             LabTitle: laboratorio avanzado
                             DurationMinutes: 60
                             OrganizationId: 158
-                          - UId: "2376860"
-                            Id: Base-02  
-                            Language: de  
-                            Description: Advanced Instructions - German  
-                            LabTitle: Fortgeschrittenes Labor  
-                            DurationMinutes: 60  
-                            OrganizationId: 158  
+                          - UId: '2376860'
+                            Id: Base-02
+                            Language: de
+                            Description: Advanced Instructions - German
+                            LabTitle: Fortgeschrittenes Labor
+                            DurationMinutes: 60
+                            OrganizationId: 158
                       - Id: 2
                         Name: Demo Lab 2
                         Number: ' Module 2'
@@ -3210,8 +3209,8 @@ paths:
                           - Tag2
                         CloudPlatformId: 10
                         ContentVersion: 2
-                        Created: "/Date(1534438041470)/"
-                        LastModified: "/Date(1623367490010)"
+                        Created: /Date(1534438041470)/
+                        LastModified: /Date(1623367490010)
                         SCORMLastDownloaded: 1755781199000
                         InstructionSets:
                           - Id: Base-01
@@ -3220,12 +3219,12 @@ paths:
                             LabTitle: General Lab
                             DurationMinutes: 60
                             OrganizationId: 158
-                          - Id: Base-01  
-                            Language: fr  
-                            Description: Base Instructions - French  
-                            LabTitle: Laboratoire général  
-                            DurationMinutes: 60  
-                            OrganizationId: 158  
+                          - Id: Base-01
+                            Language: fr
+                            Description: Base Instructions - French
+                            LabTitle: Laboratoire général
+                            DurationMinutes: 60
+                            OrganizationId: 158
                     DeliveryRegions:
                       - Id: 1
                         Name: North America
@@ -3396,7 +3395,7 @@ components:
                 format: int32
               ResourceUnits:
                 type: number
-                description: This response property is obsolete, and will show the value of RAM/32.
+                description: 'This response property is obsolete, and will show the value of RAM/32.'
                 deprecated: true
               PlatformId:
                 type: integer
@@ -3518,45 +3517,45 @@ components:
                 format: int64
                 description: The date when the SCORM package was last downloaded from the lab profile (in Unix epoch time).
               InstructionSets:
-                  type: array
-                  description: Array of instruction sets for the lab profile.
-                  items:
-                    type: object
-                    properties:
-                      UId:
-                        type: string
-                        description: The internal system id of the instruction set/language combination.
-                      Id:
-                        type: string
-                        description: The display id of the instruction set.
-                      Language:
-                        type: string
-                        description: |-
-                          The lanuage code of the instruction set.
-  
-                          en = English  
-                          es = Spanish  
-                          fr = French  
-                          de = German  
-                          pt = Portuguese  
-                          ja = Japanese  
-                          zh-hans = Simplified Chinese  
-                          zh-hant = Traditional Chinese  
-                          ko = Korean 
-                      Description: 
-                        type: string
-                        description: The description of the instruction set.
-                      LabTitle:
-                        type: string
-                        description: The title of the lab to be displayed in the lab instructions.
-                      DurationMinutes:
-                        type: integer
-                        format: int32
-                        description: The duration of the lab when using the specified instruction set.
-                      OrganizationId:
-                        type: integer
-                        format: int32
-                        description: The id of the organization to which the instruction set belongs.
+                type: array
+                description: Array of instruction sets for the lab profile.
+                items:
+                  type: object
+                  properties:
+                    UId:
+                      type: string
+                      description: The internal system id of the instruction set/language combination.
+                    Id:
+                      type: string
+                      description: The display id of the instruction set.
+                    Language:
+                      type: string
+                      description: |-
+                        The lanuage code of the instruction set.
+
+                        en = English  
+                        es = Spanish  
+                        fr = French  
+                        de = German  
+                        pt = Portuguese  
+                        ja = Japanese  
+                        zh-hans = Simplified Chinese  
+                        zh-hant = Traditional Chinese  
+                        ko = Korean 
+                    Description:
+                      type: string
+                      description: The description of the instruction set.
+                    LabTitle:
+                      type: string
+                      description: The title of the lab to be displayed in the lab instructions.
+                    DurationMinutes:
+                      type: integer
+                      format: int32
+                      description: The duration of the lab when using the specified instruction set.
+                    OrganizationId:
+                      type: integer
+                      format: int32
+                      description: The id of the organization to which the instruction set belongs.
         DeliveryRegions:
           type: array
           uniqueItems: true
@@ -3796,6 +3795,12 @@ components:
           description: The name of the class the lab instance is associated with.
           type: string
           nullable: true
+        PreinstanceStartTime:
+          type: integer
+          description: 'When the lab was pre-instanced, if pre-instancing occurred (in Unix epoch time).'
+          format: int64
+          x-stoplight:
+            id: jt1a5kl9l4hdv
         Start:
           type: integer
           description: When the lab was started (in Unix epoch time).
@@ -4053,9 +4058,9 @@ components:
           description: Indicates whether the user passed the lab. Will only be set if the lab has activities which have been scored.
           nullable: true
         ExamScore:
-          type: integer
+          type: number
           description: Indicates the lab score. Will only be set if the lab has activities which have been scored.
-          format: int32
+          format: float
           nullable: true
         ExamMaxPossibleScore:
           type: integer
@@ -4384,7 +4389,7 @@ components:
           type: string
           description: |-
             The lanuage code of the instruction set.
-            
+
             en = English  
             es = Spanish  
             fr = French  
@@ -4638,7 +4643,7 @@ components:
           format: int32
         Platform:
           type: integer
-          description: This response property is obsolete, and will show the same value as PlatformId.  
+          description: 'This response property is obsolete, and will show the same value as PlatformId.'
           format: int32
           deprecated: true
         CloudPlatformId:
@@ -4679,7 +4684,7 @@ components:
           format: int32
         DevelopmentStatus:
           type: integer
-          description: This response property is obsolete, and will show the same values as DevelopmentStatusId.  
+          description: 'This response property is obsolete, and will show the same values as DevelopmentStatusId.'
           format: int32
           deprecated: true
         RequiresBrowserPlugin:
@@ -4716,7 +4721,7 @@ components:
           deprecated: true
         ResourceUnits:
           type: integer
-          description: This response property is obsolete, and will show the value of RAM/32.
+          description: 'This response property is obsolete, and will show the value of RAM/32.'
           format: int32
           deprecated: true
         Ram:
@@ -4766,7 +4771,7 @@ components:
           nullable: true
         SharedClassEnvironmentRole:
           type: integer
-          description: This response property is obsolete, and will show the same value as SharedClassEnvironmentRoleId.
+          description: 'This response property is obsolete, and will show the same value as SharedClassEnvironmentRoleId.'
           format: int32
           nullable: true
           deprecated: true
@@ -4821,7 +4826,7 @@ components:
                 description: The title of the lab as used in this instruction set.
               DurationMinutes:
                 type: integer
-                description: The duration of the lab, in minutes, when using this instruction set.
+                description: 'The duration of the lab, in minutes, when using this instruction set.'
               OrganizationId:
                 type: integer
                 description: The unique identifier of the organization to which this instruction set belongs.

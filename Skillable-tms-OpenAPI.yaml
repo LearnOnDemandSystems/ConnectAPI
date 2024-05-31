@@ -3716,6 +3716,8 @@ paths:
     get:
       tags:
         - Class Enrollment Management
+      x-stoplight:
+        id: 54b98be047195
       summary: Create a class enrollment
       description: Allows you to create a class enrollment.
       operationId: CreateClassEnrollment
@@ -5281,6 +5283,22 @@ paths:
             type: integer
             format: int32
             nullable: true
+        - name: InstructorIds
+          in: query
+          description: 'The internal user ids of all of the instructors for the class. If a PrimaryInstructorId is not provided, the first instructor in this collection will be set as primary.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: array
+            format: int32
+            nullable: true
+            example:
+              - 12345
+              - 98765
+            items:
+              type: integer
+              format: int32
         - name: PrimaryClassroomId
           in: query
           description: The internal id of the classroom that this class will take place in
@@ -5582,6 +5600,22 @@ paths:
             type: integer
             format: int32
             nullable: true
+        - name: InstructorIds
+          in: query
+          description: 'The internal user ids of all of the instructors for the class. If a PrimaryInstructorId is not provided, the first instructor in this collection will be set as primary.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: array
+            nullable: true
+            example:
+              - 12345
+              - 98765
+            items:
+              type: integer
+              format: int32
+            format: int32
         - name: PrimaryClassroomId
           in: query
           description: The internal id of the classroom that this class will take place in
@@ -5845,6 +5879,26 @@ paths:
             type: integer
             format: int64
             example: 1449874800
+        - name: lastModifiedAfter
+          in: query
+          description: 'An optional parameter used to filter for classes that were modified after a specified date. When used in conjunction with the "lastModifiedBefore" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1338766912
+        - name: lastModifiedBefore
+          in: query
+          description: 'An optional parameter used to filter for classes that were modified before a specified date. When used in conjunction with the "lastModifiedAfter" parameter, it becomes possible to filter for a given time range. This should be provided in unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+            format: int64
+            example: 1338763705
         - name: hasLabs
           in: query
           description: 'An optional parameter used to filter for classes that have available labs. If true is passed, only classes with labs are returned. If false is passed, only classes without labs are returned.'
@@ -8635,8 +8689,8 @@ components:
         ExternalId:
           type: string
           description: 'The course assignment''s external ID, usually a unique identifier from the calling system.'
-          nullable: true
           example: FC8D0166-B2F3-4705-8187-5D72BA81F511
+          nullable: true
         Name:
           type: string
           description: The name of the course.
@@ -8645,7 +8699,6 @@ components:
           type: string
           description: The activity's description
           nullable: true
-          example: ''
         OrganizationId:
           type: integer
           description: The ID of the organization the course belongs to.
@@ -8659,8 +8712,8 @@ components:
           type: integer
           description: The ID of the course content provider.
           format: int32
-          nullable: true
           example: 9876
+          nullable: true
         AvailableInstructorLed:
           type: boolean
           description: Indicates whether the course is available instructor-led.
@@ -8684,6 +8737,14 @@ components:
           description: 'When the course was last modified. Provided in Unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
           format: int64
           example: 1584035105
+        AutoArchiveDate:
+          type: integer
+          description: 'When the course is scheduled to be archived. Provided in Unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'
+          format: int64
+          example: 1453024103
+          x-stoplight:
+            id: s3kpp8k6yiej3
+          nullable: true
     Course:
       type: object
       properties:
@@ -10726,6 +10787,15 @@ components:
           type: string
           description: The class's primary instructor last name
           nullable: true
+        InstructorIds:
+          type: array
+          description: 'The internal user ids for all of the instructors assigned to the class, including the primary.'
+          example:
+            - 12345
+            - 98765
+          items:
+            type: integer
+            format: int32
         EnableClassTrainingKey:
           type: boolean
           description: Distinguishes if the class allows registration via a class training key
@@ -11454,7 +11524,7 @@ components:
           type: string
           description: The Zip code for a Company
           nullable: true
-          example: "123456"
+          example: '123456'
         Country:
           type: string
           description: 'The Country for a Company (recommended use standard 2-character abbreviation, limit 80 characters)'
@@ -11469,22 +11539,22 @@ components:
           type: string
           description: The Phone number for a Company
           nullable: true
-          example: "123-456-7890"
+          example: 123-456-7890
         Phone2:
           type: string
           description: The alternate Phone number for a Company
           nullable: true
-          example: "555-654-9870"
+          example: 555-654-9870
         Fax:
           type: string
           description: The Fax number for a Company
           nullable: true
-          example: "555-555-5555"
+          example: 555-555-5555
         WebSiteUrl:
           type: string
           description: The Web Site Url for a Company
           nullable: true
-          example: "https://sampleurl.com"
+          example: 'https://sampleurl.com'
         Created:
           type: integer
           description: 'When the Company was created. Provided in Unix epoch format, which is the number of seconds that have elapsed since midnight UTC January 1st, 1970.'

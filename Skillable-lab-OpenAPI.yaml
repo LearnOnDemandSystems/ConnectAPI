@@ -771,6 +771,86 @@ paths:
                     Error: Timeframe cannot exceed 7 days
                     Status: 0
       deprecated: false
+  /labinstance/search:
+    get:
+      summary: Retrieve multiple lab instance details or results
+      tags:
+        - Lab Instance Management
+      responses:
+        '200':
+          description: OK Response.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ResultResponse'
+                  - $ref: '#/components/schemas/DetailsResponse'
+      operationId: LabInstanceSearch
+      x-stoplight:
+        id: 1i3hzl72od78k
+      description: "The lab instance **Search** command returns paginated information about either lab instance details or lab instance results for all lab instances that meet selected criteria. \r\nThe response body will contain a collection of instance results in one of two formats, depending on the mode specified:\r\n\r\n- Mode = 0, standard: a collection of responses in the format of the **[Result](https://docs.skillable.com/apidocs/retrieve-information-about-a-lab-instance-result-1)** command\r\n\r\n- Mode = 10, verbose (default) a collection of responses in the format of the **[Details](https://docs.skillable.com/apidocs/retrieve-details-about-a-lab-instance)** command \r\n\r\n"
+      parameters:
+        - schema:
+            type: integer
+            format: int64
+            example: 1717516139
+          in: query
+          name: start
+          description: The earliest start time of lab instances to return (in Unix epoch time).
+        - schema:
+            type: integer
+            format: int64
+            example: 1712245739
+          in: query
+          name: end
+          description: The latest end time of lab instances to return  (in Unix epoch time).
+        - schema:
+            type: string
+          in: query
+          name: userId
+          description: 'The user id of the external system. Must be an exact match. '
+        - schema:
+            type: integer
+            format: int32
+            example: 54321
+          in: query
+          name: labSeriesId
+          description: The unique numeric identifier of the series the lab profile belongs to.
+        - schema:
+            type: integer
+            format: int32
+            example: 12345
+          in: query
+          name: labProfileId
+          description: The unique numeric identifier of the lab profile.
+        - schema:
+            type: integer
+            default: 0
+            format: int32
+          in: query
+          name: pageIndex
+          description: The index of the paged result to return.
+        - schema:
+            type: integer
+            default: 100
+            format: int32
+          in: query
+          name: pageSize
+          description: The size of the paged result to return.
+        - schema:
+            type: string
+            default: start desc
+          in: query
+          name: sort
+          description: 'The desired sort order of the results. Options include: start (default), start desc, end, end desc, userid, userid desc, labseriesid, labseriesid desc, labprofileid, labprofileid desc.'
+        - schema:
+            type: integer
+            default: 10
+            format: int32
+          in: query
+          name: mode
+          description: 'Which response schema to return. 0 - standard, returns response body of /Result, 10 - verbose, returns response body of /details.'
+    parameters: []
   /save:
     get:
       tags:
@@ -849,7 +929,7 @@ paths:
       description: |-
         The **ScoreActivities** command causes all scored activities in a particular lab instance to undergo scoring. Please note that this is API command is only necessary in specialized situations. In most cases, scoring is triggered by the student in the lab client and this command is not needed. However, if your students do not use our lab client, ScoreActivities provides a mechanism to trigger scoring.
 
-        This command does not return scoring results. To obtain scoring  results, use the **[Details](https://connect.skillable.com/lab/operation/Details/)** command.
+        This command does not return scoring results. To obtain scoring  results, use the **[Details](https://docs.skillable.com/apidocs/retrieve-details-about-a-lab-instance)** command.
       operationId: ScoreActivities
       parameters:
         - name: labinstanceid

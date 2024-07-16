@@ -782,9 +782,27 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/ResultResponse'
-                  - $ref: '#/components/schemas/DetailsResponse'
+                type: object
+                properties:
+                  TotalResults:
+                    type: integer
+                    x-stoplight:
+                      id: h5s48n18h1ca4
+                    example: 878
+                    description: The total number of results found.
+                  TotalPages:
+                    type: integer
+                    x-stoplight:
+                      id: vpzujejh05rgu
+                    example: 9
+                    description: The total number of pages containing results.
+                  Results:
+                    x-stoplight:
+                      id: xo2qmubw7w1un
+                    oneOf:
+                      - $ref: '#/components/schemas/ResultResponse'
+                      - $ref: '#/components/schemas/DetailsResponse'
+                    description: 'Response format depends on mode specified. 0 for standard /Result, 10 for verbose). '
       operationId: LabInstanceSearch
       x-stoplight:
         id: 1i3hzl72od78k
@@ -3190,7 +3208,7 @@ paths:
                         Description: A demo lab series.
                         NumTrainingDays: 5
                         AllowAssignments: true
-                        AllowAssignmentsUntil: 1723899599000
+                        AllowAssignmentsUntil: /Date(1534438041470)/
                         Created: 1689505754000
                         LastModified: 1692886226000
                       - Id: 2
@@ -3241,14 +3259,14 @@ paths:
                         LastModified: /Date(1623367490010)/
                         SCORMLastDownloaded: 1723899599000
                         InstructionSets:
-                          - UId: '2376859'
+                          - UId: 2376859
                             Id: Base-02
                             Language: es
                             Description: Advanced Instructions - Spanish
                             LabTitle: laboratorio avanzado
                             DurationMinutes: 60
                             OrganizationId: 158
-                          - UId: '2376860'
+                          - UId: 2376860
                             Id: Base-02
                             Language: de
                             Description: Advanced Instructions - German
@@ -3378,7 +3396,6 @@ components:
       description: ''
       x-examples: {}
     CatalogResponse:
-      description: ''
       type: object
       x-examples: {}
       properties:
@@ -3408,8 +3425,7 @@ components:
                 type: boolean
                 description: Indicates that the Lab Series can be assigned.
               AllowAssignmentsUntil:
-                type: integer
-                format: int64
+                type: string
                 description: The date (in Unix epoch time) after which assignments are no longer valid. A null value indicates that assignments do not expire.
                 nullable: true
               Created:
@@ -3565,10 +3581,10 @@ components:
               ExamPages:
                 type: array
                 description: This response property is obsolete and is not Populated.
+                deprecated: true
+                nullable: true
                 items:
                   type: string
-                nullable: true
-                deprecated: true
               Tags:
                 type: array
                 description: A list of tags associated with the lab profile.
@@ -3603,7 +3619,7 @@ components:
                   type: object
                   properties:
                     UId:
-                      type: string
+                      type: integer
                       description: The internal system id of the instruction set/language combination.
                     Id:
                       type: string

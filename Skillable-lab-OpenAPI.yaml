@@ -135,7 +135,7 @@ paths:
             example: Smith
         - name: email
           in: query
-          description: An optional parametre used to set the user’s email address.
+          description: An optional parameter used to set the user’s email address.
           required: false
           style: form
           explode: true
@@ -3883,6 +3883,12 @@ components:
         UserLastName:
           type: string
           description: The user's last name.
+        UserEmail:
+          description: The user's email address.
+          type: string
+          x-stoplight:
+            id: qov42uvxpcdqz
+          nullable: true
         ClassId:
           description: The ID you use to identify the associated class in your external system.
           type: string
@@ -4507,6 +4513,7 @@ components:
             0 = Error  
             1 = Success  
           format: int32
+      description: ''
     GetEvaluationResponsesResponse:
       type: object
       x-examples: {}

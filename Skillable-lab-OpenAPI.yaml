@@ -276,6 +276,16 @@ paths:
           schema:
             type: string
             example: Base-01
+        - schema:
+            type: integer
+          in: query
+          name: durationMinutes
+          description: 'An optional parameter used to adjust the lab timer duration, requires "Allow Lab Duration Customizations" setting to be enabled for the API Consumer. Value can be between a minimum of 15 minutes and a maximum of 1.5 the lab profile configured time.  The absolute max is 20160 minutes (approximately 14 days).'
+        - schema:
+            type: integer
+          in: query
+          name: lastActivityTimeoutMinutes
+          description: An optional parameter used to adjust the last activity timeout of the launched lab, requires "Allow Lab Duration Customizations" setting to be enabled for the API Consumer. Value can be between a minimum of 1 minute and absolute max is 20160 minutes (approximately 14 days).
       responses:
         '200':
           description: OK Response.

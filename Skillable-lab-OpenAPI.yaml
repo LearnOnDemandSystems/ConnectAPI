@@ -285,7 +285,7 @@ paths:
             type: integer
           in: query
           name: lastActivityTimeoutMinutes
-          description: An optional parameter used to adjust the last activity timeout of the launched lab, requires "Allow Lab Duration Customizations" setting to be enabled for the API Consumer. Value can be between a minimum of 1 minute and absolute max is 20160 minutes (approximately 14 days).
+          description: 'An optional parameter used to adjust the last activity timeout of the launched lab, requires "Allow Lab Duration Customizations" setting to be enabled for the API Consumer. Value can be between a minimum of 1 minute and absolute max is 20160 minutes (approximately 14 days).'
       responses:
         '200':
           description: OK Response.
@@ -3662,6 +3662,39 @@ components:
                       type: integer
                       format: int32
                       description: The id of the organization to which the instruction set belongs.
+              Skills:
+                type: array
+                description: A list of the skills assigned to the lab profile and their basic details.
+                items:
+                  type: object
+                  x-stoplight:
+                    id: fm124ryyegxxe
+                  properties:
+                    Id:
+                      type: integer
+                      description: The unique identifier of the skill.
+                      x-stoplight:
+                        id: f84t9srl00ywk
+                    ExternalId:
+                      type: string
+                      description: The optional external unique identifier of the skill.
+                      x-stoplight:
+                        id: q9tm7qhkjungj
+                    Name:
+                      type: string
+                      description: The name of the skill.
+                      x-stoplight:
+                        id: 8nwiatb3xgk7b
+                    FrameworkId:
+                      type: string
+                      description: The unique identifier of the framework of the skill.
+                      x-stoplight:
+                        id: 8ddop9v39rw9n
+                    FrameworkName:
+                      type: string
+                      description: The name of the framework of the skill.
+                      x-stoplight:
+                        id: ssltuu0onknyk
         DeliveryRegions:
           type: array
           uniqueItems: true
@@ -4886,8 +4919,8 @@ components:
           type: integer
           description: 'This response property is obsolete, and will show the same value as SharedClassEnvironmentRoleId.'
           format: int32
-          nullable: true
           deprecated: true
+          nullable: true
         SharedClassEnvironmentLabProfileId:
           type: integer
           description: The id of the lab profile that will be used in the shared class environment.
@@ -4899,9 +4932,9 @@ components:
         ExamPages:
           type: array
           description: This response property is obsolete and is not Populated.
+          deprecated: true
           items:
             type: string
-          deprecated: true
         Tags:
           type: array
           description: A list of tags associated with the lab profile.
@@ -4955,6 +4988,40 @@ components:
           type: integer
           format: int64
           description: The date when the SCORM package was last downloaded for the lab profile (in Unix epoch time).
+        Skills:
+          type: array
+          description: A list of the skills assigned to the lab profile and their basic details.
+          items:
+            type: object
+            x-stoplight:
+              id: 0xdoqzxrf3l4q
+            properties:
+              Id:
+                type: integer
+                description: The unique identifier of the skill.
+                nullable: false
+                format: int32
+              ExternalId:
+                type: string
+                description: The optional external unique identifier of the skill.
+                x-stoplight:
+                  id: 1p51mvcaxobhb
+                nullable: true
+              Name:
+                type: string
+                description: The name of the skill.
+                x-stoplight:
+                  id: s9j7rh2zwuc1l
+              FrameworkId:
+                type: string
+                description: The unique identifier of the framework for this skill.
+                x-stoplight:
+                  id: q8chtpypezthy
+              FrameworkName:
+                type: string
+                description: The name of the framework for this skill.
+                x-stoplight:
+                  id: hcbixaiixlte1
     LatestResultsResponse:
       type: object
       x-examples: {}

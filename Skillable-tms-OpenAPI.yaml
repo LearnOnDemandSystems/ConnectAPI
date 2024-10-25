@@ -5922,7 +5922,7 @@ paths:
           description: An optional parameter used to filter for classes based on custom field values.
           required: false
           style: form
-          explode: true
+          explode: false
           schema:
             type: array
             items:

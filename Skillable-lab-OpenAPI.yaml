@@ -3448,6 +3448,12 @@ components:
                 format: int64
                 description: The date (in Unix epoch time) that the Lab Series was modified.
                 nullable: true
+              Price:
+                type: number
+                description: The price of the Lab Series.
+                x-stoplight:
+                  id: h4s3fnjypgpmq
+                format: float
         LabProfiles:
           type: array
           uniqueItems: true

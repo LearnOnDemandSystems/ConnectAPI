@@ -1634,12 +1634,19 @@ paths:
       deprecated: false
       tags:
         - Lab Profile Management
-  '/LabSeries/{id}':
+  /LabSeries:
     get:
       summary: Retrieves information about a specified lab series
       description: The **LabSeries** command will return information about a specific Lab Series.
       operationId: LabSeries
-      parameters: []
+      parameters:
+        - schema:
+            type: integer
+            example: 123
+          in: query
+          name: labSeriesId
+          description: The unique identifier of the Lab Series.
+          required: true
       responses:
         '200':
           description: OK Response.
@@ -1652,13 +1659,7 @@ paths:
         - Lab Profile Management
       x-stoplight:
         id: zn49rzfv0bjqw
-    parameters:
-      - schema:
-          type: integer
-        name: id
-        in: path
-        required: true
-        description: The unique identifier of the lab series.
+    parameters: []
   /GetLabInstructions:
     get:
       summary: Returns instructions for a specific lab

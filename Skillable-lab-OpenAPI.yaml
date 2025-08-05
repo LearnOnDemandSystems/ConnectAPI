@@ -1634,6 +1634,32 @@ paths:
       deprecated: false
       tags:
         - Lab Profile Management
+  /LabSeries:
+    get:
+      summary: Retrieves information about a specified lab series
+      description: The **LabSeries** command will return information about a specific Lab Series.
+      operationId: LabSeries
+      parameters:
+        - schema:
+            type: integer
+            example: 123
+          in: query
+          name: labSeriesId
+          description: The unique identifier of the Lab Series.
+          required: true
+      responses:
+        '200':
+          description: OK Response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LabSeriesResponse'
+      deprecated: false
+      tags:
+        - Lab Profile Management
+      x-stoplight:
+        id: zn49rzfv0bjqw
+    parameters: []
   /GetLabInstructions:
     get:
       summary: Returns instructions for a specific lab
@@ -3419,15 +3445,15 @@ components:
             properties:
               Id:
                 type: integer
-                description: The unique identifier of the lab series.
+                description: The unique identifier of the Lab Series.
               Name:
                 type: string
                 minLength: 1
-                description: The name of the lab series.
+                description: The name of the Lab Series.
               Description:
                 type: string
                 minLength: 1
-                description: A brief description of the lab series.
+                description: A brief description of the Lab Series.
               NumTrainingDays:
                 type: integer
                 description: The number of training days expected to complete the series.
@@ -3724,7 +3750,7 @@ components:
                 description: A brief description of the delivery region.
                 nullable: true
         Status:
-          type: number
+          type: integer
           description: |-
             Indicates the status of the API request.  
             0 = Error  
@@ -5128,6 +5154,67 @@ components:
                 description: The name of the framework for this skill.
                 x-stoplight:
                   id: hcbixaiixlte1
+    LabSeriesResponse:
+      type: object
+      x-stoplight:
+        id: zw3qzoamg1g08
+      x-examples: {}
+      properties:
+        Id:
+          type: integer
+          description: The unique identifier of the Lab Series.
+        Name:
+          type: string
+          description: The name of the Lab Series.
+        Description:
+          type: string
+          description: A brief description of the Lab Series.
+          nullable: true
+        NumTrainingDays:
+          type: integer
+          x-stoplight:
+            id: 41vjys6uoo21l
+          description: The number of training days expected to complete the series.
+        AllowAssignments:
+          type: boolean
+          x-stoplight:
+            id: r17v6tv6vk87f
+          description: Indicates that the Lab Series can be assigned.
+        AllowAssignmentsUntil:
+          type: integer
+          x-stoplight:
+            id: cdo5kdrbks406
+          description: The date (in Unix epoch time) after which assignments are no longer valid. A null value indicates that assignments do not expire.
+          format: int64
+          example: 1739482468
+          nullable: true
+        Price:
+          type: number
+          x-stoplight:
+            id: 3me9yn207nqx7
+          format: float
+          description: The price of the Lab Series.
+          example: 15.45
+        Created:
+          type: integer
+          format: int64
+          description: The date when the Lab Series was created (in Unix epoch time).
+          example: 1739482453
+        LastModified:
+          type: integer
+          format: int64
+          description: The date when the Lab Series was last modified (in Unix epoch time).
+          example: 1739482468
+        Status:
+          type: integer
+          description: |-
+            Indicates the status of the API request.  
+            0 = Error  
+            1 = Success
+        Error:
+          type: string
+          description: 'In the event of an error, this will contain a detailed error message.'
+          nullable: true
     LatestResultsResponse:
       type: object
       x-examples: {}

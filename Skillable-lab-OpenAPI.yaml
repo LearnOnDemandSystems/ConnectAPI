@@ -1656,7 +1656,7 @@ paths:
                 $ref: '#/components/schemas/LabSeriesResponse'
       deprecated: false
       tags:
-        - Lab Profile Management
+        - Lab Series Management
       x-stoplight:
         id: zn49rzfv0bjqw
     parameters: []

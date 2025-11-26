@@ -1,0 +1,9 @@
+title: ConciseResponse
+x-stoplight:
+  id: yzh5pzo0ixcl3
+type: object
+properties:
+  id:
+    type: string
+    x-stoplight:
+      id: 7u5srqftijgdc

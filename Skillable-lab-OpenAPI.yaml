@@ -323,6 +323,12 @@ paths:
             type: integer
             format: int64
             example: 12345678
+        - schema:
+            type: string
+            example: Canceled since the lab instance no longer being used.
+          in: query
+          name: note
+          description: Note that details any additional context for why the lab was canceled.
       responses:
         '200':
           description: OK Response
@@ -812,6 +818,7 @@ paths:
                     oneOf:
                       - $ref: '#/components/schemas/ResultResponse'
                       - $ref: '#/components/schemas/DetailsResponse'
+                      - $ref: '#/components/schemas/ConciseResponse'
                     description: 'Response format depends on mode specified. 0 for standard /Result, 10 for verbose). '
       operationId: LabInstanceSearch
       x-stoplight:
@@ -877,7 +884,7 @@ paths:
             format: int32
           in: query
           name: mode
-          description: 'Which response schema to return. 0 - standard, returns response body of /Result, 10 - verbose, returns response body of /details.'
+          description: 'Which response schema to return. 0 - standard, returns response body of /result, 5 - concise, returns response body containing portions of the /details and /result, 10 - verbose, returns response body of /details.'
     parameters: []
   /save:
     get:
@@ -3504,6 +3511,28 @@ components:
                 minLength: 1
                 description: A brief description of the lab profile.
                 nullable: true
+              Products:
+                type: array
+                x-stoplight:
+                  id: 2gbqpg4z44g0z
+                description: A list of the products assigned to the lab profile and their basic details.
+                items:
+                  x-stoplight:
+                    id: a5i6by6cvl446
+                  type: object
+                  properties:
+                    Id:
+                      type: integer
+                      x-stoplight:
+                        id: 1xt0a4k0o7dtp
+                      example: 48
+                      description: The unique identifier of the product.
+                    Name:
+                      type: string
+                      x-stoplight:
+                        id: ppzdpy4yt4ki4
+                      example: Database
+                      description: The name of the product.
               SeriesId:
                 type: integer
                 description: The unique identifier of the series the lab profile belongs to.
@@ -3941,18 +3970,40 @@ components:
         LabProfileName:
           type: string
           description: The name of the lab profile.
+        Products:
+          type: array
+          x-stoplight:
+            id: bkm5i1qkr60ur
+          description: The list of products assigned to the lab profile and their basic details.
+          items:
+            x-stoplight:
+              id: 2wr8bhppl828i
+            type: object
+            properties:
+              Id:
+                type: integer
+                x-stoplight:
+                  id: wcpq8gzucpwhf
+                example: 48
+                description: The unique identifier of the product.
+              Name:
+                type: string
+                x-stoplight:
+                  id: s7hh1lv151xf5
+                example: Database
+                description: The name of the product.
         SeriesId:
           type: integer
           description: The ID of the lab series.
           format: int32
           nullable: true
+        UserId:
+          type: string
+          description: The ID you use to identify the user in your external system.
         SeriesName:
           type: string
           description: The name of the lab series.
           nullable: true
-        UserId:
-          type: string
-          description: The ID you use to identify the user in your external system.
         UserFirstName:
           type: string
           description: The user's first name.
@@ -4905,10 +4956,6 @@ components:
         Name:
           type: string
           description: The name of the lab profile.
-        Number:
-          type: string
-          description: 'The lab number (usually to identify a lab within a series, e.g. Module 1, Module 2, etc.).'
-          nullable: true
         PlatformId:
           type: integer
           description: |-
@@ -4920,6 +4967,36 @@ components:
             11 = AWS  
             20 = Docker
           format: int32
+        Number:
+          type: string
+          description: 'The lab number (usually to identify a lab within a series, e.g. Module 1, Module 2, etc.).'
+          nullable: true
+        Description:
+          type: string
+          description: A brief description of the lab profile.
+          nullable: true
+        Products:
+          type: array
+          x-stoplight:
+            id: gniy5vzhfligg
+          description: A list of the products assigned to the lab profile and their basic details.
+          items:
+            x-stoplight:
+              id: acr20yzhk602v
+            type: object
+            properties:
+              Id:
+                type: integer
+                x-stoplight:
+                  id: ke7wi02eu7kh2
+                example: 48
+                description: The unique identifier of the product.
+              Name:
+                type: string
+                x-stoplight:
+                  id: mvmefyucaz00w
+                example: Database
+                description: The name of the product.
         Platform:
           type: integer
           description: 'This response property is obsolete, and will show the same value as PlatformId.'
@@ -4977,10 +5054,6 @@ components:
           description: Indicates the number of public ip addresses used in this lab profile.
           format: int32
           nullable: false
-        Description:
-          type: string
-          description: A brief description of the lab profile.
-          nullable: true
         Objective:
           type: string
           description: Text describing the objective of the lab.
@@ -6086,3 +6159,2324 @@ components:
           type: string
           description: 'In the event of an error, this will contain a detailed error message.'
           nullable: true
+    ConciseResponse:
+      type: object
+      x-examples:
+        Example 1:
+          Results:
+            - Id: 373840
+              LabProfileId: 5261
+              LabProfileName: 'MattD-4749: Matt D Testing Lab 1'
+              Products:
+                - Id: 39
+                  Name: Azure
+                - Id: 48
+                  Name: CyberSec
+                - Id: 11
+                  Name: GitHub
+                - Id: 8
+                  Name: James Demo Product (Non-Global)
+              SeriesId: 226
+              SeriesName: Matt D Lab Series
+              UserId: '197718565'
+              UserFirstName: Matt
+              UserLastName: Dalzell-Student
+              UserEmail: mattdalzell student@email.com
+              ClassId: null
+              ClassName: null
+              Start: 1764026137
+              StartTime: /Date(1764026137000)/
+              Expires: 1764028117
+              ExpiresTime: /Date(1764028117000)/
+              End: 1764027084
+              EndTime: /Date(1764027084000)/
+              LastActivity: null
+              LastActivityTime: null
+              LastSave: null
+              LastSaveTime: null
+              SaveExpires: null
+              SaveExpiresTime: null
+              State: 'Off'
+              CompletionStatus: Complete
+              PoolMemberName: null
+              LabHostId: 13
+              LabHostName: ASH-UAT-HV01
+              DatacenterId: 70
+              DatacenterName: ASH-UAT
+              DeliveryRegionId: 1
+              DeliveryRegionName: US
+              PlatformId: 2
+              LastSaveTriggerType: null
+              TimeInSession: 947
+              TotalRunTime: 947
+              TimeRemaining: 0
+              InstructorName: ''
+              StartupDuration: 181
+              Errors:
+                - Message: 'Configuration error encountered when executing life cycle action 3466 script. Error: unable to find machine to score against.'
+                  Time: 1764026329
+                  TimeValue: /Date(1764026329000)/
+                - Message: |-
+                    Error calling API Consumer webhook Scoring "Scoring" at URL https://webhook.site/3ede8f60-23a8-4ea1-a8cf-4f04aa5da891. Response status code: NotFound. 
+
+                     {&quot;success&quot;:false,&quot;error&quot;:{&quot;message&quot;:&quot;Token \&quot;3ede8f60-23a8-4ea1-a8cf-4f04aa5da891\&quot; not found&quot;,&quot;id&quot;:&quot;&quot;}}
+                  Time: 1764027064
+                  TimeValue: /Date(1764027064000)/
+                - Message: |-
+                    Error calling API Consumer webhook Scored "Scored" at URL https://webhook.site/3ede8f60-23a8-4ea1-a8cf-4f04aa5da891. Response status code: NotFound. 
+
+                     {&quot;success&quot;:false,&quot;error&quot;:{&quot;message&quot;:&quot;Token \&quot;3ede8f60-23a8-4ea1-a8cf-4f04aa5da891\&quot; not found&quot;,&quot;id&quot;:&quot;&quot;}}
+                  Time: 1764027085
+                  TimeValue: /Date(1764027085000)/
+              Snapshots: []
+              Sessions:
+                - Start: 1764026137
+                  StartTime: /Date(1764026137000)/
+                  End: 1764027084
+                  EndTime: /Date(1764027084000)/
+              Notes:
+                - Time: 1764027064
+                  TimeValue: /Date(1764027064000)/
+                  Title: Exam Ended
+                  Text: Exam submitted for scoring by background event service due to student inactivity and conditions for automatic save not being met (automatic saves are not enabled for this lab profile).
+              HasContent: true
+              Task: null
+              Exercise: null
+              NumTasks: 0
+              NumCompletedTasks: 0
+              TaskCompletePercent: 100
+              MonitorUrl: null
+              DetailsUrl: 'https://uat.labondemand.com/LabInstance/373840'
+              RemoteController: HTML5
+              Tag: null
+              BrowserUserAgent: null
+              LastLatency: null
+              ExamPassed: false
+              ExamScore: 0
+              ExamMaxPossibleScore: 20
+              ExamPassingScore: 1
+              ExamScoredById: null
+              ExamScoredByName: null
+              ExamDetails: null
+              ExamScoredDate: 1764027084
+              ExamScoredTime: /Date(1764027084000)/
+              IsExam: false
+              IpAddress: null
+              Country: null
+              Region: null
+              City: null
+              Latitude: null
+              Longitude: null
+              PublicIpAddresses: []
+              CloudCredentials: []
+              CloudPortalCredentials: []
+              VirtualMachineCredentials:
+                - Id: 907
+                  Name: Windows 10 2004 - Matt D Test 2004
+                  Username: Student
+                  Password: Pa$$w0rd
+                - Id: 915
+                  Name: Windows 10 2004 - Matt D Webhook Testing
+                  Username: Student
+                  Password: Pa$$w0rd
+              CloudPlatformId: null
+              ClientUrl: null
+              EstimatedReadySeconds: null
+              InstructionsSetId: Base-01
+              Language: en
+              PreinstanceStartTime: null
+              Skills:
+                - Id: 3017
+                  ExternalId: '3007'
+                  Name: Ability to analyze malware.
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3261
+                  ExternalId: '3080'
+                  Name: 'Ability to use and understand complex mathematical concepts (e.g., discrete math).'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3365
+                  ExternalId: '3001'
+                  Name: 'Ability to accurately and completely source all data used in intelligence, assessment and/or planning products.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3881
+                  ExternalId: '4170'
+                  Name: Ability to accurately document results
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+              ExamScaledScore: null
+              ExamPassingRawScore: null
+              ExamMaxPossibleRawScore: null
+              ExamMinScaledScore: null
+              ExamMaxScaledScore: null
+              ExamCutoffScaledScore: null
+            - Id: 372231
+              LabProfileId: 5261
+              LabProfileName: 'MattD-4749: Matt D Testing Lab 1'
+              Products:
+                - Id: 39
+                  Name: Azure
+                - Id: 48
+                  Name: CyberSec
+                - Id: 11
+                  Name: GitHub
+                - Id: 8
+                  Name: James Demo Product (Non-Global)
+              SeriesId: 226
+              SeriesName: Matt D Lab Series
+              UserId: '197718565'
+              UserFirstName: Matt
+              UserLastName: Dalzell-Student
+              UserEmail: mattdalzell student@email.com
+              ClassId: null
+              ClassName: null
+              Start: 1761333182
+              StartTime: /Date(1761333182000)/
+              Expires: 1761335020
+              ExpiresTime: /Date(1761335020000)/
+              End: 1761335051
+              EndTime: /Date(1761335051000)/
+              LastActivity: 1761333228
+              LastActivityTime: /Date(1761333228000)/
+              LastSave: null
+              LastSaveTime: null
+              SaveExpires: null
+              SaveExpiresTime: null
+              State: 'Off'
+              CompletionStatus: Complete
+              PoolMemberName: null
+              LabHostId: 13
+              LabHostName: ASH-UAT-HV01
+              DatacenterId: 70
+              DatacenterName: ASH-UAT
+              DeliveryRegionId: 1
+              DeliveryRegionName: US
+              PlatformId: 2
+              LastSaveTriggerType: null
+              TimeInSession: 1869
+              TotalRunTime: 1869
+              TimeRemaining: 0
+              InstructorName: ''
+              StartupDuration: 39
+              Errors:
+                - Message: 'Configuration error encountered when executing life cycle action 3466 script. Error: unable to find machine to score against.'
+                  Time: 1761333220
+                  TimeValue: /Date(1761333220000)/
+                - Message: |-
+                    Error calling API Consumer webhook Scoring "Scoring" at URL https://webhook.site/3ede8f60-23a8-4ea1-a8cf-4f04aa5da891. Response status code: NotFound. 
+
+                     {&quot;success&quot;:false,&quot;error&quot;:{&quot;message&quot;:&quot;Token \&quot;3ede8f60-23a8-4ea1-a8cf-4f04aa5da891\&quot; not found&quot;,&quot;id&quot;:&quot;&quot;}}
+                  Time: 1761335032
+                  TimeValue: /Date(1761335032000)/
+                - Message: |-
+                    Error calling API Consumer webhook Scored "Scored" at URL https://webhook.site/3ede8f60-23a8-4ea1-a8cf-4f04aa5da891. Response status code: NotFound. 
+
+                     {&quot;success&quot;:false,&quot;error&quot;:{&quot;message&quot;:&quot;Token \&quot;3ede8f60-23a8-4ea1-a8cf-4f04aa5da891\&quot; not found&quot;,&quot;id&quot;:&quot;&quot;}}
+                  Time: 1761335052
+                  TimeValue: /Date(1761335052000)/
+              Snapshots: []
+              Sessions:
+                - Start: 1761333182
+                  StartTime: /Date(1761333182000)/
+                  End: 1761335051
+                  EndTime: /Date(1761335051000)/
+              Notes:
+                - Time: 1761335052
+                  TimeValue: /Date(1761335052000)/
+                  Title: Submitted For Grading
+                  Text: Submitted for scoring from the lab client by the student.
+              HasContent: true
+              Task: null
+              Exercise: null
+              NumTasks: 0
+              NumCompletedTasks: 0
+              TaskCompletePercent: 100
+              MonitorUrl: null
+              DetailsUrl: 'https://uat.labondemand.com/LabInstance/372231'
+              RemoteController: HTML5
+              Tag: null
+              BrowserUserAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:144.0) Gecko/20100101 Firefox/144.0'
+              LastLatency: 57
+              ExamPassed: false
+              ExamScore: 0
+              ExamMaxPossibleScore: 20
+              ExamPassingScore: 1
+              ExamScoredById: null
+              ExamScoredByName: null
+              ExamDetails: null
+              ExamScoredDate: 1761335051
+              ExamScoredTime: /Date(1761335051000)/
+              IsExam: false
+              IpAddress: null
+              Country: null
+              Region: null
+              City: null
+              Latitude: null
+              Longitude: null
+              PublicIpAddresses: []
+              CloudCredentials: []
+              CloudPortalCredentials: []
+              VirtualMachineCredentials:
+                - Id: 907
+                  Name: Windows 10 2004 - Matt D Test 2004
+                  Username: Student
+                  Password: Pa$$w0rd
+                - Id: 915
+                  Name: Windows 10 2004 - Matt D Webhook Testing
+                  Username: Student
+                  Password: Pa$$w0rd
+              CloudPlatformId: null
+              ClientUrl: null
+              EstimatedReadySeconds: null
+              InstructionsSetId: Base-01
+              Language: en
+              PreinstanceStartTime: null
+              Skills:
+                - Id: 3017
+                  ExternalId: '3007'
+                  Name: Ability to analyze malware.
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3261
+                  ExternalId: '3080'
+                  Name: 'Ability to use and understand complex mathematical concepts (e.g., discrete math).'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3365
+                  ExternalId: '3001'
+                  Name: 'Ability to accurately and completely source all data used in intelligence, assessment and/or planning products.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3881
+                  ExternalId: '4170'
+                  Name: Ability to accurately document results
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+              ExamScaledScore: null
+              ExamPassingRawScore: null
+              ExamMaxPossibleRawScore: null
+              ExamMinScaledScore: null
+              ExamMaxScaledScore: null
+              ExamCutoffScaledScore: null
+            - Id: 369864
+              LabProfileId: 5261
+              LabProfileName: 'MattD-4749: Matt D Testing Lab 1'
+              Products: []
+              SeriesId: 226
+              SeriesName: Matt D Lab Series
+              UserId: '197718565'
+              UserFirstName: Matt
+              UserLastName: Dalzell-Student
+              UserEmail: mattdalzell student@email.com
+              ClassId: null
+              ClassName: null
+              Start: 1759779925
+              StartTime: /Date(1759779925000)/
+              Expires: 1759781725
+              ExpiresTime: /Date(1759781725000)/
+              End: 1759780006
+              EndTime: /Date(1759780006000)/
+              LastActivity: 1759779962
+              LastActivityTime: /Date(1759779962000)/
+              LastSave: null
+              LastSaveTime: null
+              SaveExpires: null
+              SaveExpiresTime: null
+              State: 'Off'
+              CompletionStatus: Cancelled
+              PoolMemberName: null
+              LabHostId: 13
+              LabHostName: ASH-UAT-HV01
+              DatacenterId: 70
+              DatacenterName: ASH-UAT
+              DeliveryRegionId: 1
+              DeliveryRegionName: US
+              PlatformId: 2
+              LastSaveTriggerType: null
+              TimeInSession: 81
+              TotalRunTime: 81
+              TimeRemaining: 0
+              InstructorName: ''
+              StartupDuration: null
+              Errors:
+                - Message: 'Configuration error encountered when executing life cycle action 3466 script. Error: unable to find machine to score against.'
+                  Time: 1759779962
+                  TimeValue: /Date(1759779962000)/
+              Snapshots: []
+              Sessions:
+                - Start: 1759779925
+                  StartTime: /Date(1759779925000)/
+                  End: 1759780006
+                  EndTime: /Date(1759780006000)/
+              Notes:
+                - Time: 1759780006
+                  TimeValue: /Date(1759780006000)/
+                  Title: Lab Cancelled via API
+                  Text: |-
+                    Lab cancelled via API.
+
+                    Canceled since no longer used
+              HasContent: true
+              Task: null
+              Exercise: null
+              NumTasks: 0
+              NumCompletedTasks: 0
+              TaskCompletePercent: 0
+              MonitorUrl: null
+              DetailsUrl: 'https://uat.labondemand.com/LabInstance/369864'
+              RemoteController: HTML5
+              Tag: null
+              BrowserUserAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36'
+              LastLatency: 50
+              ExamPassed: null
+              ExamScore: null
+              ExamMaxPossibleScore: null
+              ExamPassingScore: null
+              ExamScoredById: null
+              ExamScoredByName: null
+              ExamDetails: null
+              ExamScoredDate: null
+              ExamScoredTime: null
+              IsExam: false
+              IpAddress: null
+              Country: null
+              Region: null
+              City: null
+              Latitude: null
+              Longitude: null
+              PublicIpAddresses: []
+              CloudCredentials: []
+              CloudPortalCredentials: []
+              VirtualMachineCredentials:
+                - Id: 907
+                  Name: Windows 10 2004 - Matt D Test 2004
+                  Username: Student
+                  Password: Pa$$w0rd
+                - Id: 915
+                  Name: Windows 10 2004 - Matt D Webhook Testing
+                  Username: Student
+                  Password: Pa$$w0rd
+              CloudPlatformId: null
+              ClientUrl: null
+              EstimatedReadySeconds: null
+              InstructionsSetId: Base-01
+              Language: en
+              PreinstanceStartTime: null
+              Skills:
+                - Id: 3017
+                  ExternalId: '3007'
+                  Name: Ability to analyze malware.
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3261
+                  ExternalId: '3080'
+                  Name: 'Ability to use and understand complex mathematical concepts (e.g., discrete math).'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3365
+                  ExternalId: '3001'
+                  Name: 'Ability to accurately and completely source all data used in intelligence, assessment and/or planning products.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3881
+                  ExternalId: '4170'
+                  Name: Ability to accurately document results
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+              ExamScaledScore: null
+              ExamPassingRawScore: null
+              ExamMaxPossibleRawScore: null
+              ExamMinScaledScore: null
+              ExamMaxScaledScore: null
+              ExamCutoffScaledScore: null
+            - Id: 369173
+              LabProfileId: 5264
+              LabProfileName: 'MattD-2004: Matt D Testing 2004'
+              Products: []
+              SeriesId: 226
+              SeriesName: Matt D Lab Series
+              UserId: '1977185699'
+              UserFirstName: Matthew
+              UserLastName: Dalzell
+              UserEmail: mattdalzell 3@email.com
+              ClassId: null
+              ClassName: null
+              Start: 1758566786
+              StartTime: /Date(1758566786000)/
+              Expires: 1758568625
+              ExpiresTime: /Date(1758568625000)/
+              End: 1758567733
+              EndTime: /Date(1758567733000)/
+              LastActivity: 1758567596
+              LastActivityTime: /Date(1758567596000)/
+              LastSave: null
+              LastSaveTime: null
+              SaveExpires: null
+              SaveExpiresTime: null
+              State: 'Off'
+              CompletionStatus: Complete
+              PoolMemberName: null
+              LabHostId: 13
+              LabHostName: ASH-UAT-HV01
+              DatacenterId: 70
+              DatacenterName: ASH-UAT
+              DeliveryRegionId: 1
+              DeliveryRegionName: US
+              PlatformId: 2
+              LastSaveTriggerType: null
+              TimeInSession: 947
+              TotalRunTime: 947
+              TimeRemaining: 0
+              InstructorName: Matt Dalzell
+              StartupDuration: 39
+              Errors:
+                - Message: |-
+                    Error calling API Consumer webhook Scoring "Scoring" at URL https://webhook.site/3ede8f60-23a8-4ea1-a8cf-4f04aa5da891. Response status code: NotFound. 
+
+                     {&quot;success&quot;:false,&quot;error&quot;:{&quot;message&quot;:&quot;Token \&quot;3ede8f60-23a8-4ea1-a8cf-4f04aa5da891\&quot; not found&quot;,&quot;id&quot;:&quot;&quot;}}
+                  Time: 1758567647
+                  TimeValue: /Date(1758567647000)/
+                - Message: |-
+                    Error calling API Consumer webhook Scored "Scored" at URL https://webhook.site/3ede8f60-23a8-4ea1-a8cf-4f04aa5da891. Response status code: NotFound. 
+
+                     {&quot;success&quot;:false,&quot;error&quot;:{&quot;message&quot;:&quot;Token \&quot;3ede8f60-23a8-4ea1-a8cf-4f04aa5da891\&quot; not found&quot;,&quot;id&quot;:&quot;&quot;}}
+                  Time: 1758567733
+                  TimeValue: /Date(1758567733000)/
+              Snapshots: []
+              Sessions:
+                - Start: 1758566786
+                  StartTime: /Date(1758566786000)/
+                  End: 1758567733
+                  EndTime: /Date(1758567733000)/
+              Notes:
+                - Time: 1758567733
+                  TimeValue: /Date(1758567733000)/
+                  Title: Submitted For Grading
+                  Text: Submitted for scoring from the lab client by the student.
+              HasContent: true
+              Task: null
+              Exercise: null
+              NumTasks: 0
+              NumCompletedTasks: 0
+              TaskCompletePercent: 100
+              MonitorUrl: null
+              DetailsUrl: 'https://uat.labondemand.com/LabInstance/369173'
+              RemoteController: HTML5
+              Tag: null
+              BrowserUserAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'
+              LastLatency: 50
+              ExamPassed: false
+              ExamScore: 54
+              ExamMaxPossibleScore: 106
+              ExamPassingScore: 70
+              ExamScoredById: null
+              ExamScoredByName: null
+              ExamDetails: null
+              ExamScoredDate: 1758567733
+              ExamScoredTime: /Date(1758567733000)/
+              IsExam: false
+              IpAddress: null
+              Country: null
+              Region: null
+              City: null
+              Latitude: null
+              Longitude: null
+              PublicIpAddresses: []
+              CloudCredentials: []
+              CloudPortalCredentials: []
+              VirtualMachineCredentials:
+                - Id: 907
+                  Name: Windows 10 2004
+                  Username: Student
+                  Password: Pa$$w0rd
+              CloudPlatformId: null
+              ClientUrl: null
+              EstimatedReadySeconds: null
+              InstructionsSetId: Base-01
+              Language: en
+              PreinstanceStartTime: null
+              Skills:
+                - Id: 2865
+                  ExternalId: '6010'
+                  Name: 'Ability to accurately define incidents, problems, and events in the trouble ticketing system.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3365
+                  ExternalId: '3001'
+                  Name: 'Ability to accurately and completely source all data used in intelligence, assessment and/or planning products.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+              ExamScaledScore: null
+              ExamPassingRawScore: null
+              ExamMaxPossibleRawScore: null
+              ExamMinScaledScore: null
+              ExamMaxScaledScore: null
+              ExamCutoffScaledScore: null
+            - Id: 368404
+              LabProfileId: 5264
+              LabProfileName: 'MattD-2004: Matt D Testing 2004'
+              Products: []
+              SeriesId: 226
+              SeriesName: Matt D Lab Series
+              UserId: '1977185699'
+              UserFirstName: Matthew
+              UserLastName: Dalzell
+              UserEmail: mattdalzell 3@email.com
+              ClassId: null
+              ClassName: null
+              Start: 1756340065
+              StartTime: /Date(1756340065000)/
+              Expires: 1756488514
+              ExpiresTime: /Date(1756488514000)/
+              End: 1756488717
+              EndTime: /Date(1756488717000)/
+              LastActivity: 1756340126
+              LastActivityTime: /Date(1756340126000)/
+              LastSave: 1756340483
+              LastSaveTime: /Date(1756340483000)/
+              SaveExpires: null
+              SaveExpiresTime: null
+              State: 'Off'
+              CompletionStatus: Complete
+              PoolMemberName: null
+              LabHostId: 13
+              LabHostName: ASH-UAT-HV01
+              DatacenterId: 70
+              DatacenterName: ASH-UAT
+              DeliveryRegionId: 1
+              DeliveryRegionName: US
+              PlatformId: 2
+              LastSaveTriggerType: null
+              TimeInSession: 2040
+              TotalRunTime: 2040
+              TimeRemaining: 0
+              InstructorName: Matt Dalzell
+              StartupDuration: 39
+              Errors:
+                - Message: |-
+                    Error calling API Consumer webhook Scoring "Scoring" at URL https://webhook.site/3ede8f60-23a8-4ea1-a8cf-4f04aa5da891. Response status code: NotFound. 
+
+                     {&quot;success&quot;:false,&quot;error&quot;:{&quot;message&quot;:&quot;Token \&quot;3ede8f60-23a8-4ea1-a8cf-4f04aa5da891\&quot; not found&quot;,&quot;id&quot;:&quot;&quot;}}
+                  Time: 1756488606
+                  TimeValue: /Date(1756488606000)/
+                - Message: |-
+                    Error calling API Consumer webhook Scored "Scored" at URL https://webhook.site/3ede8f60-23a8-4ea1-a8cf-4f04aa5da891. Response status code: NotFound. 
+
+                     {&quot;success&quot;:false,&quot;error&quot;:{&quot;message&quot;:&quot;Token \&quot;3ede8f60-23a8-4ea1-a8cf-4f04aa5da891\&quot; not found&quot;,&quot;id&quot;:&quot;&quot;}}
+                  Time: 1756488718
+                  TimeValue: /Date(1756488718000)/
+              Snapshots: []
+              Sessions:
+                - Start: 1756340065
+                  StartTime: /Date(1756340065000)/
+                  End: 1756340494
+                  EndTime: /Date(1756340494000)/
+                - Start: 1756487107
+                  StartTime: /Date(1756487107000)/
+                  End: 1756488718
+                  EndTime: /Date(1756488718000)/
+              Notes:
+                - Time: 1756340482
+                  TimeValue: /Date(1756340482000)/
+                  Title: Lab Saved
+                  Text: Saved from the lab client by the student.
+                - Time: 1756488605
+                  TimeValue: /Date(1756488605000)/
+                  Title: Exam Ended
+                  Text: Exam submitted for scoring by background event service after time expired and conditions for automatic save were not met (cannot save a lab session with no time remaining).
+              HasContent: true
+              Task: null
+              Exercise: null
+              NumTasks: 0
+              NumCompletedTasks: 0
+              TaskCompletePercent: 100
+              MonitorUrl: null
+              DetailsUrl: 'https://uat.labondemand.com/LabInstance/368404'
+              RemoteController: HTML5
+              Tag: null
+              BrowserUserAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36'
+              LastLatency: 49
+              ExamPassed: false
+              ExamScore: 54
+              ExamMaxPossibleScore: 106
+              ExamPassingScore: 70
+              ExamScoredById: null
+              ExamScoredByName: null
+              ExamDetails: null
+              ExamScoredDate: 1756488717
+              ExamScoredTime: /Date(1756488717000)/
+              IsExam: false
+              IpAddress: null
+              Country: null
+              Region: null
+              City: null
+              Latitude: null
+              Longitude: null
+              PublicIpAddresses: []
+              CloudCredentials: []
+              CloudPortalCredentials: []
+              VirtualMachineCredentials:
+                - Id: 907
+                  Name: Windows 10 2004
+                  Username: Student
+                  Password: Pa$$w0rd
+              CloudPlatformId: null
+              ClientUrl: null
+              EstimatedReadySeconds: null
+              InstructionsSetId: Base-01
+              Language: en
+              PreinstanceStartTime: null
+              Skills:
+                - Id: 2865
+                  ExternalId: '6010'
+                  Name: 'Ability to accurately define incidents, problems, and events in the trouble ticketing system.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3365
+                  ExternalId: '3001'
+                  Name: 'Ability to accurately and completely source all data used in intelligence, assessment and/or planning products.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+              ExamScaledScore: null
+              ExamPassingRawScore: null
+              ExamMaxPossibleRawScore: null
+              ExamMinScaledScore: null
+              ExamMaxScaledScore: null
+              ExamCutoffScaledScore: null
+            - Id: 367569
+              LabProfileId: 5261
+              LabProfileName: 'MattD-4749: Matt D Testing Lab 1'
+              Products: []
+              SeriesId: 226
+              SeriesName: Matt D Lab Series
+              UserId: ffe49076-cd94-4463-9ebd-22fbc7860ab0
+              UserFirstName: anon-29331c5253ee
+              UserLastName: anon-4e549f585608
+              UserEmail: null
+              ClassId: null
+              ClassName: null
+              Start: 1754945581
+              StartTime: /Date(1754945581000)/
+              Expires: 1754947432
+              ExpiresTime: /Date(1754947432000)/
+              End: 1754947443
+              EndTime: /Date(1754947443000)/
+              LastActivity: 1754945633
+              LastActivityTime: /Date(1754945633000)/
+              LastSave: null
+              LastSaveTime: null
+              SaveExpires: null
+              SaveExpiresTime: null
+              State: 'Off'
+              CompletionStatus: Cancelled
+              PoolMemberName: null
+              LabHostId: 13
+              LabHostName: ASH-UAT-HV01
+              DatacenterId: 70
+              DatacenterName: ASH-UAT
+              DeliveryRegionId: 1
+              DeliveryRegionName: US
+              PlatformId: 2
+              LastSaveTriggerType: null
+              TimeInSession: 1863
+              TotalRunTime: 1863
+              TimeRemaining: 0
+              InstructorName: ''
+              StartupDuration: 52
+              Errors:
+                - Message: 'Configuration error encountered when executing life cycle action 3466 script. Error: unable to find machine to score against.'
+                  Time: 1754945632
+                  TimeValue: /Date(1754945632000)/
+              Snapshots: []
+              Sessions:
+                - Start: 1754945581
+                  StartTime: /Date(1754945581000)/
+                  End: 1754947444
+                  EndTime: /Date(1754947444000)/
+              Notes:
+                - Time: 1754947443
+                  TimeValue: /Date(1754947443000)/
+                  Title: Lab Cancelled
+                  Text: Cancelled by system after time expired in lab client and conditions for automatic save were not met  (automatic saves are not enabled for this lab profile).
+              HasContent: true
+              Task: null
+              Exercise: null
+              NumTasks: 0
+              NumCompletedTasks: 0
+              TaskCompletePercent: 0
+              MonitorUrl: null
+              DetailsUrl: 'https://uat.labondemand.com/LabInstance/367569'
+              RemoteController: HTML5
+              Tag: LTI 1.3 launch
+              BrowserUserAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36'
+              LastLatency: 54
+              ExamPassed: null
+              ExamScore: null
+              ExamMaxPossibleScore: null
+              ExamPassingScore: null
+              ExamScoredById: null
+              ExamScoredByName: null
+              ExamDetails: null
+              ExamScoredDate: null
+              ExamScoredTime: null
+              IsExam: false
+              IpAddress: 204.57.21.91
+              Country: United States of America
+              Region: Colorado
+              City: Greenwood Village
+              Latitude: 39.613087
+              Longitude: -104.883925
+              PublicIpAddresses: []
+              CloudCredentials: []
+              CloudPortalCredentials: []
+              VirtualMachineCredentials:
+                - Id: 907
+                  Name: Windows 10 2004 - Matt D Test 2004
+                  Username: Student
+                  Password: Pa$$w0rd
+                - Id: 915
+                  Name: Windows 10 2004 - Matt D Webhook Testing
+                  Username: Student
+                  Password: Pa$$w0rd
+              CloudPlatformId: null
+              ClientUrl: null
+              EstimatedReadySeconds: null
+              InstructionsSetId: Base-01
+              Language: en
+              PreinstanceStartTime: null
+              Skills:
+                - Id: 3017
+                  ExternalId: '3007'
+                  Name: Ability to analyze malware.
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3261
+                  ExternalId: '3080'
+                  Name: 'Ability to use and understand complex mathematical concepts (e.g., discrete math).'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3365
+                  ExternalId: '3001'
+                  Name: 'Ability to accurately and completely source all data used in intelligence, assessment and/or planning products.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3881
+                  ExternalId: '4170'
+                  Name: Ability to accurately document results
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+              ExamScaledScore: null
+              ExamPassingRawScore: null
+              ExamMaxPossibleRawScore: null
+              ExamMinScaledScore: null
+              ExamMaxScaledScore: null
+              ExamCutoffScaledScore: null
+            - Id: 367212
+              LabProfileId: 5264
+              LabProfileName: 'MattD-2004: Matt D Testing 2004'
+              Products: []
+              SeriesId: 226
+              SeriesName: Matt D Lab Series
+              UserId: '19771856'
+              UserFirstName: Matt
+              UserLastName: Dalzell
+              UserEmail: mattdalzell@email.com
+              ClassId: null
+              ClassName: null
+              Start: 1754506945
+              StartTime: /Date(1754506945000)/
+              Expires: 1754508798
+              ExpiresTime: /Date(1754508798000)/
+              End: 1754507146
+              EndTime: /Date(1754507146000)/
+              LastActivity: 1754507029
+              LastActivityTime: /Date(1754507029000)/
+              LastSave: null
+              LastSaveTime: null
+              SaveExpires: null
+              SaveExpiresTime: null
+              State: 'Off'
+              CompletionStatus: Complete
+              PoolMemberName: null
+              LabHostId: 13
+              LabHostName: ASH-UAT-HV01
+              DatacenterId: 70
+              DatacenterName: ASH-UAT
+              DeliveryRegionId: 1
+              DeliveryRegionName: US
+              PlatformId: 2
+              LastSaveTriggerType: null
+              TimeInSession: 201
+              TotalRunTime: 201
+              TimeRemaining: 0
+              InstructorName: Matt Dalzell
+              StartupDuration: 53
+              Errors: []
+              Snapshots: []
+              Sessions:
+                - Start: 1754506945
+                  StartTime: /Date(1754506945000)/
+                  End: 1754507146
+                  EndTime: /Date(1754507146000)/
+              Notes:
+                - Time: 1754507147
+                  TimeValue: /Date(1754507147000)/
+                  Title: Submitted For Grading
+                  Text: Submitted for scoring from the lab client by the student.
+              HasContent: true
+              Task: null
+              Exercise: null
+              NumTasks: 0
+              NumCompletedTasks: 0
+              TaskCompletePercent: 100
+              MonitorUrl: null
+              DetailsUrl: 'https://uat.labondemand.com/LabInstance/367212'
+              RemoteController: HTML5
+              Tag: null
+              BrowserUserAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36'
+              LastLatency: 58
+              ExamPassed: false
+              ExamScore: 54
+              ExamMaxPossibleScore: 106
+              ExamPassingScore: 70
+              ExamScoredById: null
+              ExamScoredByName: null
+              ExamDetails: null
+              ExamScoredDate: 1754507146
+              ExamScoredTime: /Date(1754507146000)/
+              IsExam: false
+              IpAddress: null
+              Country: null
+              Region: null
+              City: null
+              Latitude: null
+              Longitude: null
+              PublicIpAddresses: []
+              CloudCredentials: []
+              CloudPortalCredentials: []
+              VirtualMachineCredentials:
+                - Id: 907
+                  Name: Windows 10 2004
+                  Username: Student
+                  Password: Pa$$w0rd
+              CloudPlatformId: null
+              ClientUrl: null
+              EstimatedReadySeconds: null
+              InstructionsSetId: Base-01
+              Language: en
+              PreinstanceStartTime: null
+              Skills:
+                - Id: 2865
+                  ExternalId: '6010'
+                  Name: 'Ability to accurately define incidents, problems, and events in the trouble ticketing system.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3365
+                  ExternalId: '3001'
+                  Name: 'Ability to accurately and completely source all data used in intelligence, assessment and/or planning products.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+              ExamScaledScore: null
+              ExamPassingRawScore: null
+              ExamMaxPossibleRawScore: null
+              ExamMinScaledScore: null
+              ExamMaxScaledScore: null
+              ExamCutoffScaledScore: null
+            - Id: 367208
+              LabProfileId: 5264
+              LabProfileName: 'MattD-2004: Matt D Testing 2004'
+              Products: []
+              SeriesId: 226
+              SeriesName: Matt D Lab Series
+              UserId: '5556'
+              UserFirstName: anon-d6ab42444557
+              UserLastName: anon-600fd8394d93
+              UserEmail: null
+              ClassId: null
+              ClassName: null
+              Start: 1754501325
+              StartTime: /Date(1754501325000)/
+              Expires: 1754503200
+              ExpiresTime: /Date(1754503200000)/
+              End: 1754503406
+              EndTime: /Date(1754503406000)/
+              LastActivity: null
+              LastActivityTime: null
+              LastSave: null
+              LastSaveTime: null
+              SaveExpires: null
+              SaveExpiresTime: null
+              State: 'Off'
+              CompletionStatus: Complete
+              PoolMemberName: null
+              LabHostId: 13
+              LabHostName: ASH-UAT-HV01
+              DatacenterId: 70
+              DatacenterName: ASH-UAT
+              DeliveryRegionId: 1
+              DeliveryRegionName: US
+              PlatformId: 2
+              LastSaveTriggerType: null
+              TimeInSession: 2081
+              TotalRunTime: 2081
+              TimeRemaining: 0
+              InstructorName: ''
+              StartupDuration: 75
+              Errors: []
+              Snapshots: []
+              Sessions:
+                - Start: 1754501325
+                  StartTime: /Date(1754501325000)/
+                  End: 1754503406
+                  EndTime: /Date(1754503406000)/
+              Notes:
+                - Time: 1754503327
+                  TimeValue: /Date(1754503327000)/
+                  Title: Exam Ended
+                  Text: Exam submitted for scoring by background event service after time expired and conditions for automatic save were not met (cannot save a lab session with no time remaining).
+              HasContent: true
+              Task: null
+              Exercise: null
+              NumTasks: 0
+              NumCompletedTasks: 0
+              TaskCompletePercent: 100
+              MonitorUrl: null
+              DetailsUrl: 'https://uat.labondemand.com/LabInstance/367208'
+              RemoteController: HTML5
+              Tag: null
+              BrowserUserAgent: null
+              LastLatency: null
+              ExamPassed: false
+              ExamScore: 54
+              ExamMaxPossibleScore: 106
+              ExamPassingScore: 70
+              ExamScoredById: null
+              ExamScoredByName: null
+              ExamDetails: null
+              ExamScoredDate: 1754503406
+              ExamScoredTime: /Date(1754503406000)/
+              IsExam: false
+              IpAddress: null
+              Country: null
+              Region: null
+              City: null
+              Latitude: null
+              Longitude: null
+              PublicIpAddresses: []
+              CloudCredentials: []
+              CloudPortalCredentials: []
+              VirtualMachineCredentials:
+                - Id: 907
+                  Name: Windows 10 2004
+                  Username: Student
+                  Password: Pa$$w0rd
+              CloudPlatformId: null
+              ClientUrl: null
+              EstimatedReadySeconds: null
+              InstructionsSetId: Base-01
+              Language: en
+              PreinstanceStartTime: null
+              Skills:
+                - Id: 2865
+                  ExternalId: '6010'
+                  Name: 'Ability to accurately define incidents, problems, and events in the trouble ticketing system.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3365
+                  ExternalId: '3001'
+                  Name: 'Ability to accurately and completely source all data used in intelligence, assessment and/or planning products.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+              ExamScaledScore: null
+              ExamPassingRawScore: null
+              ExamMaxPossibleRawScore: null
+              ExamMinScaledScore: null
+              ExamMaxScaledScore: null
+              ExamCutoffScaledScore: null
+            - Id: 367206
+              LabProfileId: 5264
+              LabProfileName: 'MattD-2004: Matt D Testing 2004'
+              Products: []
+              SeriesId: 226
+              SeriesName: Matt D Lab Series
+              UserId: '5556'
+              UserFirstName: anon-d6ab42444557
+              UserLastName: anon-600fd8394d93
+              UserEmail: null
+              ClassId: null
+              ClassName: null
+              Start: 1754494623
+              StartTime: /Date(1754494623000)/
+              Expires: 1754496502
+              ExpiresTime: /Date(1754496502000)/
+              End: 1754496719
+              EndTime: /Date(1754496719000)/
+              LastActivity: null
+              LastActivityTime: null
+              LastSave: null
+              LastSaveTime: null
+              SaveExpires: null
+              SaveExpiresTime: null
+              State: 'Off'
+              CompletionStatus: Complete
+              PoolMemberName: null
+              LabHostId: 13
+              LabHostName: ASH-UAT-HV01
+              DatacenterId: 70
+              DatacenterName: ASH-UAT
+              DeliveryRegionId: 1
+              DeliveryRegionName: US
+              PlatformId: 2
+              LastSaveTriggerType: null
+              TimeInSession: 2096
+              TotalRunTime: 2096
+              TimeRemaining: 0
+              InstructorName: ''
+              StartupDuration: 79
+              Errors: []
+              Snapshots: []
+              Sessions:
+                - Start: 1754494623
+                  StartTime: /Date(1754494623000)/
+                  End: 1754496719
+                  EndTime: /Date(1754496719000)/
+              Notes:
+                - Time: 1754496601
+                  TimeValue: /Date(1754496601000)/
+                  Title: Exam Ended
+                  Text: Exam submitted for scoring by background event service after time expired and conditions for automatic save were not met (cannot save a lab session with no time remaining).
+              HasContent: true
+              Task: null
+              Exercise: null
+              NumTasks: 0
+              NumCompletedTasks: 0
+              TaskCompletePercent: 100
+              MonitorUrl: null
+              DetailsUrl: 'https://uat.labondemand.com/LabInstance/367206'
+              RemoteController: HTML5
+              Tag: null
+              BrowserUserAgent: null
+              LastLatency: null
+              ExamPassed: false
+              ExamScore: 54
+              ExamMaxPossibleScore: 106
+              ExamPassingScore: 70
+              ExamScoredById: null
+              ExamScoredByName: null
+              ExamDetails: null
+              ExamScoredDate: 1754496718
+              ExamScoredTime: /Date(1754496718000)/
+              IsExam: false
+              IpAddress: null
+              Country: null
+              Region: null
+              City: null
+              Latitude: null
+              Longitude: null
+              PublicIpAddresses: []
+              CloudCredentials: []
+              CloudPortalCredentials: []
+              VirtualMachineCredentials:
+                - Id: 907
+                  Name: Windows 10 2004
+                  Username: Student
+                  Password: Pa$$w0rd
+              CloudPlatformId: null
+              ClientUrl: null
+              EstimatedReadySeconds: null
+              InstructionsSetId: Base-01
+              Language: en
+              PreinstanceStartTime: null
+              Skills:
+                - Id: 2865
+                  ExternalId: '6010'
+                  Name: 'Ability to accurately define incidents, problems, and events in the trouble ticketing system.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3365
+                  ExternalId: '3001'
+                  Name: 'Ability to accurately and completely source all data used in intelligence, assessment and/or planning products.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+              ExamScaledScore: null
+              ExamPassingRawScore: null
+              ExamMaxPossibleRawScore: null
+              ExamMinScaledScore: null
+              ExamMaxScaledScore: null
+              ExamCutoffScaledScore: null
+            - Id: 367158
+              LabProfileId: 5264
+              LabProfileName: 'MattD-2004: Matt D Testing 2004'
+              Products: []
+              SeriesId: 226
+              SeriesName: Matt D Lab Series
+              UserId: '5556'
+              UserFirstName: anon-d6ab42444557
+              UserLastName: anon-600fd8394d93
+              UserEmail: null
+              ClassId: null
+              ClassName: null
+              Start: 1754412102
+              StartTime: /Date(1754412102000)/
+              Expires: 1754413998
+              ExpiresTime: /Date(1754413998000)/
+              End: 1754414198
+              EndTime: /Date(1754414198000)/
+              LastActivity: null
+              LastActivityTime: null
+              LastSave: null
+              LastSaveTime: null
+              SaveExpires: null
+              SaveExpiresTime: null
+              State: 'Off'
+              CompletionStatus: Complete
+              PoolMemberName: null
+              LabHostId: 13
+              LabHostName: ASH-UAT-HV01
+              DatacenterId: 70
+              DatacenterName: ASH-UAT
+              DeliveryRegionId: 1
+              DeliveryRegionName: US
+              PlatformId: 2
+              LastSaveTriggerType: null
+              TimeInSession: 2096
+              TotalRunTime: 2096
+              TimeRemaining: 0
+              InstructorName: ''
+              StartupDuration: 97
+              Errors: []
+              Snapshots: []
+              Sessions:
+                - Start: 1754412102
+                  StartTime: /Date(1754412102000)/
+                  End: 1754414198
+                  EndTime: /Date(1754414198000)/
+              Notes:
+                - Time: 1754414110
+                  TimeValue: /Date(1754414110000)/
+                  Title: Exam Ended
+                  Text: Exam submitted for scoring by background event service after time expired and conditions for automatic save were not met (cannot save a lab session with no time remaining).
+              HasContent: true
+              Task: null
+              Exercise: null
+              NumTasks: 0
+              NumCompletedTasks: 0
+              TaskCompletePercent: 100
+              MonitorUrl: null
+              DetailsUrl: 'https://uat.labondemand.com/LabInstance/367158'
+              RemoteController: HTML5
+              Tag: null
+              BrowserUserAgent: null
+              LastLatency: null
+              ExamPassed: false
+              ExamScore: 54
+              ExamMaxPossibleScore: 106
+              ExamPassingScore: 70
+              ExamScoredById: null
+              ExamScoredByName: null
+              ExamDetails: null
+              ExamScoredDate: 1754414198
+              ExamScoredTime: /Date(1754414198000)/
+              IsExam: false
+              IpAddress: null
+              Country: null
+              Region: null
+              City: null
+              Latitude: null
+              Longitude: null
+              PublicIpAddresses: []
+              CloudCredentials: []
+              CloudPortalCredentials: []
+              VirtualMachineCredentials:
+                - Id: 907
+                  Name: Windows 10 2004
+                  Username: Student
+                  Password: Pa$$w0rd
+              CloudPlatformId: null
+              ClientUrl: null
+              EstimatedReadySeconds: null
+              InstructionsSetId: Base-01
+              Language: en
+              PreinstanceStartTime: null
+              Skills:
+                - Id: 2865
+                  ExternalId: '6010'
+                  Name: 'Ability to accurately define incidents, problems, and events in the trouble ticketing system.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3365
+                  ExternalId: '3001'
+                  Name: 'Ability to accurately and completely source all data used in intelligence, assessment and/or planning products.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+              ExamScaledScore: null
+              ExamPassingRawScore: null
+              ExamMaxPossibleRawScore: null
+              ExamMinScaledScore: null
+              ExamMaxScaledScore: null
+              ExamCutoffScaledScore: null
+            - Id: 367145
+              LabProfileId: 5264
+              LabProfileName: 'MattD-2004: Matt D Testing 2004'
+              Products: []
+              SeriesId: 226
+              SeriesName: Matt D Lab Series
+              UserId: '5556'
+              UserFirstName: anon-d6ab42444557
+              UserLastName: anon-600fd8394d93
+              UserEmail: null
+              ClassId: null
+              ClassName: null
+              Start: 1754374267
+              StartTime: /Date(1754374267000)/
+              Expires: 1754376133
+              ExpiresTime: /Date(1754376133000)/
+              End: 1754376305
+              EndTime: /Date(1754376305000)/
+              LastActivity: null
+              LastActivityTime: null
+              LastSave: null
+              LastSaveTime: null
+              SaveExpires: null
+              SaveExpiresTime: null
+              State: 'Off'
+              CompletionStatus: Complete
+              PoolMemberName: null
+              LabHostId: 13
+              LabHostName: ASH-UAT-HV01
+              DatacenterId: 70
+              DatacenterName: ASH-UAT
+              DeliveryRegionId: 1
+              DeliveryRegionName: US
+              PlatformId: 2
+              LastSaveTriggerType: null
+              TimeInSession: 2038
+              TotalRunTime: 2038
+              TimeRemaining: 0
+              InstructorName: ''
+              StartupDuration: 67
+              Errors: []
+              Snapshots: []
+              Sessions:
+                - Start: 1754374267
+                  StartTime: /Date(1754374267000)/
+                  End: 1754376305
+                  EndTime: /Date(1754376305000)/
+              Notes:
+                - Time: 1754376199
+                  TimeValue: /Date(1754376199000)/
+                  Title: Exam Ended
+                  Text: Exam submitted for scoring by background event service after time expired and conditions for automatic save were not met (cannot save a lab session with no time remaining).
+              HasContent: true
+              Task: null
+              Exercise: null
+              NumTasks: 0
+              NumCompletedTasks: 0
+              TaskCompletePercent: 100
+              MonitorUrl: null
+              DetailsUrl: 'https://uat.labondemand.com/LabInstance/367145'
+              RemoteController: HTML5
+              Tag: null
+              BrowserUserAgent: null
+              LastLatency: null
+              ExamPassed: false
+              ExamScore: 54
+              ExamMaxPossibleScore: 106
+              ExamPassingScore: 70
+              ExamScoredById: null
+              ExamScoredByName: null
+              ExamDetails: null
+              ExamScoredDate: 1754376305
+              ExamScoredTime: /Date(1754376305000)/
+              IsExam: false
+              IpAddress: null
+              Country: null
+              Region: null
+              City: null
+              Latitude: null
+              Longitude: null
+              PublicIpAddresses: []
+              CloudCredentials: []
+              CloudPortalCredentials: []
+              VirtualMachineCredentials:
+                - Id: 907
+                  Name: Windows 10 2004
+                  Username: Student
+                  Password: Pa$$w0rd
+              CloudPlatformId: null
+              ClientUrl: null
+              EstimatedReadySeconds: null
+              InstructionsSetId: Base-01
+              Language: en
+              PreinstanceStartTime: null
+              Skills:
+                - Id: 2865
+                  ExternalId: '6010'
+                  Name: 'Ability to accurately define incidents, problems, and events in the trouble ticketing system.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3365
+                  ExternalId: '3001'
+                  Name: 'Ability to accurately and completely source all data used in intelligence, assessment and/or planning products.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+              ExamScaledScore: null
+              ExamPassingRawScore: null
+              ExamMaxPossibleRawScore: null
+              ExamMinScaledScore: null
+              ExamMaxScaledScore: null
+              ExamCutoffScaledScore: null
+            - Id: 367119
+              LabProfileId: 5264
+              LabProfileName: 'MattD-2004: Matt D Testing 2004'
+              Products: []
+              SeriesId: 226
+              SeriesName: Matt D Lab Series
+              UserId: '555'
+              UserFirstName: anon-821259856153
+              UserLastName: anon-0384ca27c839
+              UserEmail: null
+              ClassId: null
+              ClassName: null
+              Start: 1754084490
+              StartTime: /Date(1754084490000)/
+              Expires: 1754375817
+              ExpiresTime: /Date(1754375817000)/
+              End: 1754375985
+              EndTime: /Date(1754375985000)/
+              LastActivity: 1754084761
+              LastActivityTime: /Date(1754084761000)/
+              LastSave: 1754084772
+              LastSaveTime: /Date(1754084772000)/
+              SaveExpires: null
+              SaveExpiresTime: null
+              State: 'Off'
+              CompletionStatus: Complete
+              PoolMemberName: null
+              LabHostId: 13
+              LabHostName: ASH-UAT-HV01
+              DatacenterId: 70
+              DatacenterName: ASH-UAT
+              DeliveryRegionId: 1
+              DeliveryRegionName: US
+              PlatformId: 2
+              LastSaveTriggerType: null
+              TimeInSession: 2029
+              TotalRunTime: 2029
+              TimeRemaining: 0
+              InstructorName: ''
+              StartupDuration: 57
+              Errors: []
+              Snapshots: []
+              Sessions:
+                - Start: 1754084490
+                  StartTime: /Date(1754084490000)/
+                  End: 1754084788
+                  EndTime: /Date(1754084788000)/
+                - Start: 1754374255
+                  StartTime: /Date(1754374255000)/
+                  End: 1754375986
+                  EndTime: /Date(1754375986000)/
+              Notes:
+                - Time: 1754084772
+                  TimeValue: /Date(1754084772000)/
+                  Title: Lab Saved
+                  Text: Saved from the lab client by the student.
+                - Time: 1754375941
+                  TimeValue: /Date(1754375941000)/
+                  Title: Exam Ended
+                  Text: Exam submitted for scoring by background event service after time expired and conditions for automatic save were not met (cannot save a lab session with no time remaining).
+              HasContent: true
+              Task: null
+              Exercise: null
+              NumTasks: 0
+              NumCompletedTasks: 0
+              TaskCompletePercent: 100
+              MonitorUrl: null
+              DetailsUrl: 'https://uat.labondemand.com/LabInstance/367119'
+              RemoteController: HTML5
+              Tag: null
+              BrowserUserAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:141.0) Gecko/20100101 Firefox/141.0'
+              LastLatency: 54
+              ExamPassed: false
+              ExamScore: 54
+              ExamMaxPossibleScore: 106
+              ExamPassingScore: 70
+              ExamScoredById: null
+              ExamScoredByName: null
+              ExamDetails: null
+              ExamScoredDate: 1754375985
+              ExamScoredTime: /Date(1754375985000)/
+              IsExam: false
+              IpAddress: null
+              Country: null
+              Region: null
+              City: null
+              Latitude: null
+              Longitude: null
+              PublicIpAddresses: []
+              CloudCredentials: []
+              CloudPortalCredentials: []
+              VirtualMachineCredentials:
+                - Id: 907
+                  Name: Windows 10 2004
+                  Username: Student
+                  Password: Pa$$w0rd
+              CloudPlatformId: null
+              ClientUrl: null
+              EstimatedReadySeconds: null
+              InstructionsSetId: Base-01
+              Language: en
+              PreinstanceStartTime: null
+              Skills:
+                - Id: 2865
+                  ExternalId: '6010'
+                  Name: 'Ability to accurately define incidents, problems, and events in the trouble ticketing system.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3365
+                  ExternalId: '3001'
+                  Name: 'Ability to accurately and completely source all data used in intelligence, assessment and/or planning products.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+              ExamScaledScore: null
+              ExamPassingRawScore: null
+              ExamMaxPossibleRawScore: null
+              ExamMinScaledScore: null
+              ExamMaxScaledScore: null
+              ExamCutoffScaledScore: null
+            - Id: 366168
+              LabProfileId: 5264
+              LabProfileName: 'MattD-2004: Matt D Testing 2004'
+              Products: []
+              SeriesId: 226
+              SeriesName: Matt D Lab Series
+              UserId: '555'
+              UserFirstName: anon-821259856153
+              UserLastName: anon-0384ca27c839
+              UserEmail: null
+              ClassId: null
+              ClassName: null
+              Start: 1753731663
+              StartTime: /Date(1753731663000)/
+              Expires: 1753733555
+              ExpiresTime: /Date(1753733555000)/
+              End: 1753733790
+              EndTime: /Date(1753733790000)/
+              LastActivity: null
+              LastActivityTime: null
+              LastSave: null
+              LastSaveTime: null
+              SaveExpires: null
+              SaveExpiresTime: null
+              State: 'Off'
+              CompletionStatus: Complete
+              PoolMemberName: null
+              LabHostId: 13
+              LabHostName: ASH-UAT-HV01
+              DatacenterId: 70
+              DatacenterName: ASH-UAT
+              DeliveryRegionId: 1
+              DeliveryRegionName: US
+              PlatformId: 2
+              LastSaveTriggerType: null
+              TimeInSession: 2127
+              TotalRunTime: 2127
+              TimeRemaining: 0
+              InstructorName: ''
+              StartupDuration: 92
+              Errors: []
+              Snapshots: []
+              Sessions:
+                - Start: 1753731663
+                  StartTime: /Date(1753731663000)/
+                  End: 1753733790
+                  EndTime: /Date(1753733790000)/
+              Notes:
+                - Time: 1753733680
+                  TimeValue: /Date(1753733680000)/
+                  Title: Exam Ended
+                  Text: Exam submitted for scoring by background event service after time expired and conditions for automatic save were not met (cannot save a lab session with no time remaining).
+              HasContent: true
+              Task: null
+              Exercise: null
+              NumTasks: 0
+              NumCompletedTasks: 0
+              TaskCompletePercent: 100
+              MonitorUrl: null
+              DetailsUrl: 'https://uat.labondemand.com/LabInstance/366168'
+              RemoteController: HTML5
+              Tag: null
+              BrowserUserAgent: null
+              LastLatency: null
+              ExamPassed: false
+              ExamScore: 54
+              ExamMaxPossibleScore: 106
+              ExamPassingScore: 70
+              ExamScoredById: null
+              ExamScoredByName: null
+              ExamDetails: null
+              ExamScoredDate: 1753733790
+              ExamScoredTime: /Date(1753733790000)/
+              IsExam: false
+              IpAddress: null
+              Country: null
+              Region: null
+              City: null
+              Latitude: null
+              Longitude: null
+              PublicIpAddresses: []
+              CloudCredentials: []
+              CloudPortalCredentials: []
+              VirtualMachineCredentials:
+                - Id: 907
+                  Name: Windows 10 2004
+                  Username: Student
+                  Password: Pa$$w0rd
+              CloudPlatformId: null
+              ClientUrl: null
+              EstimatedReadySeconds: null
+              InstructionsSetId: Base-01
+              Language: en
+              PreinstanceStartTime: null
+              Skills:
+                - Id: 2865
+                  ExternalId: '6010'
+                  Name: 'Ability to accurately define incidents, problems, and events in the trouble ticketing system.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3365
+                  ExternalId: '3001'
+                  Name: 'Ability to accurately and completely source all data used in intelligence, assessment and/or planning products.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+              ExamScaledScore: null
+              ExamPassingRawScore: null
+              ExamMaxPossibleRawScore: null
+              ExamMinScaledScore: null
+              ExamMaxScaledScore: null
+              ExamCutoffScaledScore: null
+            - Id: 365316
+              LabProfileId: 5264
+              LabProfileName: 'MattD-2004: Matt D Testing 2004'
+              Products: []
+              SeriesId: 226
+              SeriesName: Matt D Lab Series
+              UserId: '555'
+              UserFirstName: anon-821259856153
+              UserLastName: anon-0384ca27c839
+              UserEmail: null
+              ClassId: null
+              ClassName: null
+              Start: 1753392205
+              StartTime: /Date(1753392205000)/
+              Expires: 1753400603
+              ExpiresTime: /Date(1753400603000)/
+              End: 1753400769
+              EndTime: /Date(1753400769000)/
+              LastActivity: 1753392257
+              LastActivityTime: /Date(1753392257000)/
+              LastSave: 1753392268
+              LastSaveTime: /Date(1753392268000)/
+              SaveExpires: null
+              SaveExpiresTime: null
+              State: 'Off'
+              CompletionStatus: Complete
+              PoolMemberName: null
+              LabHostId: 13
+              LabHostName: ASH-UAT-HV01
+              DatacenterId: 70
+              DatacenterName: ASH-UAT
+              DeliveryRegionId: 1
+              DeliveryRegionName: US
+              PlatformId: 2
+              LastSaveTriggerType: null
+              TimeInSession: 2017
+              TotalRunTime: 2017
+              TimeRemaining: 0
+              InstructorName: ''
+              StartupDuration: 52
+              Errors:
+                - Message: Configuration error encountered when executing life cycle action 3470 script. Virtual machine Lab365316-Windows 10 2004 is not running.
+                  Time: 1753392272
+                  TimeValue: /Date(1753392272000)/
+                - Message: Configuration error encountered when executing life cycle action 3469 script. Virtual machine Lab365316-Windows 10 2004 is not running.
+                  Time: 1753392272
+                  TimeValue: /Date(1753392272000)/
+              Snapshots: []
+              Sessions:
+                - Start: 1753392205
+                  StartTime: /Date(1753392205000)/
+                  End: 1753392279
+                  EndTime: /Date(1753392279000)/
+                - Start: 1753398826
+                  StartTime: /Date(1753398826000)/
+                  End: 1753400769
+                  EndTime: /Date(1753400769000)/
+              Notes:
+                - Time: 1753392268
+                  TimeValue: /Date(1753392268000)/
+                  Title: Lab Saved
+                  Text: Saved from the lab client by the student.
+                - Time: 1753400701
+                  TimeValue: /Date(1753400701000)/
+                  Title: Exam Ended
+                  Text: Exam submitted for scoring by background event service after time expired and conditions for automatic save were not met (cannot save a lab session with no time remaining).
+              HasContent: true
+              Task: null
+              Exercise: null
+              NumTasks: 0
+              NumCompletedTasks: 0
+              TaskCompletePercent: 100
+              MonitorUrl: null
+              DetailsUrl: 'https://uat.labondemand.com/LabInstance/365316'
+              RemoteController: HTML5
+              Tag: null
+              BrowserUserAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36'
+              LastLatency: null
+              ExamPassed: false
+              ExamScore: 54
+              ExamMaxPossibleScore: 106
+              ExamPassingScore: 70
+              ExamScoredById: null
+              ExamScoredByName: null
+              ExamDetails: null
+              ExamScoredDate: 1753400769
+              ExamScoredTime: /Date(1753400769000)/
+              IsExam: false
+              IpAddress: null
+              Country: null
+              Region: null
+              City: null
+              Latitude: null
+              Longitude: null
+              PublicIpAddresses: []
+              CloudCredentials: []
+              CloudPortalCredentials: []
+              VirtualMachineCredentials:
+                - Id: 907
+                  Name: Windows 10 2004
+                  Username: Student
+                  Password: Pa$$w0rd
+              CloudPlatformId: null
+              ClientUrl: null
+              EstimatedReadySeconds: null
+              InstructionsSetId: Base-01
+              Language: en
+              PreinstanceStartTime: null
+              Skills:
+                - Id: 2865
+                  ExternalId: '6010'
+                  Name: 'Ability to accurately define incidents, problems, and events in the trouble ticketing system.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+                - Id: 3365
+                  ExternalId: '3001'
+                  Name: 'Ability to accurately and completely source all data used in intelligence, assessment and/or planning products.'
+                  FrameworkId: 2
+                  FrameworkName: The DoD Cyber Workforce Framework (DCWF)
+              ExamScaledScore: null
+              ExamPassingRawScore: null
+              ExamMaxPossibleRawScore: null
+              ExamMinScaledScore: null
+              ExamMaxScaledScore: null
+              ExamCutoffScaledScore: null
+          TotalResults: 14
+          TotalPages: 1
+          Error: null
+          Status: 1
+      properties:
+        Results:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+                description: The ID of the lab instance.
+                format: int64
+              LabProfileId:
+                type: integer
+                description: The ID of the lab profile.
+                format: int32
+              LabProfileName:
+                type: string
+                description: The name of the lab profile.
+              Products:
+                type: array
+                description: The list of products assigned to the lab profile and their basic details.
+                items:
+                  type: object
+                  properties:
+                    Id:
+                      type: integer
+                      example: 48
+                      description: The unique identifier of the product.
+                    Name:
+                      type: string
+                      example: Database
+                      description: The name of the product.
+              SeriesId:
+                type: integer
+                description: The ID of the lab series.
+                format: int32
+                nullable: true
+              SeriesName:
+                type: string
+                description: The name of the lab series.
+                nullable: true
+              UserId:
+                type: string
+                description: The user ID as represented in your organization.
+                nullable: true
+              UserFirstName:
+                type: string
+                description: The user's first name.
+              UserLastName:
+                type: string
+                description: The user's last name.
+              UserEmail:
+                type: string
+                description: The user's email address.
+                nullable: true
+              ClassId:
+                type: string
+                description: The ID you use to identify the associated class in your external system.
+                nullable: true
+              ClassName:
+                type: string
+                description: The name of the class the lab instance is associated with.
+                nullable: true
+              Start:
+                type: integer
+                format: int64
+                description: When the lab instance was started (in Unix epoch time).
+              StartTime:
+                type: string
+                description: When the lab was started (in Unix epoch time).
+              Expires:
+                type: integer
+                format: int64
+                description: When the lab expires (in Unix epoch time).
+              ExpiresTime:
+                type: string
+                description: When the lab expires (in Unix epoch time).
+              End:
+                type: integer
+                description: When the lab instance was ended (in Unix epoch time).
+                nullable: true
+              EndTime:
+                type: string
+                description: When the lab ended (in Unix epoch time).
+              LastActivity:
+                type: integer
+                description: When student activity was last detected (in Unix epoch time).
+                format: int64
+                nullable: true
+              LastActivityTime:
+                type: string
+                description: When student activity was last detected (in Unix epoch time).
+                nullable: true
+              LastSave:
+                type: integer
+                description: When the lab was last saved (in Unix epoch time).
+                format: int64
+                nullable: true
+              LastSaveTime:
+                type: string
+                description: When the lab was last saved (in Unix epoch time).
+                nullable: true
+              SaveExpires:
+                type: integer
+                format: int64
+                description: 'If the lab instance is saved, when the saved data will expire and be deleted (in Unix epoch time).'
+                nullable: true
+              SaveExpiresTime:
+                type: string
+                description: 'If the lab instance is saved, when the saved data will expire and be deleted (in Unix epoch time).'
+                nullable: true
+              State:
+                type: string
+                description: |-
+                  The state of the lab instance. Possible values:  
+                  Off  
+                  Provisioning Storage  
+                  Building  
+                  Building (Displayable)  
+                  Starting  
+                  Running  
+                  Saving  
+                  Saved  
+                  Resuming  
+                  Creating Snapshot  
+                  Applying Snapshot  
+                  Updating Lab Profile  
+                  Tearing Down  
+                  Cloning  
+                  Creating As Clone  
+                  Moving (Running)  
+                  Moving (Saved)  
+                  Creating New Lab Profile  
+                  Scoring  
+                  Scheduled
+              CompletionStatus:
+                type: string
+                description: |-
+                  The student's completion status. Possible values:  
+                  Scheduled  
+                  Cancelled  
+                  Not Started  
+                  Incomplete  
+                  Complete  
+                  Storage Provisioning Failed  
+                  Lab Creation Failed  
+                  Resume Failed  
+                  Save Failed  
+                  Submitted For Grading  
+                  Grading In Progress
+              PoolMemberName:
+                type: string
+                description: 'If the lab contains a virtual machine pool, the name of the pool member that was used.'
+                nullable: true
+              LabHostId:
+                type: integer
+                description: The ID of the lab host machine.
+                format: int32
+              LabHostName:
+                type: string
+                description: The name of the lab host machine.
+              DatacenterId:
+                type: integer
+                format: int32
+                description: The ID of the datacenter where the lab is located.
+              DatacenterName:
+                type: string
+                description: The name of the datacenter where the lab is located.
+              DeliveryRegionId:
+                type: integer
+                description: 'When specified, Skillable will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
+                format: int32
+              DeliveryRegionName:
+                type: string
+                description: The name of the delivery region where the lab is located.
+              PlatformId:
+                type: integer
+                format: int32
+                description: |-
+                  The platform the lab has hosted on. Possible values:  
+                  2 = Hyper-V  
+                  3 = ESX  
+                  20 = Docker  
+                  -1 = None
+              LastSaveTriggerType:
+                type: string
+                description: |-
+                  If the lab is currently saved, what triggered the save operation. Possible values:  
+                  Unknown  
+                  By Student  
+                  By Administrator  
+                  Automatic  
+                  From API Consumer
+                nullable: true
+              TimeInSession:
+                type: integer
+                format: int32
+                description: The total number of seconds the user spent in the lab.
+              TotalRunTime:
+                type: integer
+                format: int32
+                description: 'The total number of seconds the lab was running, whether or not the student was present.'
+              TimeRemaining:
+                type: integer
+                format: int32
+                description: The total number of seconds remaining before the lab expires.
+              InstructorName:
+                type: string
+                description: The name of the instructor for the associated class.
+                nullable: true
+              StartupDuration:
+                type: integer
+                description: The number of seconds it took the lab to start.
+                nullable: true
+              Errors:
+                type: array
+                description: An array of all errors associated with the lab instance.
+                items:
+                  type: object
+                  properties:
+                    Message:
+                      type: string
+                      description: Details of error that occurred.
+                    Time:
+                      type: integer
+                      format: int64
+                      description: Timestamp when the error occurred (in Unix epoch time).
+                    TimeValue:
+                      type: string
+                      description: Timestamp when the error occurred (in Unix epoch time).
+              Snapshots:
+                type: array
+                description: An array of snapshots created by the user within the lab. This contains an array of LabInstanceSnapshot objects.
+                items:
+                  type: object
+                  properties:
+                    Name:
+                      type: string
+                      x-stoplight:
+                        id: glj96noyo4oql
+                      description: The name that the student gave to the snapshot.
+                    Time:
+                      type: integer
+                      x-stoplight:
+                        id: ivw0xiaezcvax
+                      format: int64
+                      description: When the student created the snapshot (in Unix epoch time).
+              Sessions:
+                type: array
+                description: An array of session times the student spent in the lab. This contains an array of LabInstanceSnapshot objects.
+                items:
+                  type: object
+                  properties:
+                    Start:
+                      type: integer
+                      format: int64
+                      description: When the session started (in Unix epoch time).
+                    StartTime:
+                      type: string
+                      description: When the session started (in Unix epoch time).
+                    End:
+                      type: integer
+                      description: When the session ended (in Unix epoch time).
+                      format: int64
+                    EndTime:
+                      type: string
+                      description: When the session ended (in Unix epoch time).
+              Notes:
+                type: array
+                description: Array of notes applicable to the lab instance.
+                items:
+                  type: object
+                  properties:
+                    Time:
+                      type: integer
+                      description: Time the note was created (in Unix epoch time).
+                    TimeValue:
+                      type: string
+                      description: Time the note was created (in Unix epoch time).
+                    Title:
+                      type: string
+                      description: Title of the note.
+                    Text:
+                      type: string
+                      description: Text assocaited with the note.
+              HasContent:
+                type: boolean
+                description: 'Indicates whether the lab has content, or simply houses virtual machines.'
+              Task:
+                type: string
+                description: 'If the lab has content (HasContent=true), indicates the name of the task the student is working on.'
+                nullable: true
+              Exercise:
+                type: string
+                description: 'If the lab has content (HasContent=true), indicates the name of the exercise the student is working on.'
+                nullable: true
+              NumTasks:
+                type: integer
+                format: int32
+                description: 'If the lab has content (HasContent=true), indicates the total number of tasks in the lab.'
+              NumCompletedTasks:
+                type: integer
+                description: 'If the lab has content (HasContent=true), indicates the number of tasks the student has completed.'
+                format: int32
+              TaskCompletePercent:
+                type: integer
+                format: int32
+                description: 'If the lab has content (HasContent=true), indicates the percentage of tasks that the student has completed.'
+              MonitorUrl:
+                type: string
+                description: |-
+                  This response property is deprecated. Unless explicitly allowed by Skillable, this field will always be null.
+                  To obtain an access URL, use the LabMonitorUrl command.
+                nullable: true
+              DetailsUrl:
+                type: string
+                description: The URL at which the lab instance details can be reviewed (required authentication to view).
+              RemoteController:
+                type: string
+                description: The name of the remote controller used by the user.
+              Tag:
+                type: string
+                description: Lab instance tag data.
+                nullable: true
+              BrowserUserAgent:
+                type: string
+                description: The browser user agent used by the user.
+                nullable: true
+              LastLatency:
+                type: string
+                description: The last known latency value as measured between the client and the lab's datacenter.
+                nullable: true
+              ExamPassed:
+                type: boolean
+                description: Indicates whether the user passed the lab. Will only be set if the lab has activities which have been scored.
+                nullable: true
+              ExamScore:
+                type: number
+                description: Indicates the lab score. Will only be set if the lab has activities which have been scored.
+                nullable: true
+              ExamMaxPossibleScore:
+                type: integer
+                description: Indicates the maximum possible score of the lab. Will only be set if the lab has activities which have been scored.
+                format: int32
+                nullable: true
+              ExamPassingScore:
+                type: integer
+                format: int32
+                description: Indicates the minimum score required to pass the lab. Will only be set if the lab has activities which have been scored.
+                nullable: true
+              ExamScoredById:
+                type: integer
+                format: int64
+                description: The ID of the user that manually scored the lab. Will only be set if the lab has activities which have been scored manually. Automatically scored labs will not include a value for this property.
+                nullable: true
+              ExamScoredByName:
+                type: string
+                description: The name of the user that manually scored the lab. Will only be set if the lab has activities which have been scored manually. Automatically scored labs will not include a value for this property.
+                nullable: true
+              ExamDetails:
+                type: string
+                description: Legacy Field from previous scoring engine.
+                nullable: true
+              ExamScoredDate:
+                type: integer
+                description: The date the lab was scored (in Unix epoch time).
+                format: int64
+                nullable: true
+              ExamScoredTime:
+                type: string
+                description: When the lab was scored (in Unix epoch time). Will only be set if the lab has activities which have been scored.
+                nullable: true
+              IsExam:
+                type: boolean
+                description: Indicates whether the lab is scored.
+              IpAddress:
+                type: string
+                description: The user's IP address. This is only included if the IP address was provided when the lab was launched.
+                nullable: true
+              Country:
+                type: string
+                description: The user's country as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
+                nullable: true
+              Region:
+                type: string
+                description: The user's state/region as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
+                nullable: true
+              City:
+                type: string
+                description: The user's city as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
+                nullable: true
+              Latitude:
+                type: number
+                format: float
+                description: The user's latitude as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
+                nullable: true
+              Longitude:
+                type: number
+                format: float
+                description: The user's longitude as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
+                nullable: true
+              PublicIpAddresses:
+                type: array
+                description: An array of public IP address information objects. This contains an array of IpAddressInfo objects.
+                items:
+                  type: object
+                  properties:
+                    IpAddress:
+                      type: string
+                      x-stoplight:
+                        id: xgsjtxisu8mwm
+                      description: An IP address.
+                    MacAddress:
+                      type: string
+                      x-stoplight:
+                        id: nrw1o7wxv4x5r
+                      description: The MAC address of the NIC that the IP address was assigned to.
+                    MachineInstanceName:
+                      type: string
+                      x-stoplight:
+                        id: shoqjaarq8u0h
+                      description: The name of the virtual machine instance that the IP address was assigned to.
+              CloudCredentials:
+                type: array
+                description: An array of credentials assigned to the lab instance. This contains an array of CloudCredential objects.
+                items:
+                  type: object
+                  properties:
+                    PropertiesJson:
+                      type: string
+                      x-stoplight:
+                        id: dm38topi0ot0f
+                      description: 'Json serialized properties for the credentials, as defined in the cloud credential pool.'
+                    Expires:
+                      type: integer
+                      x-stoplight:
+                        id: 78mpbrf8b4kov
+                      format: int64
+                      description: When the credentials expire (in Unix epoch time).
+                    DisplayName:
+                      type: string
+                      x-stoplight:
+                        id: ok5fy5iffw5jz
+                      description: Friendly credential name displayed in the lab user interface.
+                    Message:
+                      type: string
+                      x-stoplight:
+                        id: 49rig1pxcvwf5
+                      nullable: true
+              CloudPortalCredentials:
+                type: array
+                description: An array of credentials assigned to the lab instance. This contains an array of CloudPortalCredential objects.
+                items:
+                  type: object
+                  properties:
+                    CloudPlatform:
+                      type: integer
+                      x-stoplight:
+                        id: r3yxkfuge0ybh
+                      format: int32
+                      description: |-
+                        The ID of the cloud platform to which the credentials belong.  
+                        10 = Azure  
+                        11 = AWS
+                    PropertiesJson:
+                      type: string
+                      x-stoplight:
+                        id: xedqfxm17qvuu
+                      description: Json serialized properties for the credentials.
+              VirtualMachineCredentials:
+                type: array
+                description: An array of credentials used to access the virtual machines. This contains an array of VirtualMachineCredential objects.
+                items:
+                  type: object
+                  properties:
+                    Id:
+                      type: integer
+                      description: ID of the virtual machine.
+                      format: int32
+                    Name:
+                      type: string
+                      description: Name of the virtual machine.
+                    Username:
+                      type: string
+                      description: Username used to accces the virtual machine.
+                    Password:
+                      type: string
+                      description: Password used to access the virtual machine.
+              CloudPlatformId:
+                type: integer
+                description: |-
+                  The ID of the cloud platform. Possible values:  
+                  10 = Azure  
+                  11 = AWS
+                format: int32
+                nullable: true
+              ClientUrl:
+                type: string
+                description: |-
+                  This response property is deprecated. Unless explicitly allowed by Skillable, this field will always be null.  
+                  To obtain an access URL, use the **LabAccessUrl** command.
+                nullable: true
+              EstimatedReadySeconds:
+                type: integer
+                format: int32
+                description: An estimated number of seconds before the lab is ready.
+                nullable: true
+              InstructionsSetId:
+                type: string
+                description: The ID of the Instructions used.
+                nullable: true
+              Language:
+                type: string
+                description: |-
+                  The lanuage code of the instruction set.
+
+                  en = English  
+                  es = Spanish  
+                  fr = French  
+                  de = German  
+                  pt = Portuguese  
+                  ja = Japanese  
+                  zh-hans = Simplified Chinese  
+                  zh-hant = Traditional Chinese  
+                  ko = Korean  
+                nullable: true
+              PreinstanceStartTime:
+                type: integer
+                description: When the lab was pre-instanced (in Unix epoch time).
+                format: int64
+                nullable: true
+              Skills:
+                type: array
+                description: The list of skills assigned to the lab profile and their basic details.
+                items:
+                  type: object
+                  properties:
+                    Id:
+                      type: integer
+                      description: The unique identifier of the skill.
+                    ExternalId:
+                      type: string
+                      description: The optional external identifier of the skill.
+                      nullable: true
+                    Name:
+                      type: string
+                      description: The name of the skill.
+                    FrameworkId:
+                      type: integer
+                      description: The unique identifier of the framework for this skill.
+                    FrameworkName:
+                      type: string
+                      description: The name of the framework for this skill.
+              ExamScaledScore:
+                type: integer
+                description: Scaled score recieved by the user for the exam.
+                nullable: true
+              ExamPassingRawScore:
+                type: integer
+                description: Indicates the minimum scaled score required to pass the lab. Will only be set if the lab has activities which have been scored.
+                nullable: true
+              ExamMaxPossibleRawScore:
+                type: integer
+                description: Indicates the maximum possible score of the lab. Will only be set if the lab has activities which have been scored.
+                nullable: true
+              ExamMinScaledScore:
+                type: integer
+                description: The lowest value in the scaled score range.
+                nullable: true
+              ExamMaxScaledScore:
+                type: integer
+                description: The highest value in the scaled score range.
+                nullable: true
+              ExamCutoffScaledScore:
+                type: integer
+                description: The minimum scaled score that represents a passing grade.
+                nullable: true
+        TotalResults:
+          type: integer
+          description: The total number of records returned in the API response.
+        TotalPages:
+          type: integer
+          description: The total number of pages for the records returned in the API response.
+        Error:
+          type: string
+          description: 'In the event of an error, this will contain a detailed error message.'
+          nullable: true
+        Status:
+          type: integer
+          description: |-
+            Indicates the status of the API request.  
+            0 = Error  
+            1 = Success 
+          format: int32

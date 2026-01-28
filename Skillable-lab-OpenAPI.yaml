@@ -325,7 +325,7 @@ paths:
             example: 12345678
         - schema:
             type: string
-            example: Canceled since the lab instance no longer being used.
+            example: Canceled since the lab instance is no longer being used.
           in: query
           name: note
           description: Note that details any additional context for why the lab was canceled.
@@ -818,7 +818,9 @@ paths:
                     oneOf:
                       - $ref: '#/components/schemas/ResultResponse'
                       - $ref: '#/components/schemas/DetailsResponse'
-                      - $ref: '#/components/schemas/ConciseResponse'
+                      - type: object
+                        x-stoplight:
+                          id: pj31otqkfhgps
                     description: 'Response format depends on mode specified. 0 for standard /Result, 10 for verbose). '
       operationId: LabInstanceSearch
       x-stoplight:
@@ -3419,6 +3421,7 @@ components:
   schemas:
     CancelResponse:
       type: object
+      x-examples: {}
       properties:
         Result:
           type: integer
@@ -3436,8 +3439,6 @@ components:
           type: string
           description: 'In the event of an error, this will contain a detailed error message.'
           nullable: true
-      description: ''
-      x-examples: {}
     CatalogResponse:
       type: object
       x-examples: {}
@@ -6161,7 +6162,6 @@ components:
           nullable: true
     ConciseResponse:
       type: object
-      x-examples: {}
       properties:
         Results:
           type: array
@@ -6170,588 +6170,274 @@ components:
             properties:
               Id:
                 type: integer
-                description: The ID of the lab instance.
-                format: int64
               LabProfileId:
                 type: integer
-                description: The ID of the lab profile.
-                format: int32
               LabProfileName:
                 type: string
-                description: The name of the lab profile.
               Products:
                 type: array
-                description: The list of products assigned to the lab profile and their basic details.
                 items:
                   type: object
                   properties:
                     Id:
                       type: integer
-                      example: 48
-                      description: The unique identifier of the product.
                     Name:
                       type: string
-                      example: Database
-                      description: The name of the product.
               SeriesId:
                 type: integer
-                description: The ID of the lab series.
-                format: int32
-                nullable: true
               SeriesName:
                 type: string
-                description: The name of the lab series.
-                nullable: true
               UserId:
                 type: string
-                description: The user ID as represented in your organization.
-                nullable: true
               UserFirstName:
                 type: string
-                description: The user's first name.
               UserLastName:
                 type: string
-                description: The user's last name.
               UserEmail:
-                type: string
-                description: The user's email address.
-                nullable: true
+                type:
+                  - 'null'
+                  - string
               ClassId:
-                type: string
-                description: The ID you use to identify the associated class in your external system.
-                nullable: true
+                type: 'null'
               ClassName:
-                type: string
-                description: The name of the class the lab instance is associated with.
-                nullable: true
+                type: 'null'
               Start:
                 type: integer
-                format: int64
-                description: When the lab instance was started (in Unix epoch time).
               StartTime:
                 type: string
-                description: When the lab was started (in Unix epoch time).
               Expires:
                 type: integer
-                format: int64
-                description: When the lab expires (in Unix epoch time).
               ExpiresTime:
                 type: string
-                description: When the lab expires (in Unix epoch time).
               End:
                 type: integer
-                description: When the lab instance was ended (in Unix epoch time).
-                nullable: true
               EndTime:
                 type: string
-                description: When the lab ended (in Unix epoch time).
               LastActivity:
-                type: integer
-                description: When student activity was last detected (in Unix epoch time).
-                format: int64
-                nullable: true
+                type:
+                  - integer
+                  - 'null'
               LastActivityTime:
-                type: string
-                description: When student activity was last detected (in Unix epoch time).
-                nullable: true
+                type:
+                  - 'null'
+                  - string
               LastSave:
-                type: integer
-                description: When the lab was last saved (in Unix epoch time).
-                format: int64
-                nullable: true
+                type:
+                  - integer
+                  - 'null'
               LastSaveTime:
-                type: string
-                description: When the lab was last saved (in Unix epoch time).
-                nullable: true
+                type:
+                  - 'null'
+                  - string
               SaveExpires:
-                type: integer
-                format: int64
-                description: 'If the lab instance is saved, when the saved data will expire and be deleted (in Unix epoch time).'
-                nullable: true
+                type: 'null'
               SaveExpiresTime:
-                type: string
-                description: 'If the lab instance is saved, when the saved data will expire and be deleted (in Unix epoch time).'
-                nullable: true
+                type: 'null'
               State:
                 type: string
-                description: |-
-                  The state of the lab instance. Possible values:  
-                  Off  
-                  Provisioning Storage  
-                  Building  
-                  Building (Displayable)  
-                  Starting  
-                  Running  
-                  Saving  
-                  Saved  
-                  Resuming  
-                  Creating Snapshot  
-                  Applying Snapshot  
-                  Updating Lab Profile  
-                  Tearing Down  
-                  Cloning  
-                  Creating As Clone  
-                  Moving (Running)  
-                  Moving (Saved)  
-                  Creating New Lab Profile  
-                  Scoring  
-                  Scheduled
               CompletionStatus:
                 type: string
-                description: |-
-                  The student's completion status. Possible values:  
-                  Scheduled  
-                  Cancelled  
-                  Not Started  
-                  Incomplete  
-                  Complete  
-                  Storage Provisioning Failed  
-                  Lab Creation Failed  
-                  Resume Failed  
-                  Save Failed  
-                  Submitted For Grading  
-                  Grading In Progress
               PoolMemberName:
-                type: string
-                description: 'If the lab contains a virtual machine pool, the name of the pool member that was used.'
-                nullable: true
+                type: 'null'
               LabHostId:
                 type: integer
-                description: The ID of the lab host machine.
-                format: int32
               LabHostName:
                 type: string
-                description: The name of the lab host machine.
               DatacenterId:
                 type: integer
-                format: int32
-                description: The ID of the datacenter where the lab is located.
               DatacenterName:
                 type: string
-                description: The name of the datacenter where the lab is located.
               DeliveryRegionId:
                 type: integer
-                description: 'When specified, Skillable will attempt to launch the lab in the specified delivery region if a suitable host in that region is available and all required storage is available in that region. Delivery regions can be found using the **DeliveryRegions** command or **Catalog** command. Using the ipAddress parameter will result in a more reliable geo-location of the lab for the end user.'
-                format: int32
               DeliveryRegionName:
                 type: string
-                description: The name of the delivery region where the lab is located.
               PlatformId:
                 type: integer
-                format: int32
-                description: |-
-                  The platform the lab has hosted on. Possible values:  
-                  2 = Hyper-V  
-                  3 = ESX  
-                  20 = Docker  
-                  -1 = None
               LastSaveTriggerType:
-                type: string
-                description: |-
-                  If the lab is currently saved, what triggered the save operation. Possible values:  
-                  Unknown  
-                  By Student  
-                  By Administrator  
-                  Automatic  
-                  From API Consumer
-                nullable: true
+                type: 'null'
               TimeInSession:
                 type: integer
-                format: int32
-                description: The total number of seconds the user spent in the lab.
               TotalRunTime:
                 type: integer
-                format: int32
-                description: 'The total number of seconds the lab was running, whether or not the student was present.'
               TimeRemaining:
                 type: integer
-                format: int32
-                description: The total number of seconds remaining before the lab expires.
               InstructorName:
                 type: string
-                description: The name of the instructor for the associated class.
-                nullable: true
               StartupDuration:
                 type: integer
-                description: The number of seconds it took the lab to start.
-                nullable: true
               Errors:
                 type: array
-                description: An array of all errors associated with the lab instance.
                 items:
                   type: object
                   properties:
                     Message:
                       type: string
-                      description: Details of error that occurred.
                     Time:
                       type: integer
-                      format: int64
-                      description: Timestamp when the error occurred (in Unix epoch time).
                     TimeValue:
                       type: string
-                      description: Timestamp when the error occurred (in Unix epoch time).
               Snapshots:
                 type: array
-                description: An array of snapshots created by the user within the lab. This contains an array of LabInstanceSnapshot objects.
                 items:
                   type: object
-                  properties:
-                    Name:
-                      type: string
-                      x-stoplight:
-                        id: glj96noyo4oql
-                      description: The name that the student gave to the snapshot.
-                    Time:
-                      type: integer
-                      x-stoplight:
-                        id: ivw0xiaezcvax
-                      format: int64
-                      description: When the student created the snapshot (in Unix epoch time).
+                  properties: {}
               Sessions:
                 type: array
-                description: An array of session times the student spent in the lab. This contains an array of LabInstanceSnapshot objects.
                 items:
                   type: object
                   properties:
                     Start:
                       type: integer
-                      format: int64
-                      description: When the session started (in Unix epoch time).
                     StartTime:
                       type: string
-                      description: When the session started (in Unix epoch time).
                     End:
                       type: integer
-                      description: When the session ended (in Unix epoch time).
-                      format: int64
                     EndTime:
                       type: string
-                      description: When the session ended (in Unix epoch time).
               Notes:
                 type: array
-                description: Array of notes applicable to the lab instance.
                 items:
                   type: object
                   properties:
                     Time:
                       type: integer
-                      description: Time the note was created (in Unix epoch time).
                     TimeValue:
                       type: string
-                      description: Time the note was created (in Unix epoch time).
                     Title:
                       type: string
-                      description: Title of the note.
                     Text:
                       type: string
-                      description: Text assocaited with the note.
               HasContent:
                 type: boolean
-                description: 'Indicates whether the lab has content, or simply houses virtual machines.'
               Task:
-                type: string
-                description: 'If the lab has content (HasContent=true), indicates the name of the task the student is working on.'
-                nullable: true
+                type: 'null'
               Exercise:
-                type: string
-                description: 'If the lab has content (HasContent=true), indicates the name of the exercise the student is working on.'
-                nullable: true
+                type: 'null'
               NumTasks:
                 type: integer
-                format: int32
-                description: 'If the lab has content (HasContent=true), indicates the total number of tasks in the lab.'
               NumCompletedTasks:
                 type: integer
-                description: 'If the lab has content (HasContent=true), indicates the number of tasks the student has completed.'
-                format: int32
               TaskCompletePercent:
                 type: integer
-                format: int32
-                description: 'If the lab has content (HasContent=true), indicates the percentage of tasks that the student has completed.'
               MonitorUrl:
-                type: string
-                description: |-
-                  This response property is deprecated. Unless explicitly allowed by Skillable, this field will always be null.
-                  To obtain an access URL, use the LabMonitorUrl command.
-                nullable: true
+                type: 'null'
               DetailsUrl:
                 type: string
-                description: The URL at which the lab instance details can be reviewed (required authentication to view).
               RemoteController:
                 type: string
-                description: The name of the remote controller used by the user.
               Tag:
-                type: string
-                description: Lab instance tag data.
-                nullable: true
+                type: 'null'
               BrowserUserAgent:
-                type: string
-                description: The browser user agent used by the user.
-                nullable: true
+                type:
+                  - 'null'
+                  - string
               LastLatency:
-                type: string
-                description: The last known latency value as measured between the client and the lab's datacenter.
-                nullable: true
+                type: 'null'
               ExamPassed:
                 type: boolean
-                description: Indicates whether the user passed the lab. Will only be set if the lab has activities which have been scored.
-                nullable: true
               ExamScore:
-                type: number
-                description: Indicates the lab score. Will only be set if the lab has activities which have been scored.
-                nullable: true
+                type: integer
               ExamMaxPossibleScore:
                 type: integer
-                description: Indicates the maximum possible score of the lab. Will only be set if the lab has activities which have been scored.
-                format: int32
-                nullable: true
               ExamPassingScore:
                 type: integer
-                format: int32
-                description: Indicates the minimum score required to pass the lab. Will only be set if the lab has activities which have been scored.
-                nullable: true
               ExamScoredById:
-                type: integer
-                format: int64
-                description: The ID of the user that manually scored the lab. Will only be set if the lab has activities which have been scored manually. Automatically scored labs will not include a value for this property.
-                nullable: true
+                type: 'null'
               ExamScoredByName:
-                type: string
-                description: The name of the user that manually scored the lab. Will only be set if the lab has activities which have been scored manually. Automatically scored labs will not include a value for this property.
-                nullable: true
+                type: 'null'
               ExamDetails:
-                type: string
-                description: Legacy Field from previous scoring engine.
-                nullable: true
+                type: 'null'
               ExamScoredDate:
                 type: integer
-                description: The date the lab was scored (in Unix epoch time).
-                format: int64
-                nullable: true
               ExamScoredTime:
                 type: string
-                description: When the lab was scored (in Unix epoch time). Will only be set if the lab has activities which have been scored.
-                nullable: true
               IsExam:
                 type: boolean
-                description: Indicates whether the lab is scored.
               IpAddress:
-                type: string
-                description: The user's IP address. This is only included if the IP address was provided when the lab was launched.
-                nullable: true
+                type: 'null'
               Country:
-                type: string
-                description: The user's country as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
-                nullable: true
+                type: 'null'
               Region:
-                type: string
-                description: The user's state/region as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
-                nullable: true
+                type: 'null'
               City:
-                type: string
-                description: The user's city as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
-                nullable: true
+                type: 'null'
               Latitude:
-                type: number
-                format: float
-                description: The user's latitude as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
-                nullable: true
+                type: 'null'
               Longitude:
-                type: number
-                format: float
-                description: The user's longitude as determined by IP address geolocation. This is only included if the IP address was provided when the lab was launched.
-                nullable: true
+                type: 'null'
               PublicIpAddresses:
                 type: array
-                description: An array of public IP address information objects. This contains an array of IpAddressInfo objects.
                 items:
                   type: object
-                  properties:
-                    IpAddress:
-                      type: string
-                      x-stoplight:
-                        id: xgsjtxisu8mwm
-                      description: An IP address.
-                    MacAddress:
-                      type: string
-                      x-stoplight:
-                        id: nrw1o7wxv4x5r
-                      description: The MAC address of the NIC that the IP address was assigned to.
-                    MachineInstanceName:
-                      type: string
-                      x-stoplight:
-                        id: shoqjaarq8u0h
-                      description: The name of the virtual machine instance that the IP address was assigned to.
+                  properties: {}
               CloudCredentials:
                 type: array
-                description: An array of credentials assigned to the lab instance. This contains an array of CloudCredential objects.
                 items:
                   type: object
-                  properties:
-                    PropertiesJson:
-                      type: string
-                      x-stoplight:
-                        id: dm38topi0ot0f
-                      description: 'Json serialized properties for the credentials, as defined in the cloud credential pool.'
-                    Expires:
-                      type: integer
-                      x-stoplight:
-                        id: 78mpbrf8b4kov
-                      format: int64
-                      description: When the credentials expire (in Unix epoch time).
-                    DisplayName:
-                      type: string
-                      x-stoplight:
-                        id: ok5fy5iffw5jz
-                      description: Friendly credential name displayed in the lab user interface.
-                    Message:
-                      type: string
-                      x-stoplight:
-                        id: 49rig1pxcvwf5
-                      nullable: true
+                  properties: {}
               CloudPortalCredentials:
                 type: array
-                description: An array of credentials assigned to the lab instance. This contains an array of CloudPortalCredential objects.
                 items:
                   type: object
-                  properties:
-                    CloudPlatform:
-                      type: integer
-                      x-stoplight:
-                        id: r3yxkfuge0ybh
-                      format: int32
-                      description: |-
-                        The ID of the cloud platform to which the credentials belong.  
-                        10 = Azure  
-                        11 = AWS
-                    PropertiesJson:
-                      type: string
-                      x-stoplight:
-                        id: xedqfxm17qvuu
-                      description: Json serialized properties for the credentials.
+                  properties: {}
               VirtualMachineCredentials:
                 type: array
-                description: An array of credentials used to access the virtual machines. This contains an array of VirtualMachineCredential objects.
                 items:
                   type: object
                   properties:
                     Id:
                       type: integer
-                      description: ID of the virtual machine.
-                      format: int32
                     Name:
                       type: string
-                      description: Name of the virtual machine.
                     Username:
                       type: string
-                      description: Username used to accces the virtual machine.
                     Password:
                       type: string
-                      description: Password used to access the virtual machine.
               CloudPlatformId:
-                type: integer
-                description: |-
-                  The ID of the cloud platform. Possible values:  
-                  10 = Azure  
-                  11 = AWS
-                format: int32
-                nullable: true
+                type: 'null'
               ClientUrl:
-                type: string
-                description: |-
-                  This response property is deprecated. Unless explicitly allowed by Skillable, this field will always be null.  
-                  To obtain an access URL, use the **LabAccessUrl** command.
-                nullable: true
+                type: 'null'
               EstimatedReadySeconds:
-                type: integer
-                format: int32
-                description: An estimated number of seconds before the lab is ready.
-                nullable: true
+                type: 'null'
               InstructionsSetId:
                 type: string
-                description: The ID of the Instructions used.
-                nullable: true
               Language:
                 type: string
-                description: |-
-                  The lanuage code of the instruction set.
-
-                  en = English  
-                  es = Spanish  
-                  fr = French  
-                  de = German  
-                  pt = Portuguese  
-                  ja = Japanese  
-                  zh-hans = Simplified Chinese  
-                  zh-hant = Traditional Chinese  
-                  ko = Korean  
-                nullable: true
               PreinstanceStartTime:
-                type: integer
-                description: When the lab was pre-instanced (in Unix epoch time).
-                format: int64
-                nullable: true
+                type: 'null'
               Skills:
                 type: array
-                description: The list of skills assigned to the lab profile and their basic details.
                 items:
                   type: object
                   properties:
                     Id:
                       type: integer
-                      description: The unique identifier of the skill.
                     ExternalId:
                       type: string
-                      description: The optional external identifier of the skill.
-                      nullable: true
                     Name:
                       type: string
-                      description: The name of the skill.
                     FrameworkId:
                       type: integer
-                      description: The unique identifier of the framework for this skill.
                     FrameworkName:
                       type: string
-                      description: The name of the framework for this skill.
               ExamScaledScore:
-                type: integer
-                description: Scaled score recieved by the user for the exam.
-                nullable: true
+                type: 'null'
               ExamPassingRawScore:
-                type: integer
-                description: Indicates the minimum scaled score required to pass the lab. Will only be set if the lab has activities which have been scored.
-                nullable: true
+                type: 'null'
               ExamMaxPossibleRawScore:
-                type: integer
-                description: Indicates the maximum possible score of the lab. Will only be set if the lab has activities which have been scored.
-                nullable: true
+                type: 'null'
               ExamMinScaledScore:
-                type: integer
-                description: The lowest value in the scaled score range.
-                nullable: true
+                type: 'null'
               ExamMaxScaledScore:
-                type: integer
-                description: The highest value in the scaled score range.
-                nullable: true
+                type: 'null'
               ExamCutoffScaledScore:
-                type: integer
-                description: The minimum scaled score that represents a passing grade.
-                nullable: true
+                type: 'null'
         TotalResults:
           type: integer
-          description: The total number of records returned in the API response.
         TotalPages:
           type: integer
-          description: The total number of pages for the records returned in the API response.
         Error:
-          type: string
-          description: 'In the event of an error, this will contain a detailed error message.'
-          nullable: true
+          type: 'null'
         Status:
           type: integer
-          description: |-
-            Indicates the status of the API request.  
-            0 = Error  
-            1 = Success 
-          format: int32
+      x-examples: {}

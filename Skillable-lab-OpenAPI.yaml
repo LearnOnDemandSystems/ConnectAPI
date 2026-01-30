@@ -818,14 +818,12 @@ paths:
                     oneOf:
                       - $ref: '#/components/schemas/ResultResponse'
                       - $ref: '#/components/schemas/DetailsResponse'
-                      - type: object
-                        x-stoplight:
-                          id: pj31otqkfhgps
+                      - $ref: '#/components/schemas/ConciseResponse'
                     description: 'Response format depends on mode specified. 0 for standard /Result, 10 for verbose). '
       operationId: LabInstanceSearch
       x-stoplight:
         id: 1i3hzl72od78k
-      description: "The lab instance **Search** command returns paginated information about either lab instance details or lab instance results for all lab instances that meet selected criteria. \r\nThe response body will contain a collection of instance results in one of two formats, depending on the mode specified:\r\n\r\n- Mode = 0, standard: a collection of responses in the format of the **[Result](https://docs.skillable.com/apidocs/retrieve-information-about-a-lab-instance-result-1)** command\r\n\r\n- Mode = 10, verbose (default) a collection of responses in the format of the **[Details](https://docs.skillable.com/apidocs/retrieve-details-about-a-lab-instance)** command \r\n\r\n"
+      description: "The lab instance **Search** command returns paginated information about either lab instance details or lab instance results for all lab instances that meet selected criteria. \r\nThe response body will contain a collection of instance results in one of two formats, depending on the mode specified:\r\n\r\n- Mode = 0, standard: a collection of responses in the format of the **[Result](https://docs.skillable.com/apidocs/retrieve-information-about-a-lab-instance-result-1)** command\r\n- Mode = 5, concise: a collection of responses containing portions of the **[Details](https://docs.skillable.com/apidocs/retrieve-details-about-a-lab-instance)** and **[Result](https://docs.skillable.com/apidocs/retrieve-information-about-a-lab-instance-result-1)** commands.\r\n- Mode = 10, verbose (default): a collection of responses in the format of the **[Details](https://docs.skillable.com/apidocs/retrieve-details-about-a-lab-instance)** command \r\n\r\n"
       parameters:
         - schema:
             type: integer

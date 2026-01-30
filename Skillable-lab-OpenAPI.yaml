@@ -323,6 +323,12 @@ paths:
             type: integer
             format: int64
             example: 12345678
+        - schema:
+            type: string
+            example: Canceled since the lab instance is no longer being used.
+          in: query
+          name: note
+          description: Note that details any additional context for why the lab was canceled.
       responses:
         '200':
           description: OK Response
@@ -812,6 +818,9 @@ paths:
                     oneOf:
                       - $ref: '#/components/schemas/ResultResponse'
                       - $ref: '#/components/schemas/DetailsResponse'
+                      - type: object
+                        x-stoplight:
+                          id: pj31otqkfhgps
                     description: 'Response format depends on mode specified. 0 for standard /Result, 10 for verbose). '
       operationId: LabInstanceSearch
       x-stoplight:
@@ -877,7 +886,7 @@ paths:
             format: int32
           in: query
           name: mode
-          description: 'Which response schema to return. 0 - standard, returns response body of /Result, 10 - verbose, returns response body of /details.'
+          description: 'Which response schema to return. 0 - standard, returns response body of /result, 5 - concise, returns response body containing portions of the /details and /result, 10 - verbose, returns response body of /details.'
     parameters: []
   /save:
     get:
@@ -3412,6 +3421,7 @@ components:
   schemas:
     CancelResponse:
       type: object
+      x-examples: {}
       properties:
         Result:
           type: integer
@@ -3429,8 +3439,6 @@ components:
           type: string
           description: 'In the event of an error, this will contain a detailed error message.'
           nullable: true
-      description: ''
-      x-examples: {}
     CatalogResponse:
       type: object
       x-examples: {}
@@ -3504,6 +3512,28 @@ components:
                 minLength: 1
                 description: A brief description of the lab profile.
                 nullable: true
+              Products:
+                type: array
+                x-stoplight:
+                  id: 2gbqpg4z44g0z
+                description: A list of the products assigned to the lab profile and their basic details.
+                items:
+                  x-stoplight:
+                    id: a5i6by6cvl446
+                  type: object
+                  properties:
+                    Id:
+                      type: integer
+                      x-stoplight:
+                        id: 1xt0a4k0o7dtp
+                      example: 48
+                      description: The unique identifier of the product.
+                    Name:
+                      type: string
+                      x-stoplight:
+                        id: ppzdpy4yt4ki4
+                      example: Database
+                      description: The name of the product.
               SeriesId:
                 type: integer
                 description: The unique identifier of the series the lab profile belongs to.
@@ -3941,18 +3971,40 @@ components:
         LabProfileName:
           type: string
           description: The name of the lab profile.
+        Products:
+          type: array
+          x-stoplight:
+            id: bkm5i1qkr60ur
+          description: The list of products assigned to the lab profile and their basic details.
+          items:
+            x-stoplight:
+              id: 2wr8bhppl828i
+            type: object
+            properties:
+              Id:
+                type: integer
+                x-stoplight:
+                  id: wcpq8gzucpwhf
+                example: 48
+                description: The unique identifier of the product.
+              Name:
+                type: string
+                x-stoplight:
+                  id: s7hh1lv151xf5
+                example: Database
+                description: The name of the product.
         SeriesId:
           type: integer
           description: The ID of the lab series.
           format: int32
           nullable: true
+        UserId:
+          type: string
+          description: The ID you use to identify the user in your external system.
         SeriesName:
           type: string
           description: The name of the lab series.
           nullable: true
-        UserId:
-          type: string
-          description: The ID you use to identify the user in your external system.
         UserFirstName:
           type: string
           description: The user's first name.
@@ -4905,10 +4957,6 @@ components:
         Name:
           type: string
           description: The name of the lab profile.
-        Number:
-          type: string
-          description: 'The lab number (usually to identify a lab within a series, e.g. Module 1, Module 2, etc.).'
-          nullable: true
         PlatformId:
           type: integer
           description: |-
@@ -4920,6 +4968,36 @@ components:
             11 = AWS  
             20 = Docker
           format: int32
+        Number:
+          type: string
+          description: 'The lab number (usually to identify a lab within a series, e.g. Module 1, Module 2, etc.).'
+          nullable: true
+        Description:
+          type: string
+          description: A brief description of the lab profile.
+          nullable: true
+        Products:
+          type: array
+          x-stoplight:
+            id: gniy5vzhfligg
+          description: A list of the products assigned to the lab profile and their basic details.
+          items:
+            x-stoplight:
+              id: acr20yzhk602v
+            type: object
+            properties:
+              Id:
+                type: integer
+                x-stoplight:
+                  id: ke7wi02eu7kh2
+                example: 48
+                description: The unique identifier of the product.
+              Name:
+                type: string
+                x-stoplight:
+                  id: mvmefyucaz00w
+                example: Database
+                description: The name of the product.
         Platform:
           type: integer
           description: 'This response property is obsolete, and will show the same value as PlatformId.'
@@ -4977,10 +5055,6 @@ components:
           description: Indicates the number of public ip addresses used in this lab profile.
           format: int32
           nullable: false
-        Description:
-          type: string
-          description: A brief description of the lab profile.
-          nullable: true
         Objective:
           type: string
           description: Text describing the objective of the lab.
@@ -6086,3 +6160,284 @@ components:
           type: string
           description: 'In the event of an error, this will contain a detailed error message.'
           nullable: true
+    ConciseResponse:
+      type: object
+      properties:
+        Results:
+          type: array
+          items:
+            type: object
+            properties:
+              Id:
+                type: integer
+              LabProfileId:
+                type: integer
+              LabProfileName:
+                type: string
+              Products:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Id:
+                      type: integer
+                    Name:
+                      type: string
+              SeriesId:
+                type: integer
+              SeriesName:
+                type: string
+              UserId:
+                type: string
+              UserFirstName:
+                type: string
+              UserLastName:
+                type: string
+              UserEmail:
+                type:
+                  - 'null'
+                  - string
+              ClassId:
+                type: 'null'
+              ClassName:
+                type: 'null'
+              Start:
+                type: integer
+              StartTime:
+                type: string
+              Expires:
+                type: integer
+              ExpiresTime:
+                type: string
+              End:
+                type: integer
+              EndTime:
+                type: string
+              LastActivity:
+                type:
+                  - integer
+                  - 'null'
+              LastActivityTime:
+                type:
+                  - 'null'
+                  - string
+              LastSave:
+                type:
+                  - integer
+                  - 'null'
+              LastSaveTime:
+                type:
+                  - 'null'
+                  - string
+              SaveExpires:
+                type: 'null'
+              SaveExpiresTime:
+                type: 'null'
+              State:
+                type: string
+              CompletionStatus:
+                type: string
+              PoolMemberName:
+                type: 'null'
+              LabHostId:
+                type: integer
+              LabHostName:
+                type: string
+              DatacenterId:
+                type: integer
+              DatacenterName:
+                type: string
+              DeliveryRegionId:
+                type: integer
+              DeliveryRegionName:
+                type: string
+              PlatformId:
+                type: integer
+              LastSaveTriggerType:
+                type: 'null'
+              TimeInSession:
+                type: integer
+              TotalRunTime:
+                type: integer
+              TimeRemaining:
+                type: integer
+              InstructorName:
+                type: string
+              StartupDuration:
+                type: integer
+              Errors:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Message:
+                      type: string
+                    Time:
+                      type: integer
+                    TimeValue:
+                      type: string
+              Snapshots:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+              Sessions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Start:
+                      type: integer
+                    StartTime:
+                      type: string
+                    End:
+                      type: integer
+                    EndTime:
+                      type: string
+              Notes:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Time:
+                      type: integer
+                    TimeValue:
+                      type: string
+                    Title:
+                      type: string
+                    Text:
+                      type: string
+              HasContent:
+                type: boolean
+              Task:
+                type: 'null'
+              Exercise:
+                type: 'null'
+              NumTasks:
+                type: integer
+              NumCompletedTasks:
+                type: integer
+              TaskCompletePercent:
+                type: integer
+              MonitorUrl:
+                type: 'null'
+              DetailsUrl:
+                type: string
+              RemoteController:
+                type: string
+              Tag:
+                type: 'null'
+              BrowserUserAgent:
+                type:
+                  - 'null'
+                  - string
+              LastLatency:
+                type: 'null'
+              ExamPassed:
+                type: boolean
+              ExamScore:
+                type: integer
+              ExamMaxPossibleScore:
+                type: integer
+              ExamPassingScore:
+                type: integer
+              ExamScoredById:
+                type: 'null'
+              ExamScoredByName:
+                type: 'null'
+              ExamDetails:
+                type: 'null'
+              ExamScoredDate:
+                type: integer
+              ExamScoredTime:
+                type: string
+              IsExam:
+                type: boolean
+              IpAddress:
+                type: 'null'
+              Country:
+                type: 'null'
+              Region:
+                type: 'null'
+              City:
+                type: 'null'
+              Latitude:
+                type: 'null'
+              Longitude:
+                type: 'null'
+              PublicIpAddresses:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+              CloudCredentials:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+              CloudPortalCredentials:
+                type: array
+                items:
+                  type: object
+                  properties: {}
+              VirtualMachineCredentials:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Id:
+                      type: integer
+                    Name:
+                      type: string
+                    Username:
+                      type: string
+                    Password:
+                      type: string
+              CloudPlatformId:
+                type: 'null'
+              ClientUrl:
+                type: 'null'
+              EstimatedReadySeconds:
+                type: 'null'
+              InstructionsSetId:
+                type: string
+              Language:
+                type: string
+              PreinstanceStartTime:
+                type: 'null'
+              Skills:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Id:
+                      type: integer
+                    ExternalId:
+                      type: string
+                    Name:
+                      type: string
+                    FrameworkId:
+                      type: integer
+                    FrameworkName:
+                      type: string
+              ExamScaledScore:
+                type: 'null'
+              ExamPassingRawScore:
+                type: 'null'
+              ExamMaxPossibleRawScore:
+                type: 'null'
+              ExamMinScaledScore:
+                type: 'null'
+              ExamMaxScaledScore:
+                type: 'null'
+              ExamCutoffScaledScore:
+                type: 'null'
+        TotalResults:
+          type: integer
+        TotalPages:
+          type: integer
+        Error:
+          type: 'null'
+        Status:
+          type: integer
+      x-examples: {}

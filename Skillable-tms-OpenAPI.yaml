@@ -6411,7 +6411,7 @@ paths:
       deprecated: false
       x-stoplight:
         id: gjs3manumlc0r
-  /GetClubMembership:
+  /GetSubscription:
     get:
       tags:
         - Subscription Management
@@ -6436,7 +6436,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/ClubMembershipResponse'
       deprecated: false
-  /GetClubMembershipByExternalId:
+      x-stoplight:
+        id: j4791m1z8uyfu
+    parameters: []
+  /GetSubscriptionByExternalId:
     get:
       tags:
         - Subscription Management
@@ -6460,7 +6463,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/ClubMembershipResponse'
       deprecated: false
-  /CreateClubMembership:
+      x-stoplight:
+        id: mv66pdrs0jlhb
+    parameters: []
+  /CreateSubscription:
     get:
       tags:
         - Subscription Management
@@ -6524,7 +6530,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/CreateClubMembershipResponse'
       deprecated: false
-  /DeleteClubMembership:
+      x-stoplight:
+        id: 8fdm3pyjsll17
+    parameters: []
+  /DeleteSubscription:
     get:
       tags:
         - Subscription Management
@@ -6549,7 +6558,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
       deprecated: false
-  /UpdateClubMembership:
+      x-stoplight:
+        id: exzc79v4v9rtq
+    parameters: []
+  /UpdateSubscription:
     get:
       tags:
         - Subscription Management
@@ -6627,6 +6639,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
       deprecated: false
+      x-stoplight:
+        id: ur0jrm683x1ml
+    parameters: []
   /CreateCompany:
     get:
       tags:

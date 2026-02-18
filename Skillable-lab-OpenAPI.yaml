@@ -885,6 +885,11 @@ paths:
           in: query
           name: mode
           description: 'Which response schema to return. 0 - standard, returns response body of /result, 5 - concise, returns response body containing portions of the /details and /result, 10 - verbose, returns response body of /details.'
+        - schema:
+            type: string
+          in: query
+          name: classId
+          description: 'The class ID as represented in your organization. Must be an exact match. '
     parameters: []
   /save:
     get:

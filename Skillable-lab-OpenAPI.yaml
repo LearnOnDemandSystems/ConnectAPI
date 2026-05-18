@@ -819,7 +819,7 @@ paths:
                       - $ref: '#/components/schemas/ResultResponse'
                       - $ref: '#/components/schemas/DetailsResponse'
                       - $ref: '#/components/schemas/ConciseResponse'
-                    description: 'Response format depends on mode specified. 0 for standard /Result, 10 for verbose). '
+                    description: 'Response format depends on mode specified. 0 for standard /Result, 5 for concise, 10 for verbose). '
       operationId: LabInstanceSearch
       x-stoplight:
         id: 1i3hzl72od78k
@@ -3465,6 +3465,19 @@ components:
                 type: string
                 minLength: 1
                 description: A brief description of the Lab Series.
+                nullable: true
+              OrganizationId:
+                type: string
+                x-stoplight:
+                  id: 8zx1xda98b4b5
+                description: The unique identifier of the Organization the lab series belongs to.
+                nullable: true
+              OrganizationName:
+                type: string
+                x-stoplight:
+                  id: lwboc158ouolr
+                description: The name of the Organization the lab series belongs to.
+                nullable: true
               NumTrainingDays:
                 type: integer
                 description: The number of training days expected to complete the series.
@@ -3475,16 +3488,26 @@ components:
                 type: string
                 description: The date (in Unix epoch time) after which assignments are no longer valid. A null value indicates that assignments do not expire.
                 nullable: true
-              Created:
-                type: integer
-                format: int64
-                description: The date (in Unix epoch time) that the Lab Series was created.
-                nullable: false
               LastModified:
                 type: integer
                 format: int64
                 description: The date (in Unix epoch time) that the Lab Series was modified.
                 nullable: true
+              LastModifiedBy:
+                type: string
+                x-stoplight:
+                  id: vpq47qx4ycs5q
+                description: Name of the user that last updated the lab series.
+              Created:
+                type: integer
+                format: int64
+                description: The date (in Unix epoch time) that the Lab Series was created.
+                nullable: false
+              CreatedBy:
+                type: string
+                x-stoplight:
+                  id: eznmcpd7xnf2i
+                description: Name of the user that created the lab series.
               Price:
                 type: number
                 description: The price of the Lab Series.
@@ -3545,6 +3568,12 @@ components:
                 type: integer
                 description: The unique identifier of the Organization the lab profile belongs to.
                 format: int32
+                nullable: true
+              OrganizationName:
+                type: string
+                x-stoplight:
+                  id: p4wd11u3ov1of
+                description: The name of the Organization the lab profile belongs to.
                 nullable: true
               Objective:
                 type: string
@@ -3680,13 +3709,23 @@ components:
               Created:
                 type: string
                 description: The date when the lab profile was created (in Unix epoch time).
+              CreatedBy:
+                type: string
+                x-stoplight:
+                  id: z3d8p29se3923
+                description: Name of the user that created the lab profile.
               LastModified:
                 type: string
                 description: The date when the lab profile was last modified (in Unix epoch time).
+              LastModifiedBy:
+                type: string
+                x-stoplight:
+                  id: owcpdvjg6283w
+                description: Name of the user that last updated the lab profile.
               SCORMLastDownloaded:
                 type: integer
-                format: int64
                 description: The date when the SCORM package was last downloaded from the lab profile (in Unix epoch time).
+                nullable: true
               InstructionSets:
                 type: array
                 description: Array of instruction sets for the lab profile.
@@ -3996,6 +4035,10 @@ components:
                   id: s7hh1lv151xf5
                 example: Database
                 description: The name of the product.
+        ApiConsumerName:
+          type: string
+          x-stoplight:
+            id: pqb1q3f2zbd1z
         SeriesId:
           type: integer
           description: The ID of the lab series.
@@ -4179,15 +4222,31 @@ components:
           type: integer
           description: The total number of seconds remaining before the lab expires.
           format: int32
+        InstructorId:
+          type: string
+          x-stoplight:
+            id: t3mg7xh023gcy
+          description: The unique ID of the instructor for the associated class.
+          nullable: true
         InstructorName:
           description: The name of the instructor for the associated class.
           type: string
           nullable: true
+        InstructorEmail:
+          type: string
+          x-stoplight:
+            id: zh46r2jim6nyb
+          description: The email address of the instructor for the associated class.
         StartupDuration:
           type: integer
           description: The number of seconds it took the lab to start.
           format: int32
           nullable: true
+        ErrorCount:
+          type: string
+          x-stoplight:
+            id: ztppa90hwbgkx
+          description: Count of errors for a given lab instance.
         Errors:
           type: array
           description: An array of all errors associated with the lab instance.
@@ -5025,6 +5084,12 @@ components:
           description: The unique identifier of the Organization the lab profile belongs to.
           format: int32
           nullable: true
+        OrganizationName:
+          type: string
+          x-stoplight:
+            id: lyvnvl7uh8f1h
+          description: The name of the Organization the lab profile belongs to.
+          nullable: true
         Enabled:
           type: boolean
           description: Whether the lab is currently enabled for launch.
@@ -5190,10 +5255,20 @@ components:
           type: integer
           format: int64
           description: The date when the lab profile was created (in Unix epoch time).
+        CreatedBy:
+          type: string
+          x-stoplight:
+            id: r2de1eym9ozq3
+          description: Name of the user that created the lab profile.
         LastModified:
           type: integer
           format: int64
           description: The date when the lab profile was last modified (in Unix epoch time).
+        LastModifiedBy:
+          type: string
+          x-stoplight:
+            id: vivdalp6mnoyz
+          description: Name of the user that last updated the lab profile.
         SCORMLastDownloaded:
           type: integer
           format: int64
@@ -5247,6 +5322,18 @@ components:
           type: string
           description: A brief description of the Lab Series.
           nullable: true
+        OrganizationId:
+          type: string
+          x-stoplight:
+            id: tftyuskphkhjq
+          description: The unique identifier of the Organization the lab series belongs to.
+          nullable: true
+        OrganizationName:
+          type: string
+          x-stoplight:
+            id: y1svg0hg71b0a
+          description: The name of the Organization the lab series belongs to.
+          nullable: true
         NumTrainingDays:
           type: integer
           x-stoplight:
@@ -5277,11 +5364,21 @@ components:
           format: int64
           description: The date when the Lab Series was created (in Unix epoch time).
           example: 1739482453
+        CreatedBy:
+          type: string
+          x-stoplight:
+            id: n88rb98dzycr9
+          description: Name of the user that created the lab series.
         LastModified:
           type: integer
           format: int64
           description: The date when the Lab Series was last modified (in Unix epoch time).
           example: 1739482468
+        LastModifiedBy:
+          type: string
+          x-stoplight:
+            id: zhmmmybmlqpfl
+          description: Name of the user that last updated the lab series.
         Status:
           type: integer
           description: |-
@@ -6165,6 +6262,7 @@ components:
           nullable: true
     ConciseResponse:
       type: object
+      x-examples: {}
       properties:
         Results:
           type: array
@@ -6197,13 +6295,12 @@ components:
               UserLastName:
                 type: string
               UserEmail:
-                type:
-                  - 'null'
-                  - string
+                type: string
+                nullable: true
               ClassId:
-                type: 'null'
+                nullable: true
               ClassName:
-                type: 'null'
+                nullable: true
               Start:
                 type: integer
               StartTime:
@@ -6217,31 +6314,27 @@ components:
               EndTime:
                 type: string
               LastActivity:
-                type:
-                  - integer
-                  - 'null'
+                type: integer
+                nullable: true
               LastActivityTime:
-                type:
-                  - 'null'
-                  - string
+                type: string
+                nullable: true
               LastSave:
-                type:
-                  - integer
-                  - 'null'
+                type: integer
+                nullable: true
               LastSaveTime:
-                type:
-                  - 'null'
-                  - string
+                type: string
+                nullable: true
               SaveExpires:
-                type: 'null'
+                nullable: true
               SaveExpiresTime:
-                type: 'null'
+                nullable: true
               State:
                 type: string
               CompletionStatus:
                 type: string
               PoolMemberName:
-                type: 'null'
+                nullable: true
               LabHostId:
                 type: integer
               LabHostName:
@@ -6257,17 +6350,29 @@ components:
               PlatformId:
                 type: integer
               LastSaveTriggerType:
-                type: 'null'
+                nullable: true
               TimeInSession:
                 type: integer
               TotalRunTime:
                 type: integer
               TimeRemaining:
                 type: integer
+              InstructorId:
+                type: string
+                x-stoplight:
+                  id: 13tenoz6f1esp
               InstructorName:
                 type: string
+              InstructorEmail:
+                type: string
+                x-stoplight:
+                  id: sw1nauuupii7e
               StartupDuration:
                 type: integer
+              ErrorCount:
+                type: string
+                x-stoplight:
+                  id: 2ipdkr6wmnfk6
               Errors:
                 type: array
                 items:
@@ -6283,7 +6388,6 @@ components:
                 type: array
                 items:
                   type: object
-                  properties: {}
               Sessions:
                 type: array
                 items:
@@ -6313,9 +6417,9 @@ components:
               HasContent:
                 type: boolean
               Task:
-                type: 'null'
+                nullable: true
               Exercise:
-                type: 'null'
+                nullable: true
               NumTasks:
                 type: integer
               NumCompletedTasks:
@@ -6323,19 +6427,18 @@ components:
               TaskCompletePercent:
                 type: integer
               MonitorUrl:
-                type: 'null'
+                nullable: true
               DetailsUrl:
                 type: string
               RemoteController:
                 type: string
               Tag:
-                type: 'null'
+                nullable: true
               BrowserUserAgent:
-                type:
-                  - 'null'
-                  - string
+                type: string
+                nullable: true
               LastLatency:
-                type: 'null'
+                nullable: true
               ExamPassed:
                 type: boolean
               ExamScore:
@@ -6345,11 +6448,11 @@ components:
               ExamPassingScore:
                 type: integer
               ExamScoredById:
-                type: 'null'
+                nullable: true
               ExamScoredByName:
-                type: 'null'
+                nullable: true
               ExamDetails:
-                type: 'null'
+                nullable: true
               ExamScoredDate:
                 type: integer
               ExamScoredTime:
@@ -6357,32 +6460,29 @@ components:
               IsExam:
                 type: boolean
               IpAddress:
-                type: 'null'
+                nullable: true
               Country:
-                type: 'null'
+                nullable: true
               Region:
-                type: 'null'
+                nullable: true
               City:
-                type: 'null'
+                nullable: true
               Latitude:
-                type: 'null'
+                nullable: true
               Longitude:
-                type: 'null'
+                nullable: true
               PublicIpAddresses:
                 type: array
                 items:
                   type: object
-                  properties: {}
               CloudCredentials:
                 type: array
                 items:
                   type: object
-                  properties: {}
               CloudPortalCredentials:
                 type: array
                 items:
                   type: object
-                  properties: {}
               VirtualMachineCredentials:
                 type: array
                 items:
@@ -6397,17 +6497,21 @@ components:
                     Password:
                       type: string
               CloudPlatformId:
-                type: 'null'
+                nullable: true
               ClientUrl:
-                type: 'null'
+                nullable: true
+              ApiConsumerName:
+                type: string
+                x-stoplight:
+                  id: i9zguz4t14wwo
+              PreinstanceStartTime:
+                nullable: true
               EstimatedReadySeconds:
-                type: 'null'
+                nullable: true
               InstructionsSetId:
                 type: string
               Language:
                 type: string
-              PreinstanceStartTime:
-                type: 'null'
               Skills:
                 type: array
                 items:
@@ -6424,23 +6528,22 @@ components:
                     FrameworkName:
                       type: string
               ExamScaledScore:
-                type: 'null'
+                nullable: true
               ExamPassingRawScore:
-                type: 'null'
+                nullable: true
               ExamMaxPossibleRawScore:
-                type: 'null'
+                nullable: true
               ExamMinScaledScore:
-                type: 'null'
+                nullable: true
               ExamMaxScaledScore:
-                type: 'null'
+                nullable: true
               ExamCutoffScaledScore:
-                type: 'null'
+                nullable: true
         TotalResults:
           type: integer
         TotalPages:
           type: integer
         Error:
-          type: 'null'
+          nullable: true
         Status:
           type: integer
-      x-examples: {}

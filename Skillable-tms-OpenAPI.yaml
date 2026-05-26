@@ -206,6 +206,7 @@ paths:
           explode: true
           schema:
             type: string
+            maxLength: 50
         - name: lastName
           in: query
           description: The user's last name
@@ -214,6 +215,7 @@ paths:
           explode: true
           schema:
             type: string
+            maxLength: 50
         - name: organizationId
           in: query
           description: 'The unique identifier of the organization the user belongs to. This can be the organization that corresponds to your API key, or a child organization.'

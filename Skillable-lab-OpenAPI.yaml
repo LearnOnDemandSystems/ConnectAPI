@@ -3766,6 +3766,40 @@ components:
                       type: integer
                       format: int32
                       description: The id of the organization to which the instruction set belongs.
+                    ExternalInstructions:
+                      type: array
+                      x-stoplight:
+                        id: kjsh5ea68ells
+                      description: The externalInstructions array will only be returned when an external instructions source is utilized within a lab profile.
+                      items:
+                        x-stoplight:
+                          id: spfshicnsldg8
+                        type: object
+                        properties:
+                          Enabled:
+                            type: boolean
+                            x-stoplight:
+                              id: 3lu71gydqv1b8
+                          Source:
+                            type: string
+                            x-stoplight:
+                              id: 18f6f7152c5if
+                          Repository:
+                            type: string
+                            x-stoplight:
+                              id: rv8lcmltcgi3s
+                          ContentFile:
+                            type: string
+                            x-stoplight:
+                              id: m5o69vhsr0i2p
+                          EditLocal:
+                            type: boolean
+                            x-stoplight:
+                              id: 08gc8rul87dv4
+                          InjectBadges:
+                            type: boolean
+                            x-stoplight:
+                              id: s35go4zhuu0sg
               Skills:
                 type: array
                 description: A list of the skills assigned to the lab profile and their basic details.
@@ -4035,10 +4069,6 @@ components:
                   id: s7hh1lv151xf5
                 example: Database
                 description: The name of the product.
-        ApiConsumerName:
-          type: string
-          x-stoplight:
-            id: pqb1q3f2zbd1z
         SeriesId:
           type: integer
           description: The ID of the lab series.
@@ -4737,16 +4767,52 @@ components:
                             x-stoplight:
                               id: 1gl6wd3eszn87
                             description: The name of the framework for this skill.
+        ApiConsumerName:
+          type: string
+          x-stoplight:
+            id: pqb1q3f2zbd1z
         EstimatedReadySeconds:
           type: integer
           description: An estimated number of seconds before the lab is ready.
           format: int32
           nullable: true
-        InstructionsId:
+        InstructionsSetId:
           type: string
           description: The ID of the Instructions used
+          x-stoplight:
+            id: zjo6u0jxrg2o1
           nullable: true
-        Lang:
+        External Instructions:
+          type: array
+          x-stoplight:
+            id: z3ll8wcoiwcqs
+          description: The externalInstructions array will only be returned when an external instructions source is utilized within a lab profile.
+          items:
+            x-stoplight:
+              id: tfs902u5yz92q
+            type: object
+            properties:
+              Enabled:
+                type: boolean
+                x-stoplight:
+                  id: iywf8fi0mns8l
+              Source:
+                type: string
+                x-stoplight:
+                  id: air6ae7po215n
+              Repository:
+                type: string
+                x-stoplight:
+                  id: dqum8ffhpdjm1
+              ContentFile:
+                type: boolean
+                x-stoplight:
+                  id: 186c5yfks8g4s
+              InjectBadges:
+                type: boolean
+                x-stoplight:
+                  id: t7fypnb5h97wc
+        Language:
           type: string
           description: |-
             The lanuage code of the instruction set.
@@ -4760,6 +4826,8 @@ components:
             zh-hans = Simplified Chinese  
             zh-hant = Traditional Chinese  
             ko = Korean  
+          x-stoplight:
+            id: 2czowed5oxm93
           nullable: true
         Skills:
           type: array
@@ -4793,6 +4861,14 @@ components:
                 description: The name of the framework for this skill.
                 x-stoplight:
                   id: jmbwbikfqhb32
+        TotalResults:
+          type: integer
+          x-stoplight:
+            id: tpvcddd0rs0ps
+        TotalPages:
+          type: integer
+          x-stoplight:
+            id: gw5xi8bg6gwnu
         Error:
           type: string
           description: 'In the event of an error, this will contain a detailed error message.'
@@ -4813,6 +4889,16 @@ components:
           items:
             type: object
             properties:
+              ResponseID:
+                type: integer
+                x-stoplight:
+                  id: ea49ivcyo94j1
+                description: Unique ID associated with the evaluation response.
+              LabProfileID:
+                type: integer
+                x-stoplight:
+                  id: q70xrm61lccte
+                description: ID of the lab profile that the evaluation was completed.
               Number:
                 type: string
                 description: The lab number.
@@ -4823,6 +4909,11 @@ components:
                 type: string
                 description: The tag associated with the lab instance.
                 nullable: true
+              ClassID:
+                type: string
+                x-stoplight:
+                  id: kjjw48zn691fs
+                description: Id of the class in which the evaluation was completed.
               Start:
                 type: integer
                 description: The start time of the lab instance (in Unix epoch time).
@@ -4875,20 +4966,65 @@ components:
       type: object
       x-examples: {}
       properties:
-        Instructions:
+        instructions:
           type: string
           description: The IDLx instructions of a lab.
+          x-stoplight:
+            id: gw3aj58xsecta
           nullable: true
-        Error:
+        error:
           type: string
           description: 'In the event of an error, this will contain a detailed error message.'
+          x-stoplight:
+            id: lq5lru7qd9di2
           nullable: true
-        Status:
+        status:
           type: integer
           format: int32
           description: |-
             0 = Error    
             1 = Success
+          x-stoplight:
+            id: d9mru5kagyieo
+        externalInstructions:
+          type: array
+          x-stoplight:
+            id: 91t1ajriuijpp
+          description: The externalInstructions array will only be returned when an external instructions source is utilized within a lab profile.
+          items:
+            x-stoplight:
+              id: j9ejmfw1ah4ok
+            type: object
+            properties:
+              enabled:
+                type: boolean
+                x-stoplight:
+                  id: 1cis44v86huvf
+              source:
+                type: string
+                x-stoplight:
+                  id: 7z7bof1oxt0vq
+              repository:
+                type: string
+                x-stoplight:
+                  id: fw77tqgc78v2k
+              contentFile:
+                type: string
+                x-stoplight:
+                  id: 8st8ux7x2020c
+              editLocal:
+                type: boolean
+                x-stoplight:
+                  id: mbhuuqspolzip
+              injectBadges:
+                type: boolean
+                x-stoplight:
+                  id: r4f0bcx4h1ltr
+        sourceLabId:
+          type: integer
+          x-stoplight:
+            id: pythi4dqn21gx
+          description: ID of the lab profile in which the instructions reside.
     GetOrCreateClassResponse:
       type: object
       x-examples: {}
@@ -5251,6 +5387,40 @@ components:
               OrganizationId:
                 type: integer
                 description: The unique identifier of the organization to which this instruction set belongs.
+              ExternalInstructions:
+                type: array
+                x-stoplight:
+                  id: gciig014l4vlu
+                description: The externalInstructions array will only be returned when an external instructions source is utilized within a lab profile.
+                items:
+                  x-stoplight:
+                    id: y6l6g658kv1zx
+                  type: object
+                  properties:
+                    Enabled:
+                      type: boolean
+                      x-stoplight:
+                        id: avyzgds9fockd
+                    Source:
+                      type: string
+                      x-stoplight:
+                        id: tspba3jgtm4md
+                    Repository:
+                      type: string
+                      x-stoplight:
+                        id: 1u0lgewfp3hoq
+                    ContentFile:
+                      type: string
+                      x-stoplight:
+                        id: twtm1phy0ron2
+                    EditLocal:
+                      type: boolean
+                      x-stoplight:
+                        id: ezh4hfr2qbnzo
+                    InjectBadges:
+                      type: boolean
+                      x-stoplight:
+                        id: cb6auz89r7mef
         Created:
           type: integer
           format: int64
@@ -6510,6 +6680,40 @@ components:
                 nullable: true
               InstructionsSetId:
                 type: string
+              ExternalInstructions:
+                type: array
+                x-stoplight:
+                  id: n5cxd0ie90sjp
+                description: The externalInstructions array will only be returned when an external instructions source is utilized within a lab profile.
+                items:
+                  x-stoplight:
+                    id: yqsffdpak7h9l
+                  type: object
+                  properties:
+                    Enabled:
+                      type: boolean
+                      x-stoplight:
+                        id: dd2nude9bx83x
+                    Source:
+                      type: string
+                      x-stoplight:
+                        id: 6itn32au71u0b
+                    Repository:
+                      type: string
+                      x-stoplight:
+                        id: tgid2f08f13h4
+                    ContentFile:
+                      type: string
+                      x-stoplight:
+                        id: 40w1n44js9duq
+                    EditLocal:
+                      type: boolean
+                      x-stoplight:
+                        id: juy45w67nmgo2
+                    InjectBadges:
+                      type: boolean
+                      x-stoplight:
+                        id: d5py44tsr60c3
               Language:
                 type: string
               Skills:

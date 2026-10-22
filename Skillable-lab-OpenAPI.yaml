@@ -3414,6 +3414,52 @@ paths:
       deprecated: false
       tags:
         - Organization
+  /GetScoreReport:
+    post:
+      summary: GetScoreReport
+      tags:
+        - Lab Instance Management
+      responses:
+        '200':
+          description: OK
+          content:
+            application/gzip:
+              schema:
+                type: object
+                properties:
+                  '':
+                    type: string
+                    x-stoplight:
+                      id: 5tokc6909unz0
+                    format: binary
+                    description: The raw binary of the compressed end of lab score report.
+            text/html:
+              schema:
+                type: object
+                properties:
+                  '':
+                    type: string
+                    x-stoplight:
+                      id: dikpp9jedunea
+                    example: ' <html lang="en-US" dir="ltr">             <head><title>Detailed Score Report</title>...</head>             <body class="end-of-lab-report">               <div class="labName">Example Lab Name</div>               <div class="resultMessage">Congratulations, you passed!</div>               ...             </body>           </html>'
+      operationId: GetScoreReport
+      x-stoplight:
+        id: d7yk49jslgqvz
+      parameters:
+        - schema:
+            type: integer
+            example: 12345
+          in: query
+          name: labinstanceid
+          required: true
+          description: ' required The unique identifier of the lab instance.'
+        - schema:
+            type: string
+            example: html
+          in: query
+          name: format
+          description: 'Format to return the score report in.  Supported values are "html" or "gzip".  If format is not included in the request, the response will use HTML by default.'
+      description: The **GetScoreReport** command retrieves the end of lab score report for a given lab instance.
 components:
   securitySchemes:
     api_key:

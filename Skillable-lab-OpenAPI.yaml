@@ -3416,7 +3416,7 @@ paths:
         - Organization
   /GetScoreReport:
     post:
-      summary: GetScoreReport
+      summary: Returns the end of lab score report for a lab instance
       tags:
         - Lab Instance Management
       responses:

@@ -3470,7 +3470,9 @@ paths:
               schema:
                 type: string
                 format: binary
-                description: The end-of-lab score report as a gzip-compressed HTML file. When decompressed, the file contains the same HTML document returned by the `html` format.
+                description: 'The end-of-lab score report as a gzip-compressed HTML file. When decompressed, the file contains the same HTML document returned by the `html` format.'
+components:
+  securitySchemes:
     api_key:
       name: api_key
       type: apiKey

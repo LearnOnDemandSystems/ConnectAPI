@@ -3416,52 +3416,61 @@ paths:
         - Organization
   /GetScoreReport:
     post:
-      summary: Returns the end of lab score report for a lab instance
-      tags:
-        - Lab Instance Management
-      responses:
-        '200':
-          description: OK
-          content:
-            application/gzip:
-              schema:
-                type: object
-                properties:
-                  '':
-                    type: string
-                    x-stoplight:
-                      id: 5tokc6909unz0
-                    format: binary
-                    description: The raw binary of the compressed end of lab score report.
-            text/html:
-              schema:
-                type: object
-                properties:
-                  '':
-                    type: string
-                    x-stoplight:
-                      id: dikpp9jedunea
-                    example: ' <html lang="en-US" dir="ltr">             <head><title>Detailed Score Report</title>...</head>             <body class="end-of-lab-report">               <div class="labName">Example Lab Name</div>               <div class="resultMessage">Congratulations, you passed!</div>               ...             </body>           </html>'
+      summary: Retrieve the end-of-lab score report for a lab instance
+      description: The **GetScoreReport** command retrieves the end-of-lab score report for a specified lab instance.
       operationId: GetScoreReport
       x-stoplight:
         id: d7yk49jslgqvz
+      tags:
+        - Lab Instance Management
       parameters:
-        - schema:
-            type: integer
-            example: 12345
-          in: query
+        - in: query
           name: labinstanceid
           required: true
-          description: ' required The unique identifier of the lab instance.'
-        - schema:
-            type: string
-            example: html
-          in: query
+          description: The unique identifier of the lab instance.
+          schema:
+            type: integer
+            format: int64
+            example: 12345
+        - in: query
           name: format
-          description: 'Format to return the score report in.  Supported values are "html" or "gzip".  If format is not included in the request, the response will use HTML by default.'
-      description: The **GetScoreReport** command retrieves the end of lab score report for a given lab instance.
-components:
-  securitySchemes:
+          required: false
+          description: 'The format in which to return the score report. Supported values are `html` and `gzip`. If omitted, the response defaults to `html`.'
+          schema:
+            type: string
+            enum:
+              - html
+              - gzip
+            default: html
+            example: html
+      responses:
+        '200':
+          description: OK. The score report is returned in the requested format.
+          headers:
+            Content-Disposition:
+              description: 'Returned only when `format` is `gzip`. Identifies the response as a file download named `{labinstanceid}-ScoreReport.html.gz`.'
+              schema:
+                type: string
+                example: attachment; filename=66506663-ScoreReport.html.gz; filename*=UTF-8''66506663-ScoreReport.html.gz
+          content:
+            text/html:
+              schema:
+                type: string
+                description: The end-of-lab score report as an HTML document.
+              example: |
+                <html lang="en-US" dir="ltr">
+                  <head><title>Detailed Score Report</title>...</head>
+                  <body class="end-of-lab-report">
+                    <div class="labName">Example Lab Name</div>
+                    <div class="resultMessage">Congratulations, you passed!</div>
+                    ...
+                  </body>
+                </html>
+            application/gzip:
+              schema:
+                type: string
+                format: binary
+                description: The end-of-lab score report as a gzip-compressed HTML file. When decompressed, the file contains the same HTML document returned by the `html` format.
     api_key:
       name: api_key
       type: apiKey
